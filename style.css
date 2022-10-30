@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'amazon-ember';
+  src: URL('Amazon-Ember-Medium.ttf') format('truetype');
+}
+
 #babcanv {
   position: absolute;
   top: 0px;
@@ -5,4 +10,41 @@
   width: 100vw;
   height: 100vh;
   outline: none;
+}
+
+#babcanv:hover {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+#babcanv:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+#plantcell {
+  position: absolute;
+  left: 5vh;
+  top: 2vw;
+  background-color: rgb(0, 153, 255);
+  width: 10vw;
+  height: 10vh;
+  z-index: 100;
+  border: none;
+  border-radius: 6px;
+  font-family: 'amazon-ember';
+  font-size: calc(0.8vw + 0.8vh);
+  transition: background-color 0.2s;
+}
+
+#plantcell:hover {
+  cursor: pointer;
+  background-color: rgb(0, 163, 255);
+}
+
+#plantcell:active {
+  background-color: rgb(0, 173, 255);
 }

@@ -15,7 +15,7 @@ var createScene = function (canvas, engine) {
     
     camera.wheelPrecision = 50;
     
-    camera.lowerRadiusLimit = 2.4;
+    camera.lowerRadiusLimit = 3;
     camera.upperRadiusLimit = 20;
 
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
@@ -25,16 +25,23 @@ var createScene = function (canvas, engine) {
     light.intensity = 0.7;
 
     // Our built-in 'sphere' shape.
-    var building = BABYLON.SceneLoader.Append("", "animal_cell.glb", scene, function (meshes) {
+    var cell = BABYLON.SceneLoader.Append("", "animal_cell.glb", scene, function (meshes) {
       camera.target = meshes[0];
     });
 
+    cell.actionManager = new BABYLON.ActionManager(scene);//creo la colision en el cubo y agrego a escena
+        cell.actionManager.registerAction(
+            new BABYLON.InterpolateValueAction(
+                BABYLON.ActionManager.OnPickTrigger,
+                cell.material,
+                'diffuseColor',
+                BABYLON.Color3.Random(),
+                1000
+            )
+      );
+
     return scene;
 };
-
-function move(event) {
-  
-}
 
 const scene = createScene();
 
