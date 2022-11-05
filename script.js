@@ -29,11 +29,17 @@ var createScene = function (canvas, engine) {
       camera.target = meshes[0];
     });
 
-    cell.actionManager = new BABYLON.ActionManager(scene);//creo la colision en el cubo y agrego a escena
-        cell.actionManager.registerAction(
+    ballmat = new BABYLON.StandardMaterial("mat", scene);
+
+    const ball = BABYLON.MeshBuilder.CreateSphere("sphere", {size:0.2});
+    ball.position.set(0, 0, 4);
+    ball.material = ballmat;
+
+    ball.actionManager = new BABYLON.ActionManager(scene);//creo la colision en el cubo y agrego a escena
+        ball.actionManager.registerAction(
             new BABYLON.InterpolateValueAction(
                 BABYLON.ActionManager.OnPickTrigger,
-                cell.material,
+                ball.material,
                 'diffuseColor',
                 BABYLON.Color3.Random(),
                 1000
