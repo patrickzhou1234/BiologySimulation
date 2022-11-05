@@ -29,22 +29,13 @@
   position: absolute;
   left: 5vh;
   top: 2vw;
-  background-color: rgb(0, 153, 255);
-  width: 10vw;
-  height: 10vh;
   z-index: 100;
   border: none;
   border-radius: 6px;
   font-family: 'amazon-ember';
-  font-size: calc(0.8vw + 0.8vh);
-  transition: background-color 0.2s;
+  font-size: calc(0.65vw + 0.65vh);
 }
 
 #plantcell:hover {
   cursor: pointer;
-  background-color: rgb(0, 163, 255);
-}
-
-#plantcell:active {
-  background-color: rgb(0, 173, 255);
 }

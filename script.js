@@ -31,20 +31,35 @@ var createScene = function (canvas, engine) {
 
     ballmat = new BABYLON.StandardMaterial("mat", scene);
 
-    const ball = BABYLON.MeshBuilder.CreateSphere("sphere", {size:0.2});
+    const ball = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:0.5, segments:32}, scene);
     ball.position.set(0, 0, 4);
     ball.material = ballmat;
 
-    ball.actionManager = new BABYLON.ActionManager(scene);//creo la colision en el cubo y agrego a escena
+    ball.actionManager = new BABYLON.ActionManager(scene);
         ball.actionManager.registerAction(
             new BABYLON.InterpolateValueAction(
-                BABYLON.ActionManager.OnPickTrigger,
+                BABYLON.ActionManager.OnPointerOverTrigger,
                 ball.material,
                 'diffuseColor',
-                BABYLON.Color3.Random(),
-                1000
+                new BABYLON.Color3(0, 1, 0),
+                500
             )
-      );
+    );
+    ball.actionManager.registerAction(
+      new BABYLON.InterpolateValueAction(
+          BABYLON.ActionManager.OnPointerOutTrigger,
+          ball.material,
+          'diffuseColor',
+          new BABYLON.Color3(1, 1, 1),
+          500
+      )
+    );
+    ball.actionManager.registerAction(
+      new BABYLON.ExecuteCodeAction(
+          BABYLON.ActionManager.OnPointerOverTrigger, function() {
+          }
+      )
+    );
 
     return scene;
 };
