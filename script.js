@@ -15,7 +15,7 @@ var createScene = function (canvas, engine) {
     
     camera.wheelPrecision = 50;
     
-    camera.lowerRadiusLimit = 3;
+    camera.lowerRadiusLimit = 2;
     camera.upperRadiusLimit = 20;
 
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
@@ -29,34 +29,84 @@ var createScene = function (canvas, engine) {
       camera.target = meshes[0];
     });
 
-    ballmat = new BABYLON.StandardMaterial("mat", scene);
+    memmat = new BABYLON.StandardMaterial("mat", scene);
 
-    const ball = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:0.5, segments:32}, scene);
-    ball.position.set(0, 0, 4);
-    ball.material = ballmat;
+    const membrane = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:0.25, segments:32}, scene);
+    membrane.position.set(0, 0, 3.8);
+    membrane.material = memmat;
 
-    ball.actionManager = new BABYLON.ActionManager(scene);
-        ball.actionManager.registerAction(
+    membrane.actionManager = new BABYLON.ActionManager(scene);
+        membrane.actionManager.registerAction(
             new BABYLON.InterpolateValueAction(
                 BABYLON.ActionManager.OnPointerOverTrigger,
-                ball.material,
+                membrane.material,
                 'diffuseColor',
                 new BABYLON.Color3(0, 1, 0),
                 500
             )
     );
-    ball.actionManager.registerAction(
+    membrane.actionManager.registerAction(
       new BABYLON.InterpolateValueAction(
           BABYLON.ActionManager.OnPointerOutTrigger,
-          ball.material,
+          membrane.material,
           'diffuseColor',
           new BABYLON.Color3(1, 1, 1),
           500
       )
     );
-    ball.actionManager.registerAction(
+    membrane.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(
-          BABYLON.ActionManager.OnPointerOverTrigger, function() {
+          BABYLON.ActionManager.OnPickTrigger, function() {
+            Swal.fire({
+              title: 'Cell Membrane',
+              text: 'Description',
+              icon: 'question',
+              background: 'black',
+              color: 'white'
+            });
+            camera.target = membrane;
+            camera.inertialRadiusOffset += 4;
+          }
+      )
+    );
+
+    mitomat = new BABYLON.StandardMaterial("mito", scene);
+
+    mito = BABYLON.MeshBuilder.CreateSphere("mito", {diameter:0.25, segments:32}, scene);
+    mito.position.set(0.4, 0.2, 3.3);
+    mito.material = mitomat;
+
+    mito.actionManager = new BABYLON.ActionManager(scene);
+        mito.actionManager.registerAction(
+            new BABYLON.InterpolateValueAction(
+                BABYLON.ActionManager.OnPointerOverTrigger,
+                mito.material,
+                'diffuseColor',
+                new BABYLON.Color3(0, 1, 0),
+                500
+            )
+    );
+    mito.actionManager.registerAction(
+      new BABYLON.InterpolateValueAction(
+          BABYLON.ActionManager.OnPointerOutTrigger,
+          mito.material,
+          'diffuseColor',
+          new BABYLON.Color3(1, 1, 1),
+          500
+      )
+    );
+    mito.actionManager.registerAction(
+      new BABYLON.ExecuteCodeAction(
+          BABYLON.ActionManager.OnPickTrigger, function() {
+            Swal.fire({
+              title: 'Cell Mitochondria',
+              text: 'Description',
+              icon: 'question',
+              background: 'black',
+              color: 'white'
+            });
+            camera.target = mito;
+            camera.inertialRadiusOffset += 4;
           }
       )
     );
