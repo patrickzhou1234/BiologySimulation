@@ -110,7 +110,90 @@ var createScene = function (canvas, engine) {
           }
       )
     );
+    
+    nucmat = new BABYLON.StandardMaterial("nuc", scene);
 
+    nucleus = BABYLON.MeshBuilder.CreateSphere("nucleus", {diameter:0.25, segments:32}, scene);
+    nucleus.position.set(0.3, 0.2, 0);
+    nucleus.material = nucmat;
+
+    nucleus.actionManager = new BABYLON.ActionManager(scene);
+        nucleus.actionManager.registerAction(
+            new BABYLON.InterpolateValueAction(
+                BABYLON.ActionManager.OnPointerOverTrigger,
+                nucleus.material,
+                'diffuseColor',
+                new BABYLON.Color3(0, 1, 0),
+                500
+            )
+    );
+    nucleus.actionManager.registerAction(
+      new BABYLON.InterpolateValueAction(
+          BABYLON.ActionManager.OnPointerOutTrigger,
+          nucleus.material,
+          'diffuseColor',
+          new BABYLON.Color3(1, 1, 1),
+          500
+      )
+    );
+    nucleus.actionManager.registerAction(
+      new BABYLON.ExecuteCodeAction(
+          BABYLON.ActionManager.OnPickTrigger, function() {
+            Swal.fire({
+              title: 'Cell Nucleus',
+              text: 'Description',
+              icon: 'question',
+              background: 'black',
+              color: 'white',
+              backdrop: false
+            });
+            camera.target = nucleus;
+            camera.inertialRadiusOffset += 4;
+          }
+      )
+    );
+
+    gogmat = new BABYLON.StandardMaterial("gog", scene);
+
+    golgi = BABYLON.MeshBuilder.CreateSphere("golgi", {diameter:0.25, segments:32}, scene);
+    golgi.position.set(-1.3, 0.2, 1.7);
+    golgi.material = nucmat;
+
+    golgi.actionManager = new BABYLON.ActionManager(scene);
+        golgi.actionManager.registerAction(
+            new BABYLON.InterpolateValueAction(
+                BABYLON.ActionManager.OnPointerOverTrigger,
+                golgi.material,
+                'diffuseColor',
+                new BABYLON.Color3(0, 1, 0),
+                500
+            )
+    );
+    golgi.actionManager.registerAction(
+      new BABYLON.InterpolateValueAction(
+          BABYLON.ActionManager.OnPointerOutTrigger,
+          golgi.material,
+          'diffuseColor',
+          new BABYLON.Color3(1, 1, 1),
+          500
+      )
+    );
+    golgi.actionManager.registerAction(
+      new BABYLON.ExecuteCodeAction(
+          BABYLON.ActionManager.OnPickTrigger, function() {
+            Swal.fire({
+              title: 'Cell Golgi',
+              text: 'Description',
+              icon: 'question',
+              background: 'black',
+              color: 'white',
+              backdrop: false
+            });
+            camera.target = golgi;
+            camera.inertialRadiusOffset += 4;
+          }
+      )
+    );
     return scene;
 };
 
