@@ -62,7 +62,11 @@ var createScene = function (canvas, engine) {
               text: 'Description',
               icon: 'question',
               background: 'black',
-              color: 'white'
+              color: 'white',
+              imageUrl: 'cellmembrane.png',
+              imageWidth: 600,
+              imageHeight: 300,
+              backdrop: false
             });
             camera.target = membrane;
             camera.inertialRadiusOffset += 4;
