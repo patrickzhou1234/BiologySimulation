@@ -157,7 +157,7 @@ var createScene = function (canvas, engine) {
 
     golgi = BABYLON.MeshBuilder.CreateSphere("golgi", {diameter:0.25, segments:32}, scene);
     golgi.position.set(-1.3, 0.2, 1.7);
-    golgi.material = nucmat;
+    golgi.material = gogmat;
 
     golgi.actionManager = new BABYLON.ActionManager(scene);
         golgi.actionManager.registerAction(
