@@ -39,3 +39,12 @@
 #plantcell:hover {
   cursor: pointer;
 }
+
+#phospho {
+  z-index: 99999999;
+  font-family: 'amazon-ember';
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  left: 43vw;
+  top: 53vh;
+}
