@@ -64,8 +64,10 @@ var createScene = function (canvas, engine) {
               background: 'black',
               color: 'white',
               imageUrl: 'cellmembrane.png',
-              imageWidth: 600,
-              imageHeight: 300,
+              imageWidth: window.innerWidth*0.6,
+              imageHeight: window.innerHeight*0.5,
+              width: window.innerWidth*0.8,
+              height: window.innerHeight*0.8,
               backdrop: false
             });
             camera.target = membrane;
