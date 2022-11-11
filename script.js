@@ -1,3 +1,5 @@
+cellmeshes = [];
+phospho = document.getElementById("phospho");
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 var createScene = function (canvas, engine) {
@@ -25,7 +27,7 @@ var createScene = function (canvas, engine) {
     light.intensity = 0.7;
 
     // Our built-in 'sphere' shape.
-    var cell = BABYLON.SceneLoader.Append("", "animal_cell.glb", scene, function (meshes) {
+    cell = BABYLON.SceneLoader.Append("", "animal_cell.glb", scene, function (meshes) {
       camera.target = meshes[0];
     });
 
@@ -34,6 +36,7 @@ var createScene = function (canvas, engine) {
     const membrane = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:0.25, segments:32}, scene);
     membrane.position.set(0, 0, 3.8);
     membrane.material = memmat;
+    cellmeshes.push(membrane);
 
     membrane.actionManager = new BABYLON.ActionManager(scene);
         membrane.actionManager.registerAction(
@@ -68,8 +71,10 @@ var createScene = function (canvas, engine) {
               imageHeight: window.innerHeight*0.5,
               width: window.innerWidth*0.8,
               height: window.innerHeight*0.8,
-              backdrop: false
+              backdrop: false,
+              onClose: deletebtns
             });
+            phospho.classList.add("animbtn");
             camera.target = membrane;
             camera.inertialRadiusOffset += 4;
           }
@@ -79,6 +84,7 @@ var createScene = function (canvas, engine) {
     mitomat = new BABYLON.StandardMaterial("mito", scene);
 
     mito = BABYLON.MeshBuilder.CreateSphere("mito", {diameter:0.25, segments:32}, scene);
+    cellmeshes.push(mito);
     mito.position.set(0.4, 0.2, 3.3);
     mito.material = mitomat;
 
@@ -120,6 +126,7 @@ var createScene = function (canvas, engine) {
     nucmat = new BABYLON.StandardMaterial("nuc", scene);
 
     nucleus = BABYLON.MeshBuilder.CreateSphere("nucleus", {diameter:0.25, segments:32}, scene);
+    cellmeshes.push(nucleus);
     nucleus.position.set(0.3, 0.2, 0);
     nucleus.material = nucmat;
 
@@ -162,6 +169,7 @@ var createScene = function (canvas, engine) {
     gogmat = new BABYLON.StandardMaterial("gog", scene);
 
     golgi = BABYLON.MeshBuilder.CreateSphere("golgi", {diameter:0.25, segments:32}, scene);
+    cellmeshes.push(golgi);
     golgi.position.set(-1.3, 0.2, 1.7);
     golgi.material = gogmat;
 
@@ -202,6 +210,16 @@ var createScene = function (canvas, engine) {
     );
     return scene;
 };
+
+function membraneclicked() {
+  for (i=0;i<cellmeshes.length;i++) {
+    cellmeshes[i].visibility = 0;
+  }
+}
+
+function deletebtns() {
+  phospho.style.opacity = 0;
+}
 
 const scene = createScene();
 

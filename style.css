@@ -47,4 +47,14 @@
   position: absolute;
   left: 43vw;
   top: 53vh;
+  opacity: 0;
+}
+
+.animbtn {
+  animation: animbtn 1s ease forwards;
+}
+
+@keyframes animbtn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }
