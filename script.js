@@ -72,7 +72,12 @@ var createScene = function (canvas, engine) {
               width: window.innerWidth*0.8,
               height: window.innerHeight*0.8,
               backdrop: false,
-              onClose: deletebtns
+            }).then(function () {
+              phospho.classList.remove("animbtn");
+              phospho.classList.add("animobtn");
+              setTimeout(function() {
+                phospho.classList.remove("animobtn");
+              }, 1000);
             });
             phospho.classList.add("animbtn");
             camera.target = membrane;
@@ -215,10 +220,6 @@ function membraneclicked() {
   for (i=0;i<cellmeshes.length;i++) {
     cellmeshes[i].visibility = 0;
   }
-}
-
-function deletebtns() {
-  phospho.style.opacity = 0;
 }
 
 const scene = createScene();

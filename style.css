@@ -54,7 +54,16 @@
   animation: animbtn 1s ease forwards;
 }
 
+.animobtn {
+  animation: animobtn 1s ease forwards;
+}
+
 @keyframes animbtn {
   0% {opacity: 0;}
   100% {opacity: 1;}
+}
+
+@keyframes animobtn {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
 }
