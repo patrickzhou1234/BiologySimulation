@@ -45,8 +45,8 @@
   font-family: 'amazon-ember';
   font-size: calc(0.65vw + 0.65vh);
   position: absolute;
-  left: 43vw;
-  top: 53vh;
+  left: 53vw;
+  top: 48vh;
   opacity: 0;
 }
 
