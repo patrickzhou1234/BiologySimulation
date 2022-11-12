@@ -1,10 +1,9 @@
 cellmeshes = [];
-memb = document.getElementById("memb");
-phospho = document.getElementById("phospho");
+roundbtns=document.querySelectorAll(".smlbtns");
 backcell = document.getElementById("backcell");
 let cellref=0;
 let memref=0;
-roundbtns=document.querySelectorAll(".smlbtns");
+let phoref=0;
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -36,7 +35,17 @@ function bckcell() {
   }
   showui();
   BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
-    memref.dispose();
+    try {
+      memref.dispose();
+    }
+    catch(err) {
+
+    }
+    try {
+      phoref.dispose();
+    } catch(err) {
+
+    }
     camera.target = meshes[0];
     hideui();
     cellref=meshes[0];
@@ -265,11 +274,36 @@ function membraneclicked() {
   for (i=0;i<cellmeshes.length;i++) {
     cellmeshes[i].visibility = 0;
   }
+  for (i=0;i<roundbtns.length;i++) {
+    if (i!=0) {
+      hidebtn(roundbtns[i]);
+    }
+  }
   BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) {
     cellref.dispose();
     hideui();
     camera.target = meshes[0];
     memref=meshes[0];
+  });
+  showbtn(backcell);
+}
+
+function phosphoclicked() {
+  showui();
+  for (i=0;i<cellmeshes.length;i++) {
+    cellmeshes[i].visibility = 0;
+  }
+  for (i=0;i<roundbtns.length;i++) {
+    if (i!=1) {
+      hidebtn(roundbtns[i]);
+    }
+  }
+  BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
+    cellref.dispose();
+    hideui();
+    camera.target = meshes[0];
+    meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+    phoref=meshes[0];
   });
   showbtn(backcell);
 }
