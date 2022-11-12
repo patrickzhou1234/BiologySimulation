@@ -25,7 +25,7 @@
     cursor: -webkit-grabbing;
 }
 
-#plantcell {
+#backcell {
   position: absolute;
   left: 5vh;
   top: 2vw;
@@ -34,9 +34,10 @@
   border-radius: 6px;
   font-family: 'amazon-ember';
   font-size: calc(0.65vw + 0.65vh);
+  opacity: 0;
 }
 
-#plantcell:hover {
+#backcell:hover {
   cursor: pointer;
 }
 

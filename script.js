@@ -1,13 +1,37 @@
 cellmeshes = [];
 phospho = document.getElementById("phospho");
+backcell = document.getElementById("backcell");
+let cellref=0;
+let memref=0;
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
+function showui() {
+  engine.displayLoadingUI();
+}
+showui();
+function hideui() {
+  engine.hideLoadingUI();
+}
+
+function backcell() {
+  for (i=0;i<cellmeshes.length;i++) {
+    cellmeshes[i].visibility = 1;
+  }
+  showui();
+  BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
+    memref.dispose();
+    camera.target = meshes[0];
+    hideui();
+    cellref=meshes[0];
+  });
+}
+
 var createScene = function (canvas, engine) {
     // This creates a basic Babylon Scene object (non-mesh)
     var scene = new BABYLON.Scene(engine);
 
     // This creates and positions a free camera (non-mesh)
-    camera = new BABYLON.ArcRotateCamera("camera", -10, 0, 5, new BABYLON.Vector3.Zero(), scene);
+    camera = new BABYLON.ArcRotateCamera("camera", -10, -100, 5, new BABYLON.Vector3.Zero(), scene);
 
     // This targets the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
@@ -27,8 +51,11 @@ var createScene = function (canvas, engine) {
     light.intensity = 0.7;
 
     // Our built-in 'sphere' shape.
-    cell = BABYLON.SceneLoader.Append("", "animal_cell.glb", scene, function (meshes) {
+    
+    BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
       camera.target = meshes[0];
+      hideui();
+      cellref=meshes[0];
     });
 
     memmat = new BABYLON.StandardMaterial("mat", scene);
@@ -217,9 +244,17 @@ var createScene = function (canvas, engine) {
 };
 
 function membraneclicked() {
+  showui();
   for (i=0;i<cellmeshes.length;i++) {
     cellmeshes[i].visibility = 0;
   }
+  BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) {
+    cellref.dispose();
+    hideui();
+    camera.target = meshes[0];
+    memref=meshes[0];
+  });
+  backcell.classList.add("animbtn");
 }
 
 const scene = createScene();
