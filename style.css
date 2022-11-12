@@ -41,22 +41,30 @@
   cursor: pointer;
 }
 
-#phospho {
+.smlbtns {
   z-index: 99999999;
   font-family: 'amazon-ember';
   font-size: calc(0.65vw + 0.65vh);
   position: absolute;
-  left: 53vw;
-  top: 48vh;
   opacity: 0;
 }
 
+#memb {
+  left: 53vw;
+  top: 48vh;
+}
+
+#phospho {
+  left: 51vw;
+  top: 40vh;
+}
+
 .animbtn {
-  animation: animbtn 1s ease forwards;
+  animation: animbtn 1.5s ease forwards;
 }
 
 .animobtn {
-  animation: animobtn 1s ease forwards;
+  animation: animobtn 1.5s ease forwards;
 }
 
 @keyframes animbtn {
