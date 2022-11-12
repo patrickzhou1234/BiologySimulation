@@ -1,19 +1,36 @@
 cellmeshes = [];
+memb = document.getElementById("memb");
 phospho = document.getElementById("phospho");
 backcell = document.getElementById("backcell");
 let cellref=0;
 let memref=0;
+roundbtns=document.querySelectorAll(".smlbtns");
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
   engine.displayLoadingUI();
 }
+
 showui();
+
 function hideui() {
   engine.hideLoadingUI();
 }
 
-function backcell() {
+function hidebtn(psbtn) {
+  psbtn.classList.remove("animbtn");
+  psbtn.classList.add("animobtn");
+}
+
+function showbtn(psbtn) {
+  if (psbtn.classList.contains("animobtn")) {
+    psbtn.classList.remove("animobtn");
+  }
+  psbtn.classList.add("animbtn");
+}
+
+function bckcell() {
+  hidebtn(backcell);
   for (i=0;i<cellmeshes.length;i++) {
     cellmeshes[i].visibility = 1;
   }
@@ -94,19 +111,19 @@ var createScene = function (canvas, engine) {
               background: 'black',
               color: 'white',
               imageUrl: 'cellmembrane.png',
-              imageWidth: window.innerWidth*0.6,
+              imageWidth: window.innerWidth*0.5,
               imageHeight: window.innerHeight*0.5,
               width: window.innerWidth*0.8,
               height: window.innerHeight*0.8,
               backdrop: false,
             }).then(function () {
-              phospho.classList.remove("animbtn");
-              phospho.classList.add("animobtn");
-              setTimeout(function() {
-                phospho.classList.remove("animobtn");
-              }, 1000);
+              for (i=0;i<roundbtns.length;i++) {
+                hidebtn(roundbtns[i]);
+              }
             });
-            phospho.classList.add("animbtn");
+            for (i=0;i<roundbtns.length;i++) {
+              showbtn(roundbtns[i]);
+            }
             camera.target = membrane;
             camera.inertialRadiusOffset += 4;
           }
@@ -254,7 +271,7 @@ function membraneclicked() {
     camera.target = meshes[0];
     memref=meshes[0];
   });
-  backcell.classList.add("animbtn");
+  showbtn(backcell);
 }
 
 const scene = createScene();
