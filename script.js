@@ -233,28 +233,32 @@ var createScene = function (canvas, engine) {
 };
 
 function membraneclicked() {
-  showui();
-  clickcond(0);
-  BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) {
-    cellref.dispose();
-    hideui();
-    camera.target = meshes[0];
-    memref=meshes[0];
-  });
-  showbtn(backcell);
+  if (window.getComputedStyle(roundbtns[0]).getPropertyValue("opacity")!=0 && window.getComputedStyle(roundbtns[0]).getPropertyValue("opacity")!=0.6) {
+    showui();
+    clickcond(0);
+    BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) {
+      cellref.dispose();
+      hideui();
+      camera.target = meshes[0];
+      memref=meshes[0];
+    });
+    showbtn(backcell);
+  }
 }
 
 function phosphoclicked() {
-  showui();
-  clickcond(1);
-  BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
-    cellref.dispose();
-    hideui();
-    camera.target = meshes[0];
-    meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
-    phoref=meshes[0];
-  });
-  showbtn(backcell);
+  if (window.getComputedStyle(roundbtns[1]).getPropertyValue("opacity")!=0 && window.getComputedStyle(roundbtns[1]).getPropertyValue("opacity")!=0.6) {
+    showui();
+    clickcond(1);
+    BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
+      cellref.dispose();
+      hideui();
+      camera.target = meshes[0];
+      meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+      phoref=meshes[0];
+    });
+    showbtn(backcell);
+  }
 }
 
 const scene = createScene();
