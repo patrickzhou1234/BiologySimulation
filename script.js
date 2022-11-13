@@ -19,15 +19,51 @@ function hideui() {
 }
 
 function hidebtn(psbtn) {
+  psbtn.setAttribute("style", "");
   psbtn.classList.remove("animbtn");
   psbtn.classList.add("animobtn");
 }
 
 function showbtn(psbtn) {
+  psbtn.setAttribute("style", "");
   if (psbtn.classList.contains("animobtn")) {
     psbtn.classList.remove("animobtn");
   }
   psbtn.classList.add("animbtn");
+}
+
+function orgsettings(psorg) {
+        psorg.actionManager.registerAction(
+            new BABYLON.InterpolateValueAction(
+                BABYLON.ActionManager.OnPointerOverTrigger,
+                psorg.material,
+                'diffuseColor',
+                new BABYLON.Color3(0, 1, 0),
+                500
+            )
+    );
+    psorg.actionManager.registerAction(
+      new BABYLON.InterpolateValueAction(
+          BABYLON.ActionManager.OnPointerOutTrigger,
+          psorg.material,
+          'diffuseColor',
+          new BABYLON.Color3(1, 1, 1),
+          500
+      )
+    );
+}
+
+function clickcond(ind) {
+  for (i=0;i<cellmeshes.length;i++) {
+    cellmeshes[i].visibility = 0;
+  }
+  for (i=0;i<roundbtns.length;i++) {
+    if (i!=ind) {
+      hidebtn(roundbtns[i]);
+    } else {
+      roundbtns[i].setAttribute("style", "opacity: 0.6 !important");
+    }
+  }
 }
 
 function bckcell() {
@@ -56,16 +92,12 @@ function bckcell() {
 }
 
 var createScene = function (canvas, engine) {
-    // This creates a basic Babylon Scene object (non-mesh)
     var scene = new BABYLON.Scene(engine);
 
-    // This creates and positions a free camera (non-mesh)
     camera = new BABYLON.ArcRotateCamera("camera", -10, -100, 5, new BABYLON.Vector3.Zero(), scene);
 
-    // This targets the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
 
-    // This attaches the camera to the canvas
     camera.attachControl(canvas, true);
     
     camera.wheelPrecision = 50;
@@ -73,13 +105,9 @@ var createScene = function (canvas, engine) {
     camera.lowerRadiusLimit = 5;
     camera.upperRadiusLimit = 20;
 
-    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
     var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
-    // Default intensity is 1. Let's dim the light a small amount
     light.intensity = 0.7;
-
-    // Our built-in 'sphere' shape.
     
     BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
       camera.target = meshes[0];
@@ -93,26 +121,7 @@ var createScene = function (canvas, engine) {
     membrane.position.set(0, 0, 3.8);
     membrane.material = memmat;
     cellmeshes.push(membrane);
-
     membrane.actionManager = new BABYLON.ActionManager(scene);
-        membrane.actionManager.registerAction(
-            new BABYLON.InterpolateValueAction(
-                BABYLON.ActionManager.OnPointerOverTrigger,
-                membrane.material,
-                'diffuseColor',
-                new BABYLON.Color3(0, 1, 0),
-                500
-            )
-    );
-    membrane.actionManager.registerAction(
-      new BABYLON.InterpolateValueAction(
-          BABYLON.ActionManager.OnPointerOutTrigger,
-          membrane.material,
-          'diffuseColor',
-          new BABYLON.Color3(1, 1, 1),
-          500
-      )
-    );
     membrane.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger, function() {
@@ -149,26 +158,7 @@ var createScene = function (canvas, engine) {
     cellmeshes.push(mito);
     mito.position.set(0.4, 0.2, 3.3);
     mito.material = mitomat;
-
     mito.actionManager = new BABYLON.ActionManager(scene);
-        mito.actionManager.registerAction(
-            new BABYLON.InterpolateValueAction(
-                BABYLON.ActionManager.OnPointerOverTrigger,
-                mito.material,
-                'diffuseColor',
-                new BABYLON.Color3(0, 1, 0),
-                500
-            )
-    );
-    mito.actionManager.registerAction(
-      new BABYLON.InterpolateValueAction(
-          BABYLON.ActionManager.OnPointerOutTrigger,
-          mito.material,
-          'diffuseColor',
-          new BABYLON.Color3(1, 1, 1),
-          500
-      )
-    );
     mito.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger, function() {
@@ -190,28 +180,9 @@ var createScene = function (canvas, engine) {
 
     nucleus = BABYLON.MeshBuilder.CreateSphere("nucleus", {diameter:0.25, segments:32}, scene);
     cellmeshes.push(nucleus);
-    nucleus.position.set(0.3, 0.2, 0);
     nucleus.material = nucmat;
-
+    nucleus.position.set(0.3, 0.2, 0);
     nucleus.actionManager = new BABYLON.ActionManager(scene);
-        nucleus.actionManager.registerAction(
-            new BABYLON.InterpolateValueAction(
-                BABYLON.ActionManager.OnPointerOverTrigger,
-                nucleus.material,
-                'diffuseColor',
-                new BABYLON.Color3(0, 1, 0),
-                500
-            )
-    );
-    nucleus.actionManager.registerAction(
-      new BABYLON.InterpolateValueAction(
-          BABYLON.ActionManager.OnPointerOutTrigger,
-          nucleus.material,
-          'diffuseColor',
-          new BABYLON.Color3(1, 1, 1),
-          500
-      )
-    );
     nucleus.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger, function() {
@@ -236,26 +207,7 @@ var createScene = function (canvas, engine) {
     cellmeshes.push(golgi);
     golgi.position.set(-1.3, 0.2, 1.7);
     golgi.material = gogmat;
-
     golgi.actionManager = new BABYLON.ActionManager(scene);
-        golgi.actionManager.registerAction(
-            new BABYLON.InterpolateValueAction(
-                BABYLON.ActionManager.OnPointerOverTrigger,
-                golgi.material,
-                'diffuseColor',
-                new BABYLON.Color3(0, 1, 0),
-                500
-            )
-    );
-    golgi.actionManager.registerAction(
-      new BABYLON.InterpolateValueAction(
-          BABYLON.ActionManager.OnPointerOutTrigger,
-          golgi.material,
-          'diffuseColor',
-          new BABYLON.Color3(1, 1, 1),
-          500
-      )
-    );
     golgi.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger, function() {
@@ -273,19 +225,16 @@ var createScene = function (canvas, engine) {
           }
       )
     );
+
+    for (i=0;i<cellmeshes.length;i++) {
+      orgsettings(cellmeshes[i]);
+    }
     return scene;
 };
 
 function membraneclicked() {
   showui();
-  for (i=0;i<cellmeshes.length;i++) {
-    cellmeshes[i].visibility = 0;
-  }
-  for (i=0;i<roundbtns.length;i++) {
-    if (i!=0) {
-      hidebtn(roundbtns[i]);
-    }
-  }
+  clickcond(0);
   BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) {
     cellref.dispose();
     hideui();
@@ -297,14 +246,7 @@ function membraneclicked() {
 
 function phosphoclicked() {
   showui();
-  for (i=0;i<cellmeshes.length;i++) {
-    cellmeshes[i].visibility = 0;
-  }
-  for (i=0;i<roundbtns.length;i++) {
-    if (i!=1) {
-      hidebtn(roundbtns[i]);
-    }
-  }
+  clickcond(1);
   BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
     cellref.dispose();
     hideui();
