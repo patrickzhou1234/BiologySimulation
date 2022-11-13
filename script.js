@@ -36,6 +36,7 @@ function bckcell() {
     cellmeshes[i].visibility = 1;
   }
   showui();
+  camera.lowerRadiusLimit = 5;
   BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
     try {
       memref.dispose();
