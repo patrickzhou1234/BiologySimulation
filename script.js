@@ -69,7 +69,7 @@ var createScene = function (canvas, engine) {
     
     camera.wheelPrecision = 50;
     
-    camera.lowerRadiusLimit = 2;
+    camera.lowerRadiusLimit = 5;
     camera.upperRadiusLimit = 20;
 
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
@@ -115,6 +115,7 @@ var createScene = function (canvas, engine) {
     membrane.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger, function() {
+            camera.lowerRadiusLimit = 2;
             Swal.fire({
               title: 'Cell Membrane',
               text: 'Description',
@@ -170,6 +171,7 @@ var createScene = function (canvas, engine) {
     mito.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger, function() {
+            camera.lowerRadiusLimit = 2;
             Swal.fire({
               title: 'Cell Mitochondria',
               text: 'Description',
@@ -212,6 +214,7 @@ var createScene = function (canvas, engine) {
     nucleus.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger, function() {
+            camera.lowerRadiusLimit = 2;
             Swal.fire({
               title: 'Cell Nucleus',
               text: 'Description',
@@ -255,6 +258,7 @@ var createScene = function (canvas, engine) {
     golgi.actionManager.registerAction(
       new BABYLON.ExecuteCodeAction(
           BABYLON.ActionManager.OnPickTrigger, function() {
+            camera.lowerRadiusLimit = 2;
             Swal.fire({
               title: 'Cell Golgi',
               text: 'Description',
