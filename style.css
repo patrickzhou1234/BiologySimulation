@@ -61,11 +61,11 @@
 }
 
 .animbtn {
-  animation: animbtn 1.5s ease forwards;
+  animation: animbtn 1.3s ease forwards;
 }
 
 .animobtn {
-  animation: animobtn 1.5s ease forwards;
+  animation: animobtn 1.3s ease forwards;
 }
 
 @keyframes animbtn {
