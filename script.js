@@ -1,3 +1,5 @@
+<reference path="babylon.d.ts" />
+
 cellmeshes = [];
 roundbtns=document.querySelectorAll(".smlbtns");
 backcell = document.getElementById("backcell");
