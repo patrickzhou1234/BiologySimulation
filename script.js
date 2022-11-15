@@ -66,6 +66,13 @@ function clickcond(ind) {
   }
 }
 
+function checkvis(ind) {
+  if (!roundbtns[ind].classList.contains("animobtn") && roundbtns[ind].getAttribute("style")!="opacity: 0.6 !important") {
+    return true;
+  }
+  return false;
+}
+
 function bckcell() {
   hidebtn(backcell);
   for (i=0;i<cellmeshes.length;i++) {
@@ -233,7 +240,7 @@ var createScene = function (canvas, engine) {
 };
 
 function membraneclicked() {
-  if (window.getComputedStyle(roundbtns[0]).getPropertyValue("opacity")!=0 && window.getComputedStyle(roundbtns[0]).getPropertyValue("opacity")!=0.6) {
+  if (checkvis(0)) {
     showui();
     clickcond(0);
     BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) {
@@ -247,7 +254,7 @@ function membraneclicked() {
 }
 
 function phosphoclicked() {
-  if (window.getComputedStyle(roundbtns[1]).getPropertyValue("opacity")!=0 && window.getComputedStyle(roundbtns[1]).getPropertyValue("opacity")!=0.6) {
+  if (checkvis(1)) {
     showui();
     clickcond(1);
     BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
