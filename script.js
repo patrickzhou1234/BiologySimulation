@@ -144,7 +144,6 @@ var createScene = function (canvas, engine) {
               imageWidth: window.innerWidth*0.5,
               imageHeight: window.innerHeight*0.5,
               width: window.innerWidth*0.8,
-              height: window.innerHeight*0.8,
               backdrop: false,
             }).then(function () {
               for (i=0;i<roundbtns.length;i++) {
