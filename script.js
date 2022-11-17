@@ -3,6 +3,7 @@
 cellmeshes = [];
 roundbtns=document.querySelectorAll(".smlbtns");
 backcell = document.getElementById("backcell");
+let divFps = document.getElementById("fpsct");
 let cellref=0;
 let memref=0;
 let phoref=0;
@@ -257,11 +258,11 @@ function phosphoclicked() {
   if (checkvis(1)) {
     showui();
     clickcond(1);
-    BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
+    BABYLON.SceneLoader.ImportMesh("", "", "phospho_sama.glb", scene, function (meshes) {
       cellref.dispose();
       hideui();
       camera.target = meshes[0];
-      meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+      // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
       phoref=meshes[0];
     });
     showbtn(backcell);
@@ -272,6 +273,7 @@ const scene = createScene();
 
 engine.runRenderLoop(function () {
   scene.render();
+  divFps.innerHTML = engine.getFps().toFixed() + " fps";
 });
 
 window.addEventListener("resize", function () {
