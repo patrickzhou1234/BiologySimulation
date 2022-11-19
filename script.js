@@ -62,13 +62,13 @@ function clickcond(ind) {
     if (i!=ind) {
       hidebtn(roundbtns[i]);
     } else {
-      roundbtns[i].setAttribute("style", "opacity: 0.6 !important");
+      roundbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
     }
   }
 }
 
 function checkvis(ind) {
-  if (!roundbtns[ind].classList.contains("animobtn") && roundbtns[ind].getAttribute("style")!="opacity: 0.6 !important") {
+  if (!roundbtns[ind].classList.contains("animobtn") && roundbtns[ind].getAttribute("style")!="opacity: 0.6 !important; cursor: not-allowed !important;") {
     return true;
   }
   return false;
