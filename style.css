@@ -102,3 +102,8 @@ img {
   user-drag: none; 
   -webkit-user-drag: none;
 }
+
+#phospho2 {
+  left: 56vw;
+  top: 52vh;
+}

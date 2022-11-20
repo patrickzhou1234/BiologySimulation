@@ -268,6 +268,22 @@ function phosphoclicked() {
   }
 }
 
+function phosphoclicked2() {
+  if (checkvis(2)) {
+    showui();
+    clickcond(2);
+    BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
+      cellref.dispose();
+      hideui();
+      meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+      camera.target = meshes[0];
+      // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+      phoref=meshes[0];
+    });
+    showbtn(backcell);
+  }
+}
+
 const scene = createScene();
 
 engine.runRenderLoop(function () {
