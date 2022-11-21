@@ -2,6 +2,7 @@
 
 cellmeshes = [];
 roundbtns=document.querySelectorAll(".smlbtns");
+mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 backcell = document.getElementById("backcell");
 let divFps = document.getElementById("fpsct");
 let cellref=0;
@@ -67,8 +68,28 @@ function clickcond(ind) {
   }
 }
 
+function clickcondmito(ind) {
+  for (i=0;i<cellmeshes.length;i++) {
+    cellmeshes[i].visibility = 0;
+  }
+  for (i=0;i<mitosmlbtns.length;i++) {
+    if (i!=ind) {
+      hidebtn(mitosmlbtns[i]);
+    } else {
+      mitosmlbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+    }
+  }
+}
+
 function checkvis(ind) {
   if (!roundbtns[ind].classList.contains("animobtn") && roundbtns[ind].getAttribute("style")!="opacity: 0.6 !important; cursor: not-allowed !important;") {
+    return true;
+  }
+  return false;
+}
+
+function checkvismito(ind) {
+  if (!mitosmlbtns[ind].classList.contains("animobtn") && mitosmlbtns[ind].getAttribute("style")!="opacity: 0.6 !important; cursor: not-allowed !important;") {
     return true;
   }
   return false;
@@ -175,8 +196,16 @@ var createScene = function (canvas, engine) {
               text: 'Description',
               icon: 'question',
               background: 'black',
-              color: 'white'
+              color: 'white',
+              backdrop: false
+            }).then(function() {
+              for (i=0;i<mitosmlbtns.length;i++) {
+                hidebtn(mitosmlbtns[i]);
+              }
             });
+            for (i=0;i<mitosmlbtns.length;i++) {
+              showbtn(mitosmlbtns[i]);
+            }
             camera.target = mito;
             camera.inertialRadiusOffset += 4;
           }
@@ -278,6 +307,21 @@ function phosphoclicked2() {
       meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
       camera.target = meshes[0];
       // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+      phoref=meshes[0];
+    });
+    showbtn(backcell);
+  }
+}
+
+function loadmito() {
+  if (checkvismito(0)) {
+    showui();
+    clickcondmito(0);
+    BABYLON.SceneLoader.ImportMesh("", "", "mitocondrias.glb", scene, function (meshes) {
+      cellref.dispose();
+      hideui();
+      camera.target = meshes[0];
+      meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
       phoref=meshes[0];
     });
     showbtn(backcell);

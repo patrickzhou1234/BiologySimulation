@@ -107,3 +107,13 @@ img {
   left: 56vw;
   top: 52vh;
 }
+
+.mitosmlbtns {
+  z-index: 99999999;
+  font-family: 'amazon-ember';
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s !important;
+  border-radius: 6px;
+}
