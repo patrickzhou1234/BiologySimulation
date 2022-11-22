@@ -157,7 +157,7 @@ var createScene = function (canvas, engine) {
             camera.lowerRadiusLimit = 2;
             Swal.fire({
               title: 'Cell Membrane',
-              text: 'Description',
+              text: 'Phospholipids have 2 unsaturated fatty acid tails and one head. The phospholipid head is hydrophilic(water-loving) and the 2 unsaturated fatty acid tails are hydrophobic(Fear of water). Phospholipid tails are hydrophobic because they are composed of many hydrogens and carbons meaning     Phospholipids have these kinks and bends in their membrane. This allows the inside of the membrane to be fluid.',
               icon: 'question',
               background: 'black',
               color: 'white',
