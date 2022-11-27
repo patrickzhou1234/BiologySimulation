@@ -299,6 +299,7 @@ function phosphoclicked() {
 
 function phosphoclicked2() {
   if (checkvis(2)) {
+    document.getElementById("swal2-html-container").innerHTML="<ul>Selective permeability</ul><ul>Passive transport</ul><ul>Active transport</ul><ul>Facilitated transport</ul>";
     showui();
     clickcond(2);
     BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
