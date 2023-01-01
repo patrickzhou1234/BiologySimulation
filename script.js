@@ -1,10 +1,15 @@
 /// <reference path="babylon.d.ts" />
 
+// stats.js implementation and styling
+var stats = new Stats();
+stats.dom.classList.add("statsdom");
+document.body.appendChild(stats.dom);
+document.querySelectorAll(".statsdom")[0].setAttribute("style", "");
+// declaration
 cellmeshes = [];
 roundbtns=document.querySelectorAll(".smlbtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 backcell = document.getElementById("backcell");
-let divFps = document.getElementById("fpsct");
 let cellref=0;
 let memref=0;
 let phoref=0;
@@ -33,6 +38,14 @@ function showbtn(psbtn) {
   }
   psbtn.classList.add("animbtn");
 }
+
+mitosmlbtns.forEach((el) => {
+  el.classList.add("animobtn");
+});
+roundbtns.forEach((el) => {
+  el.classList.add("animobtn");
+});
+backcell.classList.add("animobtn");
 
 function orgsettings(psorg) {
         psorg.actionManager.registerAction(
@@ -96,28 +109,30 @@ function checkvismito(ind) {
 }
 
 function bckcell() {
-  hidebtn(backcell);
-  for (i=0;i<cellmeshes.length;i++) {
-    cellmeshes[i].visibility = 1;
+  if (!backcell.classList.contains("animobtn")) {
+    hidebtn(backcell);
+    for (i=0;i<cellmeshes.length;i++) {
+      cellmeshes[i].visibility = 1;
+    }
+    showui();
+    camera.lowerRadiusLimit = 5;
+    BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
+      try {
+        memref.dispose();
+      }
+      catch(err) {
+
+      }
+      try {
+        phoref.dispose();
+      } catch(err) {
+
+      }
+      camera.target = meshes[0];
+      hideui();
+      cellref=meshes[0];
+    });
   }
-  showui();
-  camera.lowerRadiusLimit = 5;
-  BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
-    try {
-      memref.dispose();
-    }
-    catch(err) {
-
-    }
-    try {
-      phoref.dispose();
-    } catch(err) {
-
-    }
-    camera.target = meshes[0];
-    hideui();
-    cellref=meshes[0];
-  });
 }
 
 var createScene = function (canvas, engine) {
@@ -333,7 +348,7 @@ const scene = createScene();
 
 engine.runRenderLoop(function () {
   scene.render();
-  divFps.innerHTML = engine.getFps().toFixed() + " fps";
+  stats.update();
 });
 
 window.addEventListener("resize", function () {
