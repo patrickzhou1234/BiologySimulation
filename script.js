@@ -9,6 +9,7 @@ document.querySelectorAll(".statsdom")[0].setAttribute("style", "");
 cellmeshes = [];
 roundbtns = document.querySelectorAll(".smlbtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
+golgismlbtns = document.querySelectorAll(".golgismlbtns");
 backcell = document.getElementById("backcell");
 let cellref = 0;
 let memref = 0;
@@ -40,6 +41,9 @@ function showbtn(psbtn) {
 }
 
 mitosmlbtns.forEach((el) => {
+    el.classList.add("animobtn");
+});
+golgismlbtns.forEach((el) => {
     el.classList.add("animobtn");
 });
 roundbtns.forEach((el) => {
@@ -78,6 +82,19 @@ function clickcondmito(ind) {
     }
 }
 
+function clickcondgolgi(ind) {
+    for (i = 0; i < cellmeshes.length; i++) {
+        cellmeshes[i].visibility = 0;
+    }
+    for (i = 0; i < golgismlbtns.length; i++) {
+        if (i != ind) {
+            hidebtn(golgismlbtns[i]);
+        } else {
+            golgismlbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        }
+    }
+}
+
 function checkvis(ind) {
     if (!roundbtns[ind].classList.contains("animobtn") && roundbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
         return true;
@@ -87,6 +104,13 @@ function checkvis(ind) {
 
 function checkvismito(ind) {
     if (!mitosmlbtns[ind].classList.contains("animobtn") && mitosmlbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+        return true;
+    }
+    return false;
+}
+
+function checkvisgolgi(ind) {
+    if (!golgismlbtns[ind].classList.contains("animobtn") && golgismlbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
         return true;
     }
     return false;
@@ -190,13 +214,13 @@ var createScene = function (canvas, engine) {
                 color: "white",
                 backdrop: false,
             }).then(function () {
-                for (i = 0; i < mitosmlbtns.length; i++) {
-                    hidebtn(mitosmlbtns[i]);
-                }
+                mitosmlbtns.forEach((el) => {
+                    hidebtn(el);
+                });
             });
-            for (i = 0; i < mitosmlbtns.length; i++) {
-                showbtn(mitosmlbtns[i]);
-            }
+            mitosmlbtns.forEach((el) => {
+                showbtn(el);
+            });
             camera.target = mito;
             camera.inertialRadiusOffset += 4;
         })
@@ -237,11 +261,18 @@ var createScene = function (canvas, engine) {
             camera.lowerRadiusLimit = 2;
             Swal.fire({
                 title: "Cell Golgi",
-                text: "Description",
+                text: 'The Golgi apparatus, aka the Golgi body, is an organelle composed of a series of small, flat sacs stacked in the cell\'s cytoplasm. The function of the Golgi apparatus is to sort out and package protein and lipid molecules synthesized by the ER or free-floating ribosomes for intercellular use or transport out of the cell. Additionally, the Golgi can add "tags" to molecules, making them more structurally stable. It can sometimes also locate where the tagged structure goes.',
                 icon: "question",
                 background: "black",
                 color: "white",
                 backdrop: false,
+            }).then(function () {
+                golgismlbtns.forEach((el) => {
+                    hidebtn(el);
+                });
+            });
+            golgismlbtns.forEach((el) => {
+                showbtn(el);
             });
             camera.target = golgi;
             camera.inertialRadiusOffset += 4;
@@ -311,6 +342,22 @@ function loadmito() {
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             phoref = meshes[0];
         });
+        showbtn(backcell);
+    }
+}
+
+function loadgolgi() {
+    if (checkvisgolgi(0)) {
+        showui();
+        clickcondgolgi(0);
+        BABYLON.SceneLoader.ImportMesh("", "", "golgi.glb", scene, function (meshes) {
+            cellref.dispose();
+            hideui();
+            camera.target = meshes[0];
+            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            phoref = meshes[0];
+        });
+        camera.inertialRadiusOffset -= 4;
         showbtn(backcell);
     }
 }
