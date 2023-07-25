@@ -29,15 +29,18 @@
     cursor: -webkit-grabbing;
 }
 
-#backcell {
+.largeBtn {
   position: absolute;
-  left: 5vh;
-  top: 2vw;
   z-index: 100;
   border: none;
   border-radius: 6px;
   font-family: 'amazon-ember';
   font-size: calc(0.65vw + 0.65vh);
+}
+
+#backcell {
+  left: 5vh;
+  top: 2vw;
   opacity: 0;
 }
 
@@ -88,7 +91,6 @@ img {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  user-drag: none; 
   -webkit-user-drag: none;
 }
 
@@ -105,6 +107,26 @@ img {
   opacity: 0;
   transition: opacity 0.2s !important;
   border-radius: 6px;
+}
+
+#mitosmlbtn {
+  left: 46vw;
+  top: 20vh;
+}
+
+.golgismlbtns {
+  z-index: 99999999;
+  font-family: 'amazon-ember';
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s !important;
+  border-radius: 6px;
+}
+
+#golgismlbtn {
+  left: 46vw;
+  top: 80vh;
 }
 
 .statsdom {
