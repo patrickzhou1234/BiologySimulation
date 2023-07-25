@@ -88,7 +88,7 @@ function clickcondmito(ind) {
     }
 }
 
-// checks visibility of ind element in roundbtns
+// sets element at index 'ind' to be semi-transparent and have a 'not allowed' cursor, all other elements in cellmeshes and mitosmlbtns are hidden
 function clickcondgolgi(ind) {
     for (i = 0; i < cellmeshes.length; i++) {
         cellmeshes[i].visibility = 0;
@@ -144,7 +144,7 @@ function bckcell() {
             } catch (err) {}
             camera.target = meshes[0]; // camera targets first element in meshes array
             hideui();
-            cellref = meshes[0];
+            cellref = meshes[0]; // sets reference to this variable
         });
     }
 }
