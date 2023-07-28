@@ -6,14 +6,17 @@ stats.dom.classList.add("statsdom");
 document.body.appendChild(stats.dom);
 document.querySelectorAll(".statsdom")[0].setAttribute("style", "");
 // declaration
+
 cellmeshes = [];
 roundbtns = document.querySelectorAll(".smlbtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 golgismlbtns = document.querySelectorAll(".golgismlbtns");
 backcell = document.getElementById("backcell");
+backHuman = document.getElementById("backHuman")
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
+let humref = 0;
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -21,6 +24,7 @@ function showui() {
 }
 
 showui();
+
 
 function hideui() {
     engine.hideLoadingUI();
@@ -88,7 +92,7 @@ function clickcondmito(ind) {
     }
 }
 
-// sets element at index 'ind' to be semi-transparent and have a 'not allowed' cursor, all other elements in cellmeshes and mitosmlbtns are hidden
+// sets element at index 'ind' to be semi-transparent and have a 'not allowed' cursor, all other elements in cellmeshes and golgismlbtns are hidden
 function clickcondgolgi(ind) {
     for (i = 0; i < cellmeshes.length; i++) {
         cellmeshes[i].visibility = 0;
@@ -101,6 +105,14 @@ function clickcondgolgi(ind) {
         }
     }
 }
+
+function clickcondhuman() {
+    for (i = 0; i < cellmeshes.length; i++) {
+        cellmeshes[i].visibility = 0;
+    }
+    backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+}
+
 
 
 // checks visibility of ind element in specified arrays
@@ -126,9 +138,18 @@ function checkvisgolgi(ind) {
     return false;
 }
 
+function checkvishuman() {
+    if (!backHuman.classList.contains("animobtn") && backHuman.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+        return true;
+    }
+    return false;
+}
+
+
 function bckcell() {
     if (!backcell.classList.contains("animobtn")) {
         hidebtn(backcell); 
+        showbtn(backHuman);
         for (i = 0; i < cellmeshes.length; i++) {
             cellmeshes[i].visibility = 1;
         }
@@ -142,6 +163,10 @@ function bckcell() {
             try {
                 phoref.dispose();
             } catch (err) {}
+            try {
+                humref.dispose();
+            } catch(err) {}
+
             camera.target = meshes[0]; // camera targets first element in meshes array
             hideui();
             cellref = meshes[0]; // sets reference to this variable
@@ -377,6 +402,35 @@ function loadgolgi() {
         showbtn(backcell);
     }
 }
+
+function loadhuman() {
+    if (checkvishuman()) {
+        showui();
+        clickcondhuman();
+        BABYLON.SceneLoader.ImportMesh("", "", "human.glb", scene, function (meshes) {
+            cellref.dispose();
+            hideui();
+            meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
+
+            humref = meshes[0];     
+
+            camera = new BABYLON.ArcRotateCamera("camera", -1.57, 1.3, 15, new BABYLON.Vector3(0, -1, 0), scene); // creates ArcRotateCamera with initial positions and target
+            
+            camera.position.y = -20;
+
+            camera.wheelPrecision = 50; // sets wheel precision for when scrolling with mouse
+
+            scene.activeCamera = camera;
+
+            camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls     
+
+
+            
+        });
+        camera.inertialRadiusOffset -= 4;
+        showbtn(backcell);
+    }
+} 
 
 const scene = createScene();
 
