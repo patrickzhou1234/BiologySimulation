@@ -48,6 +48,15 @@
   cursor: pointer;
 }
 
+#backHuman {
+  left: 6vh;
+  opacity: 1;
+}
+
+#backHuman:hover {
+  cursor: pointer;
+}
+
 .smlbtns {
   z-index: 99999999;
   font-family: 'amazon-ember';
