@@ -12,7 +12,7 @@ roundbtns = document.querySelectorAll(".smlbtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 golgismlbtns = document.querySelectorAll(".golgismlbtns");
 backcell = document.getElementById("backcell");
-backHuman = document.getElementById("backHuman")
+backHuman = document.getElementById("backHuman");
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
@@ -24,7 +24,6 @@ function showui() {
 }
 
 showui();
-
 
 function hideui() {
     engine.hideLoadingUI();
@@ -113,8 +112,6 @@ function clickcondhuman() {
     backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
 }
 
-
-
 // checks visibility of ind element in specified arrays
 
 function checkvis(ind) {
@@ -145,17 +142,17 @@ function checkvishuman() {
     return false;
 }
 
-
 function bckcell() {
     if (!backcell.classList.contains("animobtn")) {
-        hidebtn(backcell); 
+        hidebtn(backcell);
         showbtn(backHuman);
         for (i = 0; i < cellmeshes.length; i++) {
             cellmeshes[i].visibility = 1;
         }
         showui();
         camera.lowerRadiusLimit = 5; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
-        BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) { // imports 3D mesh
+        BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
+            // imports 3D mesh
             // deletes the memref and phoref variables if they exist
             try {
                 memref.dispose();
@@ -165,7 +162,7 @@ function bckcell() {
             } catch (err) {}
             try {
                 humref.dispose();
-            } catch(err) {}
+            } catch (err) {}
 
             camera.target = meshes[0]; // camera targets first element in meshes array
             hideui();
@@ -193,10 +190,11 @@ var createScene = function (canvas, engine) {
 
     light.intensity = 0.7; // sets intesity of light
 
-    BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) { // imports mesh from animal_cell.glb
+    BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
+        // imports mesh from animal_cell.glb
         camera.target = meshes[0]; // sets camera target to first element of meshes array
         hideui();
-        cellref = meshes[0]; 
+        cellref = meshes[0];
     });
 
     memmat = new BABYLON.StandardMaterial("mat", scene);
@@ -327,15 +325,18 @@ var createScene = function (canvas, engine) {
 
 // handles the cases of when user clicks on the parts of the cell
 function membraneclicked() {
-    if (checkvis(0)) { // checks visibility
-        showui(); 
+    if (checkvis(0)) {
+        // checks visibility
+        showui();
         clickcond(0); // has the membrane be semi-transparent and have a not allowed cursor
-        BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) { // imports 3D model
+        BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) {
+            // imports 3D model
             cellref.dispose(); // rids of cellref
             hideui();
             camera.target = meshes[0]; // sets camera target
             memref = meshes[0]; // sets reference of this membrane to memref
         });
+        hidebtn(backHuman);
         showbtn(backcell);
     }
 }
@@ -351,6 +352,7 @@ function phosphoclicked() {
             // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
             phoref = meshes[0];
         });
+        hidebtn(backHuman);
         showbtn(backcell);
     }
 }
@@ -368,6 +370,7 @@ function phosphoclicked2() {
             // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
             phoref = meshes[0];
         });
+        hidebtn(backHuman);
         showbtn(backcell);
     }
 }
@@ -383,6 +386,7 @@ function loadmito() {
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             phoref = meshes[0];
         });
+        hidebtn(backHuman);
         showbtn(backcell);
     }
 }
@@ -399,6 +403,7 @@ function loadgolgi() {
             phoref = meshes[0];
         });
         camera.inertialRadiusOffset -= 4;
+        hidebtn(backHuman);
         showbtn(backcell);
     }
 }
@@ -412,25 +417,23 @@ function loadhuman() {
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
 
-            humref = meshes[0];     
+            humref = meshes[0];
 
             camera = new BABYLON.ArcRotateCamera("camera", -1.57, 1.3, 15, new BABYLON.Vector3(0, -1, 0), scene); // creates ArcRotateCamera with initial positions and target
-            
+
             camera.position.y = -20;
 
             camera.wheelPrecision = 50; // sets wheel precision for when scrolling with mouse
 
             scene.activeCamera = camera;
 
-            camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls     
-
-
-            
+            camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls
         });
         camera.inertialRadiusOffset -= 4;
+        hidebtn(backHuman);
         showbtn(backcell);
     }
-} 
+}
 
 const scene = createScene();
 
