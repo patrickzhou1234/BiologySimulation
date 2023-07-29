@@ -1,4 +1,4 @@
-/// <reference path="babylon.d.ts" />
+    /// <reference path="babylon.d.ts" />
 
 // stats.js implementation and styling
 var stats = new Stats();
@@ -8,9 +8,11 @@ document.querySelectorAll(".statsdom")[0].setAttribute("style", "");
 // declaration
 
 cellmeshes = [];
+humanmeshes = [];
 roundbtns = document.querySelectorAll(".smlbtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 golgismlbtns = document.querySelectorAll(".golgismlbtns");
+brainbtns = document.querySelectorAll(".brainbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 let cellref = 0;
@@ -50,6 +52,9 @@ mitosmlbtns.forEach((el) => {
     el.classList.add("animobtn");
 });
 golgismlbtns.forEach((el) => {
+    el.classList.add("animobtn");
+});
+brainbtns.forEach((el) => {
     el.classList.add("animobtn");
 });
 roundbtns.forEach((el) => {
@@ -112,7 +117,21 @@ function clickcondhuman() {
     backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
 }
 
-// checks visibility of ind element in specified arrays
+function clickcondbrain(ind) {
+    for (i = 0; i < humanmeshes.length; i++) {
+        humanmeshes[i].visibility = 0;
+    }
+    for (i = 0; i < brainbtns.length; i++) {
+        if (i != ind) {
+            hidebtn(brainbtns[i]);
+        } else {
+            brainbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        }
+    }
+        
+}
+
+// checks visibility of ind element in specified arrays: checks if the element does not have "animobtn" and an opaque buttin since they're only in hidden elements
 
 function checkvis(ind) {
     if (!roundbtns[ind].classList.contains("animobtn") && roundbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
@@ -135,6 +154,13 @@ function checkvisgolgi(ind) {
     return false;
 }
 
+function checkvisbrain(ind) {
+    if (!brainbtn.classList.contains("animobtn") && brainbtn.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+        return true;
+    }
+    return false;
+}
+
 function checkvishuman() {
     if (!backHuman.classList.contains("animobtn") && backHuman.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
         return true;
@@ -148,6 +174,9 @@ function bckcell() {
         showbtn(backHuman);
         for (i = 0; i < cellmeshes.length; i++) {
             cellmeshes[i].visibility = 1;
+        }
+        for (i = 0; i < humanmeshes.length; i++) {
+            humanmeshes[i].visibility = 0;
         }
         showui();
         camera.lowerRadiusLimit = 5; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
@@ -163,6 +192,9 @@ function bckcell() {
             try {
                 humref.dispose();
             } catch (err) {}
+            try {
+                brainref.dispose();
+            } catch(err) {};
 
             camera.target = meshes[0]; // camera targets first element in meshes array
             hideui();
@@ -332,6 +364,9 @@ function membraneclicked() {
         BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) {
             // imports 3D model
             cellref.dispose(); // rids of cellref
+            try {
+                humref.dispose();
+            } catch (err) {};
             hideui();
             camera.target = meshes[0]; // sets camera target
             memref = meshes[0]; // sets reference of this membrane to memref
@@ -347,6 +382,9 @@ function phosphoclicked() {
         clickcond(1);
         BABYLON.SceneLoader.ImportMesh("", "", "phospho_sama.glb", scene, function (meshes) {
             cellref.dispose();
+            try {
+                humref.dispose();
+            } catch (err) {};
             hideui();
             camera.target = meshes[0];
             // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
@@ -364,6 +402,9 @@ function phosphoclicked2() {
         clickcond(2);
         BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
             cellref.dispose();
+            try {
+                humref.dispose();
+            } catch (err) {};
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
             camera.target = meshes[0];
@@ -381,6 +422,9 @@ function loadmito() {
         clickcondmito(0);
         BABYLON.SceneLoader.ImportMesh("", "", "mitocondrias.glb", scene, function (meshes) {
             cellref.dispose();
+            try {
+                humref.dispose();
+            } catch (err) {};
             hideui();
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
@@ -392,20 +436,52 @@ function loadmito() {
 }
 
 function loadgolgi() {
+    console.log(checkvisgolgi(0));
     if (checkvisgolgi(0)) {
         showui();
         clickcondgolgi(0);
         BABYLON.SceneLoader.ImportMesh("", "", "golgi.glb", scene, function (meshes) {
             cellref.dispose();
+            try {
+                humref.dispose();
+            } catch (err) {};
             hideui();
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             phoref = meshes[0];
         });
         camera.inertialRadiusOffset -= 4;
-        hidebtn(backHuman);
         showbtn(backcell);
+        hidebtn(backHuman);
     }
+}
+
+function loadbrain() {
+    if (checkvisbrain(0))
+    {
+        showui();
+        clickcondbrain(0);
+        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+            humref.dispose();
+            hideui();
+
+            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            brainref = meshes[0];
+
+            camera = new BABYLON.ArcRotateCamera("camera", -1.57, 1.3, 60, new BABYLON.Vector3(5, 5, 10), scene); // creates ArcRotateCamera with initial positions and target
+
+            camera.wheelPrecision = 50; // sets wheel precision for when scrolling with mouse
+
+            scene.activeCamera = camera;
+
+            camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls
+        });
+        camera.inertialRadiusOffset -= 4;
+        showbtn(backHuman);
+        hidebtn(backcell);
+        
+    }
+
 }
 
 function loadhuman() {
@@ -414,6 +490,9 @@ function loadhuman() {
         clickcondhuman();
         BABYLON.SceneLoader.ImportMesh("", "", "human.glb", scene, function (meshes) {
             cellref.dispose();
+            try {
+                brainref.dispose();
+            } catch(err) {};
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
 
@@ -421,7 +500,7 @@ function loadhuman() {
 
             camera = new BABYLON.ArcRotateCamera("camera", -1.57, 1.3, 15, new BABYLON.Vector3(0, -1, 0), scene); // creates ArcRotateCamera with initial positions and target
 
-            camera.position.y = -20;
+            //camera.position.y = -20;
 
             camera.wheelPrecision = 50; // sets wheel precision for when scrolling with mouse
 
@@ -432,6 +511,41 @@ function loadhuman() {
         camera.inertialRadiusOffset -= 4;
         hidebtn(backHuman);
         showbtn(backcell);
+
+        brainmat = new BABYLON.StandardMaterial("brain", scene);
+
+        brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
+
+        humanmeshes.push(brain);
+        brain.position.set(0, 3.75, -0.25);
+        brain.material = brainmat;
+        brain.actionManager = new BABYLON.ActionManager(scene);
+        brain.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Brain",
+                    text: 'Description',
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                }).then(function () {
+                    for (i = 0; i < brainbtns.length; i++) {
+                        hidebtn(brainbtns[i]);
+                    }
+                });
+                for (i = 0; i < brainbtns.length; i++) {
+                    showbtn(brainbtns[i]);
+                }
+                camera.target = brain;
+                camera.inertialRadiusOffset += 4;
+            })
+        );
+
+        for (i = 0; i < humanmeshes.length; i++) {
+            orgsettings(humanmeshes[i]);
+        }
     }
 }
 
@@ -445,3 +559,4 @@ engine.runRenderLoop(function () {
 window.addEventListener("resize", function () {
     engine.resize();
 });
+

@@ -138,6 +138,20 @@ img {
   top: 80vh;
 }
 
+.brainbtns {
+  z-index: 99999999;
+  font-family: 'amazon-ember';
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s !important;
+  border-radius: 6px;
+}
+#brainbtn {
+  left: 46vw;
+  top: 80vh;
+}
+
 .statsdom {
   position: absolute;
   right: 0px;
