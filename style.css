@@ -147,9 +147,10 @@ img {
   transition: opacity 0.2s !important;
   border-radius: 6px;
 }
+
 #brainbtn {
-  left: 46vw;
-  top: 80vh;
+  left: 45vw;
+  top: 70vh;
 }
 
 .statsdom {

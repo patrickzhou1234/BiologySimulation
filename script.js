@@ -49,12 +49,18 @@ function showbtn(psbtn) {
 
 // // adds class to each item in loop
 mitosmlbtns.forEach((el) => {
+    console.log("mito");
+    console.log(el);
     el.classList.add("animobtn");
 });
 golgismlbtns.forEach((el) => {
+    console.log("golgi");
+    console.log(el);    
     el.classList.add("animobtn");
 });
 brainbtns.forEach((el) => {
+    console.log("brain ");
+    console.log(el);    
     el.classList.add("animobtn");
 });
 roundbtns.forEach((el) => {
@@ -155,7 +161,7 @@ function checkvisgolgi(ind) {
 }
 
 function checkvisbrain(ind) {
-    if (!brainbtn.classList.contains("animobtn") && brainbtn.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+    if (!brainbtns[ind].classList.contains("animobtn") && brainbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
         return true;
     }
     return false;
@@ -340,7 +346,14 @@ var createScene = function (canvas, engine) {
                 });
             });
             golgismlbtns.forEach((el) => {
+                console.log("SHOW");
+                console.log(el);
                 showbtn(el);
+            });
+            brainbtns.forEach((el) => {
+                console.log("HIDE");
+                console.log(el);
+                hidebtn(el);
             });
             camera.target = golgi;
             camera.inertialRadiusOffset += 4;
@@ -436,7 +449,6 @@ function loadmito() {
 }
 
 function loadgolgi() {
-    console.log(checkvisgolgi(0));
     if (checkvisgolgi(0)) {
         showui();
         clickcondgolgi(0);
@@ -531,13 +543,13 @@ function loadhuman() {
                     color: "white",
                     backdrop: false,
                 }).then(function () {
-                    for (i = 0; i < brainbtns.length; i++) {
-                        hidebtn(brainbtns[i]);
-                    }
+                    brainbtns.forEach((el) => {
+                        hidebtn(el);
+                    });
                 });
-                for (i = 0; i < brainbtns.length; i++) {
-                    showbtn(brainbtns[i]);
-                }
+                brainbtns.forEach((el) => {
+                    showbtn(el);
+                });
                 camera.target = brain;
                 camera.inertialRadiusOffset += 4;
             })
