@@ -1,4 +1,4 @@
-    /// <reference path="babylon.d.ts" />
+/// <reference path="babylon.d.ts" />
 
 // stats.js implementation and styling
 var stats = new Stats();
@@ -55,12 +55,12 @@ mitosmlbtns.forEach((el) => {
 });
 golgismlbtns.forEach((el) => {
     console.log("golgi");
-    console.log(el);    
+    console.log(el);
     el.classList.add("animobtn");
 });
 brainbtns.forEach((el) => {
     console.log("brain ");
-    console.log(el);    
+    console.log(el);
     el.classList.add("animobtn");
 });
 roundbtns.forEach((el) => {
@@ -134,7 +134,6 @@ function clickcondbrain(ind) {
             brainbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         }
     }
-        
 }
 
 // checks visibility of ind element in specified arrays: checks if the element does not have "animobtn" and an opaque buttin since they're only in hidden elements
@@ -200,7 +199,7 @@ function bckcell() {
             } catch (err) {}
             try {
                 brainref.dispose();
-            } catch(err) {};
+            } catch (err) {}
 
             camera.target = meshes[0]; // camera targets first element in meshes array
             hideui();
@@ -249,6 +248,7 @@ var createScene = function (canvas, engine) {
             Swal.fire({
                 title: "Cell Membrane",
                 text: "Phospholipids have 2 unsaturated fatty acid tails and one head. The phospholipid head is hydrophilic(water-loving) and the 2 unsaturated fatty acid tails are hydrophobic(Fear of water). Phospholipid tails are hydrophobic because they are composed of many hydrogens and carbons meaning     Phospholipids have these kinks and bends in their membrane. This allows the inside of the membrane to be fluid.",
+                icon: "question",
                 background: "black",
                 color: "white",
                 imageUrl: "cellmembrane.png",
@@ -281,7 +281,7 @@ var createScene = function (canvas, engine) {
             camera.lowerRadiusLimit = 2;
             Swal.fire({
                 title: "Cell Mitochondria",
-                text: "The mitochondria, aka the "powerhouse of the cell", is a very important organelle that primarily functions in generating energy in the form of ATP for cellular processes through cellular respiration. The anatomy of a mitochondrion is designed to maximize energy production. The inner and outer membranes increase surface area and provide a place for energy production to happen.",
+                text: "The mitochondria, aka the 'powerhouse of the cell', is a very important organelle that primarily functions in generating energy in the form of ATP for cellular processes through cellular respiration. The anatomy of a mitochondrion is designed to maximize energy production. The inner and outer membranes increase surface area and provide a place for energy production to happen.",
                 icon: "question",
                 background: "black",
                 color: "white",
@@ -378,7 +378,7 @@ function membraneclicked() {
             cellref.dispose(); // rids of cellref
             try {
                 humref.dispose();
-            } catch (err) {};
+            } catch (err) {}
             hideui();
             camera.target = meshes[0]; // sets camera target
             memref = meshes[0]; // sets reference of this membrane to memref
@@ -396,7 +396,7 @@ function phosphoclicked() {
             cellref.dispose();
             try {
                 humref.dispose();
-            } catch (err) {};
+            } catch (err) {}
             hideui();
             camera.target = meshes[0];
             // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
@@ -416,7 +416,7 @@ function phosphoclicked2() {
             cellref.dispose();
             try {
                 humref.dispose();
-            } catch (err) {};
+            } catch (err) {}
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
             camera.target = meshes[0];
@@ -436,7 +436,7 @@ function loadmito() {
             cellref.dispose();
             try {
                 humref.dispose();
-            } catch (err) {};
+            } catch (err) {}
             hideui();
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
@@ -455,7 +455,7 @@ function loadgolgi() {
             cellref.dispose();
             try {
                 humref.dispose();
-            } catch (err) {};
+            } catch (err) {}
             hideui();
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
@@ -468,8 +468,7 @@ function loadgolgi() {
 }
 
 function loadbrain() {
-    if (checkvisbrain(0))
-    {
+    if (checkvisbrain(0)) {
         showui();
         clickcondbrain(0);
         BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
@@ -490,9 +489,7 @@ function loadbrain() {
         camera.inertialRadiusOffset -= 4;
         showbtn(backHuman);
         hidebtn(backcell);
-        
     }
-
 }
 
 function loadhuman() {
@@ -503,7 +500,7 @@ function loadhuman() {
             cellref.dispose();
             try {
                 brainref.dispose();
-            } catch(err) {};
+            } catch (err) {}
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
 
@@ -536,7 +533,7 @@ function loadhuman() {
                 camera.lowerRadiusLimit = 2;
                 Swal.fire({
                     title: "Brain",
-                    text: 'The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.',
+                    text: "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.",
                     icon: "question",
                     background: "black",
                     color: "white",
@@ -570,4 +567,3 @@ engine.runRenderLoop(function () {
 window.addEventListener("resize", function () {
     engine.resize();
 });
-
