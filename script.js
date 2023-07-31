@@ -346,15 +346,11 @@ var createScene = function (canvas, engine) {
                 });
             });
             golgismlbtns.forEach((el) => {
-                console.log("SHOW");
-                console.log(el);
                 showbtn(el);
             });
-            brainbtns.forEach((el) => {
-                console.log("HIDE");
-                console.log(el);
-                hidebtn(el);
-            });
+            //brainbtns.forEach((el) => {
+              //  hidebtn(el);
+            //});
             camera.target = golgi;
             camera.inertialRadiusOffset += 4;
         })
