@@ -177,6 +177,8 @@ function bckcell() {
     if (!backcell.classList.contains("animobtn")) {
         hidebtn(backcell);
         showbtn(backHuman);
+
+        
         for (i = 0; i < cellmeshes.length; i++) {
             cellmeshes[i].visibility = 1;
         }
@@ -199,10 +201,12 @@ function bckcell() {
             } catch (err) {}
             try {
                 brainref.dispose();
-            } catch (err) {}
-
-            camera.target = meshes[0]; // camera targets first element in meshes array
+            } catch (err) {}            
+    
             hideui();
+
+            set_camera(-10, -100, 5, 0, 0, 0);
+
             cellref = meshes[0]; // sets reference to this variable
         });
     }
@@ -211,7 +215,7 @@ function bckcell() {
 var createScene = function (canvas, engine) {
     var scene = new BABYLON.Scene(engine); // creates new scene
 
-    camera = new BABYLON.ArcRotateCamera("camera", -10, -100, 5, new BABYLON.Vector3.Zero(), scene); // creates ArcRotateCamera with initial positions and target
+    camera = new BABYLON.ArcRotateCamera("camera", -10, -100, 5, new BABYLON.Vector3(0,0,0), scene); // creates ArcRotateCamera with initial positions and target
 
     camera.setTarget(BABYLON.Vector3.Zero()); // sets target to origin of model
 
@@ -453,6 +457,7 @@ function loadgolgi() {
                 humref.dispose();
             } catch (err) {}
             hideui();
+            
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             phoref = meshes[0];
@@ -473,14 +478,8 @@ function loadbrain() {
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             brainref = meshes[0];
-
-            camera = new BABYLON.ArcRotateCamera("camera", -1.57, 1.3, 60, new BABYLON.Vector3(5, 5, 10), scene); // creates ArcRotateCamera with initial positions and target
-
-            camera.wheelPrecision = 50; // sets wheel precision for when scrolling with mouse
-
-            scene.activeCamera = camera;
-
-            camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls
+            
+            set_camera(-1.57, 1.3, 60, 5, 5, 10);
         });
         camera.inertialRadiusOffset -= 4;
         showbtn(backHuman);
@@ -502,16 +501,9 @@ function loadhuman() {
 
             humref = meshes[0];
 
-            camera = new BABYLON.ArcRotateCamera("camera", -1.57, 1.3, 15, new BABYLON.Vector3(0, -1, 0), scene); // creates ArcRotateCamera with initial positions and target
-
-            //camera.position.y = -20;
-
-            camera.wheelPrecision = 50; // sets wheel precision for when scrolling with mouse
-
-            scene.activeCamera = camera;
-
-            camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls
+            set_camera(-1.57, 1.3, 15, 0, -1, 0);
         });
+
         camera.inertialRadiusOffset -= 4;
         hidebtn(backHuman);
         showbtn(backcell);
@@ -551,6 +543,18 @@ function loadhuman() {
             orgsettings(humanmeshes[i]);
         }
     }
+}
+
+
+function set_camera(x, y, radius, target_x, target_y, target_z) {
+
+    camera = new BABYLON.ArcRotateCamera("camera", x, y, radius, new BABYLON.Vector3(target_x, target_y, target_z), scene); // creates ArcRotateCamera with initial positions and target
+
+    camera.wheelPrecision = 50; // sets wheel precision for when scrolling with mouse
+
+    scene.activeCamera = camera;
+
+    camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls    
 }
 
 const scene = createScene();
