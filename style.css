@@ -162,3 +162,13 @@ img {
 #babylonjsLoadingDiv {
   z-index: 9999 !important;
 }
+
+#lobes {
+  left: 5vh;
+  top: 12vh;
+}
+
+#brainDivisions {
+  left: 5vh;
+  top: 18vh;
+}
