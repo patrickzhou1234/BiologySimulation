@@ -15,10 +15,17 @@ golgismlbtns = document.querySelectorAll(".golgismlbtns");
 brainbtns = document.querySelectorAll(".brainbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
+lobes = document.getElementById("lobes");
+brainDivisions = document.getElementById("brainDivisions");
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
 let humref = 0;
+let brainref = 0;
+let lobesref = 0;
+let brainDivisionsref = 0;
+let lobemeshes = [];
+let brainDivisionsMeshes = [];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -461,6 +468,91 @@ function loadgolgi() {
         hidebtn(backHuman);
     }
 }
+/* 
+Two buttons, one for lobes, one for fore/mid/hind brains 
+
+Show both buttons (for lobes and brains), and when one is clicked, have the other opaque and change text from "Show Lobes" to "Hide Lobes" for examples
+*/
+function displayLobes() {
+    if (lobes.textContent == "Show Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Show Brain Divisions") { // Checks to make sure the button is valid to click
+        brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        lobes.textContent = "Hide Cerebral Cortex (Lobes)";
+        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) { // change brain.glb to the file name with the brain model corresponding to lobes
+            brainref.dispose();
+            hideui();
+
+            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            lobesref = meshes[0];
+
+            frontalLobemat = new BABYLON.StandardMaterial("brain", scene);
+            const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            console.log(frontalLobe.position.x,frontalLobe.position.y,frontalLobe.position.z)
+            frontalLobe.position.set(-2.5, 18, 8);
+            console.log(frontalLobe.position.x,frontalLobe.position.y,frontalLobe.position.z)
+            frontalLobe.material = frontalLobemat;
+            lobemeshes.push(frontalLobe); // adds frontalLobe to lobemeshes array
+            frontalLobe.actionManager = new BABYLON.ActionManager(scene);
+            frontalLobe.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Frontal Lobe",
+                        text: "The frontal lobe, located at the front of the cerebral cortex, plays a critical role in various higher-level cognitive functions and personality traits. It is responsible for  functions such as decision-making, problem-solving, and planning. The frontal lobe also houses the primary motor cortex, which controls voluntary movements throughout the body. In addition, it is involved in regulating emotions, social behavior, and aspects of personality, including shaping our ability to interact with others and exhibit self-control. The frontal lobe's intricate neural networks and connectivity enable us to engage in complex cognitive processes, exercise self-awareness, and make conscious choices.                        ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {   });
+                    camera.target = frontalLobe;
+                })
+            );
+
+           lobemeshes.forEach((lobe) => {
+            orgsettings(lobe);
+           });
+        
+            
+        });
+
+    }
+    else {
+        brainDivisions.setAttribute("style", "");
+        backHuman.setAttribute("style", "");
+        lobes.textContent = "Show Cerebral Cortex (Lobes)";
+
+        lobemeshes.forEach((lobe) => {
+            lobe.dispose();
+        });
+
+        camera.target = new BABYLON.Vector3(5,5,10);
+    }
+
+}
+
+function displayBrainDivisions() {
+    if (brainDivisions.textContent == "Show Brain Divisions" && lobes.textContent == "Show Cerebral Cortex (Lobes)") {
+        lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        brainDivisions.textContent = "Hide Brain Divisions";
+        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) { // change brain.glb to the file name with the brain model corresponding to brain divisions
+            brainref.dispose();
+            hideui();
+
+            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            brainDivisionsref = meshes[0];
+
+        });
+
+    }
+    else {
+        lobes.setAttribute("style", "");
+        backHuman.setAttribute("style", "");
+        brainDivisions.textContent = "Show Brain Divisions";
+
+        camera.target = new BABYLON.Vector3(5,5,10);
+    }
+}
 
 function loadbrain() {
     if (checkvisbrain(0)) {
@@ -479,7 +571,11 @@ function loadbrain() {
 
         camera.inertialRadiusOffset -= 4;
         showbtn(backHuman);
+        showbtn(lobes);
+        showbtn(brainDivisions);
         hidebtn(backcell);
+
+        originalCameraPos = camera.position.clone();
     }
 }
 
@@ -491,6 +587,15 @@ function loadhuman() {
             cellref.dispose();
             try {
                 brainref.dispose();
+                
+            } catch (err) {}
+            try {
+                lobesref.dispose();
+                
+            } catch (err) {}
+            try {
+                brainDivisionsref.dispose();
+                
             } catch (err) {}
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
@@ -502,6 +607,8 @@ function loadhuman() {
 
         camera.inertialRadiusOffset -= 4;
         hidebtn(backHuman);
+        hidebtn(lobes);
+        hidebtn(brainDivisions);
         showbtn(backcell);
 
         brainmat = new BABYLON.StandardMaterial("brain", scene);
