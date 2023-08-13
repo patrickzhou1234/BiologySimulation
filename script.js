@@ -245,7 +245,7 @@ var createScene = function (canvas, engine) {
             camera.lowerRadiusLimit = 2;
             Swal.fire({
                 title: "Cell Membrane",
-                text: "Phospholipids have 2 unsaturated fatty acid tails and one head. The phospholipid head is hydrophilic(water-loving) and the 2 unsaturated fatty acid tails are hydrophobic(Fear of water). Phospholipid tails are hydrophobic because they are composed of many hydrogens and carbons meaning     Phospholipids have these kinks and bends in their membrane. This allows the inside of the membrane to be fluid.",
+                text: "The cell membrane is composed primarily of a phospholipid bilayer, with other molecules such as proteins and cholesterol embedded. Phospholipids have 2 unsaturated fatty acid tails and one head. The phospholipid head is hydrophilic (it's attracted to water) and the 2 unsaturated fatty acid tails are hydrophobic (they repel water). The phospholipid bilayer has many kinks and bends in it. This allows the inside of the membrane to be fluid, meaning it can get more or less solid depending on outside conditions, such as temperature. This characteristic is mainly due to the cholesterol embedded. The many proteins in the membrane have a vast array of uses, some including being used for transport, attachment, and signaling.",
                 icon: "question",
                 background: "black",
                 color: "white",
@@ -309,7 +309,7 @@ var createScene = function (canvas, engine) {
             camera.lowerRadiusLimit = 2;
             Swal.fire({
                 title: "Cell Nucleus",
-                text: "Description",
+                text: "The nucleus serves as the control center of the cell, and is where genetic information is stored. The DNA is enclosed in a protective structure called the nuclear envelope. This is a double membrane made up of a phospholipid bilayer, much like that of the cell membrane. Holes in the envelope, called nuclear pores, regulate what goes in and out of the nucleus. The interior of the nucleus, also called the nucleoplasm, contains the genetic material of the cell. In humans, there are 23 pairs of chromosomes, and the nucleus is where processes such as DNA replication and transcription happen. The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis.",
                 icon: "question",
                 background: "black",
                 color: "white",
