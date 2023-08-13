@@ -49,18 +49,12 @@ function showbtn(psbtn) {
 
 // // adds class to each item in loop
 mitosmlbtns.forEach((el) => {
-    console.log("mito");
-    console.log(el);
     el.classList.add("animobtn");
 });
 golgismlbtns.forEach((el) => {
-    console.log("golgi");
-    console.log(el);
     el.classList.add("animobtn");
 });
 brainbtns.forEach((el) => {
-    console.log("brain ");
-    console.log(el);
     el.classList.add("animobtn");
 });
 roundbtns.forEach((el) => {
@@ -479,8 +473,10 @@ function loadbrain() {
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             brainref = meshes[0];
             
+
             set_camera(-1.57, 1.3, 60, 5, 5, 10);
         });
+
         camera.inertialRadiusOffset -= 4;
         showbtn(backHuman);
         hidebtn(backcell);
@@ -511,6 +507,8 @@ function loadhuman() {
         brainmat = new BABYLON.StandardMaterial("brain", scene);
 
         brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
+
+
 
         humanmeshes.push(brain);
         brain.position.set(0, 3.75, -0.25);
