@@ -487,9 +487,7 @@ function displayLobes() {
 
             frontalLobemat = new BABYLON.StandardMaterial("brain", scene);
             const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            console.log(frontalLobe.position.x,frontalLobe.position.y,frontalLobe.position.z)
             frontalLobe.position.set(-2.5, 18, 8);
-            console.log(frontalLobe.position.x,frontalLobe.position.y,frontalLobe.position.z)
             frontalLobe.material = frontalLobemat;
             lobemeshes.push(frontalLobe); // adds frontalLobe to lobemeshes array
             frontalLobe.actionManager = new BABYLON.ActionManager(scene);
@@ -516,6 +514,9 @@ function displayLobes() {
         });
 
     }
+    else if (lobes.textContent == "Show Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Hide Brain Divisions") {
+        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+    }
     else {
         brainDivisions.setAttribute("style", "");
         backHuman.setAttribute("style", "");
@@ -526,6 +527,27 @@ function displayLobes() {
         });
 
         camera.target = new BABYLON.Vector3(5,5,10);
+
+        lobesref.dispose();
+
+        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+            try {
+                humref.dispose();                
+            } catch (err) {}
+            try {
+                lobesref.dispose();
+                
+            } catch (err) {}
+            try {
+                brainDivisionsref.dispose();
+                
+            } catch (err) {}
+
+            hideui();
+
+            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            brainref = meshes[0];
+        }); 
     }
 
 }
@@ -545,21 +567,57 @@ function displayBrainDivisions() {
         });
 
     }
+    else if (lobes.textContent == "Hide Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Show Brain Divisions") {
+        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+    }
     else {
         lobes.setAttribute("style", "");
         backHuman.setAttribute("style", "");
         brainDivisions.textContent = "Show Brain Divisions";
 
         camera.target = new BABYLON.Vector3(5,5,10);
+
+        brainDivisionsref.dispose();
+
+        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+            try {
+                humref.dispose();                
+            } catch (err) {}
+            try {
+                lobesref.dispose();
+                
+            } catch (err) {}
+            try {
+                brainDivisionsref.dispose();
+                
+            } catch (err) {}
+
+            hideui();
+
+            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            brainref = meshes[0];
+        }); 
     }
 }
 
 function loadbrain() {
+    console.log(checkvisbrain(0));
     if (checkvisbrain(0)) {
         showui();
         clickcondbrain(0);
         BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
-            humref.dispose();
+            try {
+                humref.dispose();                
+            } catch (err) {}
+            try {
+                lobesref.dispose();
+                
+            } catch (err) {}
+            try {
+                brainDivisionsref.dispose();
+                
+            } catch (err) {}
+
             hideui();
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
@@ -574,8 +632,6 @@ function loadbrain() {
         showbtn(lobes);
         showbtn(brainDivisions);
         hidebtn(backcell);
-
-        originalCameraPos = camera.position.clone();
     }
 }
 
