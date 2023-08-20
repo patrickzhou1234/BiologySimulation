@@ -27,7 +27,7 @@
     }
 }
 .cd-panel {
-    z-index:9999999999999999999999999;
+    z-index:999;
     position: fixed;
     top: 0;
     left: 0;

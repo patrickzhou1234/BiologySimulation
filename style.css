@@ -182,5 +182,20 @@ img {
   right: 5vh;
   top: 25vh;
   width: 15%;
+}
 
+.sContent {
+  max-width: 90%;
+  vertical-align: baseline;
+  font-size: calc(0.75vw + 0.75vh) !important;
+}
+
+.sTitle {
+  font-size: calc(1vw + 1vh) !important;
+  margin-left: 2vw;
+  color:#89ba2c;
+}
+
+.cd-panel__close:hover {
+  cursor: pointer;
 }
