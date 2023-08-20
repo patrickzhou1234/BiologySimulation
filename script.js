@@ -7,6 +7,26 @@ document.body.appendChild(stats.dom);
 document.querySelectorAll(".statsdom")[0].setAttribute("style", "");
 // declaration
 
+panel = document.querySelectorAll(".cd-panel")[0];
+document.querySelector(".js-cd-close").onclick = () => {
+    removeClass(panel, "cd-panel--is-visible");
+};
+function hasClass(el, className) {
+    if (el.classList) return el.classList.contains(className);
+    else return !!el.className.match(new RegExp("(\\s|^)" + className + "(\\s|$)"));
+}
+function addClass(el, className) {
+    if (el.classList) el.classList.add(className);
+    else if (!hasClass(el, className)) el.className += " " + className;
+}
+function removeClass(el, className) {
+    if (el.classList) el.classList.remove(className);
+    else if (hasClass(el, className)) {
+        var reg = new RegExp("(\\s|^)" + className + "(\\s|$)");
+        el.className = el.className.replace(reg, " ");
+    }
+}
+
 cellmeshes = [];
 humanmeshes = [];
 roundbtns = document.querySelectorAll(".smlbtns");
@@ -179,7 +199,6 @@ function bckcell() {
         hidebtn(backcell);
         showbtn(backHuman);
 
-        
         for (i = 0; i < cellmeshes.length; i++) {
             cellmeshes[i].visibility = 1;
         }
@@ -202,8 +221,8 @@ function bckcell() {
             } catch (err) {}
             try {
                 brainref.dispose();
-            } catch (err) {}            
-    
+            } catch (err) {}
+
             hideui();
 
             set_camera(-10, -100, 5, 0, 0, 0);
@@ -216,7 +235,7 @@ function bckcell() {
 var createScene = function (canvas, engine) {
     var scene = new BABYLON.Scene(engine); // creates new scene
 
-    camera = new BABYLON.ArcRotateCamera("camera", -10, -100, 5, new BABYLON.Vector3(0,0,0), scene); // creates ArcRotateCamera with initial positions and target
+    camera = new BABYLON.ArcRotateCamera("camera", -10, -100, 5, new BABYLON.Vector3(0, 0, 0), scene); // creates ArcRotateCamera with initial positions and target
 
     camera.setTarget(BABYLON.Vector3.Zero()); // sets target to origin of model
 
@@ -353,7 +372,7 @@ var createScene = function (canvas, engine) {
                 showbtn(el);
             });
             //brainbtns.forEach((el) => {
-              //  hidebtn(el);
+            //  hidebtn(el);
             //});
             camera.target = golgi;
             camera.inertialRadiusOffset += 4;
@@ -458,7 +477,7 @@ function loadgolgi() {
                 humref.dispose();
             } catch (err) {}
             hideui();
-            
+
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             phoref = meshes[0];
@@ -474,11 +493,13 @@ Two buttons, one for lobes, one for fore/mid/hind brains
 Show both buttons (for lobes and brains), and when one is clicked, have the other opaque and change text from "Show Lobes" to "Hide Lobes" for examples
 */
 function displayLobes() {
-    if (lobes.textContent == "Show Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Show Brain Divisions") { // Checks to make sure the button is valid to click
+    if (lobes.textContent == "Show Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Show Brain Divisions") {
+        // Checks to make sure the button is valid to click
         brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         lobes.textContent = "Hide Cerebral Cortex (Lobes)";
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) { // change brain.glb to the file name with the brain model corresponding to lobes
+        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+            // change brain.glb to the file name with the brain model corresponding to lobes
             brainref.dispose();
             hideui();
 
@@ -501,23 +522,20 @@ function displayLobes() {
                         background: "black",
                         color: "white",
                         backdrop: false,
-                    }).then(function () {   });
+                    }).then(function () {
+                        addClass(panel, "cd-panel--is-visible");
+                    });
                     camera.target = frontalLobe;
                 })
             );
 
-           lobemeshes.forEach((lobe) => {
-            orgsettings(lobe);
-           });
-        
-            
+            lobemeshes.forEach((lobe) => {
+                orgsettings(lobe);
+            });
         });
-
-    }
-    else if (lobes.textContent == "Show Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Hide Brain Divisions") {
+    } else if (lobes.textContent == "Show Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Hide Brain Divisions") {
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-    }
-    else {
+    } else {
         brainDivisions.setAttribute("style", "");
         backHuman.setAttribute("style", "");
         lobes.textContent = "Show Cerebral Cortex (Lobes)";
@@ -526,30 +544,27 @@ function displayLobes() {
             lobe.dispose();
         });
 
-        camera.target = new BABYLON.Vector3(5,5,10);
+        camera.target = new BABYLON.Vector3(5, 5, 10);
 
         lobesref.dispose();
 
         BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
             try {
-                humref.dispose();                
+                humref.dispose();
             } catch (err) {}
             try {
                 lobesref.dispose();
-                
             } catch (err) {}
             try {
                 brainDivisionsref.dispose();
-                
             } catch (err) {}
 
             hideui();
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             brainref = meshes[0];
-        }); 
+        });
     }
-
 }
 
 function displayBrainDivisions() {
@@ -557,46 +572,41 @@ function displayBrainDivisions() {
         lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         brainDivisions.textContent = "Hide Brain Divisions";
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) { // change brain.glb to the file name with the brain model corresponding to brain divisions
+        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+            // change brain.glb to the file name with the brain model corresponding to brain divisions
             brainref.dispose();
             hideui();
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             brainDivisionsref = meshes[0];
-
         });
-
-    }
-    else if (lobes.textContent == "Hide Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Show Brain Divisions") {
+    } else if (lobes.textContent == "Hide Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Show Brain Divisions") {
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-    }
-    else {
+    } else {
         lobes.setAttribute("style", "");
         backHuman.setAttribute("style", "");
         brainDivisions.textContent = "Show Brain Divisions";
 
-        camera.target = new BABYLON.Vector3(5,5,10);
+        camera.target = new BABYLON.Vector3(5, 5, 10);
 
         brainDivisionsref.dispose();
 
         BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
             try {
-                humref.dispose();                
+                humref.dispose();
             } catch (err) {}
             try {
                 lobesref.dispose();
-                
             } catch (err) {}
             try {
                 brainDivisionsref.dispose();
-                
             } catch (err) {}
 
             hideui();
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             brainref = meshes[0];
-        }); 
+        });
     }
 }
 
@@ -607,22 +617,19 @@ function loadbrain() {
         clickcondbrain(0);
         BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
             try {
-                humref.dispose();                
+                humref.dispose();
             } catch (err) {}
             try {
                 lobesref.dispose();
-                
             } catch (err) {}
             try {
                 brainDivisionsref.dispose();
-                
             } catch (err) {}
 
             hideui();
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             brainref = meshes[0];
-            
 
             set_camera(-1.57, 1.3, 60, 5, 5, 10);
         });
@@ -643,15 +650,12 @@ function loadhuman() {
             cellref.dispose();
             try {
                 brainref.dispose();
-                
             } catch (err) {}
             try {
                 lobesref.dispose();
-                
             } catch (err) {}
             try {
                 brainDivisionsref.dispose();
-                
             } catch (err) {}
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
@@ -670,8 +674,6 @@ function loadhuman() {
         brainmat = new BABYLON.StandardMaterial("brain", scene);
 
         brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
-
-
 
         humanmeshes.push(brain);
         brain.position.set(0, 3.75, -0.25);
@@ -706,16 +708,14 @@ function loadhuman() {
     }
 }
 
-
 function set_camera(x, y, radius, target_x, target_y, target_z) {
-
     camera = new BABYLON.ArcRotateCamera("camera", x, y, radius, new BABYLON.Vector3(target_x, target_y, target_z), scene); // creates ArcRotateCamera with initial positions and target
 
     camera.wheelPrecision = 50; // sets wheel precision for when scrolling with mouse
 
     scene.activeCamera = camera;
 
-    camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls    
+    camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls
 }
 
 const scene = createScene();
