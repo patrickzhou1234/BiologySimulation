@@ -527,7 +527,7 @@ function displayLobes() {
                         background: "black",
                         color: "white",
                         backdrop: false,
-                    }).then();
+                    });
                 })
             );
 
