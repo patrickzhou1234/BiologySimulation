@@ -502,9 +502,9 @@ function displayLobes() {
                         color: "white",
                         backdrop: false,
                     }).then(function () {   });
-                    camera.target = frontalLobe;
                 })
             );
+
 
            lobemeshes.forEach((lobe) => {
             orgsettings(lobe);
@@ -556,7 +556,8 @@ function displayBrainDivisions() {
     if (brainDivisions.textContent == "Show Brain Divisions" && lobes.textContent == "Show Cerebral Cortex (Lobes)") {
         lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-        brainDivisions.textContent = "Hide Brain Divisions";
+        brainDivisions.textContent = "Hide Brain Divisions";    
+        
         BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) { // change brain.glb to the file name with the brain model corresponding to brain divisions
             brainref.dispose();
             hideui();
