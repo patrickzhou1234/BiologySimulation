@@ -86,13 +86,13 @@
 }
 
 @keyframes animbtn {
-  0% {opacity: 0;}
+  0% {opacity: 0;display:block;}
   100% {opacity: 1;}
 }
 
 @keyframes animobtn {
   0% {opacity: 1;}
-  100% {opacity: 0;}
+  100% {opacity: 0;display:none;}
 }
 
 img {
@@ -169,6 +169,11 @@ img {
 }
 
 #brainDivisions {
+  left: 18vh;
+  top: 18vh;
+}
+
+#panelbtn {
   left: 5vh;
   top: 18vh;
 }
