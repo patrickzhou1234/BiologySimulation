@@ -721,7 +721,6 @@ function set_camera(x, y, radius, target_x, target_y, target_z) {
 
     camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls
 }
-
 const scene = createScene();
 
 engine.runRenderLoop(function () {
