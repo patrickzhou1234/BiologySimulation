@@ -169,6 +169,18 @@ img {
 }
 
 #brainDivisions {
+  left: 18vh;
+  top: 18vh;
+}
+
+#panelbtn {
   left: 5vh;
   top: 18vh;
+}
+
+#panelbtn {
+  right: 5vh;
+  top: 25vh;
+  width: 15%;
+
 }

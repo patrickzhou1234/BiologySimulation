@@ -37,6 +37,7 @@ backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 lobes = document.getElementById("lobes");
 brainDivisions = document.getElementById("brainDivisions");
+panelbtn = document.getElementById("panelbtn");
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
@@ -487,6 +488,10 @@ function loadgolgi() {
         hidebtn(backHuman);
     }
 }
+
+function loadpanel() {
+    addClass(panel, "cd-panel--is-visible");
+}
 /* 
 Two buttons, one for lobes, one for fore/mid/hind brains 
 
@@ -522,10 +527,7 @@ function displayLobes() {
                         background: "black",
                         color: "white",
                         backdrop: false,
-                    }).then(function () {
-                        addClass(panel, "cd-panel--is-visible");
-                    });
-                    camera.target = frontalLobe;
+                    }).then();
                 })
             );
 
@@ -638,6 +640,7 @@ function loadbrain() {
         showbtn(backHuman);
         showbtn(lobes);
         showbtn(brainDivisions);
+        showbtn(panelbtn);
         hidebtn(backcell);
     }
 }
@@ -669,6 +672,7 @@ function loadhuman() {
         hidebtn(backHuman);
         hidebtn(lobes);
         hidebtn(brainDivisions);
+        hidebtn(panelbtn);
         showbtn(backcell);
 
         brainmat = new BABYLON.StandardMaterial("brain", scene);
@@ -717,7 +721,6 @@ function set_camera(x, y, radius, target_x, target_y, target_z) {
 
     camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls
 }
-
 const scene = createScene();
 
 engine.runRenderLoop(function () {
