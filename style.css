@@ -76,6 +76,11 @@
   top: 41vh;
 }
 
+#channeltransport {
+  left: 44vw;
+  top: 54vh;
+}
+
 .animbtn {
   animation: animbtn 1.3s ease forwards;
 }
