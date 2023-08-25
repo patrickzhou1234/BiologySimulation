@@ -449,6 +449,25 @@ function phosphoclicked2() {
     }
 }
 
+function openchannel() {
+    if (checkvis(3)) {
+        showui();
+        clickcond(3);
+        BABYLON.SceneLoader.ImportMesh("", "", "openchannel.glb", scene, function (meshes) {
+            cellref.dispose();
+            try {
+                humref.dispose();
+            } catch (err) {}
+            hideui();
+            camera.target = meshes[0];
+            // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+            phoref = meshes[0];
+        });
+        hidebtn(backHuman);
+        showbtn(backcell);
+    }
+}
+
 function loadmito() {
     if (checkvismito(0)) {
         showui();
