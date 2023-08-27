@@ -530,9 +530,10 @@ function displayLobes() {
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             lobesref = meshes[0];
 
+            // Frontal Lobe
             frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
             const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            frontalLobe.position.set(-2.5, 18, 7);
+            frontalLobe.position.set(-2.5, 18, 8);
             frontalLobe.material = frontalLobemat;
             lobemeshes.push(frontalLobe); // adds frontalLobe to lobemeshes array
             frontalLobe.actionManager = new BABYLON.ActionManager(scene);
@@ -550,6 +551,7 @@ function displayLobes() {
                 })
             );
 
+            // Temporal Lobes
             temporalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
 
             const temporal1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
@@ -589,6 +591,28 @@ function displayLobes() {
                     });
                 })
             ); 
+
+            // Parietal Lobe
+            parietalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
+
+            const parietal = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            parietal.position.set(15.5, 17, 8); // (depth,vertical,horizantal)
+            parietal.material = parietalLobeMat;
+            lobemeshes.push(parietal); // adds frontalLobe to lobemeshes array
+            parietal.actionManager = new BABYLON.ActionManager(scene);
+            parietal.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Parietal Lobe",
+                        text: "The parietal lobe constitutes approximately 19% of the total neocortical volume, slightly larger than the occipital lobe. Its spatial expanse extends from the central sulcus anteriorly, demarcating it from the frontal lobe, to the parieto-occipital fissure posteriorly, segregating it from the occipital lobe. Its inferolateral boundary coincides with the lateral sulcus, separating it from the temporal lobe. Medially, its confines are defined by the medial longitudinal fissure that splits both cerebral hemispheres. Primarily responsible for sensory perception and integration, the parietal lobe plays a pivotal role in processing taste, hearing, sight, touch, and smell. Within its realm lies the brain's primary somatic sensory cortex, a critical area for interpreting input from various body regions. Remarkably, research underscores a direct relationship between sensory input and parietal lobe surface area, with more prominent sensory regions of the body, such as the fingers and hands, corresponding to larger dedicated sections of the parietal lobe. Yet, despite the progress in understanding, the parietal lobe remains enigmatic, with ongoing studies continually unveiling new insights into its functions, emphasizing the likelihood that its complete range of roles is yet to be fully uncovered.                        ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );             
 
             lobemeshes.forEach((lobe) => {
                 orgsettings(lobe);
