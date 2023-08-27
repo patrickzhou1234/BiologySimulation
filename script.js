@@ -530,9 +530,9 @@ function displayLobes() {
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             lobesref = meshes[0];
 
-            frontalLobemat = new BABYLON.StandardMaterial("brain", scene);
+            frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
             const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            frontalLobe.position.set(-2.5, 18, 8);
+            frontalLobe.position.set(-2.5, 18, 7);
             frontalLobe.material = frontalLobemat;
             lobemeshes.push(frontalLobe); // adds frontalLobe to lobemeshes array
             frontalLobe.actionManager = new BABYLON.ActionManager(scene);
@@ -549,6 +549,46 @@ function displayLobes() {
                     });
                 })
             );
+
+            temporalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
+
+            const temporal1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            temporal1.position.set(10.5, 5, 20.5); // (depth,vertical,horizantal)
+            temporal1.material = temporalLobeMat;
+            lobemeshes.push(temporal1); // adds frontalLobe to lobemeshes array
+            temporal1.actionManager = new BABYLON.ActionManager(scene);
+            temporal1.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Temporal Lobe",
+                        text: "The temporal lobes, found on both sides of the brain, have distinct functions and differences. The left temporal lobe is crucial for understanding language, memory, and verbal skills. On the other hand, the right temporal lobe is involved in processing non-verbal information, recognizing faces and expressions, and understanding drawings and music. These lobes depend on input from various brain areas and sensory information, and they can even convert sounds into mental images. For instance, without the temporal lobes, comprehending speech would be difficult. In these lobes, there's a region called Wernicke's area, vital for language comprehension and speech meaning. The auditory cortex, within the temporal lobe, processes auditory information by filtering out irrelevant details and sending meaningful information to be understood. This cortex is essential for hearing and language processing, and it's a part of the limbic system, which handles emotions, memories, and motivation. The hippocampus in the temporal lobe forms new memories, while the amygdala, also in the limbic system, processes emotions, fear, and reward, influencing memory strength based on emotional significance.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            ); 
+
+            const temporal2 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            temporal2.position.set(10.5, 5, -4); // (depth,vertical,horizantal)
+            temporal2.material = temporalLobeMat;
+            lobemeshes.push(temporal2); // adds frontalLobe to lobemeshes array
+            temporal2.actionManager = new BABYLON.ActionManager(scene);
+            temporal2.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Temporal Lobe",
+                        text: "The temporal lobes, found on both sides of the brain, have distinct functions and differences. The left temporal lobe is crucial for understanding language, memory, and verbal skills. On the other hand, the right temporal lobe is involved in processing non-verbal information, recognizing faces and expressions, and understanding drawings and music. These lobes depend on input from various brain areas and sensory information, and they can even convert sounds into mental images. For instance, without the temporal lobes, comprehending speech would be difficult. In these lobes, there's a region called Wernicke's area, vital for language comprehension and speech meaning. The auditory cortex, within the temporal lobe, processes auditory information by filtering out irrelevant details and sending meaningful information to be understood. This cortex is essential for hearing and language processing, and it's a part of the limbic system, which handles emotions, memories, and motivation. The hippocampus in the temporal lobe forms new memories, while the amygdala, also in the limbic system, processes emotions, fear, and reward, influencing memory strength based on emotional significance.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            ); 
 
             lobemeshes.forEach((lobe) => {
                 orgsettings(lobe);
