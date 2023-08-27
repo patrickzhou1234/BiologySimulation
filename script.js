@@ -530,7 +530,8 @@ function displayLobes() {
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             lobesref = meshes[0];
 
-            frontalLobemat = new BABYLON.StandardMaterial("brain", scene);
+            // Frontal Lobe
+            frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
             const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             frontalLobe.position.set(-2.5, 18, 8);
             frontalLobe.material = frontalLobemat;
@@ -542,6 +543,91 @@ function displayLobes() {
                     Swal.fire({
                         title: "Frontal Lobe",
                         text: "The frontal lobe, located at the front of the cerebral cortex, plays a critical role in various higher-level cognitive functions and personality traits. It is responsible for  functions such as decision-making, problem-solving, and planning. The frontal lobe also houses the primary motor cortex, which controls voluntary movements throughout the body. In addition, it is involved in regulating emotions, social behavior, and aspects of personality, including shaping our ability to interact with others and exhibit self-control. The frontal lobe's intricate neural networks and connectivity enable us to engage in complex cognitive processes, exercise self-awareness, and make conscious choices.                        ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+
+            // Temporal Lobes
+            temporalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
+
+            const temporal1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            temporal1.position.set(10.5, 5, 20.5); // (depth,vertical,horizantal)
+            temporal1.material = temporalLobeMat;
+            lobemeshes.push(temporal1); // adds frontalLobe to lobemeshes array
+            temporal1.actionManager = new BABYLON.ActionManager(scene);
+            temporal1.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Temporal Lobe",
+                        text: "The temporal lobes, found on both sides of the brain, have distinct functions and differences. The left temporal lobe is crucial for understanding language, memory, and verbal skills. On the other hand, the right temporal lobe is involved in processing non-verbal information, recognizing faces and expressions, and understanding drawings and music. These lobes depend on input from various brain areas and sensory information, and they can even convert sounds into mental images. For instance, without the temporal lobes, comprehending speech would be difficult. In these lobes, there's a region called Wernicke's area, vital for language comprehension and speech meaning. The auditory cortex, within the temporal lobe, processes auditory information by filtering out irrelevant details and sending meaningful information to be understood. This cortex is essential for hearing and language processing, and it's a part of the limbic system, which handles emotions, memories, and motivation. The hippocampus in the temporal lobe forms new memories, while the amygdala, also in the limbic system, processes emotions, fear, and reward, influencing memory strength based on emotional significance.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            ); 
+
+            const temporal2 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            temporal2.position.set(10.5, 5, -4); // (depth,vertical,horizantal)
+            temporal2.material = temporalLobeMat;
+            lobemeshes.push(temporal2); // adds frontalLobe to lobemeshes array
+            temporal2.actionManager = new BABYLON.ActionManager(scene);
+            temporal2.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Temporal Lobe",
+                        text: "The temporal lobes, found on both sides of the brain, have distinct functions and differences. The left temporal lobe is crucial for understanding language, memory, and verbal skills. On the other hand, the right temporal lobe is involved in processing non-verbal information, recognizing faces and expressions, and understanding drawings and music. These lobes depend on input from various brain areas and sensory information, and they can even convert sounds into mental images. For instance, without the temporal lobes, comprehending speech would be difficult. In these lobes, there's a region called Wernicke's area, vital for language comprehension and speech meaning. The auditory cortex, within the temporal lobe, processes auditory information by filtering out irrelevant details and sending meaningful information to be understood. This cortex is essential for hearing and language processing, and it's a part of the limbic system, which handles emotions, memories, and motivation. The hippocampus in the temporal lobe forms new memories, while the amygdala, also in the limbic system, processes emotions, fear, and reward, influencing memory strength based on emotional significance.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            ); 
+
+            // Parietal Lobe
+            parietalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
+
+            const parietal = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            parietal.position.set(15.5, 17, 8); // (depth,vertical,horizantal)
+            parietal.material = parietalLobeMat;
+            lobemeshes.push(parietal); // adds frontalLobe to lobemeshes array
+            parietal.actionManager = new BABYLON.ActionManager(scene);
+            parietal.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Parietal Lobe",
+                        text: "The parietal lobe constitutes approximately 19% of the total neocortical volume, slightly larger than the occipital lobe. Its spatial expanse extends from the central sulcus anteriorly, demarcating it from the frontal lobe, to the parieto-occipital fissure posteriorly, segregating it from the occipital lobe. Its inferolateral boundary coincides with the lateral sulcus, separating it from the temporal lobe. Medially, its confines are defined by the medial longitudinal fissure that splits both cerebral hemispheres. Primarily responsible for sensory perception and integration, the parietal lobe plays a pivotal role in processing taste, hearing, sight, touch, and smell. Within its realm lies the brain's primary somatic sensory cortex, a critical area for interpreting input from various body regions. Remarkably, research underscores a direct relationship between sensory input and parietal lobe surface area, with more prominent sensory regions of the body, such as the fingers and hands, corresponding to larger dedicated sections of the parietal lobe. Yet, despite the progress in understanding, the parietal lobe remains enigmatic, with ongoing studies continually unveiling new insights into its functions, emphasizing the likelihood that its complete range of roles is yet to be fully uncovered.                        ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+            
+            // Occipital Lobe
+            occipitalLobeMat = new BABYLON.StandardMaterial("occipitalLobe", scene);
+
+            const occipital = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            occipital.position.set(22, 5, 8); // (depth,vertical,horizantal)
+            occipital.material = occipitalLobeMat;
+            lobemeshes.push(occipital); // adds frontalLobe to lobemeshes array
+            occipital.actionManager = new BABYLON.ActionManager(scene);
+            occipital.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Occipital Lobe",
+                        text: "The occipital lobe is a part of the brain responsible for processing visual information. On its outer surface, there are raised areas called gyri and grooves called sulci. The sides of the occipital lobe have three specific sulci that help define its shape. Inside, on the middle surface, there's a distinct calcarine sulcus, which divides it into the cuneus and lingual regions. The upper and lower parts of the calcarine sulcus contain the primary visual cortex, which is where we process what we see. This cortex gets information from our eyes and helps us understand things like shapes, colors, and distances. The occipital lobe's main job is to help us understand and recognize what we see. There are different areas in this lobe, like the primary visual cortex, which receives information directly from our eyes, and secondary visual cortex areas that work with this information to help us recognize objects and understand where they are. The occipital lobe also sends information to other parts of the brain through two pathways: the dorsal stream for recognizing where objects are and the ventral stream for recognizing what objects are.",
                         icon: "question",
                         background: "black",
                         color: "white",
