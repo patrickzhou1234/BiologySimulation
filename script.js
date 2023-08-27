@@ -612,7 +612,29 @@ function displayLobes() {
                         backdrop: false,
                     });
                 })
-            );             
+            );
+            
+            // Occipital Lobe
+            occipitalLobeMat = new BABYLON.StandardMaterial("occipitalLobe", scene);
+
+            const occipital = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            occipital.position.set(22, 5, 8); // (depth,vertical,horizantal)
+            occipital.material = occipitalLobeMat;
+            lobemeshes.push(occipital); // adds frontalLobe to lobemeshes array
+            occipital.actionManager = new BABYLON.ActionManager(scene);
+            occipital.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Occipital Lobe",
+                        text: "The occipital lobe is a part of the brain responsible for processing visual information. On its outer surface, there are raised areas called gyri and grooves called sulci. The sides of the occipital lobe have three specific sulci that help define its shape. Inside, on the middle surface, there's a distinct calcarine sulcus, which divides it into the cuneus and lingual regions. The upper and lower parts of the calcarine sulcus contain the primary visual cortex, which is where we process what we see. This cortex gets information from our eyes and helps us understand things like shapes, colors, and distances. The occipital lobe's main job is to help us understand and recognize what we see. There are different areas in this lobe, like the primary visual cortex, which receives information directly from our eyes, and secondary visual cortex areas that work with this information to help us recognize objects and understand where they are. The occipital lobe also sends information to other parts of the brain through two pathways: the dorsal stream for recognizing where objects are and the ventral stream for recognizing what objects are.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
 
             lobemeshes.forEach((lobe) => {
                 orgsettings(lobe);
