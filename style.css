@@ -174,19 +174,15 @@ img {
 }
 
 #brainDivisions {
-  left: 18vh;
-  top: 18vh;
-}
-
-#panelbtn {
   left: 5vh;
   top: 18vh;
 }
 
 #panelbtn {
   right: 5vh;
-  top: 25vh;
+  top: 24vh;
   width: 15%;
+  left: 5vh;
 }
 
 .sContent {
