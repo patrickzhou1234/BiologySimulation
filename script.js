@@ -218,7 +218,7 @@ function bckcell() {
         }
         showui();
         camera.lowerRadiusLimit = 5; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
-        BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
             // imports 3D mesh
             // deletes the memref and phoref variables if they exist
             try {
@@ -265,7 +265,7 @@ var createScene = function (canvas, engine) {
 
     light.intensity = 0.7; // sets intesity of light
 
-    BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
+    BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
         // imports mesh from animal_cell.glb
         camera.target = meshes[0]; // sets camera target to first element of meshes array
         hideui();
@@ -406,7 +406,7 @@ function membraneclicked() {
         // checks visibility
         showui();
         clickcond(0); // has the membrane be semi-transparent and have a not allowed cursor
-        BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/cell_membrane.glb", scene, function (meshes) {
             // imports 3D model
             cellref.dispose(); // rids of cellref
             try {
@@ -425,7 +425,7 @@ function phosphoclicked() {
     if (checkvis(1)) {
         showui();
         clickcond(1);
-        BABYLON.SceneLoader.ImportMesh("", "", "phospho_sama.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/phospho_sama.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 humref.dispose();
@@ -445,7 +445,7 @@ function phosphoclicked2() {
         document.getElementById("swal2-html-container").innerHTML = "<ul>Selective permeability</ul><ul>Passive transport</ul><ul>Active transport</ul><ul>Facilitated transport</ul>";
         showui();
         clickcond(2);
-        BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/phospholipid.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 humref.dispose();
@@ -465,7 +465,7 @@ function openchannel() {
     if (checkvis(3)) {
         showui();
         clickcond(3);
-        BABYLON.SceneLoader.ImportMesh("", "", "openchannel.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/openchannel.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 humref.dispose();
@@ -484,7 +484,7 @@ function loadmito() {
     if (checkvismito(0)) {
         showui();
         clickcondmito(0);
-        BABYLON.SceneLoader.ImportMesh("", "", "mitocondrias.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/mitocondrias.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 humref.dispose();
@@ -503,7 +503,7 @@ function loadgolgi() {
     if (checkvisgolgi(0)) {
         showui();
         clickcondgolgi(0);
-        BABYLON.SceneLoader.ImportMesh("", "", "golgi.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/golgi.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 humref.dispose();
@@ -534,7 +534,7 @@ function displayLobes() {
         brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         lobes.textContent = "Hide Cerebral Cortex (Lobes)";
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             // change brain.glb to the file name with the brain model corresponding to lobes
             brainref.dispose();
             hideui();
@@ -671,7 +671,7 @@ function displayLobes() {
 
         lobesref.dispose();
 
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             try {
                 humref.dispose();
             } catch (err) {}
@@ -695,7 +695,7 @@ function displayBrainDivisions() {
         lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         brainDivisions.textContent = "Hide Brain Divisions";
-        BABYLON.SceneLoader.ImportMesh("", "", "halfbrain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/halfbrain.glb", scene, function (meshes) {
             // change brain.glb to the file name with the brain model corresponding to brain divisions
             brainref.dispose();
             hideui();
@@ -724,7 +724,7 @@ function displayBrainDivisions() {
 
         brainDivisionsref.dispose();
 
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             try {
                 humref.dispose();
             } catch (err) {}
@@ -748,7 +748,7 @@ function loadbrain() {
     if (checkvisbrain(0)) {
         showui();
         clickcondbrain(0);
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
 
             console.log(camera.position.x, camera.position.y, camera.position.z);
@@ -787,7 +787,7 @@ function loadhuman() {
   //  if (checkvishuman()) {
         showui();
         clickcondhuman();
-        BABYLON.SceneLoader.ImportMesh("", "", "human.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 brainref.dispose();
