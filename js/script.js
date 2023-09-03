@@ -867,27 +867,17 @@ function loadhuman() {
 }
 
 function loadSkeletal() {
-    if(checkvisskeletal()){
+    if (checkvisskeletal()) {
         if (showSkeletal.textContent == "Show Skeletal") {
             showSkeletal.textContent = "Hide Skeletal";
-            camera = new BABYLON.ArcRotateCamera("camera", 4.7, 1.25, 127, new BABYLON.Vector3(0, 0, 0), scene);
-            //camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 0, new BABYLON.Vector3.Zero(), scene);
-            camera.attachControl(canvas, true);
-            // Creates a light, aiming 0,1,0 - to the sky
-            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
-            // Dim the light a small amount - 0 to 1
-            light.intensity = 0.7;
-
-            scene.activeCamera = camera;
-
-            // Built-in 'sphere' shape.
+            camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
             humref.dispose();
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
             BABYLON.SceneLoader.ImportMesh("", "", "models/skeletal.glb", scene, function (meshes) {
-                meshes[0].scaling = new BABYLON.Vector3(6,6,6);
-    
+                meshes[0].scaling = new BABYLON.Vector3(6, 6, 6);
+
                 skeletalref = meshes[0];
             });
         } else {
@@ -895,7 +885,6 @@ function loadSkeletal() {
             showSkeletal.textContent = "Show Skeletal";
             loadhuman();
         }
-       
     }
 }
 
@@ -907,16 +896,7 @@ function loadNeuron() {
             brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
             backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
-
-            camera = new BABYLON.ArcRotateCamera("camera", 4.7, 1.25, 130, new BABYLON.Vector3(0, 0, 0), scene);
-            //camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 0, new BABYLON.Vector3.Zero(), scene);
-            camera.attachControl(canvas, true);
-            // Creates a light, aiming 0,1,0 - to the sky
-            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
-            // Dim the light a small amount - 0 to 1
-            light.intensity = 0.7;
-
-            scene.activeCamera = camera;
+            camera.position = new BABYLON.Vector3( 4.7, 1.25, -130);
 
             // Built-in 'sphere' shape.
             brainref.dispose();
