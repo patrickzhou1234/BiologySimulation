@@ -247,7 +247,10 @@ function bckcell() {
 
             hideui();
 
-            set_camera(-10, -100, 5, 0, 0, 0);
+            camera.position = new BABYLON.Vector3(-10, 100, 5);
+            camera.target = new BABYLON.Vector3(0, 0, 0);
+            camera.radius = 5;  
+
 
             cellref = meshes[0]; // sets reference to this variable
         });
@@ -268,6 +271,8 @@ var createScene = function (canvas, engine) {
     // upper and lower bounds for camera distance from model
     camera.lowerRadiusLimit = 5;
     camera.upperRadiusLimit = 20;
+
+    camera.radius = 5;
 
     var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene); // adds shining light effect
 
@@ -779,10 +784,13 @@ function loadbrain() {
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             brainref = meshes[0];
 
-            set_camera(-1.57, 1.3, 60, 5, 5, 10);
+            camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
+            camera.target = new BABYLON.Vector3(5, 5, 10);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 50;
+
         });
 
-        camera.inertialRadiusOffset -= 4;
         showbtn(backHuman);
         showbtn(lobes);
         showbtn(brainDivisions);
@@ -797,7 +805,7 @@ function loadhuman() {
   //  if (checkvishuman()) {
         showui();
         clickcondhuman();
-        
+        showSkeletal.textContent = "Show Skeletal";
         BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
             cellref.dispose();
             try {
@@ -817,10 +825,11 @@ function loadhuman() {
 
             humref = meshes[0];
 
-            set_camera(-1.57, 1.3, 15, 0, -1, 0);
+            camera.position = new BABYLON.Vector3(0, 1.9, -20);
+            camera.target = new BABYLON.Vector3(0, -1, 0);
+            camera.radius = 20;
         });
 
-        camera.inertialRadiusOffset -= 4;
         hidebtn(backHuman);
         hidebtn(lobes);
         hidebtn(brainDivisions);
@@ -871,12 +880,14 @@ function loadSkeletal() {
         if (showSkeletal.textContent == "Show Skeletal") {
             showSkeletal.textContent = "Hide Skeletal";
             camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
+            camera.target = new BABYLON.Vector3(0,-0.25,0);
+            camera.radius = 20;
             humref.dispose();
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
             BABYLON.SceneLoader.ImportMesh("", "", "models/skeletal.glb", scene, function (meshes) {
-                meshes[0].scaling = new BABYLON.Vector3(6, 6, 6);
+                meshes[0].scaling = new BABYLON.Vector3(0.9, 0.9, 0.9);
 
                 skeletalref = meshes[0];
             });
@@ -896,7 +907,7 @@ function loadNeuron() {
             brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
             backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
-            camera.position = new BABYLON.Vector3( 4.7, 1.25, -130);
+            camera.position = new BABYLON.Vector3(10, 0, 120);
 
             // Built-in 'sphere' shape.
             brainref.dispose();
@@ -908,7 +919,12 @@ function loadNeuron() {
     
                 neuronref = meshes[0];
 
-                camera.target = new BABYLON.Vector3(-35,0,0);
+                camera.target = new BABYLON.Vector3(-30,-5,0);
+
+                camera.upperRadiusLimit = 100;
+                camera.radius = 100;
+
+                console.log("radius: " + camera.radius + " upperlimit: " + camera.upperRadiusLimit + " lowerlimit: " + camera.lowerRadiusLimit);
             });
         } else {
             neuronref.dispose();
@@ -927,8 +943,11 @@ function loadNeuron() {
     
                 meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
                 brainref = meshes[0];
-    
-                set_camera(-1.57, 1.3, 60, 5, 5, 10);
+
+                camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
+                camera.target = new BABYLON.Vector3(5, 5, 10);
+
+                scene.activeCamera = camera;
             });
     
             }
@@ -936,15 +955,6 @@ function loadNeuron() {
     }
 }
 
-function set_camera(x, y, radius, target_x, target_y, target_z) {
-    camera = new BABYLON.ArcRotateCamera("camera", x, y, radius, new BABYLON.Vector3(target_x, target_y, target_z), scene); // creates ArcRotateCamera with initial positions and target
-
-    camera.wheelPrecision = 50; // sets wheel precision for when scrolling with mouse
-
-    scene.activeCamera = camera;
-
-    camera.attachControl(canvas, true); // attaches camera controls to the canvas, allowing users to interact with the scene using mouse and touch controls
-}
 const scene = createScene();
 
 engine.runRenderLoop(function () {
