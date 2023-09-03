@@ -503,7 +503,7 @@ function loadmito() {
             } catch (err) {}
             hideui();
             camera.target = meshes[0];
-            meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             phoref = meshes[0];
         });
         hidebtn(backHuman);
