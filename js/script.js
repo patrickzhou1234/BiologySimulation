@@ -243,14 +243,13 @@ function bckcell() {
             } catch (err) {}
             try {
                 skeletalref.dispose();
-            } catch(err) {}
+            } catch (err) {}
 
             hideui();
 
             camera.position = new BABYLON.Vector3(-10, 100, 5);
             camera.target = new BABYLON.Vector3(0, 0, 0);
-            camera.radius = 5;  
-
+            camera.radius = 5;
 
             cellref = meshes[0]; // sets reference to this variable
         });
@@ -602,7 +601,7 @@ function displayLobes() {
                         backdrop: false,
                     });
                 })
-            ); 
+            );
 
             const temporal2 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             temporal2.position.set(10.5, 5, -4); // (depth,vertical,horizantal)
@@ -621,7 +620,7 @@ function displayLobes() {
                         backdrop: false,
                     });
                 })
-            ); 
+            );
 
             // Parietal Lobe
             parietalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
@@ -644,7 +643,7 @@ function displayLobes() {
                     });
                 })
             );
-            
+
             // Occipital Lobe
             occipitalLobeMat = new BABYLON.StandardMaterial("occipitalLobe", scene);
 
@@ -723,11 +722,7 @@ function displayBrainDivisions() {
 
             console.log(camera.position.x, camera.position.y, camera.position.z);
 
-            
             console.log(camera.position.x, camera.position.y, camera.position.z);
-
-
-
         });
     } else {
         lobes.setAttribute("style", "");
@@ -777,7 +772,7 @@ function loadbrain() {
             } catch (err) {}
             try {
                 skeletalref.dispose();
-            } catch(err) {}
+            } catch (err) {}
 
             hideui();
 
@@ -788,7 +783,6 @@ function loadbrain() {
             camera.target = new BABYLON.Vector3(5, 5, 10);
             camera.upperRadiusLimit = 100;
             camera.radius = 50;
-
         });
 
         showbtn(backHuman);
@@ -802,76 +796,76 @@ function loadbrain() {
 }
 
 function loadhuman() {
-  //  if (checkvishuman()) {
-        showui();
-        clickcondhuman();
-        showSkeletal.textContent = "Show Skeletal";
-        BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
-            cellref.dispose();
-            try {
-                brainref.dispose();
-            } catch (err) {}
-            try {
-                lobesref.dispose();
-            } catch (err) {}
-            try {
-                brainDivisionsref.dispose();
-            } catch (err) {}
-            try {
-                neuronref.dispose();
-            } catch(err) {}
-            hideui();
-            meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
+    //  if (checkvishuman()) {
+    showui();
+    clickcondhuman();
+    showSkeletal.textContent = "Show Skeletal";
+    BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
+        cellref.dispose();
+        try {
+            brainref.dispose();
+        } catch (err) {}
+        try {
+            lobesref.dispose();
+        } catch (err) {}
+        try {
+            brainDivisionsref.dispose();
+        } catch (err) {}
+        try {
+            neuronref.dispose();
+        } catch (err) {}
+        hideui();
+        meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
 
-            humref = meshes[0];
+        humref = meshes[0];
 
-            camera.position = new BABYLON.Vector3(0, 1.9, -20);
-            camera.target = new BABYLON.Vector3(0, -1, 0);
-            camera.radius = 20;
-        });
+        camera.position = new BABYLON.Vector3(0, 1.9, -20);
+        camera.target = new BABYLON.Vector3(0, -1, 0);
+        camera.radius = 20;
+    });
 
-        hidebtn(backHuman);
-        hidebtn(lobes);
-        hidebtn(brainDivisions);
-        hidebtn(panelbtn);
-        showbtn(backcell);
-        hidebtn(showNeuron);
-        showbtn(showSkeletal);
+    hidebtn(backHuman);
+    hidebtn(lobes);
+    hidebtn(brainDivisions);
+    hidebtn(panelbtn);
+    showbtn(backcell);
+    hidebtn(showNeuron);
+    showbtn(showSkeletal);
 
-        brainmat = new BABYLON.StandardMaterial("brain", scene);
+    brainmat = new BABYLON.StandardMaterial("brain", scene);
 
-        brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
+    brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
 
-        humanmeshes.push(brain);
-        brain.position.set(0, 3.75, -0.25);
-        brain.material = brainmat;
-        brain.actionManager = new BABYLON.ActionManager(scene);
-        brain.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                camera.lowerRadiusLimit = 2;
-                Swal.fire({
-                    title: "Brain",
-                    text: "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.",
-                    icon: "question",
-                    background: "black",
-                    color: "white",
-                    backdrop: false,
-                }).then(function () {
-                    brainbtns.forEach((el) => {
-                        hidebtn(el);
-                    });
-                });
+    humanmeshes.push(brain);
+    brain.position.set(0, 3.75, -0.25);
+    brain.material = brainmat;
+    brain.actionManager = new BABYLON.ActionManager(scene);
+    brain.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+            camera.lowerRadiusLimit = 2;
+            Swal.fire({
+                title: "Brain",
+                text: "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.",
+                icon: "question",
+                background: "black",
+                color: "white",
+                backdrop: false,
+            }).then(function () {
                 brainbtns.forEach((el) => {
-                    showbtn(el);
+                    hidebtn(el);
                 });
-                camera.target = brain;
-                camera.inertialRadiusOffset += 4;
-            })
-        );
+            });
+            brainbtns.forEach((el) => {
+                showbtn(el);
+            });
+            camera.target = brain;
+            camera.inertialRadiusOffset += 4;
+        })
+    );
 
-        for (i = 0; i < humanmeshes.length; i++) {
-            orgsettings(humanmeshes[i]);
-        }
+    for (i = 0; i < humanmeshes.length; i++) {
+        orgsettings(humanmeshes[i]);
+    }
     //}
 }
 
@@ -880,7 +874,7 @@ function loadSkeletal() {
         if (showSkeletal.textContent == "Show Skeletal") {
             showSkeletal.textContent = "Hide Skeletal";
             camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
-            camera.target = new BABYLON.Vector3(0,-0.25,0);
+            camera.target = new BABYLON.Vector3(0, -0.25, 0);
             camera.radius = 20;
             humref.dispose();
             humanmeshes.forEach((el) => {
@@ -900,7 +894,7 @@ function loadSkeletal() {
 }
 
 function loadNeuron() {
-    if(checkvisneuron()){
+    if (checkvisneuron()) {
         if (showNeuron.textContent == "Show Neuron") {
             showNeuron.textContent = "Hide Neuron";
             lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
@@ -915,11 +909,11 @@ function loadNeuron() {
                 el.visibility = 0;
             });
             BABYLON.SceneLoader.ImportMesh("", "", "models/neuron.glb", scene, function (meshes) {
-                meshes[0].scaling = new BABYLON.Vector3(0.01,0.01,0.01);
-    
+                meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+
                 neuronref = meshes[0];
 
-                camera.target = new BABYLON.Vector3(-30,-5,0);
+                camera.target = new BABYLON.Vector3(-30, -5, 0);
 
                 camera.upperRadiusLimit = 100;
                 camera.radius = 100;
@@ -936,11 +930,11 @@ function loadNeuron() {
 
             BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
                 console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
-    
+
                 console.log(camera.position.x, camera.position.y, camera.position.z);
-    
+
                 hideui();
-    
+
                 meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
                 brainref = meshes[0];
 
@@ -949,9 +943,7 @@ function loadNeuron() {
 
                 scene.activeCamera = camera;
             });
-    
-            }
-       
+        }
     }
 }
 
