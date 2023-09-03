@@ -200,3 +200,8 @@ img {
 .cd-panel__close:hover {
   cursor: pointer;
 }
+
+#skeletal {
+  left: 5vh;
+  top: 12vh;  
+}
