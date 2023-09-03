@@ -289,7 +289,7 @@ var createScene = function (canvas, engine) {
                 icon: "question",
                 background: "black",
                 color: "white",
-                imageUrl: "cellmembrane.png",
+                imageUrl: "images/cellmembrane.png",
                 imageWidth: window.innerWidth * 0.5,
                 imageHeight: window.innerHeight * 0.5,
                 width: window.innerWidth * 0.8,
