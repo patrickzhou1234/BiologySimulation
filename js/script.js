@@ -36,6 +36,7 @@ brainbtns = document.querySelectorAll(".brainbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 showSkeletal = document.getElementById("skeletal");
+showNeuron = document.getElementById("neuron");
 lobes = document.getElementById("lobes");
 brainDivisions = document.getElementById("brainDivisions");
 panelbtn = document.getElementById("panelbtn");
@@ -45,6 +46,7 @@ let phoref = 0;
 let humref = 0;
 let brainref = 0;
 let skeltalref = 0;
+let neuronref = 0;
 let lobesref = 0;
 let brainDivisionsref = 0;
 let lobemeshes = [];
@@ -204,6 +206,12 @@ function checkvisskeletal() {
     return false;
 }
 
+function checkvisneuron() {
+    if (!showNeuron.classList.contains("animobtn") && showNeuron.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+        return true;
+    }
+    return false;
+}
 function bckcell() {
     if (!backcell.classList.contains("animobtn")) {
         hidebtn(backcell);
@@ -531,8 +539,10 @@ Show both buttons (for lobes and brains), and when one is clicked, have the othe
 function displayLobes() {
     if (lobes.textContent == "Show Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Show Brain Divisions") {
         // Checks to make sure the button is valid to click
-        brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+
         lobes.textContent = "Hide Cerebral Cortex (Lobes)";
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             // change brain.glb to the file name with the brain model corresponding to lobes
@@ -656,11 +666,11 @@ function displayLobes() {
                 orgsettings(lobe);
             });
         });
-    } else if (lobes.textContent == "Show Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Hide Brain Divisions") {
-        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
     } else {
         brainDivisions.setAttribute("style", "");
         backHuman.setAttribute("style", "");
+        showNeuron.setAttribute("style", "");
+
         lobes.textContent = "Show Cerebral Cortex (Lobes)";
 
         lobemeshes.forEach((lobe) => {
@@ -692,8 +702,9 @@ function displayLobes() {
 
 function displayBrainDivisions() {
     if (brainDivisions.textContent == "Show Brain Divisions" && lobes.textContent == "Show Cerebral Cortex (Lobes)") {
-        lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         brainDivisions.textContent = "Hide Brain Divisions";
         BABYLON.SceneLoader.ImportMesh("", "", "models/halfbrain.glb", scene, function (meshes) {
             // change brain.glb to the file name with the brain model corresponding to brain divisions
@@ -713,11 +724,10 @@ function displayBrainDivisions() {
 
 
         });
-    } else if (lobes.textContent == "Hide Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Show Brain Divisions") {
-        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
     } else {
         lobes.setAttribute("style", "");
         backHuman.setAttribute("style", "");
+        showNeuron.setAttribute("style", "");
         brainDivisions.textContent = "Show Brain Divisions";
 
         camera.target = new BABYLON.Vector3(5, 5, 10);
@@ -744,7 +754,6 @@ function displayBrainDivisions() {
 }
 
 function loadbrain() {
-    console.log(checkvisbrain(0));
     if (checkvisbrain(0)) {
         showui();
         clickcondbrain(0);
@@ -779,6 +788,7 @@ function loadbrain() {
         showbtn(brainDivisions);
         showbtn(panelbtn);
         hidebtn(backcell);
+        showbtn(showNeuron);
         hidebtn(showSkeletal);
     }
 }
@@ -787,6 +797,7 @@ function loadhuman() {
   //  if (checkvishuman()) {
         showui();
         clickcondhuman();
+        
         BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
             cellref.dispose();
             try {
@@ -798,6 +809,9 @@ function loadhuman() {
             try {
                 brainDivisionsref.dispose();
             } catch (err) {}
+            try {
+                neuronref.dispose();
+            } catch(err) {}
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
 
@@ -812,6 +826,7 @@ function loadhuman() {
         hidebtn(brainDivisions);
         hidebtn(panelbtn);
         showbtn(backcell);
+        hidebtn(showNeuron);
         showbtn(showSkeletal);
 
         brainmat = new BABYLON.StandardMaterial("brain", scene);
@@ -880,6 +895,63 @@ function loadSkeletal() {
             showSkeletal.textContent = "Show Skeletal";
             loadhuman();
         }
+       
+    }
+}
+
+function loadNeuron() {
+    if(checkvisneuron()){
+        if (showNeuron.textContent == "Show Neuron") {
+            showNeuron.textContent = "Hide Neuron";
+            lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+            brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+            backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+
+
+            camera = new BABYLON.ArcRotateCamera("camera", 4.7, 1.25, 130, new BABYLON.Vector3(0, 0, 0), scene);
+            //camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 0, new BABYLON.Vector3.Zero(), scene);
+            camera.attachControl(canvas, true);
+            // Creates a light, aiming 0,1,0 - to the sky
+            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+            // Dim the light a small amount - 0 to 1
+            light.intensity = 0.7;
+
+            scene.activeCamera = camera;
+
+            // Built-in 'sphere' shape.
+            brainref.dispose();
+            brainbtns.forEach((el) => {
+                el.visibility = 0;
+            });
+            BABYLON.SceneLoader.ImportMesh("", "", "models/neuron.glb", scene, function (meshes) {
+                meshes[0].scaling = new BABYLON.Vector3(0.01,0.01,0.01);
+    
+                neuronref = meshes[0];
+
+                camera.target = new BABYLON.Vector3(-35,0,0);
+            });
+        } else {
+            neuronref.dispose();
+            backHuman.setAttribute("style", "");
+            lobes.setAttribute("style", "");
+            brainDivisions.setAttribute("style", "");
+
+            showNeuron.textContent = "Show Neuron";
+
+            BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
+                console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
+    
+                console.log(camera.position.x, camera.position.y, camera.position.z);
+    
+                hideui();
+    
+                meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+                brainref = meshes[0];
+    
+                set_camera(-1.57, 1.3, 60, 5, 5, 10);
+            });
+    
+            }
        
     }
 }
