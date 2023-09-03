@@ -47,6 +47,7 @@ let humref = 0;
 let brainref = 0;
 let skeltalref = 0;
 let neuronref = 0;
+let riboref = 0;
 let lobesref = 0;
 let brainDivisionsref = 0;
 let lobemeshes = [];
@@ -253,6 +254,12 @@ function bckcell() {
 
             cellref = meshes[0]; // sets reference to this variable
         });
+        BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
+            meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+            riboref = meshes[0];
+    
+            riboref.position = new BABYLON.Vector3(1, -0.1, 1.9);
+        });
     }
 }
 
@@ -403,6 +410,36 @@ var createScene = function (canvas, engine) {
             camera.inertialRadiusOffset += 4;
         })
     );
+
+    ribomat = new BABYLON.StandardMaterial("ribomat", scene);
+
+    // Creates parts of the cells using .CreateSphere and handles what to do when the user clicks on that part of the cell
+    const ribosome = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 0.1, segments: 32 }, scene);
+    ribosome.position.set(1, 0.2, 1.9);
+    ribosome.material = ribomat;
+    cellmeshes.push(ribosome); // adds membrane to cellmeshes array
+    ribosome.actionManager = new BABYLON.ActionManager(scene);
+    ribosome.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+            camera.lowerRadiusLimit = 2;
+            Swal.fire({
+                title: "Ribosome",
+                text: "Ribosomes, complexes made of ribosomal RNA (rRNA) and protein, carry out protein synthesis in cells. They are made up of a larger top subunit and a smaller bottom subunit. These both interact with mRNA and tRNA molecules to perform translation. High rates of protein synthesis are associated with an abundance of ribosomes. Ribosomes function in two cytoplasmic locations: free ribosomes in the cytosol and bound ribosomes attached to the rough endoplasmic reticulum or nuclear envelope. Both bound and free ribosomes are structurally identical and can switch roles. Free ribosomes produce proteins for the cytosol, such as enzymes catalyzing sugar breakdown, while bound ribosomes create proteins for membrane insertion, packaging within organelles, or cell export, common in cells specialized in protein secretion, like the pancreas cells that secrete digestive enzymes.",
+                icon: "question",
+                background: "black",
+                color: "white",
+                backdrop: false,
+            });
+            camera.target = ribosome;
+            camera.inertialRadiusOffset += 4;
+        })
+    );
+    BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
+        meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+        riboref = meshes[0];
+
+        riboref.position = new BABYLON.Vector3(1, -0.1, 1.9);
+    });
 
     // tells each item in the cellmeshes array what to do when the mouse cursor hovers over and moves away from the part
 
@@ -802,6 +839,8 @@ function loadhuman() {
     showSkeletal.textContent = "Show Skeletal";
     BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
         cellref.dispose();
+        riboref.dispose();
+
         try {
             brainref.dispose();
         } catch (err) {}
