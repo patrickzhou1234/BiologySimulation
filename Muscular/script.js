@@ -13,7 +13,7 @@ const createScene = function () {
     // Dim the light a small amount - 0 to 1
     light.intensity = 0.7;
     // Built-in 'sphere' shape.
-    BABYLON.SceneLoader.ImportMesh("", "/Muscular/models/", "muscles.glb", scene, function (meshes) {
+    BABYLON.SceneLoader.ImportMesh("", "", "models/muscles.glb", scene, function (meshes) {
         meshes[0].scaling = new BABYLON.Vector3(2500, 2500, 2500);
     });
     // Built-in 'ground' shape.
