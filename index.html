@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
     <title>Biology Sim</title>
-    <link rel="stylesheet" href="mui.css">
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="slide-in-pane_style.css">
-    <link rel="stylesheet" href="slide-in-panel_css_demo.css">
+    <link rel="stylesheet" href="static/mui.css">
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="static/slide-in-pane_style.css">
+    <link rel="stylesheet" href="static/slide-in-panel_css_demo.css">
     <script src="babylon.js"></script>
     <script src="babylonjs.loaders.min.js"></script>
     <script src="mui.js"></script>
@@ -28,6 +28,8 @@
     <button onclick="loadbrain()" id="brainbtn" style="display: none;" class="mui-btn mui-btn--primary brainbtns">3d Model</button>
     <button onclick="loadgolgi()" id="golgismlbtn" style="display: none;" class="mui-btn mui-btn--primary golgismlbtns">3d Model</button>
     <button onclick = "loadpanel()" style="display: none;" id="panelbtn" class="mui-btn mui-btn--primary largeBtn">Brain Hierarchy</button>
+    <button onclick = "loadSkeletal()" style="display: none;" id="skeletal" class="mui-btn mui-btn--primary largeBtn">Show Skeletal</button>
+
     <canvas id="babcanv"></canvas>
     <div class="cd-panel cd-panel--from-right js-cd-panel-main">
       <header class="cd-panel__header">

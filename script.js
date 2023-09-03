@@ -35,6 +35,7 @@ golgismlbtns = document.querySelectorAll(".golgismlbtns");
 brainbtns = document.querySelectorAll(".brainbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
+showSkeletal = document.getElementById("skeletal");
 lobes = document.getElementById("lobes");
 brainDivisions = document.getElementById("brainDivisions");
 panelbtn = document.getElementById("panelbtn");
@@ -43,6 +44,7 @@ let memref = 0;
 let phoref = 0;
 let humref = 0;
 let brainref = 0;
+let skeltalref = 0;
 let lobesref = 0;
 let brainDivisionsref = 0;
 let lobemeshes = [];
@@ -195,10 +197,18 @@ function checkvishuman() {
     return false;
 }
 
+function checkvisskeletal() {
+    if (!showSkeletal.classList.contains("animobtn") && backHuman.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+        return true;
+    }
+    return false;
+}
+
 function bckcell() {
     if (!backcell.classList.contains("animobtn")) {
         hidebtn(backcell);
         showbtn(backHuman);
+        hidebtn(showSkeletal);
 
         for (i = 0; i < cellmeshes.length; i++) {
             cellmeshes[i].visibility = 1;
@@ -208,7 +218,7 @@ function bckcell() {
         }
         showui();
         camera.lowerRadiusLimit = 5; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
-        BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
             // imports 3D mesh
             // deletes the memref and phoref variables if they exist
             try {
@@ -223,6 +233,9 @@ function bckcell() {
             try {
                 brainref.dispose();
             } catch (err) {}
+            try {
+                skeletalref.dispose();
+            } catch(err) {}
 
             hideui();
 
@@ -252,7 +265,7 @@ var createScene = function (canvas, engine) {
 
     light.intensity = 0.7; // sets intesity of light
 
-    BABYLON.SceneLoader.ImportMesh("", "", "animal_cell.glb", scene, function (meshes) {
+    BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
         // imports mesh from animal_cell.glb
         camera.target = meshes[0]; // sets camera target to first element of meshes array
         hideui();
@@ -276,7 +289,7 @@ var createScene = function (canvas, engine) {
                 icon: "question",
                 background: "black",
                 color: "white",
-                imageUrl: "cellmembrane.png",
+                imageUrl: "images/cellmembrane.png",
                 imageWidth: window.innerWidth * 0.5,
                 imageHeight: window.innerHeight * 0.5,
                 width: window.innerWidth * 0.8,
@@ -293,7 +306,6 @@ var createScene = function (canvas, engine) {
             camera.inertialRadiusOffset += 4;
         })
     );
-
     mitomat = new BABYLON.StandardMaterial("mito", scene);
 
     mito = BABYLON.MeshBuilder.CreateSphere("mito", { diameter: 0.25, segments: 32 }, scene);
@@ -394,7 +406,7 @@ function membraneclicked() {
         // checks visibility
         showui();
         clickcond(0); // has the membrane be semi-transparent and have a not allowed cursor
-        BABYLON.SceneLoader.ImportMesh("", "", "cell_membrane.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/cell_membrane.glb", scene, function (meshes) {
             // imports 3D model
             cellref.dispose(); // rids of cellref
             try {
@@ -413,7 +425,7 @@ function phosphoclicked() {
     if (checkvis(1)) {
         showui();
         clickcond(1);
-        BABYLON.SceneLoader.ImportMesh("", "", "phospho_sama.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/phospho_sama.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 humref.dispose();
@@ -433,7 +445,7 @@ function phosphoclicked2() {
         document.getElementById("swal2-html-container").innerHTML = "<ul>Selective permeability</ul><ul>Passive transport</ul><ul>Active transport</ul><ul>Facilitated transport</ul>";
         showui();
         clickcond(2);
-        BABYLON.SceneLoader.ImportMesh("", "", "phospholipid.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/phospholipid.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 humref.dispose();
@@ -453,7 +465,7 @@ function openchannel() {
     if (checkvis(3)) {
         showui();
         clickcond(3);
-        BABYLON.SceneLoader.ImportMesh("", "", "openchannel.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/openchannel.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 humref.dispose();
@@ -472,7 +484,7 @@ function loadmito() {
     if (checkvismito(0)) {
         showui();
         clickcondmito(0);
-        BABYLON.SceneLoader.ImportMesh("", "", "mitocondrias.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/mitocondrias.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 humref.dispose();
@@ -491,7 +503,7 @@ function loadgolgi() {
     if (checkvisgolgi(0)) {
         showui();
         clickcondgolgi(0);
-        BABYLON.SceneLoader.ImportMesh("", "", "golgi.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/golgi.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 humref.dispose();
@@ -522,13 +534,17 @@ function displayLobes() {
         brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         lobes.textContent = "Hide Cerebral Cortex (Lobes)";
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             // change brain.glb to the file name with the brain model corresponding to lobes
             brainref.dispose();
             hideui();
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             lobesref = meshes[0];
+
+            console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
+
+            console.log(camera.position.x, camera.position.y, camera.position.z);
 
             // Frontal Lobe
             frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
@@ -655,7 +671,7 @@ function displayLobes() {
 
         lobesref.dispose();
 
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             try {
                 humref.dispose();
             } catch (err) {}
@@ -679,13 +695,23 @@ function displayBrainDivisions() {
         lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
         brainDivisions.textContent = "Hide Brain Divisions";
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/halfbrain.glb", scene, function (meshes) {
             // change brain.glb to the file name with the brain model corresponding to brain divisions
             brainref.dispose();
             hideui();
 
-            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
+
+            meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
             brainDivisionsref = meshes[0];
+
+            console.log(camera.position.x, camera.position.y, camera.position.z);
+
+            
+            console.log(camera.position.x, camera.position.y, camera.position.z);
+
+
+
         });
     } else if (lobes.textContent == "Hide Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Show Brain Divisions") {
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
@@ -698,7 +724,7 @@ function displayBrainDivisions() {
 
         brainDivisionsref.dispose();
 
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             try {
                 humref.dispose();
             } catch (err) {}
@@ -706,7 +732,7 @@ function displayBrainDivisions() {
                 lobesref.dispose();
             } catch (err) {}
             try {
-                brainDivisionsref.dispose();
+                brainref.dispose();
             } catch (err) {}
 
             hideui();
@@ -722,7 +748,10 @@ function loadbrain() {
     if (checkvisbrain(0)) {
         showui();
         clickcondbrain(0);
-        BABYLON.SceneLoader.ImportMesh("", "", "brain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
+            console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
+
+            console.log(camera.position.x, camera.position.y, camera.position.z);
             try {
                 humref.dispose();
             } catch (err) {}
@@ -732,6 +761,9 @@ function loadbrain() {
             try {
                 brainDivisionsref.dispose();
             } catch (err) {}
+            try {
+                skeletalref.dispose();
+            } catch(err) {}
 
             hideui();
 
@@ -747,14 +779,15 @@ function loadbrain() {
         showbtn(brainDivisions);
         showbtn(panelbtn);
         hidebtn(backcell);
+        hidebtn(showSkeletal);
     }
 }
 
 function loadhuman() {
-    if (checkvishuman()) {
+  //  if (checkvishuman()) {
         showui();
         clickcondhuman();
-        BABYLON.SceneLoader.ImportMesh("", "", "human.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
             cellref.dispose();
             try {
                 brainref.dispose();
@@ -779,6 +812,7 @@ function loadhuman() {
         hidebtn(brainDivisions);
         hidebtn(panelbtn);
         showbtn(backcell);
+        showbtn(showSkeletal);
 
         brainmat = new BABYLON.StandardMaterial("brain", scene);
 
@@ -814,6 +848,39 @@ function loadhuman() {
         for (i = 0; i < humanmeshes.length; i++) {
             orgsettings(humanmeshes[i]);
         }
+    //}
+}
+
+function loadSkeletal() {
+    if(checkvisskeletal()){
+        if (showSkeletal.textContent == "Show Skeletal") {
+            showSkeletal.textContent = "Hide Skeletal";
+            camera = new BABYLON.ArcRotateCamera("camera", 4.7, 1.25, 127, new BABYLON.Vector3(0, 0, 0), scene);
+            //camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 0, new BABYLON.Vector3.Zero(), scene);
+            camera.attachControl(canvas, true);
+            // Creates a light, aiming 0,1,0 - to the sky
+            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+            // Dim the light a small amount - 0 to 1
+            light.intensity = 0.7;
+
+            scene.activeCamera = camera;
+
+            // Built-in 'sphere' shape.
+            humref.dispose();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            BABYLON.SceneLoader.ImportMesh("", "", "models/skeletal.glb", scene, function (meshes) {
+                meshes[0].scaling = new BABYLON.Vector3(6,6,6);
+    
+                skeletalref = meshes[0];
+            });
+        } else {
+            skeletalref.dispose();
+            showSkeletal.textContent = "Show Skeletal";
+            loadhuman();
+        }
+       
     }
 }
 
