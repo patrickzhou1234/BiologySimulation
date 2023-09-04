@@ -485,6 +485,9 @@ function membraneclicked() {
             try {
                 humref.dispose();
             } catch (err) {}
+            try {
+                riboref.dispose();
+            } catch (err) {}
             hideui();
             camera.target = meshes[0]; // sets camera target
             memref = meshes[0]; // sets reference of this membrane to memref
@@ -500,6 +503,9 @@ function phosphoclicked() {
         clickcond(1);
         BABYLON.SceneLoader.ImportMesh("", "", "models/phospho_sama.glb", scene, function (meshes) {
             cellref.dispose();
+            try {
+                riboref.dispose();
+            } catch (err) {}
             try {
                 humref.dispose();
             } catch (err) {}
@@ -523,6 +529,9 @@ function phosphoclicked2() {
             try {
                 humref.dispose();
             } catch (err) {}
+            try {
+                riboref.dispose();
+            } catch (err) {}
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
             camera.target = meshes[0];
@@ -543,6 +552,9 @@ function openchannel() {
             try {
                 humref.dispose();
             } catch (err) {}
+            try {
+                riboref.dispose();
+            } catch (err) {}
             hideui();
             camera.target = meshes[0];
             // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
@@ -562,6 +574,9 @@ function loadmito() {
             try {
                 humref.dispose();
             } catch (err) {}
+            try {
+                riboref.dispose();
+            } catch (err) {}
             hideui();
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
@@ -580,6 +595,9 @@ function loadgolgi() {
             cellref.dispose();
             try {
                 humref.dispose();
+            } catch (err) {}
+            try {
+                riboref.dispose();
             } catch (err) {}
             hideui();
 
@@ -850,7 +868,9 @@ function loadhuman() {
     showSkeletal.textContent = "Show Skeletal";
     BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
         cellref.dispose();
-        riboref.dispose();
+        try {
+            riboref.dispose();
+        } catch (err) {}
         try {
             heartref.dispose();
         } catch (err) {}
