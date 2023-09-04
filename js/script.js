@@ -33,6 +33,7 @@ roundbtns = document.querySelectorAll(".smlbtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 golgismlbtns = document.querySelectorAll(".golgismlbtns");
 brainbtns = document.querySelectorAll(".brainbtns");
+heartbtns = document.querySelectorAll(".heartbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 showSkeletal = document.getElementById("skeletal");
@@ -91,6 +92,9 @@ brainbtns.forEach((el) => {
     el.classList.add("animobtn");
 });
 roundbtns.forEach((el) => {
+    el.classList.add("animobtn");
+});
+heartbtns.forEach((el) => {
     el.classList.add("animobtn");
 });
 backcell.classList.add("animobtn");
@@ -163,6 +167,19 @@ function clickcondbrain(ind) {
     }
 }
 
+function clickcondheart(ind) {
+    for (i = 0; i < humanmeshes.length; i++) {
+        humanmeshes[i].visibility = 0;
+    }
+    for (i = 0; i < heartbtns.length; i++) {
+        if (i != ind) {
+            hidebtn(heartbtns[i]);
+        } else {
+            heartbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        }
+    }
+}
+
 // checks visibility of ind element in specified arrays: checks if the element does not have "animobtn" and an opaque buttin since they're only in hidden elements
 
 function checkvis(ind) {
@@ -188,6 +205,13 @@ function checkvisgolgi(ind) {
 
 function checkvisbrain(ind) {
     if (!brainbtns[ind].classList.contains("animobtn") && brainbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+        return true;
+    }
+    return false;
+}
+
+function checkvisheart(ind) {
+    if (!heartbtns[ind].classList.contains("animobtn") && heartbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
         return true;
     }
     return false;
@@ -226,7 +250,7 @@ function bckcell() {
             humanmeshes[i].visibility = 0;
         }
         showui();
-        camera.lowerRadiusLimit = 5; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
+        camera.lowerRadiusLimit = 2; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
         BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
             // imports 3D mesh
             // deletes the memref and phoref variables if they exist
@@ -257,7 +281,7 @@ function bckcell() {
         BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
             meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
             riboref = meshes[0];
-    
+
             riboref.position = new BABYLON.Vector3(1, -0.1, 1.9);
         });
     }
@@ -275,7 +299,7 @@ var createScene = function (canvas, engine) {
     camera.wheelPrecision = 50; // sets wheel precision for when scrolling with mouse
 
     // upper and lower bounds for camera distance from model
-    camera.lowerRadiusLimit = 5;
+    camera.lowerRadiusLimit = 2;
     camera.upperRadiusLimit = 20;
 
     camera.radius = 5;
@@ -593,10 +617,6 @@ function displayLobes() {
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             lobesref = meshes[0];
 
-            console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
-
-            console.log(camera.position.x, camera.position.y, camera.position.z);
-
             // Frontal Lobe
             frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
             const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
@@ -752,14 +772,8 @@ function displayBrainDivisions() {
             brainref.dispose();
             hideui();
 
-            console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
-
             meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
             brainDivisionsref = meshes[0];
-
-            console.log(camera.position.x, camera.position.y, camera.position.z);
-
-            console.log(camera.position.x, camera.position.y, camera.position.z);
         });
     } else {
         lobes.setAttribute("style", "");
@@ -795,9 +809,6 @@ function loadbrain() {
         showui();
         clickcondbrain(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
-            console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
-
-            console.log(camera.position.x, camera.position.y, camera.position.z);
             try {
                 humref.dispose();
             } catch (err) {}
@@ -902,10 +913,58 @@ function loadhuman() {
         })
     );
 
+    heart = BABYLON.MeshBuilder.CreateSphere("heart", { diameter: 0.25, segments: 32 }, scene);
+
+    humanmeshes.push(heart);
+    heart.position.set(0.25, 1.4, -0.5);
+    heart.material = brainmat;
+    heart.actionManager = new BABYLON.ActionManager(scene);
+    heart.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+            camera.lowerRadiusLimit = 2;
+            Swal.fire({
+                title: "Heart",
+                text: "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.",
+                icon: "question",
+                background: "black",
+                color: "white",
+                backdrop: false,
+            }).then(function () {
+                heartbtns.forEach((el) => {
+                    hidebtn(el);
+                });
+            });
+            heartbtns.forEach((el) => {
+                showbtn(el);
+            });
+            camera.target = heart;
+            camera.inertialRadiusOffset += 4;
+        })
+    );
+
     for (i = 0; i < humanmeshes.length; i++) {
         orgsettings(humanmeshes[i]);
     }
-    //}
+}
+
+function loadheart() {
+    if (checkvisheart(0)) {
+        showui();
+        clickcondheart(0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/heart.glb", scene, function (meshes) {
+            humref.dispose();
+            try {
+                humref.dispose();
+            } catch (err) {}
+            hideui();
+            camera.target = meshes[0];
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            phoref = meshes[0];
+        });
+        camera.position = new BABYLON.Vector3(80, 1.5, 50);
+        showbtn(backHuman);
+        hidebtn(backcell);
+    }
 }
 
 function loadSkeletal() {
@@ -956,8 +1015,6 @@ function loadNeuron() {
 
                 camera.upperRadiusLimit = 100;
                 camera.radius = 100;
-
-                console.log("radius: " + camera.radius + " upperlimit: " + camera.upperRadiusLimit + " lowerlimit: " + camera.lowerRadiusLimit);
             });
         } else {
             neuronref.dispose();
@@ -968,10 +1025,6 @@ function loadNeuron() {
             showNeuron.textContent = "Show Neuron";
 
             BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
-                console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
-
-                console.log(camera.position.x, camera.position.y, camera.position.z);
-
                 hideui();
 
                 meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
