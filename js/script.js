@@ -851,7 +851,9 @@ function loadhuman() {
     BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
         cellref.dispose();
         riboref.dispose();
-
+        try {
+            heartref.dispose();
+        } catch (err) {}
         try {
             brainref.dispose();
         } catch (err) {}
@@ -959,11 +961,12 @@ function loadheart() {
             hideui();
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
-            phoref = meshes[0];
+            heartref = meshes[0];
         });
         camera.position = new BABYLON.Vector3(80, 1.5, 50);
         showbtn(backHuman);
         hidebtn(backcell);
+        hidebtn(showSkeletal);
     }
 }
 
