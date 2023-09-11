@@ -4,7 +4,7 @@ const createScene = function () {
     // Creates a basic Babylon Scene object
     const scene = new BABYLON.Scene(engine);
     // Creates and positions a free camera
-    camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 10, new BABYLON.Vector3.Zero(), scene);
+    camera = new BABYLON.ArcRotateCamera("camera", 0,0,0, new BABYLON.Vector3(0,7,0), scene);
     //camera = new BABYLON.ArcRotateCamera("camera", 0, 0, 0, new BABYLON.Vector3.Zero(), scene);
     camera.setTarget(new BABYLON.Vector3(0, 0, 0));
     camera.attachControl(canvas, true);
@@ -14,8 +14,15 @@ const createScene = function () {
     light.intensity = 0.7;
     // Built-in 'sphere' shape.
     //const neuron = BABYLON.SceneLoader.ImportMeshAsync("", "/models/", "neuron.glb");
-    BABYLON.SceneLoader.ImportMesh("", "", "rough_er.glb", scene, function (meshes) {
-        meshes[0].scaling = new BABYLON.Vector3(6, 6, 6);
+    camera.upperRadiusLimit = 100;
+
+    camera.radius = 100;
+    BABYLON.SceneLoader.ImportMesh("", "", "halfbrain.glb", scene, function (meshes) {
+        meshes[0].scaling = new BABYLON.Vector3(20, 20, 20);
+        camera.setTarget(meshes[0]);
+        
+
+        //camera.radius = 100;
     });
     // Built-in 'ground' shape.
     //neuron.scaling = new BABYLON.Vector3(0.000001,0.0000001,0.0000001)

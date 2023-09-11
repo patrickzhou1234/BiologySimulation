@@ -749,17 +749,20 @@ function displayBrainDivisions() {
         brainDivisions.textContent = "Hide Brain Divisions";
         BABYLON.SceneLoader.ImportMesh("", "", "models/halfbrain.glb", scene, function (meshes) {
             // change brain.glb to the file name with the brain model corresponding to brain divisions
+            meshes[0].scaling = new BABYLON.Vector3(1000, 1000, 1000);
             brainref.dispose();
             hideui();
 
             console.log(meshes[0].position.x, meshes[0].position.y, meshes[0].position.z);
 
-            meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
+            camera.position =  new BABYLON.Vector3(0,0,0);
+            camera.target = new BABYLON.Vector3(0,0,0);
+
             brainDivisionsref = meshes[0];
 
             console.log(camera.position.x, camera.position.y, camera.position.z);
 
-            console.log(camera.position.x, camera.position.y, camera.position.z);
+
         });
     } else {
         lobes.setAttribute("style", "");
