@@ -14,7 +14,7 @@ const createScene = function () {
     light.intensity = 0.7;
     // Built-in 'sphere' shape.
     //const neuron = BABYLON.SceneLoader.ImportMeshAsync("", "/models/", "neuron.glb");
-    BABYLON.SceneLoader.ImportMesh("", "/Heart/model/", "heart.glb", scene, function (meshes) {
+    BABYLON.SceneLoader.ImportMesh("", "", "model/heart.glb", scene, function (meshes) {
         meshes[0].scaling = new BABYLON.Vector3(15, 15, 15);
     });
     // Built-in 'ground' shape.
