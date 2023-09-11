@@ -210,3 +210,18 @@ img {
   left: 5vh;
   top: 30vh;  
 }
+
+.heartbtns {
+  z-index: 99999999;
+  font-family: 'amazon-ember';
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s !important;
+  border-radius: 6px;
+}
+
+#heartbtn {
+  left: 5vh;
+  top: 48vh;
+}
