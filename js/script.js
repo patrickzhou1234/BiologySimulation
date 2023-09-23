@@ -1039,6 +1039,34 @@ function loadNeuron() {
                 camera.upperRadiusLimit = 100;
                 camera.radius = 100;
             });
+            console.log("r")
+            axonmat = new BABYLON.StandardMaterial("mito", scene);
+            axon = BABYLON.MeshBuilder.CreateSphere("axon", { diameter: 5, segments: 32 }, scene);
+    axon.position.set(-30, -5, 0);
+    axon.material = axonmat;
+    axon.actionManager = new BABYLON.ActionManager(scene);
+    axon.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+            camera.lowerRadiusLimit = 2;
+            Swal.fire({
+                title: "Axon",
+                text: "Axon: The axon is a lengthy projection that extends from the soma and is responsible for carrying signals to adjacent neurons. These signals travel down the axon as electrical impulses called action potentials. ",
+                icon: "question",
+                background: "black",
+                color: "white",
+                backdrop: false,
+            }).then(function () {
+                axonsmlbtns.forEach((el) => {
+                    hidebtn(el);
+                });
+            });
+            axonsmlbtns.forEach((el) => {
+                showbtn(el);
+            });
+            camera.target = axon;
+            camera.inertialRadiusOffset += 4;
+        })
+    );
         } else {
             neuronref.dispose();
             backHuman.setAttribute("style", "");
