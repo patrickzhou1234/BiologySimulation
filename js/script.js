@@ -1050,7 +1050,7 @@ function loadNeuron() {
             camera.lowerRadiusLimit = 2;
             Swal.fire({
                 title: "Axon",
-                text: "Axon: The axon is a lengthy projection that extends from the soma and is responsible for carrying signals to adjacent neurons. These signals travel down the axon as electrical impulses called action potentials. ",
+                text: "The axon is a projection that extends from the cell body (soma), and electrical signals called action potentials travel down it. Once action potentials reach the end of the axon, to endings called axon terminals, neurotransmitters (chemical messengers) are released into the synapse. The neurotransmitters released by the axon are received by dendrites of adjacent neurons, and the action potential cycle continues again.",
                 icon: "question",
                 background: "black",
                 color: "white",
