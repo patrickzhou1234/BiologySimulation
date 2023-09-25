@@ -225,3 +225,19 @@ img {
   left: 5vh;
   top: 48vh;
 }
+
+#search {
+  top: 2vh;
+  left: 140vh;
+}
+#dropdown {
+  position: relative;
+}
+#searchbox {
+  width: 190%;
+}
+
+.searchContent {
+  z-index: 1;
+  position: absolute;
+}
