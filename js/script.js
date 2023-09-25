@@ -1039,9 +1039,8 @@ function loadNeuron() {
                 camera.upperRadiusLimit = 100;
                 camera.radius = 100;
             });
-            console.log("r")
             axonmat = new BABYLON.StandardMaterial("mito", scene);
-            axon = BABYLON.MeshBuilder.CreateSphere("axon", { diameter: 5, segments: 32 }, scene);
+            axon = BABYLON.MeshBuilder.CreateSphere("axon", { diameter: 3, segments: 32 }, scene);
     axon.position.set(-30, -5, 0);
     axon.material = axonmat;
     axon.actionManager = new BABYLON.ActionManager(scene);
@@ -1062,8 +1061,63 @@ function loadNeuron() {
             });
             axonsmlbtns.forEach((el) => {
                 showbtn(el);
+               
             });
             camera.target = axon;
+            camera.inertialRadiusOffset += 4;
+        })
+    );
+    axot = BABYLON.MeshBuilder.CreateSphere("axot", { diameter: 3, segments: 32 }, scene);
+    axot.position.set(0, 2, 0);
+    axot.material = axonmat;
+    axot.actionManager = new BABYLON.ActionManager(scene);
+    axot.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+            camera.lowerRadiusLimit = 2;
+            Swal.fire({
+                title: "Axon terminal",
+                text: "Axon terminal: The axot is a lengthy projection that extends from the soma and is responsible for carrying signals to adjacent neurons. These signals travel down the axon as electrical impulses called action potentials. ",
+                icon: "question",
+                background: "black",
+                color: "white",
+                backdrop: false,
+            }).then(function () {
+                axonsmlbtns.forEach((el) => {
+                    hidebtn(el);
+                });
+            });
+            axonsmlbtns.forEach((el) => {
+                showbtn(el);
+               
+            });
+            camera.target = axot;
+            camera.inertialRadiusOffset += 4;
+        })
+    );
+    dend = BABYLON.MeshBuilder.CreateSphere("axot", { diameter: 3, segments: 32 }, scene);
+    dend.position.set(-60, -15, 10);
+    dend.material = axonmat;
+    dend.actionManager = new BABYLON.ActionManager(scene);
+    dend.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+            camera.lowerRadiusLimit = 2;
+            Swal.fire({
+                title: "dendrite",
+                text: "dendrite: The axot is a lengthy projection that extends from the soma and is responsible for carrying signals to adjacent neurons. These signals travel down the axon as electrical impulses called action potentials. ",
+                icon: "question",
+                background: "black",
+                color: "white",
+                backdrop: false,
+            }).then(function () {
+                axonsmlbtns.forEach((el) => {
+                    hidebtn(el);
+                });
+            });
+            axonsmlbtns.forEach((el) => {
+                showbtn(el);
+               
+            });
+            camera.target = axot;
             camera.inertialRadiusOffset += 4;
         })
     );
