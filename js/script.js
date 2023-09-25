@@ -46,7 +46,7 @@ let memref = 0;
 let phoref = 0;
 let humref = 0;
 let brainref = 0;
-let skeltalref = 0;
+let skeletalref = 0;
 let neuronref = 0;
 let riboref = 0;
 let lobesref = 0;
@@ -237,7 +237,7 @@ function checkvisneuron() {
     }
     return false;
 }
-function bckcell() {
+function loadcell() {
     if (!backcell.classList.contains("animobtn")) {
         hidebtn(backcell);
         showbtn(backHuman);
@@ -870,7 +870,12 @@ function loadhuman() {
     clickcondhuman();
     showSkeletal.textContent = "Show Skeletal";
     BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
-        cellref.dispose();
+        try {
+            cellref.dispose();
+        } catch(err) {};
+        try {
+            skeletalref.dispose();
+        } catch(err) {};        
         try {
             riboref.dispose();
         } catch (err) {}
@@ -993,14 +998,20 @@ function loadheart() {
     }
 }
 
-function loadSkeletal() {
+function loadskeletal() {
     if (checkvisskeletal()) {
         if (showSkeletal.textContent == "Show Skeletal") {
             showSkeletal.textContent = "Hide Skeletal";
             camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
             camera.target = new BABYLON.Vector3(0, -0.25, 0);
             camera.radius = 20;
-            humref.dispose();
+            try{
+                humref.dispose();
+            } catch(err) {};
+            try {
+                cellref.dispose();
+            } catch(err) {};
+            
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
@@ -1017,7 +1028,7 @@ function loadSkeletal() {
     }
 }
 
-function loadNeuron() {
+function loadneuron() {
     if (checkvisneuron()) {
         if (showNeuron.textContent == "Show Neuron") {
             showNeuron.textContent = "Hide Neuron";
@@ -1065,6 +1076,16 @@ function loadNeuron() {
     }
 }
 
+// Only works for the parts that have a singular button
+// Ex. heart is a querySelectorAll but skeletal is getElementById -> skeletal works but heart doesnt
+// ^^ in the defintions at the top
+
+// Skeletal -> Cell or Cell -> Skeletal not working
+function search(value) {
+    console.log("load" + value + "()")
+    eval("load" + value + "()");
+
+}
 const scene = createScene();
 
 engine.runRenderLoop(function () {
