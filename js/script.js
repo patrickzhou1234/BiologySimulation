@@ -1089,8 +1089,8 @@ function loadneuron() {
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
             camera.lowerRadiusLimit = 2;
             Swal.fire({
-                title: "Axon terminal",
-                text: "Axon terminal: The axot is a lengthy projection that extends from the soma and is responsible for carrying signals to adjacent neurons. These signals travel down the axon as electrical impulses called action potentials. ",
+                title: "Axon Terminal",
+                text: "Towards their ends, axons branch out into several smaller branches known as axon terminals. Each axon terminal contains small structures called synaptic vesicles. These vesicles are like tiny pods that store and release neurotransmitters, which are chemical messengers that transmit signals between the axon of one neuron and the dendrite of another, when stimulated by action potentials traveling down the axon. ",
                 icon: "question",
                 background: "black",
                 color: "white",
@@ -1116,8 +1116,8 @@ function loadneuron() {
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
             camera.lowerRadiusLimit = 2;
             Swal.fire({
-                title: "dendrite",
-                text: "dendrite: The axot is a lengthy projection that extends from the soma and is responsible for carrying signals to adjacent neurons. These signals travel down the axon as electrical impulses called action potentials. ",
+                title: "Dendrite",
+                text: "Dendrites are branch-like structures that extend from the soma (cell body). Their primary function is to receive signals in the form of neurotransmitters from the axons of neighboring neurons. These signals are then transmitted electrically across to the soma, where they are processed, and then further down into the axon. ",
                 icon: "question",
                 background: "black",
                 color: "white",
