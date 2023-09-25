@@ -53,6 +53,7 @@ let lobesref = 0;
 let brainDivisionsref = 0;
 let lobemeshes = [];
 let brainDivisionsMeshes = [];
+let neuronmeshes = [];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -791,8 +792,8 @@ function displayBrainDivisions() {
             brainref.dispose();
             hideui();
 
-            camera.position =  new BABYLON.Vector3(0,0,0);
-            camera.target = new BABYLON.Vector3(0,0,0);
+            camera.position = new BABYLON.Vector3(0, 0, 0);
+            camera.target = new BABYLON.Vector3(0, 0, 0);
 
             brainDivisionsref = meshes[0];
         });
@@ -872,10 +873,10 @@ function loadhuman() {
     BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
         try {
             cellref.dispose();
-        } catch(err) {};
+        } catch (err) {}
         try {
             skeletalref.dispose();
-        } catch(err) {};        
+        } catch (err) {}
         try {
             riboref.dispose();
         } catch (err) {}
@@ -913,6 +914,7 @@ function loadhuman() {
     showbtn(showSkeletal);
 
     brainmat = new BABYLON.StandardMaterial("brain", scene);
+    heartmat = new BABYLON.StandardMaterial("heartmat", scene);
 
     brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
 
@@ -947,7 +949,7 @@ function loadhuman() {
 
     humanmeshes.push(heart);
     heart.position.set(0.25, 1.4, -0.5);
-    heart.material = brainmat;
+    heart.material = heartmat;
     heart.actionManager = new BABYLON.ActionManager(scene);
     heart.actionManager.registerAction(
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
@@ -1005,13 +1007,13 @@ function loadskeletal() {
             camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
             camera.target = new BABYLON.Vector3(0, -0.25, 0);
             camera.radius = 20;
-            try{
+            try {
                 humref.dispose();
-            } catch(err) {};
+            } catch (err) {}
             try {
                 cellref.dispose();
-            } catch(err) {};
-            
+            } catch (err) {}
+
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
@@ -1053,90 +1055,78 @@ function loadneuron() {
                 camera.upperRadiusLimit = 100;
                 camera.radius = 100;
             });
-            axonmat = new BABYLON.StandardMaterial("mito", scene);
+            axonmat = new BABYLON.StandardMaterial("axot", scene);
             axon = BABYLON.MeshBuilder.CreateSphere("axon", { diameter: 3, segments: 32 }, scene);
-    axon.position.set(-30, -5, 0);
-    axon.material = axonmat;
-    axon.actionManager = new BABYLON.ActionManager(scene);
-    axon.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: "Axon",
-                text: "The axon is a projection that extends from the cell body (soma), and electrical signals called action potentials travel down it. Once action potentials reach the end of the axon, to endings called axon terminals, neurotransmitters (chemical messengers) are released into the synapse. The neurotransmitters released by the axon are received by dendrites of adjacent neurons, and the action potential cycle continues again.",
-                icon: "question",
-                background: "black",
-                color: "white",
-                backdrop: false,
-            }).then(function () {
-                axonsmlbtns.forEach((el) => {
-                    hidebtn(el);
-                });
-            });
-            axonsmlbtns.forEach((el) => {
-                showbtn(el);
-               
-            });
-            camera.target = axon;
-            camera.inertialRadiusOffset += 4;
-        })
-    );
-    axot = BABYLON.MeshBuilder.CreateSphere("axot", { diameter: 3, segments: 32 }, scene);
-    axot.position.set(0, 2, 0);
-    axot.material = axonmat;
-    axot.actionManager = new BABYLON.ActionManager(scene);
-    axot.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: "Axon Terminal",
-                text: "Towards their ends, axons branch out into several smaller branches known as axon terminals. Each axon terminal contains small structures called synaptic vesicles. These vesicles are like tiny pods that store and release neurotransmitters, which are chemical messengers that transmit signals between the axon of one neuron and the dendrite of another, when stimulated by action potentials traveling down the axon. ",
-                icon: "question",
-                background: "black",
-                color: "white",
-                backdrop: false,
-            }).then(function () {
-                axonsmlbtns.forEach((el) => {
-                    hidebtn(el);
-                });
-            });
-            axonsmlbtns.forEach((el) => {
-                showbtn(el);
-               
-            });
-            camera.target = axot;
-            camera.inertialRadiusOffset += 4;
-        })
-    );
-    dend = BABYLON.MeshBuilder.CreateSphere("axot", { diameter: 3, segments: 32 }, scene);
-    dend.position.set(-60, -15, 10);
-    dend.material = axonmat;
-    dend.actionManager = new BABYLON.ActionManager(scene);
-    dend.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: "Dendrite",
-                text: "Dendrites are branch-like structures that extend from the soma (cell body). Their primary function is to receive signals in the form of neurotransmitters from the axons of neighboring neurons. These signals are then transmitted electrically across to the soma, where they are processed, and then further down into the axon. ",
-                icon: "question",
-                background: "black",
-                color: "white",
-                backdrop: false,
-            }).then(function () {
-                axonsmlbtns.forEach((el) => {
-                    hidebtn(el);
-                });
-            });
-            axonsmlbtns.forEach((el) => {
-                showbtn(el);
-               
-            });
-            camera.target = axot;
-            camera.inertialRadiusOffset += 4;
-        })
-    );
+            axon.position.set(-30, -5, 0);
+            axon.material = axonmat;
+            axon.actionManager = new BABYLON.ActionManager(scene);
+            axon.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Axon",
+                        text: "The axon is a projection that extends from the cell body (soma), and electrical signals called action potentials travel down it. Once action potentials reach the end of the axon, to endings called axon terminals, neurotransmitters (chemical messengers) are released into the synapse. The neurotransmitters released by the axon are received by dendrites of adjacent neurons, and the action potential cycle continues again.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = axon;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+            neuronmeshes.push(axon);
+            axotmat = new BABYLON.StandardMaterial("axot", scene);
+            axot = BABYLON.MeshBuilder.CreateSphere("axot", { diameter: 3, segments: 32 }, scene);
+            axot.position.set(0, 2, 0);
+            axot.material = axotmat;
+            axot.actionManager = new BABYLON.ActionManager(scene);
+            axot.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Axon Terminal",
+                        text: "Towards their ends, axons branch out into several smaller branches known as axon terminals. Each axon terminal contains small structures called synaptic vesicles. These vesicles are like tiny pods that store and release neurotransmitters, which are chemical messengers that transmit signals between the axon of one neuron and the dendrite of another, when stimulated by action potentials traveling down the axon. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = axot;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+            neuronmeshes.push(axot);
+            dendmat = new BABYLON.StandardMaterial("axot", scene);
+            dend = BABYLON.MeshBuilder.CreateSphere("dend", { diameter: 3, segments: 32 }, scene);
+            dend.position.set(-60, -15, 10);
+            dend.material = dendmat;
+            dend.actionManager = new BABYLON.ActionManager(scene);
+            dend.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Dendrite",
+                        text: "Dendrites are branch-like structures that extend from the soma (cell body). Their primary function is to receive signals in the form of neurotransmitters from the axons of neighboring neurons. These signals are then transmitted electrically across to the soma, where they are processed, and then further down into the axon. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = dend;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+            neuronmeshes.push(dend);
+            for (i = 0; i < neuronmeshes.length; i++) {
+                orgsettings(neuronmeshes[i]);
+            }
         } else {
             neuronref.dispose();
+            for (i = 0; i < neuronmeshes.length; i++) {
+                neuronmeshes[i].dispose();
+            }
+            neuronmeshes = [];
             backHuman.setAttribute("style", "");
             lobes.setAttribute("style", "");
             brainDivisions.setAttribute("style", "");
@@ -1164,9 +1154,8 @@ function loadneuron() {
 
 // Skeletal -> Cell or Cell -> Skeletal not working
 function search(value) {
-    console.log("load" + value + "()")
+    console.log("load" + value + "()");
     eval("load" + value + "()");
-
 }
 const scene = createScene();
 
