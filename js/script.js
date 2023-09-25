@@ -1053,6 +1053,34 @@ function loadneuron() {
                 camera.upperRadiusLimit = 100;
                 camera.radius = 100;
             });
+            console.log("r")
+            axonmat = new BABYLON.StandardMaterial("mito", scene);
+            axon = BABYLON.MeshBuilder.CreateSphere("axon", { diameter: 5, segments: 32 }, scene);
+    axon.position.set(-30, -5, 0);
+    axon.material = axonmat;
+    axon.actionManager = new BABYLON.ActionManager(scene);
+    axon.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+            camera.lowerRadiusLimit = 2;
+            Swal.fire({
+                title: "Axon",
+                text: "The axon is a projection that extends from the cell body (soma), and electrical signals called action potentials travel down it. Once action potentials reach the end of the axon, to endings called axon terminals, neurotransmitters (chemical messengers) are released into the synapse. The neurotransmitters released by the axon are received by dendrites of adjacent neurons, and the action potential cycle continues again.",
+                icon: "question",
+                background: "black",
+                color: "white",
+                backdrop: false,
+            }).then(function () {
+                axonsmlbtns.forEach((el) => {
+                    hidebtn(el);
+                });
+            });
+            axonsmlbtns.forEach((el) => {
+                showbtn(el);
+            });
+            camera.target = axon;
+            camera.inertialRadiusOffset += 4;
+        })
+    );
         } else {
             neuronref.dispose();
             backHuman.setAttribute("style", "");
