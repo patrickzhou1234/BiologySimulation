@@ -67,18 +67,18 @@
 }
 
 #memb {
-  left: 53vw;
-  top: 46vh;
+  left: 52vw;
+  top: 32vh;
 }
 
 #phospho {
   left: 49vw;
-  top: 41vh;
+  top: 28vh;
 }
 
 #channeltransport {
   left: 44vw;
-  top: 54vh;
+  top: 38vh;
 }
 
 .animbtn {
@@ -109,8 +109,8 @@ img {
 }
 
 #phospho2 {
-  left: 57vw;
-  top: 50vh;
+  left: 55vw;
+  top: 36vh;
 }
 
 .mitosmlbtns {
@@ -124,8 +124,8 @@ img {
 }
 
 #mitosmlbtn {
-  left: 46vw;
-  top: 20vh;
+  left: 45vw;
+  top: 80vh;
 }
 
 .golgismlbtns {
@@ -139,7 +139,7 @@ img {
 }
 
 #golgismlbtn {
-  left: 46vw;
+  left: 45vw;
   top: 80vh;
 }
 
@@ -154,7 +154,7 @@ img {
 }
 
 #brainbtn {
-  left: 46vw;
+  left: 45vw;
   top: 85vh;
 }
 
