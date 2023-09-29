@@ -1133,7 +1133,6 @@ function loadneuron() {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = sheath;
                     camera.inertialRadiusOffset += 4;
                 })
             );
@@ -1154,7 +1153,6 @@ function loadneuron() {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = node;
                     camera.inertialRadiusOffset += 4;
                 })
             );
@@ -1175,7 +1173,6 @@ function loadneuron() {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = synapse;
                     camera.inertialRadiusOffset += 4;
                 })
             );
