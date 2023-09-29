@@ -964,9 +964,6 @@ function loadneuron(val) {
     if (checkvisneuron() || val == 0) {
         if (showNeuron.textContent == "Show Neuron") {
             showNeuron.textContent = "Hide Neuron";
-            lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-            brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-            backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
             camera.position = new BABYLON.Vector3(10, 0, 120);
 
@@ -976,7 +973,17 @@ function loadneuron(val) {
                 el.visibility = 0;
             });*/
 
+            clearbtns();
             clear();
+            showbtn(backHuman);
+            backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+
+            showbtn(brainDivisions);
+            brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+            
+            showbtn(lobes);
+            lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+
             showbtn(panelbtn);
             showbtn(showNeuron);
 
@@ -1142,13 +1149,13 @@ function clear() {
 function clearbtns() {
     buttons.forEach((btn) => {
         hidebtn(btn);
-    })
+    });
 
     buttonArrays.forEach((ary) => {
         ary.forEach((btn) => {
             hidebtn(btn);
-        })
-    })
+        });
+    });
 }
 function search(value) {
     if (value == "cell") {
