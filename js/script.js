@@ -333,7 +333,6 @@ function cellSpheres() {
             Swal.fire({
                 title: "Cell Membrane",
                 text: "The cell membrane is composed primarily of a phospholipid bilayer, with other molecules such as proteins and cholesterol embedded. Phospholipids have 2 unsaturated fatty acid tails and one head. The phospholipid head is hydrophilic (it's attracted to water) and the 2 unsaturated fatty acid tails are hydrophobic (they repel water). The phospholipid bilayer has many kinks and bends in it. This allows the inside of the membrane to be fluid, meaning it can get more or less solid depending on outside conditions, such as temperature. This characteristic is mainly due to the cholesterol embedded. The many proteins in the membrane have a vast array of uses, some including being used for transport, attachment, and signaling.",
-                icon: "question",
                 background: "black",
                 color: "white",
                 imageUrl: "images/cellmembrane.png",
@@ -1055,6 +1054,27 @@ function loadneuron(val) {
                 })
             );
             neuronmeshes.push(dend);
+            Somamat = new BABYLON.StandardMaterial("Soma", scene);
+            Soma = BABYLON.MeshBuilder.CreateSphere("axon", { diameter: 3, segments: 32 }, scene);
+            Soma.position.set(-65, -15, 0);
+            Soma.material = axonmat;
+            Soma.actionManager = new BABYLON.ActionManager(scene);
+            Soma.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Soma",
+                        text: "The Soma is a projection that extends from the cell body (soma), and electrical signals called action potentials travel down it. Once action potentials reach the end of the axon, to endings called axon terminals, neurotransmitters (chemical messengers) are released into the synapse. The neurotransmitters released by the axon are received by dendrites of adjacent neurons, and the action potential cycle continues again.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = axon;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+            neuronmeshes.push(Soma);
             for (i = 0; i < neuronmeshes.length; i++) {
                 orgsettings(neuronmeshes[i]);
             }
