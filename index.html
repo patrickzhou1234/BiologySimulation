@@ -16,7 +16,7 @@
     <script src="js/stats.js"></script>
   </head>
   <body>
-    <button onclick = "loadhuman()" id="backHuman" class="mui-btn mui-btn--primary largeBtn">Go Back to Human</button>
+    <button onclick = "loadhuman(1)" id="backHuman" class="mui-btn mui-btn--primary largeBtn">Go Back to Human</button>
     <button onclick = "displayLobes()" id="lobes" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Show Cerebral Cortex (Lobes)</button>
     <button onclick = "displayBrainDivisions()" style="display: none;" id="brainDivisions" class="mui-btn mui-btn--primary largeBtn">Show Brain Divisions</button>
     <button onclick="loadcell()" id="backcell" class="mui-btn mui-btn--primary largeBtn">Go Back to Cell</button>
@@ -24,13 +24,13 @@
     <button onclick="phosphoclicked()" style="display: none;" id="phospho" class="mui-btn mui-btn--fab mui-btn--primary smlbtns">2</button>
     <button onclick="phosphoclicked2()" style="display: none;" id="phospho2" class="mui-btn mui-btn--fab mui-btn--primary smlbtns">3</button>
     <button onclick="openchannel()" style="display: none;" id="channeltransport" class="mui-btn mui-btn--fab mui-btn--primary smlbtns">4</button>
-    <button onclick="loadmito()" id="mitosmlbtn" style="display: none;" class="mui-btn mui-btn--primary mitosmlbtns">3d Model</button>
-    <button onclick="loadbrain()" id="brainbtn" style="display: none;" class="mui-btn mui-btn--primary brainbtns">3d Model</button>
-    <button onclick="loadgolgi()" id="golgismlbtn" style="display: none;" class="mui-btn mui-btn--primary golgismlbtns">3d Model</button>
+    <button onclick="loadmito(1)" id="mitosmlbtn" style="display: none;" class="mui-btn mui-btn--primary mitosmlbtns">3d Model</button>
+    <button onclick="loadbrain(1)" id="brainbtn" style="display: none;" class="mui-btn mui-btn--primary brainbtns">3d Model</button>
+    <button onclick="loadgolgi(1)" id="golgismlbtn" style="display: none;" class="mui-btn mui-btn--primary golgismlbtns">3d Model</button>
     <button onclick = "loadpanel()" style="display: none;" id="panelbtn" class="mui-btn mui-btn--primary largeBtn">Brain Hierarchy</button>
-    <button onclick = "loadskeletal()" style="display: none;" id="skeletal" class="mui-btn mui-btn--primary largeBtn">Show Skeletal</button>
-    <button onclick = "loadneuron()" style="display: none;" id="neuron" class="mui-btn mui-btn--primary largeBtn">Show Neuron</button>
-    <button onclick="loadheart()" id="heartbtn" style="display: none;" class="mui-btn mui-btn--primary heartbtns">3d Model</button>
+    <button onclick = "loadskeletal(1)" style="display: none;" id="skeletal" class="mui-btn mui-btn--primary largeBtn">Show Skeletal</button>
+    <button onclick = "loadneuron(1)" style="display: none;" id="neuron" class="mui-btn mui-btn--primary largeBtn">Show Neuron</button>
+    <button onclick="loadheart(1)" id="heartbtn" style="display: none;" class="mui-btn mui-btn--primary heartbtns">3d Model</button>
     
 
     <form class="largeBtn" id = "search">
@@ -43,7 +43,8 @@
           <option class = "searchContent" value = "human" >Human</option>
           <option class = "searchContent" value = "skeletal" >Skeletal</option>
           <option class = "searchContent" value = "golgi" >Golgi</option>
-          <option class = "searchContent" value = "mito" >Mitochondria</option>        
+          <option class = "searchContent" value = "mito" >Mitochondria</option> 
+          <option class = "searchContent" value = "neuron" >Neuron</option>         
           
         </select>
       </div>
