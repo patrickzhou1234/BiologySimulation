@@ -1300,6 +1300,8 @@ function clearbtns() {
     });
 }
 function search(value) {
+    clear();
+    clearbtns();
     if (value == "cell") {
         loadcell();
     }
