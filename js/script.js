@@ -1191,7 +1191,6 @@ function search(value) {
         loadcell();
     }
 
-
     showSkeletal.textContent = "Show Skeletal";
     showNeuron.textContent = "Show Neuron";
 
