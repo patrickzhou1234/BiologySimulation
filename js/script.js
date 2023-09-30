@@ -550,6 +550,23 @@ function openchannel() {
     }
 }
 
+function cholestrolclicked() {
+    if (checkvis(4)) {
+        showui();
+        clickcond(4);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/cholestoral.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.target = meshes[0];
+            // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+            phoref = meshes[0];
+            allMeshes.push(phoref);
+        });
+        hidebtn(backHuman);
+        showbtn(backcell);
+    }
+}
+
 function loadmito(val) {
    if (checkvismito(0) || val == 0) {
         showui();
