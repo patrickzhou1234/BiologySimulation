@@ -1144,7 +1144,7 @@ function loadneuron(val) {
                 })
             );
             neuronmeshes.push(axot);
-            dendmat = new BABYLON.StandardMaterial("axot", scene);
+            dendmat = new BABYLON.StandardMaterial("dend", scene);
             dend = BABYLON.MeshBuilder.CreateSphere("dend", { diameter: 3, segments: 32 }, scene);
             dend.position.set(-60, -15, 10);
             dend.material = dendmat;
@@ -1164,11 +1164,11 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-             neuronmeshes.push(axot);
-            sheathmat = new BABYLON.StandardMaterial("axot", scene);
-            sheath = BABYLON.MeshBuilder.CreateSphere("dend", { diameter: 3, segments: 32 }, scene);
+             neuronmeshes.push(dend);
+            sheathmat = new BABYLON.StandardMaterial("sheathmat", scene);
+            sheath = BABYLON.MeshBuilder.CreateSphere("sheath", { diameter: 3, segments: 32 }, scene);
             sheath.position.set(-10, 1, 0);
-            sheath.material = dendmat;
+            sheath.material = sheathmat;
             sheath.actionManager = new BABYLON.ActionManager(scene);
             sheath.actionManager.registerAction(
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
@@ -1184,11 +1184,11 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-             neuronmeshes.push(axot);
-            nodemat = new BABYLON.StandardMaterial("axot", scene);
-            node = BABYLON.MeshBuilder.CreateSphere("dend", { diameter: 2, segments: 32 }, scene);
+             neuronmeshes.push(sheath);
+            nodemat = new BABYLON.StandardMaterial("node", scene);
+            node = BABYLON.MeshBuilder.CreateSphere("node", { diameter: 2, segments: 32 }, scene);
             node.position.set(-23, -2, 0);
-            node.material = dendmat;
+            node.material = nodemat;
             node.actionManager = new BABYLON.ActionManager(scene);
             node.actionManager.registerAction(
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
@@ -1204,9 +1204,9 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-       neuronmeshes.push(axot);
-            synapsemat = new BABYLON.StandardMaterial("axot", scene);
-            synapse = BABYLON.MeshBuilder.CreateSphere("dend", { diameter: 4, segments: 32 }, scene);
+       neuronmeshes.push(node);
+            synapsemat = new BABYLON.StandardMaterial("synapse", scene);
+            synapse = BABYLON.MeshBuilder.CreateSphere("synapse", { diameter: 4, segments: 32 }, scene);
             synapse.position.set(15, 0, 0);
             synapse.material = dendmat;
             synapse.actionManager = new BABYLON.ActionManager(scene);
@@ -1225,11 +1225,11 @@ function loadneuron(val) {
                 })
             );
          
-        neuronmeshes.push(dend);
+        neuronmeshes.push(synapse);
             Somamat = new BABYLON.StandardMaterial("Soma", scene);
-            Soma = BABYLON.MeshBuilder.CreateSphere("axon", { diameter: 3, segments: 32 }, scene);
+            Soma = BABYLON.MeshBuilder.CreateSphere("Soma", { diameter: 3, segments: 32 }, scene);
             Soma.position.set(-65, -15, 0);
-            Soma.material = axonmat;
+            Soma.material = Somamat;
             Soma.actionManager = new BABYLON.ActionManager(scene);
             Soma.actionManager.registerAction(
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
@@ -1252,29 +1252,13 @@ function loadneuron(val) {
                 orgsettings(neuronmeshes[i]);
             }
         } else {
-            neuronref.dispose();
-            for (i = 0; i < neuronmeshes.length; i++) {
-                neuronmeshes[i].dispose();
-            }
-            neuronmeshes = [];
+            showNeuron.textContent = "Show Neuron";
+            
             backHuman.setAttribute("style", "");
             lobes.setAttribute("style", "");
             brainDivisions.setAttribute("style", "");
 
-            showNeuron.textContent = "Show Neuron";
-
-            BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
-                hideui();
-
-                meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-                brainref = meshes[0];
-                allMeshes.push(brainref);
-
-                camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
-                camera.target = new BABYLON.Vector3(5, 5, 10);
-
-                scene.activeCamera = camera;
-            });
+            loadbrain(0);
         }
     }
 }
@@ -1329,9 +1313,15 @@ function clearbtns() {
     });
 }
 function search(value) {
+
+    clear();
+    clearbtns();
+
     if (value == "cell") {
         loadcell();
     }
+
+    
 
     showSkeletal.textContent = "Show Skeletal";
     showNeuron.textContent = "Show Neuron";
