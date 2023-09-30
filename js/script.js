@@ -54,6 +54,9 @@ let brainDivisionsref = 0;
 let lobemeshes = [];
 let brainDivisionsMeshes = [];
 let neuronmeshes = [];
+let allMeshes = [];
+let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn];
+let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -239,10 +242,9 @@ function checkvisneuron() {
     return false;
 }
 function loadcell() {
-    if (!backcell.classList.contains("animobtn")) {
-        hidebtn(backcell);
+   // if (!backcell.classList.contains("animobtn")) {
+        clearbtns();
         showbtn(backHuman);
-        hidebtn(showSkeletal);
 
         for (i = 0; i < cellmeshes.length; i++) {
             cellmeshes[i].visibility = 1;
@@ -255,21 +257,7 @@ function loadcell() {
         BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
             // imports 3D mesh
             // deletes the memref and phoref variables if they exist
-            try {
-                memref.dispose();
-            } catch (err) {}
-            try {
-                phoref.dispose();
-            } catch (err) {}
-            try {
-                humref.dispose();
-            } catch (err) {}
-            try {
-                brainref.dispose();
-            } catch (err) {}
-            try {
-                skeletalref.dispose();
-            } catch (err) {}
+            clear();
 
             hideui();
 
@@ -278,14 +266,19 @@ function loadcell() {
             camera.radius = 5;
 
             cellref = meshes[0]; // sets reference to this variable
+
+            allMeshes.push(cellref);
+
+            cellSpheres();
         });
         BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
             meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
             riboref = meshes[0];
+            allMeshes.push(riboref);
 
             riboref.position = new BABYLON.Vector3(1, -0.1, 1.9);
         });
-    }
+   // }
 }
 
 var createScene = function (canvas, engine) {
@@ -314,8 +307,18 @@ var createScene = function (canvas, engine) {
         camera.target = meshes[0]; // sets camera target to first element of meshes array
         hideui();
         cellref = meshes[0];
+
+        allMeshes.push(cellref);
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+        cellSpheres();
+    })
+   
+    return scene;
+};
+
+function cellSpheres() {
     memmat = new BABYLON.StandardMaterial("mat", scene);
 
     // Creates parts of the cells using .CreateSphere and handles what to do when the user clicks on that part of the cell
@@ -461,6 +464,7 @@ var createScene = function (canvas, engine) {
     BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
         meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
         riboref = meshes[0];
+        allMeshes.push(riboref);
 
         riboref.position = new BABYLON.Vector3(1, -0.1, 1.9);
     });
@@ -470,8 +474,7 @@ var createScene = function (canvas, engine) {
     for (i = 0; i < cellmeshes.length; i++) {
         orgsettings(cellmeshes[i]);
     }
-    return scene;
-};
+}
 
 // handles the cases of when user clicks on the parts of the cell
 function membraneclicked() {
@@ -481,16 +484,13 @@ function membraneclicked() {
         clickcond(0); // has the membrane be semi-transparent and have a not allowed cursor
         BABYLON.SceneLoader.ImportMesh("", "", "models/cell_membrane.glb", scene, function (meshes) {
             // imports 3D model
-            cellref.dispose(); // rids of cellref
-            try {
-                humref.dispose();
-            } catch (err) {}
-            try {
-                riboref.dispose();
-            } catch (err) {}
+            clear();
+
             hideui();
             camera.target = meshes[0]; // sets camera target
             memref = meshes[0]; // sets reference of this membrane to memref
+
+            allMeshes.push(memref);
         });
         hidebtn(backHuman);
         showbtn(backcell);
@@ -502,17 +502,12 @@ function phosphoclicked() {
         showui();
         clickcond(1);
         BABYLON.SceneLoader.ImportMesh("", "", "models/phospho_sama.glb", scene, function (meshes) {
-            cellref.dispose();
-            try {
-                riboref.dispose();
-            } catch (err) {}
-            try {
-                humref.dispose();
-            } catch (err) {}
+            clear();
             hideui();
             camera.target = meshes[0];
             // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
             phoref = meshes[0];
+            allMeshes.push(phoref);
         });
         hidebtn(backHuman);
         showbtn(backcell);
@@ -525,18 +520,13 @@ function phosphoclicked2() {
         showui();
         clickcond(2);
         BABYLON.SceneLoader.ImportMesh("", "", "models/phospholipid.glb", scene, function (meshes) {
-            cellref.dispose();
-            try {
-                humref.dispose();
-            } catch (err) {}
-            try {
-                riboref.dispose();
-            } catch (err) {}
+            clear();
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
             camera.target = meshes[0];
             // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
             phoref = meshes[0];
+            allMeshes.push(phoref);
         });
         hidebtn(backHuman);
         showbtn(backcell);
@@ -548,66 +538,51 @@ function openchannel() {
         showui();
         clickcond(3);
         BABYLON.SceneLoader.ImportMesh("", "", "models/openchannel.glb", scene, function (meshes) {
-            cellref.dispose();
-            try {
-                humref.dispose();
-            } catch (err) {}
-            try {
-                riboref.dispose();
-            } catch (err) {}
+            clear();
             hideui();
             camera.target = meshes[0];
             // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
             phoref = meshes[0];
+            allMeshes.push(phoref);
         });
         hidebtn(backHuman);
         showbtn(backcell);
     }
 }
 
-function loadmito() {
-    if (checkvismito(0)) {
+function loadmito(val) {
+   if (checkvismito(0) || val == 0) {
         showui();
         clickcondmito(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/mitocondrias.glb", scene, function (meshes) {
-            cellref.dispose();
-            try {
-                humref.dispose();
-            } catch (err) {}
-            try {
-                riboref.dispose();
-            } catch (err) {}
+            clear();
             hideui();
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             phoref = meshes[0];
+            allMeshes.push(phoref);
         });
-        hidebtn(backHuman);
+        
         showbtn(backcell);
-    }
+   }
 }
 
-function loadgolgi() {
-    if (checkvisgolgi(0)) {
+function loadgolgi(val) {
+   if (checkvisgolgi(0) || val == 0) {
         showui();
         clickcondgolgi(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/golgi.glb", scene, function (meshes) {
-            cellref.dispose();
-            try {
-                humref.dispose();
-            } catch (err) {}
-            try {
-                riboref.dispose();
-            } catch (err) {}
+            clear();
             hideui();
 
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             phoref = meshes[0];
+            allMeshes.push(phoref);
         });
         camera.inertialRadiusOffset -= 4;
+        clearbtns();
         showbtn(backcell);
-        hidebtn(backHuman);
     }
 }
 
@@ -634,6 +609,7 @@ function displayLobes() {
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             lobesref = meshes[0];
+            allMeshes.push(lobesref);
 
             // Frontal Lobe
             frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
@@ -761,20 +737,14 @@ function displayLobes() {
         lobesref.dispose();
 
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
-            try {
-                humref.dispose();
-            } catch (err) {}
-            try {
-                lobesref.dispose();
-            } catch (err) {}
-            try {
-                brainDivisionsref.dispose();
-            } catch (err) {}
+            clear();
 
             hideui();
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             brainref = meshes[0];
+
+            allMeshes.push(brainref);
         });
     }
 }
@@ -795,6 +765,7 @@ function displayBrainDivisions() {
             camera.target = new BABYLON.Vector3(0, 0, 0);
 
             brainDivisionsref = meshes[0];
+            allMeshes.push(brainDivisionsref);
         });
     } else {
         lobes.setAttribute("style", "");
@@ -804,49 +775,23 @@ function displayBrainDivisions() {
 
         camera.target = new BABYLON.Vector3(5, 5, 10);
 
-        brainDivisionsref.dispose();
-
-        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
-            try {
-                humref.dispose();
-            } catch (err) {}
-            try {
-                lobesref.dispose();
-            } catch (err) {}
-            try {
-                brainref.dispose();
-            } catch (err) {}
-
-            hideui();
-
-            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-            brainref = meshes[0];
-        });
+        loadbrain(0);
     }
 }
 
-function loadbrain() {
-    if (checkvisbrain(0)) {
+function loadbrain(val) {
+    if (checkvisbrain(0) || val == 0) {
         showui();
         clickcondbrain(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
-            try {
-                humref.dispose();
-            } catch (err) {}
-            try {
-                lobesref.dispose();
-            } catch (err) {}
-            try {
-                brainDivisionsref.dispose();
-            } catch (err) {}
-            try {
-                skeletalref.dispose();
-            } catch (err) {}
+            clear();
 
             hideui();
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             brainref = meshes[0];
+            console.log("brain added");
+            allMeshes.push(brainref);
 
             camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
             camera.target = new BABYLON.Vector3(5, 5, 10);
@@ -864,191 +809,190 @@ function loadbrain() {
     }
 }
 
-function loadhuman() {
-    //  if (checkvishuman()) {
-    showui();
-    clickcondhuman();
-    showSkeletal.textContent = "Show Skeletal";
-    BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
-        try {
-            cellref.dispose();
-        } catch (err) {}
-        try {
-            skeletalref.dispose();
-        } catch (err) {}
-        try {
-            riboref.dispose();
-        } catch (err) {}
-        try {
-            heartref.dispose();
-        } catch (err) {}
-        try {
-            brainref.dispose();
-        } catch (err) {}
-        try {
-            lobesref.dispose();
-        } catch (err) {}
-        try {
-            brainDivisionsref.dispose();
-        } catch (err) {}
-        try {
-            neuronref.dispose();
-        } catch (err) {}
-        hideui();
-        meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
+function loadhuman(val) {
+    if (checkvishuman() || val == 0) {
+        showui();
+        clickcondhuman();
+        showSkeletal.textContent = "Show Skeletal";
+        BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
 
-        humref = meshes[0];
+            humref = meshes[0];
+            allMeshes.push(humref);
 
-        camera.position = new BABYLON.Vector3(0, 1.9, -20);
-        camera.target = new BABYLON.Vector3(0, -1, 0);
-        camera.radius = 20;
-    });
+            camera.position = new BABYLON.Vector3(0, 1.9, -20);
+            camera.target = new BABYLON.Vector3(0, -1, 0);
+            camera.radius = 20;
 
-    hidebtn(backHuman);
-    hidebtn(lobes);
-    hidebtn(brainDivisions);
-    hidebtn(panelbtn);
-    showbtn(backcell);
-    hidebtn(showNeuron);
-    showbtn(showSkeletal);
+            brainmat = new BABYLON.StandardMaterial("brain", scene);
+            heartmat = new BABYLON.StandardMaterial("heartmat", scene);
+        
+            brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
+        
+            humanmeshes.push(brain);
+            brain.position.set(0, 3.75, -0.25);
+            brain.material = brainmat;
+            brain.actionManager = new BABYLON.ActionManager(scene);
+            brain.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Brain",
+                        text: "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {
+                        brainbtns.forEach((el) => {
+                            hidebtn(el);
+                        });
+                    });
+                    brainbtns.forEach((el) => {
+                        showbtn(el);
+                    });
+                    camera.target = brain;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+        
+            heart = BABYLON.MeshBuilder.CreateSphere("heart", { diameter: 0.25, segments: 32 }, scene);
+        
+            humanmeshes.push(heart);
+            heart.position.set(0.25, 1.4, -0.5);
+            heart.material = heartmat;
+            heart.actionManager = new BABYLON.ActionManager(scene);
+            heart.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Heart",
+                        text: "The heart is the central organ of the circulatory, or cardiovascular, system. Its main function is to pump blood to deliver oxygen and nutrients to all the cells and tissues in the body. The heart maintains homeostasis and plays a critical role in oxygenating blood. In addition, it regulates blood pressure and supports the entire circulatory system. The heart is divided into four chambers: two atria and two ventricles, with one atrium and one ventricle on the left side and one atrium and one ventricle on the right side. The right atrium receives deoxygenated blood from the body and pumps it into the right ventricle, which then sends the blood to the lungs through the pulmonary artery for oxygenation. The left atrium receives freshly oxygenated blood from the lungs and pushes it into the left ventricle, which pumps the oxygen-rich blood out to the rest of the body. To ensure a one-way circulation of blood, valves are located between the atria and ventricles, preventing backflow.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {
+                        heartbtns.forEach((el) => {
+                            hidebtn(el);
+                        });
+                    });
+                    heartbtns.forEach((el) => {
+                        showbtn(el);
+                    });
+                    camera.target = heart;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+        });
 
-    brainmat = new BABYLON.StandardMaterial("brain", scene);
-    heartmat = new BABYLON.StandardMaterial("heartmat", scene);
+        clearbtns();
+        showbtn(backcell);
+        showbtn(showSkeletal);
 
-    brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
-
-    humanmeshes.push(brain);
-    brain.position.set(0, 3.75, -0.25);
-    brain.material = brainmat;
-    brain.actionManager = new BABYLON.ActionManager(scene);
-    brain.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: "Brain",
-                text: "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.",
-                icon: "question",
-                background: "black",
-                color: "white",
-                backdrop: false,
-            }).then(function () {
-                brainbtns.forEach((el) => {
-                    hidebtn(el);
-                });
-            });
-            brainbtns.forEach((el) => {
-                showbtn(el);
-            });
-            camera.target = brain;
-            camera.inertialRadiusOffset += 4;
+    
+        
+        console.log(humanmeshes.length);
+        humanmeshes.forEach((el) => {
+            orgsettings(el);
         })
-    );
-
-    heart = BABYLON.MeshBuilder.CreateSphere("heart", { diameter: 0.25, segments: 32 }, scene);
-
-    humanmeshes.push(heart);
-    heart.position.set(0.25, 1.4, -0.5);
-    heart.material = heartmat;
-    heart.actionManager = new BABYLON.ActionManager(scene);
-    heart.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: "Heart",
-                text: "The heart is the central organ of the circulatory, or cardiovascular, system. Its main function is to pump blood to deliver oxygen and nutrients to all the cells and tissues in the body. The heart maintains homeostasis and plays a critical role in oxygenating blood. In addition, it regulates blood pressure and supports the entire circulatory system. The heart is divided into four chambers: two atria and two ventricles, with one atrium and one ventricle on the left side and one atrium and one ventricle on the right side. The right atrium receives deoxygenated blood from the body and pumps it into the right ventricle, which then sends the blood to the lungs through the pulmonary artery for oxygenation. The left atrium receives freshly oxygenated blood from the lungs and pushes it into the left ventricle, which pumps the oxygen-rich blood out to the rest of the body. To ensure a one-way circulation of blood, valves are located between the atria and ventricles, preventing backflow.",
-                icon: "question",
-                background: "black",
-                color: "white",
-                backdrop: false,
-            }).then(function () {
-                heartbtns.forEach((el) => {
-                    hidebtn(el);
-                });
-            });
-            heartbtns.forEach((el) => {
-                showbtn(el);
-            });
-            camera.target = heart;
-            camera.inertialRadiusOffset += 4;
-        })
-    );
-
-    for (i = 0; i < humanmeshes.length; i++) {
-        orgsettings(humanmeshes[i]);
+            
+        
     }
 }
-
-function loadheart() {
-    if (checkvisheart(0)) {
+function loadheart(val) {
+   if (checkvisheart(0) || val == 0) {
         showui();
         clickcondheart(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/heart.glb", scene, function (meshes) {
-            humref.dispose();
-            try {
-                humref.dispose();
-            } catch (err) {}
+            clear();
             hideui();
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             heartref = meshes[0];
+
+            allMeshes.push(heartref);
         });
         camera.position = new BABYLON.Vector3(80, 1.5, 50);
+        clearbtns();
         showbtn(backHuman);
-        hidebtn(backcell);
-        hidebtn(showSkeletal);
-    }
+        
+   }
 }
 
-function loadskeletal() {
-    if (checkvisskeletal()) {
+function loadskeletal(val) {
+   if (checkvisskeletal() || val == 0) {
+    showui();
+    console.log(showSkeletal.textContent);
         if (showSkeletal.textContent == "Show Skeletal") {
-            showSkeletal.textContent = "Hide Skeletal";
+            
+            showSkeletal.textContent = "Hide Skeletal";    
+            
             camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
             camera.target = new BABYLON.Vector3(0, -0.25, 0);
             camera.radius = 20;
-            try {
-                humref.dispose();
-            } catch (err) {}
-            try {
-                cellref.dispose();
-            } catch (err) {}
+            clear();
 
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
             BABYLON.SceneLoader.ImportMesh("", "", "models/skeletal.glb", scene, function (meshes) {
+                hideui();
+                clearbtns();
+                showbtn(backcell);
+                showbtn(showSkeletal);
+
                 meshes[0].scaling = new BABYLON.Vector3(0.9, 0.9, 0.9);
 
                 skeletalref = meshes[0];
+                allMeshes.push(skeletalref);
             });
         } else {
             skeletalref.dispose();
             showSkeletal.textContent = "Show Skeletal";
+            
+            showbtn(backHuman);
             loadhuman();
         }
+        
     }
 }
 
-function loadneuron() {
-    if (checkvisneuron()) {
+function loadneuron(val) {
+    if (checkvisneuron() || val == 0) {
         if (showNeuron.textContent == "Show Neuron") {
             showNeuron.textContent = "Hide Neuron";
-            lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-            brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-            backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
             camera.position = new BABYLON.Vector3(10, 0, 120);
 
             // Built-in 'sphere' shape.
-            brainref.dispose();
+            /*brainref.dispose();
             brainbtns.forEach((el) => {
                 el.visibility = 0;
-            });
+            });*/
+
+            clearbtns();
+            clear();
+            showbtn(backHuman);
+            backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+
+            showbtn(brainDivisions);
+            brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+            
+            showbtn(lobes);
+            lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+
+            showbtn(panelbtn);
+            showbtn(showNeuron);
+
+
             BABYLON.SceneLoader.ImportMesh("", "", "models/neuron.glb", scene, function (meshes) {
                 meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
 
                 neuronref = meshes[0];
-
+                allMeshes.push(neuronref);
                 camera.target = new BABYLON.Vector3(-30, -5, 0);
 
                 camera.upperRadiusLimit = 100;
@@ -1219,6 +1163,7 @@ function loadneuron() {
 
                 meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
                 brainref = meshes[0];
+                allMeshes.push(brainref);
 
                 camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
                 camera.target = new BABYLON.Vector3(5, 5, 10);
@@ -1229,14 +1174,58 @@ function loadneuron() {
     }
 }
 
-// Only works for the parts that have a singular button
-// Ex. heart is a querySelectorAll but skeletal is getElementById -> skeletal works but heart doesnt
-// ^^ in the defintions at the top
+function clear() {
+    for (i = 0; i < allMeshes.length; i++) {
+        try {
+            allMeshes[i].dispose();
+        } catch (err) {}
+    }    
+    for (i = 0; i < lobemeshes.length; i++) {
+        try {
+            lobemeshes[i].dispose();
+        } catch (err) {}
+    }   
+    for (i = 0; i < brainDivisionsMeshes.length; i++) {
+        try {
+            brainDivisionsMeshes[i].dispose();
+        } catch (err) {}
+    }   
+    for (i = 0; i < neuronmeshes.length; i++) {
+        try {
+            neuronmeshes[i].dispose();
+        } catch (err) {}
+    } 
+    for (i = 0; i < cellmeshes.length; i++) {
+        try {
+            cellmeshes[i].visibility = 0;
+        } catch (err) {}
+    } 
+    for (i = 0; i < humanmeshes.length; i++) {
+        try {
+            humanmeshes[i].dispose();
+        } catch (err) {}
+    } 
+}
 
-// Skeletal -> Cell or Cell -> Skeletal not working
+function clearbtns() {
+    buttons.forEach((btn) => {
+        hidebtn(btn);
+    });
+
+    buttonArrays.forEach((ary) => {
+        ary.forEach((btn) => {
+            hidebtn(btn);
+        });
+    });
+}
 function search(value) {
-    console.log("load" + value + "()");
-    eval("load" + value + "()");
+    if (value == "cell") {
+        loadcell();
+    }
+
+    showSkeletal.textContent = "Show Skeletal";
+    showNeuron.textContent = "Show Neuron";
+    eval("load" + value + "(0)");
 }
 const scene = createScene();
 
