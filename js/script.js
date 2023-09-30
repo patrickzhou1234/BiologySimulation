@@ -596,13 +596,13 @@ Two buttons, one for lobes, one for fore/mid/hind brains
 Show both buttons (for lobes and brains), and when one is clicked, have the other opaque and change text from "Show Lobes" to "Hide Lobes" for examples
 */
 function displayLobes() {
-    if (lobes.textContent == "Show Cerebral Cortex (Lobes)" && brainDivisions.textContent == "Show Brain Divisions") {
+    if (lobes.textContent == "Show Lobes" && brainDivisions.textContent == "Show Brain Divisions") {
         // Checks to make sure the button is valid to click
         brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
-        lobes.textContent = "Hide Cerebral Cortex (Lobes)";
+        lobes.textContent = "Hide Lobes";
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             // change brain.glb to the file name with the brain model corresponding to lobes
             brainref.dispose();
@@ -727,7 +727,7 @@ function displayLobes() {
         backHuman.setAttribute("style", "");
         showNeuron.setAttribute("style", "");
 
-        lobes.textContent = "Show Cerebral Cortex (Lobes)";
+        lobes.textContent = "Show Lobes";
 
         lobemeshes.forEach((lobe) => {
             lobe.dispose();
@@ -751,7 +751,7 @@ function displayLobes() {
 }
 
 function displayBrainDivisions() {
-    if (brainDivisions.textContent == "Show Brain Divisions" && lobes.textContent == "Show Cerebral Cortex (Lobes)") {
+    if (brainDivisions.textContent == "Show Brain Divisions" && lobes.textContent == "Show Lobes") {
         lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
@@ -798,6 +798,87 @@ function loadbrain(val) {
             camera.target = new BABYLON.Vector3(5, 5, 10);
             camera.upperRadiusLimit = 100;
             camera.radius = 50;
+       
+            medullaLobeMat = new BABYLON.StandardMaterial("medullaMat", scene);
+            const medulla = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            medulla.position.set(9, -7, 8.5); // (depth,vertical,horizantal)
+            medulla.material = medullaLobeMat;
+            lobemeshes.push(medulla); // adds frontalLobe to lobemeshes array
+            medulla.actionManager = new BABYLON.ActionManager(scene);
+            medulla.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Medulla",
+                        text: "Your medulla oblongata is the bottom-most part of your brain. It's where the spinal cord and brain merge, making it a key conduit for nerve signals to and from your body. It's main function is to control vital processes like your heartbeat, breathing and blood pressure. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+
+            ponsLobeMat = new BABYLON.StandardMaterial("ponsMat", scene);
+            const pons = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            pons.position.set(6, -3, 8.5); // (depth,vertical,horizantal)
+            pons.material = ponsLobeMat;
+            lobemeshes.push(pons); 
+            pons.actionManager = new BABYLON.ActionManager(scene);
+            pons.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Pons",
+                        text: "The pons connects your brainstem with the cerebral cortex, and controls movement and sleep. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+            
+            thalamusLobeMat = new BABYLON.StandardMaterial("thalamusMat", scene);
+            const thalamus = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            thalamus.position.set(4, 0, 8.5); // (depth,vertical,horizantal)
+            thalamus.material = thalamusLobeMat;
+            lobemeshes.push(thalamus); // adds frontalLobe to lobemeshes array
+            thalamus.actionManager = new BABYLON.ActionManager(scene);
+            thalamus.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Thalamus",
+                        text: "Your thalamus is an egg-shaped structure in the middle of your brain. It's known as a relay station of all incoming motor (movement) and sensory information — hearing, taste, sight and touch (but not smell) — from your body to your brain. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+            
+            cerebellumLobeMat = new BABYLON.StandardMaterial("cerebellumMat", scene);
+            const cerebellum = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            cerebellum.position.set(16.5, -3, 8.5); // (depth,vertical,horizantal)
+            cerebellum.material = cerebellumLobeMat;
+            lobemeshes.push(cerebellum); // adds frontalLobe to lobemeshes array
+            cerebellum.actionManager = new BABYLON.ActionManager(scene);
+            cerebellum.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Cerebellum",
+                        text: "The cerebellum (meaning 'little brain') is a brain shaped structures hanging in the back of the brain. It plays a role in motor movement regulation and balance control. The cerebellum coordinates movement and maintains posture, controls muscle tone and voluntary muscle activity but is unable to initiate muscle contraction. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+        
         });
 
         showbtn(backHuman);
@@ -1083,7 +1164,68 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-            neuronmeshes.push(dend);
+             neuronmeshes.push(axot);
+            sheathmat = new BABYLON.StandardMaterial("axot", scene);
+            sheath = BABYLON.MeshBuilder.CreateSphere("dend", { diameter: 3, segments: 32 }, scene);
+            sheath.position.set(-10, 1, 0);
+            sheath.material = dendmat;
+            sheath.actionManager = new BABYLON.ActionManager(scene);
+            sheath.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Myelin Sheath",
+                        text: "The axons of neurons are covered by a protective layer called the myelin sheath, which consists of a thick coating of fatty substance called myelin. This myelin sheath acts as an insulator, which enhances the speed at which signals travel along the axon. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+             neuronmeshes.push(axot);
+            nodemat = new BABYLON.StandardMaterial("axot", scene);
+            node = BABYLON.MeshBuilder.CreateSphere("dend", { diameter: 2, segments: 32 }, scene);
+            node.position.set(-23, -2, 0);
+            node.material = dendmat;
+            node.actionManager = new BABYLON.ActionManager(scene);
+            node.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Node of Ranvier",
+                        text: "The myelin sheath does not cover the entire length of the axon. Instead, it has periodic gaps along the myelinated axon where the myelin is absent, and these gaps are called Nodes of Ranvier. These nodes are important for the transmission of action potentials. They serve as points along the axon where the electrical signals are regenerated, which in terms allows for more efficient conduction of nerve impulses. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+       neuronmeshes.push(axot);
+            synapsemat = new BABYLON.StandardMaterial("axot", scene);
+            synapse = BABYLON.MeshBuilder.CreateSphere("dend", { diameter: 4, segments: 32 }, scene);
+            synapse.position.set(15, 0, 0);
+            synapse.material = dendmat;
+            synapse.actionManager = new BABYLON.ActionManager(scene);
+            synapse.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Synapse",
+                        text: "The synapse is the small junction between the axon terminal of one neuron and the dendrites of another neuron. It is a crucial site where communication between neurons takes place. The communication occurs when an action potential reaches the axon terminal of one neuron, triggering the release of neurotransmitters from the synaptic vesicles into the synapse. The neurotransmitters would then travel across the synapse and bind to the specific receptors on the receiving neuron, allowing the transmission of the signal from one neuron to the next. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+         
+        neuronmeshes.push(dend);
             Somamat = new BABYLON.StandardMaterial("Soma", scene);
             Soma = BABYLON.MeshBuilder.CreateSphere("axon", { diameter: 3, segments: 32 }, scene);
             Soma.position.set(-65, -15, 0);
@@ -1094,13 +1236,13 @@ function loadneuron(val) {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
                         title: "Soma",
-                        text: "The Soma is a projection that extends from the cell body (soma), and electrical signals called action potentials travel down it. Once action potentials reach the end of the axon, to endings called axon terminals, neurotransmitters (chemical messengers) are released into the synapse. The neurotransmitters released by the axon are received by dendrites of adjacent neurons, and the action potential cycle continues again.",
+                        text: "The soma is essentially the cell body of the neuron. It houses the nucleus and various organelles that are crucial for the normal functioning of the neuron. Signals received by the dendrites are directed to the soma where they are processed and then sent further down to the axon. ",
                         icon: "question",
                         background: "black",
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = axon;
+                    camera.target = soma;
                     camera.inertialRadiusOffset += 4;
                 })
             );
