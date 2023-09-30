@@ -54,6 +54,7 @@ let brainDivisionsref = 0;
 let lobemeshes = [];
 let brainDivisionsMeshes = [];
 let neuronmeshes = [];
+let skeletalmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn];
 let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns];
@@ -932,7 +933,8 @@ function loadskeletal(val) {
             
             camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
             camera.target = new BABYLON.Vector3(0, -0.25, 0);
-            camera.radius = 20;
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
             clear();
 
             humanmeshes.forEach((el) => {
@@ -949,6 +951,27 @@ function loadskeletal(val) {
                 skeletalref = meshes[0];
                 allMeshes.push(skeletalref);
             });
+            skullmat = new BABYLON.StandardMaterial("skull", scene);
+            skull = BABYLON.MeshBuilder.CreateSphere("skull", { diameter: 0.25, segments: 32 }, scene);
+            skull.position.set(0, 7, -0.51);
+            skull.material = skullmat;
+            skull.actionManager = new BABYLON.ActionManager(scene);
+            skull.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Skull",
+                        text: "",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = skull;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+            skeletalmeshes.push(skull);
         } else {
             skeletalref.dispose();
             showSkeletal.textContent = "Show Skeletal";
@@ -1082,6 +1105,7 @@ function loadneuron(val) {
                 })
             );
             neuronmeshes.push(Soma);
+            console.log(neuronmeshes.length);
             for (i = 0; i < neuronmeshes.length; i++) {
                 orgsettings(neuronmeshes[i]);
             }
@@ -1144,6 +1168,11 @@ function clear() {
             humanmeshes[i].dispose();
         } catch (err) {}
     } 
+    for (i = 0; i < skeletalmeshes.length; i++) {
+        try {
+            skeletalmeshes[i].dispose();
+        } catch (err) {}
+    } 
 }
 
 function clearbtns() {
@@ -1162,8 +1191,10 @@ function search(value) {
         loadcell();
     }
 
+
     showSkeletal.textContent = "Show Skeletal";
     showNeuron.textContent = "Show Neuron";
+
     eval("load" + value + "(0)");
 }
 const scene = createScene();
