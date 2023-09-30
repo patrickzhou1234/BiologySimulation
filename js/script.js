@@ -34,6 +34,9 @@ mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 golgismlbtns = document.querySelectorAll(".golgismlbtns");
 brainbtns = document.querySelectorAll(".brainbtns");
 heartbtns = document.querySelectorAll(".heartbtns");
+kidneybtns = document.querySelectorAll(".kidneybtns");
+lungbtns = document.querySelectorAll(".lungbtns");
+stomachbtns = document.querySelectorAll(".stomachbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 showSkeletal = document.getElementById("skeletal");
@@ -56,7 +59,7 @@ let brainDivisionsMeshes = [];
 let neuronmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns];
+let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -99,6 +102,15 @@ roundbtns.forEach((el) => {
     el.classList.add("animobtn");
 });
 heartbtns.forEach((el) => {
+    el.classList.add("animobtn");
+});
+kidneybtns.forEach((el) => {
+    el.classList.add("animobtn");
+});
+lungbtns.forEach((el) => {
+    el.classList.add("animobtn");
+});
+stomachbtns.forEach((el) => {
     el.classList.add("animobtn");
 });
 backcell.classList.add("animobtn");
@@ -183,6 +195,42 @@ function clickcondheart(ind) {
         }
     }
 }
+function clickcondkidney(ind) {
+    for (i = 0; i < humanmeshes.length; i++) {
+        humanmeshes[i].visibility = 0;
+    }
+    for (i = 0; i < kidneybtns.length; i++) {
+        if (i != ind) {
+            hidebtn(kidneybtns[i]);
+        } else {
+            kidneybtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        }
+    }
+}
+function clickcondlung(ind) {
+    for (i = 0; i < humanmeshes.length; i++) {
+        humanmeshes[i].visibility = 0;
+    }
+    for (i = 0; i < lungbtns.length; i++) {
+        if (i != ind) {
+            hidebtn(lungbtns[i]);
+        } else {
+            lungbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        }
+    }
+}
+function clickcondstomach(ind) {
+    for (i = 0; i < humanmeshes.length; i++) {
+        humanmeshes[i].visibility = 0;
+    }
+    for (i = 0; i < stomachbtns.length; i++) {
+        if (i != ind) {
+            hidebtn(stomachbtns[i]);
+        } else {
+            stomachbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        }
+    }
+}
 
 // checks visibility of ind element in specified arrays: checks if the element does not have "animobtn" and an opaque buttin since they're only in hidden elements
 
@@ -216,6 +264,26 @@ function checkvisbrain(ind) {
 
 function checkvisheart(ind) {
     if (!heartbtns[ind].classList.contains("animobtn") && heartbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+        return true;
+    }
+    return false;
+}
+
+function checkviskidney(ind) {
+    if (!kidneybtns[ind].classList.contains("animobtn") && kidneybtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+        return true;
+    }
+    return false;
+}
+
+function checkvislung(ind) {
+    if (!lungbtns[ind].classList.contains("animobtn") && lungbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+        return true;
+    }
+    return false;
+}
+function checkvisstomach(ind) {
+    if (!stomachbtns[ind].classList.contains("animobtn") && stomachbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
         return true;
     }
     return false;
@@ -909,6 +977,9 @@ function loadhuman(val) {
 
             brainmat = new BABYLON.StandardMaterial("brain", scene);
             heartmat = new BABYLON.StandardMaterial("heartmat", scene);
+            kidneymat = new BABYLON.StandardMaterial("kidneymat", scene);
+            lungmat = new BABYLON.StandardMaterial("lungmat", scene);
+            stomachmat = new BABYLON.StandardMaterial("stomachmat", scene);
         
             brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
         
@@ -967,7 +1038,96 @@ function loadhuman(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
+              kidney = BABYLON.MeshBuilder.CreateSphere("kidney", { diameter: 0.2, segments: 32 }, scene);
+
+            humanmeshes.push(kidney);
+            kidney.position.set(-0.25, -0.5, -0.5);
+            kidney.material = kidneymat;
+            kidney.actionManager = new BABYLON.ActionManager(scene);
+            kidney.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Kidney",
+                        text: "Kidney description here. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {
+                        kidneybtns.forEach((el) => {
+                            hidebtn(el);
+                        });
+                    });
+                    kidneybtns.forEach((el) => {
+                        showbtn(el);
+                    });
+                    camera.target = kidney;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            lung = BABYLON.MeshBuilder.CreateSphere("lung", { diameter: 0.25, segments: 32 }, scene);
+
+            humanmeshes.push(lung);
+            lung.position.set(-0.25, 1, -0.6);
+            lung.material = lungmat;
+            lung.actionManager = new BABYLON.ActionManager(scene);
+            lung.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Lung",
+                        text: "Lung description here. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {
+                        lungbtns.forEach((el) => {
+                            hidebtn(el);
+                        });
+                    });
+                    lungbtns.forEach((el) => {
+                        showbtn(el);
+                    });
+                    camera.target = lung;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+           
+            stomach = BABYLON.MeshBuilder.CreateSphere("stomach", { diameter: 0.2, segments: 32 }, scene);
+
+
+            humanmeshes.push(stomach);
+            stomach.position.set(0.5, 0.4, -0.6);
+            stomach.material = stomachmat;
+            stomach.actionManager = new BABYLON.ActionManager(scene);
+            stomach.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Stomach",
+                        text: "Tummy description here. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {
+                        stomachbtns.forEach((el) => {
+                            hidebtn(el);
+                        });
+                    });
+                    stomachbtns.forEach((el) => {
+                        showbtn(el);
+                    });
+                    camera.target = stomach;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
         });
+
 
         clearbtns();
         showbtn(backcell);
