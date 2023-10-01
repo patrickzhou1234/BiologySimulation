@@ -113,6 +113,16 @@ img {
   top: 36vh;
 }
 
+#cholestrol {
+  left: 52vw;
+  top: 32vh;
+}
+
+#receptorprotein {
+  left: 37vw;
+  top: 38vh;
+}
+
 .mitosmlbtns {
   z-index: 99999999;
   font-family: 'amazon-ember';
