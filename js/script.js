@@ -1218,9 +1218,10 @@ function loadskeletal(val) {
                 skeletalref = meshes[0];
                 allMeshes.push(skeletalref);
             });
+            
             skullmat = new BABYLON.StandardMaterial("skull", scene);
-            skull = BABYLON.MeshBuilder.CreateSphere("skull", { diameter: 0.25, segments: 32 }, scene);
-            skull.position.set(0, 7, -0.51);
+            skull = BABYLON.MeshBuilder.CreateSphere("skull", { diameter: 0.3, segments: 32 }, scene);
+            skull.position.set(0, 7, -0.51); // (horizontal,vertical,depth)
             skull.material = skullmat;
             skull.actionManager = new BABYLON.ActionManager(scene);
             skull.actionManager.registerAction(
@@ -1228,7 +1229,7 @@ function loadskeletal(val) {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
                         title: "Skull",
-                        text: "",
+                        text: "Protects the brain and houses sensory organs like the eyes and ears. ",
                         icon: "question",
                         background: "black",
                         color: "white",
@@ -1238,7 +1239,206 @@ function loadskeletal(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
+            
             skeletalmeshes.push(skull);
+            spinemat = new BABYLON.StandardMaterial("spine", scene);
+            spine = BABYLON.MeshBuilder.CreateSphere("spine", { diameter: 0.3, segments: 32 }, scene);
+            spine.position.set(0, 3, .8); // (horizontal,vertical,depth)
+            spine.material = spinemat;
+            spine.actionManager = new BABYLON.ActionManager(scene);
+            spine.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Spine",
+                        text: "Provides support and protection for the spinal cord and allows for movement. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = spine;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+            
+            skeletalmeshes.push(spine);
+            femurmat = new BABYLON.StandardMaterial("femur", scene);
+            femur = BABYLON.MeshBuilder.CreateSphere("femur", { diameter: 0.3, segments: 32 }, scene);
+            femur.position.set(1, -1, -0.2); // (horizontal,vertical,depth)
+            femur.material = femurmat;
+            femur.actionManager = new BABYLON.ActionManager(scene);
+            femur.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Femur",
+                        text: "The thigh bone, which is the longest and strongest bone in the body, supporting body weight and facilitating walking and running. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = femur;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            skeletalmeshes.push(femur);
+            pelvismat = new BABYLON.StandardMaterial("pelvis", scene);
+            pelvis = BABYLON.MeshBuilder.CreateSphere("pelvis", { diameter: 0.3, segments: 32 }, scene);
+            pelvis.position.set(0, 0, -0.5); // (horizontal,vertical,depth)
+            pelvis.material = pelvismat;
+            pelvis.actionManager = new BABYLON.ActionManager(scene);
+            pelvis.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Pelvis",
+                        text: "Forms the base of the spine and supports the body's weight; also protects internal reproductive organs. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = pelvis;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            skeletalmeshes.push(pelvis);
+            ribsmat = new BABYLON.StandardMaterial("ribs", scene);
+            ribs = BABYLON.MeshBuilder.CreateSphere("ribs", { diameter: 0.3, segments: 32 }, scene);
+            ribs.position.set(-0.5, 3.5, -1); // (horizontal,vertical,depth)
+            ribs.material = ribsmat;
+            ribs.actionManager = new BABYLON.ActionManager(scene);
+            ribs.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Ribs",
+                        text: "Protect the vital organs in the chest, such as the heart and lungs. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = ribs;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            skeletalmeshes.push(ribs);
+            humerusmat = new BABYLON.StandardMaterial("humerus", scene);
+            humerus = BABYLON.MeshBuilder.CreateSphere("humerus", { diameter: 0.3, segments: 32 }, scene);
+            humerus.position.set(-1.8, 3, 0.2); // (horizontal,vertical,depth)
+            humerus.material = humerusmat;
+            humerus.actionManager = new BABYLON.ActionManager(scene);
+            humerus.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Humerus",
+                        text: "The upper arm bone that connects the shoulder to the elbow and allows for arm movement. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = humerus;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            skeletalmeshes.push(humerus);
+            tibfibmat = new BABYLON.StandardMaterial("tibfib", scene);
+            tibfib = BABYLON.MeshBuilder.CreateSphere("tibfib", { diameter: 0.3, segments: 32 }, scene);
+            tibfib.position.set(0.8, -4, -0.2); // (horizontal,vertical,depth)
+            tibfib.material = tibfibmat;
+            tibfib.actionManager = new BABYLON.ActionManager(scene);
+            tibfib.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Tibula and Fibula",
+                        text: "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = tibfib;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            skeletalmeshes.push(tibfib);
+            radulnmat = new BABYLON.StandardMaterial("raduln", scene);
+            raduln = BABYLON.MeshBuilder.CreateSphere("raduln", { diameter: 0.3, segments: 32 }, scene);
+            raduln.position.set(-2.5, 1, 0.2); // (horizontal,vertical,depth)
+            raduln.material = radulnmat;
+            raduln.actionManager = new BABYLON.ActionManager(scene);
+            raduln.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Radius and Ulna",
+                        text: "The bones of the forearm that allow for forearm rotation and wrist movement. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = raduln;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            skeletalmeshes.push(raduln);
+            sternummat = new BABYLON.StandardMaterial("sternum", scene);
+            sternum = BABYLON.MeshBuilder.CreateSphere("sternum", { diameter: 0.3, segments: 32 }, scene);
+            sternum.position.set(0, 3.5, -1); // (horizontal,vertical,depth)
+            sternum.material = sternummat;
+            sternum.actionManager = new BABYLON.ActionManager(scene);
+            sternum.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Sternum (aka Breastbone)",
+                        text: "The bones of the forearm that allow for forearm rotation and wrist movement. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = sternum;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            skeletalmeshes.push(sternum);
+            scapulamat = new BABYLON.StandardMaterial("scapula", scene);
+            scapula = BABYLON.MeshBuilder.CreateSphere("scapula", { diameter: 0.3, segments: 32 }, scene);
+            scapula.position.set(-1.3, 4.3, 0.2); // (horizontal,vertical,depth)
+            scapula.material = scapulamat;
+            scapula.actionManager = new BABYLON.ActionManager(scene);
+            scapula.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Scapula (aka Shoulder Blade)",
+                        text: "Provides attachment for muscles that control shoulder and arm movement. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = scapula;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            skeletalmeshes.push(scapula);
         } else {
             skeletalref.dispose();
             showSkeletal.textContent = "Show Skeletal";
