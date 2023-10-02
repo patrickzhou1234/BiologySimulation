@@ -1538,7 +1538,7 @@ function loadskeletal(val) {
             skeletalmeshes.push(sternum);
             scapulamat = new BABYLON.StandardMaterial("scapula", scene);
             scapula = BABYLON.MeshBuilder.CreateSphere("scapula", { diameter: 0.3, segments: 32 }, scene);
-            scapula.position.set(-1.3, 4.3, 0.2); // (horizontal,vertical,depth)
+            scapula.position.set(-0.82, 4, 0.8); // (horizontal,vertical,depth)
             scapula.material = scapulamat;
             scapula.actionManager = new BABYLON.ActionManager(scene);
             scapula.actionManager.registerAction(
