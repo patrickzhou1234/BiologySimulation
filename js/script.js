@@ -407,6 +407,7 @@ function cellSpheres() {
                 imageUrl: "images/cellmembrane.png",
                 imageWidth: window.innerWidth * 0.5,
                 imageHeight: window.innerHeight * 0.5,
+                footer: "Click on a button to learn more about a feature of the cell membrane (Hover over a button to see what feature it will show)",
                 width: window.innerWidth * 0.8,
                 backdrop: false,
             }).then(function () {
