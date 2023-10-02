@@ -407,6 +407,7 @@ function cellSpheres() {
                 imageUrl: "images/cellmembrane.png",
                 imageWidth: window.innerWidth * 0.5,
                 imageHeight: window.innerHeight * 0.5,
+                footer: "Click on a button to learn more about a feature of the cell membrane (Hover over a button to see what feature it will show)",
                 width: window.innerWidth * 0.8,
                 backdrop: false,
             }).then(function () {
@@ -1189,6 +1190,26 @@ function loadheart(val) {
         
    }
 }
+
+function loadkidney(val) {
+    if (checkviskidney(0) || val == 0) {
+         showui();
+         clickcondkidney(0);
+         BABYLON.SceneLoader.ImportMesh("", "", "models/kidney.glb", scene, function (meshes) {
+             clear();
+             hideui();
+             camera.target = meshes[0];
+             meshes[0].scaling = new BABYLON.Vector3(0.075, 0.045, 0.075);
+             heartref = meshes[0];
+ 
+             allMeshes.push(heartref);
+         });
+         camera.position = new BABYLON.Vector3(2000, 750, -4500);
+         clearbtns();
+         showbtn(backHuman);
+         
+    }
+ }
 
 function loadskeletal(val) {
    if (checkvisskeletal() || val == 0) {
