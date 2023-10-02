@@ -40,10 +40,12 @@ stomachbtns = document.querySelectorAll(".stomachbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 showSkeletal = document.getElementById("skeletal");
+showExterior = document.getElementById("exterior");
 showNeuron = document.getElementById("neuron");
 lobes = document.getElementById("lobes");
 brainDivisions = document.getElementById("brainDivisions");
 panelbtn = document.getElementById("panelbtn");
+searchbox = document.getElementById("searchbox");
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
@@ -53,13 +55,14 @@ let skeletalref = 0;
 let neuronref = 0;
 let riboref = 0;
 let lobesref = 0;
+let exteriorref = 0;
 let brainDivisionsref = 0;
 let lobemeshes = [];
 let brainDivisionsMeshes = [];
 let neuronmeshes = [];
 let skeletalmeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn];
+let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior];
 let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
@@ -873,27 +876,31 @@ function displayBrainDivisions() {
         loadbrain(0);
     }
 }
+function showExteriorBrain() {
+    if(showExterior.textContent == "Show Exterior View") {
+        showExterior.textContent = "Hide Exterior View";
+        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
-function loadbrain(val) {
-    if (checkvisbrain(0) || val == 0) {
-        showui();
-        clickcondbrain(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             clear();
 
             hideui();
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-            brainref = meshes[0];
+            exteriorref = meshes[0];
             console.log("brain added");
-            allMeshes.push(brainref);
+            allMeshes.push(exteriorref);
 
             camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
             camera.target = new BABYLON.Vector3(5, 5, 10);
             camera.upperRadiusLimit = 100;
             camera.radius = 50;
-       
+    
             medullaLobeMat = new BABYLON.StandardMaterial("medullaMat", scene);
+            medullaLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
             const medulla = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             medulla.position.set(9, -7, 8.5); // (depth,vertical,horizantal)
             medulla.material = medullaLobeMat;
@@ -914,6 +921,7 @@ function loadbrain(val) {
             );
 
             ponsLobeMat = new BABYLON.StandardMaterial("ponsMat", scene);
+            ponsLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
             const pons = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             pons.position.set(6, -3, 8.5); // (depth,vertical,horizantal)
             pons.material = ponsLobeMat;
@@ -934,6 +942,116 @@ function loadbrain(val) {
             );
             
             thalamusLobeMat = new BABYLON.StandardMaterial("thalamusMat", scene);
+            thalamusLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
+            const thalamus = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            thalamus.position.set(4, 0, 8.5); // (depth,vertical,horizantal)
+            thalamus.material = thalamusLobeMat;
+            lobemeshes.push(thalamus); // adds frontalLobe to lobemeshes array
+            thalamus.actionManager = new BABYLON.ActionManager(scene);
+            thalamus.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Thalamus",
+                        text: "Your thalamus is an egg-shaped structure in the middle of your brain. It's known as a relay station of all incoming motor (movement) and sensory information — hearing, taste, sight and touch (but not smell) — from your body to your brain. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+            
+            cerebellumLobeMat = new BABYLON.StandardMaterial("cerebellumMat", scene);
+            const cerebellum = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            cerebellum.position.set(16.5, -3, 8.5); // (depth,vertical,horizantal)
+            cerebellum.material = cerebellumLobeMat;
+            lobemeshes.push(cerebellum); // adds frontalLobe to lobemeshes array
+            cerebellum.actionManager = new BABYLON.ActionManager(scene);
+            cerebellum.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Cerebellum",
+                        text: "The cerebellum (meaning 'little brain') is a brain shaped structures hanging in the back of the brain. It plays a role in motor movement regulation and balance control. The cerebellum coordinates movement and maintains posture, controls muscle tone and voluntary muscle activity but is unable to initiate muscle contraction. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+        
+        });
+    } else {
+        exteriorref.dispose();
+        showExterior.textContent = "Show Exterior View"
+        loadbrain(0);
+    }
+}
+function loadbrain(val) {
+    if (checkvisbrain(0) || val == 0) {
+        showui();
+        clickcondbrain(0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/limbic_system.glb", scene, function (meshes) {
+            clear();
+
+            hideui();
+
+            meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
+            brainref = meshes[0];
+            console.log("brain added");
+            allMeshes.push(brainref);
+
+            camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
+            camera.target = new BABYLON.Vector3(5, 5, 10);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 50;
+       
+            medullaLobeMat = new BABYLON.StandardMaterial("medullaMat", scene);
+            medullaLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
+            const medulla = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            medulla.position.set(9, -7, 8.5); // (depth,vertical,horizantal)
+            medulla.material = medullaLobeMat;
+            lobemeshes.push(medulla); // adds frontalLobe to lobemeshes array
+            medulla.actionManager = new BABYLON.ActionManager(scene);
+            medulla.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Medulla",
+                        text: "Your medulla oblongata is the bottom-most part of your brain. It's where the spinal cord and brain merge, making it a key conduit for nerve signals to and from your body. It's main function is to control vital processes like your heartbeat, breathing and blood pressure. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+
+            ponsLobeMat = new BABYLON.StandardMaterial("ponsMat", scene);
+            ponsLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
+            const pons = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            pons.position.set(6, -3, 8.5); // (depth,vertical,horizantal)
+            pons.material = ponsLobeMat;
+            lobemeshes.push(pons); 
+            pons.actionManager = new BABYLON.ActionManager(scene);
+            pons.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Pons",
+                        text: "The pons connects your brainstem with the cerebral cortex, and controls movement and sleep. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+            
+            thalamusLobeMat = new BABYLON.StandardMaterial("thalamusMat", scene);
+            thalamusLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
             const thalamus = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             thalamus.position.set(4, 0, 8.5); // (depth,vertical,horizantal)
             thalamus.material = thalamusLobeMat;
@@ -977,6 +1095,7 @@ function loadbrain(val) {
 
         showbtn(backHuman);
         showbtn(lobes);
+        showbtn(showExterior);
         showbtn(brainDivisions);
         showbtn(panelbtn);
         hidebtn(backcell);
@@ -1706,10 +1825,12 @@ function search(value) {
         loadcell();
     }
 
+    searchbox.value = "Search";
     
 
     showSkeletal.textContent = "Show Skeletal";
     showNeuron.textContent = "Show Neuron";
+    showExterior.textContent = "Show Exterior View";
 
     eval("load" + value + "(0)");
 }
