@@ -40,10 +40,12 @@ stomachbtns = document.querySelectorAll(".stomachbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 showSkeletal = document.getElementById("skeletal");
+showExterior = document.getElementById("exterior");
 showNeuron = document.getElementById("neuron");
 lobes = document.getElementById("lobes");
 brainDivisions = document.getElementById("brainDivisions");
 panelbtn = document.getElementById("panelbtn");
+searchbox = document.getElementById("searchbox");
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
@@ -53,13 +55,14 @@ let skeletalref = 0;
 let neuronref = 0;
 let riboref = 0;
 let lobesref = 0;
+let exteriorref = 0;
 let brainDivisionsref = 0;
 let lobemeshes = [];
 let brainDivisionsMeshes = [];
 let neuronmeshes = [];
 let skeletalmeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn];
+let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior];
 let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
@@ -874,27 +877,31 @@ function displayBrainDivisions() {
         loadbrain(0);
     }
 }
+function showExteriorBrain() {
+    if(showExterior.textContent == "Show Exterior View") {
+        showExterior.textContent = "Hide Exterior View";
+        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
-function loadbrain(val) {
-    if (checkvisbrain(0) || val == 0) {
-        showui();
-        clickcondbrain(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             clear();
 
             hideui();
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-            brainref = meshes[0];
+            exteriorref = meshes[0];
             console.log("brain added");
-            allMeshes.push(brainref);
+            allMeshes.push(exteriorref);
 
             camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
             camera.target = new BABYLON.Vector3(5, 5, 10);
             camera.upperRadiusLimit = 100;
             camera.radius = 50;
-       
+    
             medullaLobeMat = new BABYLON.StandardMaterial("medullaMat", scene);
+            medullaLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
             const medulla = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             medulla.position.set(9, -7, 8.5); // (depth,vertical,horizantal)
             medulla.material = medullaLobeMat;
@@ -915,6 +922,7 @@ function loadbrain(val) {
             );
 
             ponsLobeMat = new BABYLON.StandardMaterial("ponsMat", scene);
+            ponsLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
             const pons = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             pons.position.set(6, -3, 8.5); // (depth,vertical,horizantal)
             pons.material = ponsLobeMat;
@@ -935,6 +943,7 @@ function loadbrain(val) {
             );
             
             thalamusLobeMat = new BABYLON.StandardMaterial("thalamusMat", scene);
+            thalamusLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
             const thalamus = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             thalamus.position.set(4, 0, 8.5); // (depth,vertical,horizantal)
             thalamus.material = thalamusLobeMat;
@@ -975,9 +984,37 @@ function loadbrain(val) {
             );
         
         });
+    } else {
+        exteriorref.dispose();
+        showExterior.textContent = "Show Exterior View"
+        loadbrain(0);
+    }
+}
+function loadbrain(val) {
+    if (checkvisbrain(0) || val == 0) {
+        showui();
+        clickcondbrain(0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/limbic_system.glb", scene, function (meshes) {
+            clear();
+
+            hideui();
+
+            meshes[0].scaling = new BABYLON.Vector3(0.35, 0.35, 0.35);
+            brainref = meshes[0];
+            console.log("brain added");
+            allMeshes.push(brainref);
+            lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+
+            camera.position = new BABYLON.Vector3(-2, 1, -60);
+            camera.target = new BABYLON.Vector3(-5, 2, -2);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 50;
+       
+        });
 
         showbtn(backHuman);
         showbtn(lobes);
+        showbtn(showExterior);
         showbtn(brainDivisions);
         showbtn(panelbtn);
         hidebtn(backcell);
@@ -1497,6 +1534,7 @@ function loadneuron(val) {
 
             showbtn(panelbtn);
             showbtn(showNeuron);
+            showbtn(showExterior);
 
 
             BABYLON.SceneLoader.ImportMesh("", "", "models/neuron.glb", scene, function (meshes) {
@@ -1727,10 +1765,12 @@ function search(value) {
         loadcell();
     }
 
+    searchbox.value = "Search";
     
 
     showSkeletal.textContent = "Show Skeletal";
     showNeuron.textContent = "Show Neuron";
+    showExterior.textContent = "Show Exterior View";
 
     eval("load" + value + "(0)");
 }
