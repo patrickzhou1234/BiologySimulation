@@ -266,3 +266,8 @@ img {
   z-index: 1;
   position: absolute;
 }
+
+#exterior {
+  left: 5vh;
+  top: 35vh;
+}
