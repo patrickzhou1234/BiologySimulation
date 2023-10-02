@@ -998,99 +998,17 @@ function loadbrain(val) {
 
             hideui();
 
-            meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
+            meshes[0].scaling = new BABYLON.Vector3(0.35, 0.35, 0.35);
             brainref = meshes[0];
             console.log("brain added");
             allMeshes.push(brainref);
+            lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
-            camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
-            camera.target = new BABYLON.Vector3(5, 5, 10);
+            camera.position = new BABYLON.Vector3(-2, 1, -60);
+            camera.target = new BABYLON.Vector3(-5, 2, -2);
             camera.upperRadiusLimit = 100;
             camera.radius = 50;
        
-            medullaLobeMat = new BABYLON.StandardMaterial("medullaMat", scene);
-            medullaLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
-            const medulla = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            medulla.position.set(9, -7, 8.5); // (depth,vertical,horizantal)
-            medulla.material = medullaLobeMat;
-            lobemeshes.push(medulla); // adds frontalLobe to lobemeshes array
-            medulla.actionManager = new BABYLON.ActionManager(scene);
-            medulla.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Medulla",
-                        text: "Your medulla oblongata is the bottom-most part of your brain. It's where the spinal cord and brain merge, making it a key conduit for nerve signals to and from your body. It's main function is to control vital processes like your heartbeat, breathing and blood pressure. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    });
-                })
-            );
-
-            ponsLobeMat = new BABYLON.StandardMaterial("ponsMat", scene);
-            ponsLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
-            const pons = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            pons.position.set(6, -3, 8.5); // (depth,vertical,horizantal)
-            pons.material = ponsLobeMat;
-            lobemeshes.push(pons); 
-            pons.actionManager = new BABYLON.ActionManager(scene);
-            pons.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Pons",
-                        text: "The pons connects your brainstem with the cerebral cortex, and controls movement and sleep. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    });
-                })
-            );
-            
-            thalamusLobeMat = new BABYLON.StandardMaterial("thalamusMat", scene);
-            thalamusLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
-            const thalamus = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            thalamus.position.set(4, 0, 8.5); // (depth,vertical,horizantal)
-            thalamus.material = thalamusLobeMat;
-            lobemeshes.push(thalamus); // adds frontalLobe to lobemeshes array
-            thalamus.actionManager = new BABYLON.ActionManager(scene);
-            thalamus.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Thalamus",
-                        text: "Your thalamus is an egg-shaped structure in the middle of your brain. It's known as a relay station of all incoming motor (movement) and sensory information — hearing, taste, sight and touch (but not smell) — from your body to your brain. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    });
-                })
-            );
-            
-            cerebellumLobeMat = new BABYLON.StandardMaterial("cerebellumMat", scene);
-            const cerebellum = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            cerebellum.position.set(16.5, -3, 8.5); // (depth,vertical,horizantal)
-            cerebellum.material = cerebellumLobeMat;
-            lobemeshes.push(cerebellum); // adds frontalLobe to lobemeshes array
-            cerebellum.actionManager = new BABYLON.ActionManager(scene);
-            cerebellum.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Cerebellum",
-                        text: "The cerebellum (meaning 'little brain') is a brain shaped structures hanging in the back of the brain. It plays a role in motor movement regulation and balance control. The cerebellum coordinates movement and maintains posture, controls muscle tone and voluntary muscle activity but is unable to initiate muscle contraction. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    });
-                })
-            );
-        
         });
 
         showbtn(backHuman);
@@ -1595,6 +1513,7 @@ function loadneuron(val) {
 
             showbtn(panelbtn);
             showbtn(showNeuron);
+            showbtn(showExterior);
 
 
             BABYLON.SceneLoader.ImportMesh("", "", "models/neuron.glb", scene, function (meshes) {
