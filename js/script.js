@@ -1248,6 +1248,46 @@ function loadkidney(val) {
     }
  }
 
+ function loadlung(val) {
+    if (checkvislung(0) || val == 0) {
+         showui();
+         clickcondlung(0);
+         BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
+             clear();
+             hideui();
+             camera.target = meshes[0]
+             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+             lungref = meshes[0];
+ 
+             allMeshes.push(lungref);
+         });
+         camera.position = new BABYLON.Vector3(0, 5, 0);
+         clearbtns();
+         showbtn(backHuman);
+         
+    }
+ }
+
+ function loadstomach(val) {
+    if (checkvisstomach(0) || val == 0) {
+         showui();
+         clickcondstomach(0);
+         BABYLON.SceneLoader.ImportMesh("", "", "models/stomach.glb", scene, function (meshes) {
+             clear();
+             hideui();
+             camera.target = meshes[0];
+             meshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+             stomachref = meshes[0];
+             
+             allMeshes.push(stomachref);
+         });
+         camera.position = new BABYLON.Vector3(0, 0, 0);
+         clearbtns();
+         showbtn(backHuman);
+         
+    }
+ }
+
 function loadskeletal(val) {
    if (checkvisskeletal() || val == 0) {
     showui();
