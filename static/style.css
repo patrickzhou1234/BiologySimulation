@@ -251,6 +251,36 @@ img {
   top: 48vh;
 }
 
+.lungbtns {
+  z-index: 99999999;
+  font-family: 'amazon-ember';
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s !important;
+  border-radius: 6px;
+}
+
+#lungbtn {
+  left: 5vh;
+  top: 48vh;
+}
+
+.stomachbtns {
+  z-index: 99999999;
+  font-family: 'amazon-ember';
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s !important;
+  border-radius: 6px;
+}
+
+#stomachbtn {
+  left: 5vh;
+  top: 48vh;
+}
+
 #search {
   top: 2vh;
   left: 140vh;
