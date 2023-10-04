@@ -314,43 +314,43 @@ function checkvisneuron() {
     return false;
 }
 function loadcell() {
-   // if (!backcell.classList.contains("animobtn")) {
-        clearbtns();
-        showbtn(backHuman);
+    // if (!backcell.classList.contains("animobtn")) {
+    clearbtns();
+    showbtn(backHuman);
 
-        for (i = 0; i < cellmeshes.length; i++) {
-            cellmeshes[i].visibility = 1;
-        }
-        for (i = 0; i < humanmeshes.length; i++) {
-            humanmeshes[i].visibility = 0;
-        }
-        showui();
-        camera.lowerRadiusLimit = 2; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
-        BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
-            // imports 3D mesh
-            // deletes the memref and phoref variables if they exist
-            clear();
+    for (i = 0; i < cellmeshes.length; i++) {
+        cellmeshes[i].visibility = 1;
+    }
+    for (i = 0; i < humanmeshes.length; i++) {
+        humanmeshes[i].visibility = 0;
+    }
+    showui();
+    camera.lowerRadiusLimit = 2; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
+    BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
+        // imports 3D mesh
+        // deletes the memref and phoref variables if they exist
+        clear();
 
-            hideui();
+        hideui();
 
-            camera.position = new BABYLON.Vector3(-10, 100, 5);
-            camera.target = new BABYLON.Vector3(0, 0, 0);
-            camera.radius = 5;
+        camera.position = new BABYLON.Vector3(-10, 100, 5);
+        camera.target = new BABYLON.Vector3(0, 0, 0);
+        camera.radius = 5;
 
-            cellref = meshes[0]; // sets reference to this variable
+        cellref = meshes[0]; // sets reference to this variable
 
-            allMeshes.push(cellref);
+        allMeshes.push(cellref);
 
-            cellSpheres();
-        });
-        BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
-            meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-            riboref = meshes[0];
-            allMeshes.push(riboref);
+        cellSpheres();
+    });
+    BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
+        meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+        riboref = meshes[0];
+        allMeshes.push(riboref);
 
-            riboref.position = new BABYLON.Vector3(1, -0.1, 1.9);
-        });
-   // }
+        riboref.position = new BABYLON.Vector3(1, -0.1, 1.9);
+    });
+    // }
 }
 
 var createScene = function (canvas, engine) {
@@ -383,10 +383,10 @@ var createScene = function (canvas, engine) {
         allMeshes.push(cellref);
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener("DOMContentLoaded", function () {
         cellSpheres();
-    })
-   
+    });
+
     return scene;
 };
 
@@ -627,7 +627,7 @@ function cholestrolclicked() {
     if (checkvis(4)) {
         showui();
         clickcond(4);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/cholestoral.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/Cholestoral.glb", scene, function (meshes) {
             clear();
             hideui();
             camera.target = meshes[0];
@@ -640,17 +640,17 @@ function cholestrolclicked() {
     }
 }
 
-function receptorproteinclicked(){
-    showui()
-    clickcond(4)
-    clear()
-    hideui()
+function receptorproteinclicked() {
+    showui();
+    clickcond(4);
+    clear();
+    hideui();
     hidebtn(backHuman);
     showbtn(backcell);
 }
 
 function loadmito(val) {
-   if (checkvismito(0) || val == 0) {
+    if (checkvismito(0) || val == 0) {
         showui();
         clickcondmito(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/mitocondrias.glb", scene, function (meshes) {
@@ -661,13 +661,13 @@ function loadmito(val) {
             phoref = meshes[0];
             allMeshes.push(phoref);
         });
-        
+
         showbtn(backcell);
-   }
+    }
 }
 
 function loadgolgi(val) {
-   if (checkvisgolgi(0) || val == 0) {
+    if (checkvisgolgi(0) || val == 0) {
         showui();
         clickcondgolgi(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/golgi.glb", scene, function (meshes) {
@@ -878,7 +878,7 @@ function displayBrainDivisions() {
     }
 }
 function showExteriorBrain() {
-    if(showExterior.textContent == "Show Exterior View") {
+    if (showExterior.textContent == "Show Exterior View") {
         showExterior.textContent = "Hide Exterior View";
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
@@ -899,7 +899,7 @@ function showExteriorBrain() {
             camera.target = new BABYLON.Vector3(5, 5, 10);
             camera.upperRadiusLimit = 100;
             camera.radius = 50;
-    
+
             medullaLobeMat = new BABYLON.StandardMaterial("medullaMat", scene);
             medullaLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
             const medulla = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
@@ -926,7 +926,7 @@ function showExteriorBrain() {
             const pons = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             pons.position.set(6, -3, 8.5); // (depth,vertical,horizantal)
             pons.material = ponsLobeMat;
-            lobemeshes.push(pons); 
+            lobemeshes.push(pons);
             pons.actionManager = new BABYLON.ActionManager(scene);
             pons.actionManager.registerAction(
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
@@ -941,7 +941,7 @@ function showExteriorBrain() {
                     });
                 })
             );
-            
+
             thalamusLobeMat = new BABYLON.StandardMaterial("thalamusMat", scene);
             thalamusLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
             const thalamus = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
@@ -962,7 +962,7 @@ function showExteriorBrain() {
                     });
                 })
             );
-            
+
             cerebellumLobeMat = new BABYLON.StandardMaterial("cerebellumMat", scene);
             const cerebellum = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             cerebellum.position.set(16.5, -3, 8.5); // (depth,vertical,horizantal)
@@ -982,11 +982,10 @@ function showExteriorBrain() {
                     });
                 })
             );
-        
         });
     } else {
         exteriorref.dispose();
-        showExterior.textContent = "Show Exterior View"
+        showExterior.textContent = "Show Exterior View";
         loadbrain(0);
     }
 }
@@ -1009,7 +1008,6 @@ function loadbrain(val) {
             camera.target = new BABYLON.Vector3(-5, 2, -2);
             camera.upperRadiusLimit = 100;
             camera.radius = 50;
-       
         });
 
         showbtn(backHuman);
@@ -1045,9 +1043,9 @@ function loadhuman(val) {
             kidneymat = new BABYLON.StandardMaterial("kidneymat", scene);
             lungmat = new BABYLON.StandardMaterial("lungmat", scene);
             stomachmat = new BABYLON.StandardMaterial("stomachmat", scene);
-        
+
             brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
-        
+
             humanmeshes.push(brain);
             brain.position.set(0, 3.75, -0.25);
             brain.material = brainmat;
@@ -1074,9 +1072,9 @@ function loadhuman(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-        
+
             heart = BABYLON.MeshBuilder.CreateSphere("heart", { diameter: 0.25, segments: 32 }, scene);
-        
+
             humanmeshes.push(heart);
             heart.position.set(0.25, 1.4, -0.5);
             heart.material = heartmat;
@@ -1103,7 +1101,7 @@ function loadhuman(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-              kidney = BABYLON.MeshBuilder.CreateSphere("kidney", { diameter: 0.2, segments: 32 }, scene);
+            kidney = BABYLON.MeshBuilder.CreateSphere("kidney", { diameter: 0.2, segments: 32 }, scene);
 
             humanmeshes.push(kidney);
             kidney.position.set(-0.25, -0.5, -0.5);
@@ -1160,9 +1158,8 @@ function loadhuman(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-           
-            stomach = BABYLON.MeshBuilder.CreateSphere("stomach", { diameter: 0.2, segments: 32 }, scene);
 
+            stomach = BABYLON.MeshBuilder.CreateSphere("stomach", { diameter: 0.2, segments: 32 }, scene);
 
             humanmeshes.push(stomach);
             stomach.position.set(0.5, 0.4, -0.6);
@@ -1190,26 +1187,20 @@ function loadhuman(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-
         });
-
 
         clearbtns();
         showbtn(backcell);
         showbtn(showSkeletal);
 
-    
-        
         console.log(humanmeshes.length);
         humanmeshes.forEach((el) => {
             orgsettings(el);
-        })
-            
-        
+        });
     }
 }
 function loadheart(val) {
-   if (checkvisheart(0) || val == 0) {
+    if (checkvisheart(0) || val == 0) {
         showui();
         clickcondheart(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/heart.glb", scene, function (meshes) {
@@ -1224,78 +1215,73 @@ function loadheart(val) {
         camera.position = new BABYLON.Vector3(80, 1.5, 50);
         clearbtns();
         showbtn(backHuman);
-        
-   }
+    }
 }
 
 function loadkidney(val) {
     if (checkviskidney(0) || val == 0) {
-         showui();
-         clickcondkidney(0);
-         BABYLON.SceneLoader.ImportMesh("", "", "models/kidney.glb", scene, function (meshes) {
-             clear();
-             hideui();
-             camera.target = meshes[0];
-             meshes[0].scaling = new BABYLON.Vector3(0.075, 0.045, 0.075);
-             heartref = meshes[0];
- 
-             allMeshes.push(heartref);
-         });
-         camera.position = new BABYLON.Vector3(2000, 750, -4500);
-         clearbtns();
-         showbtn(backHuman);
-         
-    }
- }
+        showui();
+        clickcondkidney(0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/kidney.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.target = meshes[0];
+            meshes[0].scaling = new BABYLON.Vector3(0.075, 0.045, 0.075);
+            heartref = meshes[0];
 
- function loadlung(val) {
+            allMeshes.push(heartref);
+        });
+        camera.position = new BABYLON.Vector3(2000, 750, -4500);
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
+
+function loadlung(val) {
     if (checkvislung(0) || val == 0) {
-         showui();
-         clickcondlung(0);
-         BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
-             clear();
-             hideui();
-             camera.target = meshes[0]
-             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-             lungref = meshes[0];
- 
-             allMeshes.push(lungref);
-         });
-         camera.position = new BABYLON.Vector3(0, 5, 0);
-         clearbtns();
-         showbtn(backHuman);
-         
-    }
- }
+        showui();
+        clickcondlung(0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.target = meshes[0];
+            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            lungref = meshes[0];
 
- function loadstomach(val) {
-    if (checkvisstomach(0) || val == 0) {
-         showui();
-         clickcondstomach(0);
-         BABYLON.SceneLoader.ImportMesh("", "", "models/stomach.glb", scene, function (meshes) {
-             clear();
-             hideui();
-             camera.target = meshes[0];
-             meshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
-             stomachref = meshes[0];
-             
-             allMeshes.push(stomachref);
-         });
-         camera.position = new BABYLON.Vector3(0, 0, 0);
-         clearbtns();
-         showbtn(backHuman);
-         
+            allMeshes.push(lungref);
+        });
+        camera.position = new BABYLON.Vector3(0, 5, 0);
+        clearbtns();
+        showbtn(backHuman);
     }
- }
+}
+
+function loadstomach(val) {
+    if (checkvisstomach(0) || val == 0) {
+        showui();
+        clickcondstomach(0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/stomach.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.target = meshes[0];
+            meshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+            stomachref = meshes[0];
+
+            allMeshes.push(stomachref);
+        });
+        camera.position = new BABYLON.Vector3(0, 0, 0);
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
 
 function loadskeletal(val) {
-   if (checkvisskeletal() || val == 0) {
-    showui();
-    console.log(showSkeletal.textContent);
+    if (checkvisskeletal() || val == 0) {
+        showui();
+        console.log(showSkeletal.textContent);
         if (showSkeletal.textContent == "Show Skeletal") {
-            
-            showSkeletal.textContent = "Hide Skeletal";    
-            
+            showSkeletal.textContent = "Hide Skeletal";
+
             camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
             camera.target = new BABYLON.Vector3(0, -0.25, 0);
             camera.upperRadiusLimit = 100;
@@ -1316,7 +1302,7 @@ function loadskeletal(val) {
                 skeletalref = meshes[0];
                 allMeshes.push(skeletalref);
             });
-            
+
             skullmat = new BABYLON.StandardMaterial("skull", scene);
             skull = BABYLON.MeshBuilder.CreateSphere("skull", { diameter: 0.3, segments: 32 }, scene);
             skull.position.set(0, 7, -0.51); // (horizontal,vertical,depth)
@@ -1337,11 +1323,11 @@ function loadskeletal(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-            
+
             skeletalmeshes.push(skull);
             spinemat = new BABYLON.StandardMaterial("spine", scene);
             spine = BABYLON.MeshBuilder.CreateSphere("spine", { diameter: 0.3, segments: 32 }, scene);
-            spine.position.set(0, 3, .8); // (horizontal,vertical,depth)
+            spine.position.set(0, 3, 0.8); // (horizontal,vertical,depth)
             spine.material = spinemat;
             spine.actionManager = new BABYLON.ActionManager(scene);
             spine.actionManager.registerAction(
@@ -1359,7 +1345,7 @@ function loadskeletal(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-            
+
             skeletalmeshes.push(spine);
             femurmat = new BABYLON.StandardMaterial("femur", scene);
             femur = BABYLON.MeshBuilder.CreateSphere("femur", { diameter: 0.3, segments: 32 }, scene);
@@ -1540,11 +1526,10 @@ function loadskeletal(val) {
         } else {
             skeletalref.dispose();
             showSkeletal.textContent = "Show Skeletal";
-            
+
             showbtn(backHuman);
             loadhuman();
         }
-        
     }
 }
 
@@ -1568,14 +1553,13 @@ function loadneuron(val) {
 
             showbtn(brainDivisions);
             brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-            
+
             showbtn(lobes);
             lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
             showbtn(panelbtn);
             showbtn(showNeuron);
             showbtn(showExterior);
-
 
             BABYLON.SceneLoader.ImportMesh("", "", "models/neuron.glb", scene, function (meshes) {
                 meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
@@ -1649,7 +1633,7 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-             neuronmeshes.push(dend);
+            neuronmeshes.push(dend);
             sheathmat = new BABYLON.StandardMaterial("sheathmat", scene);
             sheath = BABYLON.MeshBuilder.CreateSphere("sheath", { diameter: 3, segments: 32 }, scene);
             sheath.position.set(-10, 1, 0);
@@ -1669,7 +1653,7 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-             neuronmeshes.push(sheath);
+            neuronmeshes.push(sheath);
             nodemat = new BABYLON.StandardMaterial("node", scene);
             node = BABYLON.MeshBuilder.CreateSphere("node", { diameter: 2, segments: 32 }, scene);
             node.position.set(-23, -2, 0);
@@ -1689,7 +1673,7 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-       neuronmeshes.push(node);
+            neuronmeshes.push(node);
             synapsemat = new BABYLON.StandardMaterial("synapse", scene);
             synapse = BABYLON.MeshBuilder.CreateSphere("synapse", { diameter: 4, segments: 32 }, scene);
             synapse.position.set(15, 0, 0);
@@ -1709,8 +1693,8 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-         
-        neuronmeshes.push(synapse);
+
+            neuronmeshes.push(synapse);
             Somamat = new BABYLON.StandardMaterial("Soma", scene);
             Soma = BABYLON.MeshBuilder.CreateSphere("Soma", { diameter: 3, segments: 32 }, scene);
             Soma.position.set(-65, -15, 0);
@@ -1738,7 +1722,7 @@ function loadneuron(val) {
             }
         } else {
             showNeuron.textContent = "Show Neuron";
-            
+
             backHuman.setAttribute("style", "");
             lobes.setAttribute("style", "");
             brainDivisions.setAttribute("style", "");
@@ -1753,37 +1737,37 @@ function clear() {
         try {
             allMeshes[i].dispose();
         } catch (err) {}
-    }    
+    }
     for (i = 0; i < lobemeshes.length; i++) {
         try {
             lobemeshes[i].dispose();
         } catch (err) {}
-    }   
+    }
     for (i = 0; i < brainDivisionsMeshes.length; i++) {
         try {
             brainDivisionsMeshes[i].dispose();
         } catch (err) {}
-    }   
+    }
     for (i = 0; i < neuronmeshes.length; i++) {
         try {
             neuronmeshes[i].dispose();
         } catch (err) {}
-    } 
+    }
     for (i = 0; i < cellmeshes.length; i++) {
         try {
             cellmeshes[i].visibility = 0;
         } catch (err) {}
-    } 
+    }
     for (i = 0; i < humanmeshes.length; i++) {
         try {
             humanmeshes[i].dispose();
         } catch (err) {}
-    } 
+    }
     for (i = 0; i < skeletalmeshes.length; i++) {
         try {
             skeletalmeshes[i].dispose();
         } catch (err) {}
-    } 
+    }
 }
 
 function clearbtns() {
@@ -1806,7 +1790,6 @@ function search(value) {
     }
 
     searchbox.value = "Search";
-    
 
     showSkeletal.textContent = "Show Skeletal";
     showNeuron.textContent = "Show Neuron";
