@@ -848,30 +848,106 @@ function displayLobes() {
 }
 
 function displayBrainDivisions() {
-    if (brainDivisions.textContent == "Show Brain Divisions" && lobes.textContent == "Show Lobes") {
+    if (brainDivisions.textContent == "Show Brain Divisions") {
+        try {
+            lobemeshes.forEach((el) => {
+                el.dispose();
+            });
+        } catch (err) {};
         lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         brainDivisions.textContent = "Hide Brain Divisions";
-        BABYLON.SceneLoader.ImportMesh("", "", "models/halfbrain.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/limbic_system.glb", scene, function (meshes) {
             // change brain.glb to the file name with the brain model corresponding to brain divisions
-            meshes[0].scaling = new BABYLON.Vector3(1000, 1000, 1000);
+            meshes[0].scaling = new BABYLON.Vector3(0.35, 0.35, 0.35);
             brainref.dispose();
             hideui();
 
-            camera.position = new BABYLON.Vector3(0, 0, 0);
-            camera.target = new BABYLON.Vector3(0, 0, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 50;
 
             brainDivisionsref = meshes[0];
+            BABYLON.BoundingBoxGizmo.MakeNotPickableAndWrapInBoundingBox(meshes[0]);
+
             allMeshes.push(brainDivisionsref);
         });
+
+
+        hindmat = new BABYLON.StandardMaterial("hindmat", scene);
+        hindmat.diffuseColor = new BABYLON.Color3(20, 5, 1);
+        const hind = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        hind.position.set(-4.5, -7, -2.5); // (depth,vertical,horizantal)
+        hind.material = hindmat;
+        brainDivisionsMeshes.push(hind); // adds hind brain to brain divisions array
+        hind.actionManager = new BABYLON.ActionManager(scene);
+        hind.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Hind Brain",
+                    text: "",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
+
+        midmat = new BABYLON.StandardMaterial("midmat", scene);
+        midmat.diffuseColor = new BABYLON.Color3(20, 5, 1);
+        const mid = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        mid.position.set(-4.5, 5, -2.5); // (depth,vertical,horizantal)
+        mid.material = midmat;
+        brainDivisionsMeshes.push(mid); // adds hind brain to brain divisions array
+        mid.actionManager = new BABYLON.ActionManager(scene);
+        mid.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Mid Brain",
+                    text: "",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
+
+        foremat = new BABYLON.StandardMaterial("foremat", scene);
+        foremat.diffuseColor = new BABYLON.Color3(20, 5, 1);
+        const fore = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        fore.position.set(-4.5, 13, -2.5); // (depth,vertical,horizantal)
+        fore.material = foremat;
+        brainDivisionsMeshes.push(fore); // adds hind brain to brain divisions array
+        fore.actionManager = new BABYLON.ActionManager(scene);
+        fore.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Fore Brain",
+                    text: "",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
     } else {
         lobes.setAttribute("style", "");
         backHuman.setAttribute("style", "");
         showNeuron.setAttribute("style", "");
         brainDivisions.textContent = "Show Brain Divisions";
 
-        camera.target = new BABYLON.Vector3(5, 5, 10);
+        for (i = 0; i < brainDivisionsMeshes.length; i++) {
+            try {
+                brainDivisionsMeshes[i].dispose();
+            } catch (err) {};
+        } 
+
 
         loadbrain(0);
     }
@@ -881,9 +957,9 @@ function showExteriorBrain() {
         showExterior.textContent = "Hide Exterior View";
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-        lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-
+        showbtn(lobes);
+        showNeuron.textContent = "Show Neuron";
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             clear();
 
@@ -985,7 +1061,8 @@ function showExteriorBrain() {
         });
     } else {
         exteriorref.dispose();
-        showExterior.textContent = "Show Exterior View"
+        showExterior.textContent = "Show Exterior View";
+        lobes.textContent = "Show Lobes";
         loadbrain(0);
     }
 }
@@ -993,6 +1070,8 @@ function loadbrain(val) {
     if (checkvisbrain(0) || val == 0) {
         showui();
         clickcondbrain(0);
+        lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
+        showNeuron.textContent = "Show Neuron";
         BABYLON.SceneLoader.ImportMesh("", "", "models/limbic_system.glb", scene, function (meshes) {
             clear();
 
@@ -1010,6 +1089,8 @@ function loadbrain(val) {
             camera.radius = 50;
        
         });
+
+        
 
         showbtn(backHuman);
         showbtn(lobes);
@@ -1721,6 +1802,11 @@ function clear() {
     for (i = 0; i < skeletalmeshes.length; i++) {
         try {
             skeletalmeshes[i].dispose();
+        } catch (err) {}
+    } 
+    for (i = 0; i < brainDivisionsMeshes.length; i++) {
+        try {
+            brainDivisionsMeshes[i].dispose();
         } catch (err) {}
     } 
 }
