@@ -232,8 +232,8 @@ img {
 }
 
 #heartbtn {
-  left: 5vh;
-  top: 48vh;
+  left: 80vh;
+  top: 93vh;
 }
 
 .kidneybtns {
@@ -247,8 +247,8 @@ img {
 }
 
 #kidneybtn {
-  left: 5vh;
-  top: 48vh;
+  left: 80vh;
+  top: 77vh;
 }
 
 .lungbtns {
@@ -262,8 +262,8 @@ img {
 }
 
 #lungbtn {
-  left: 5vh;
-  top: 48vh;
+  left: 80vh;
+  top: 90vh;
 }
 
 .stomachbtns {
@@ -277,8 +277,8 @@ img {
 }
 
 #stomachbtn {
-  left: 5vh;
-  top: 48vh;
+  left: 80vh;
+  top: 85vh;
 }
 
 #search {
