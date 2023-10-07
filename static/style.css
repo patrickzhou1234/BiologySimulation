@@ -232,8 +232,53 @@ img {
 }
 
 #heartbtn {
-  left: 5vh;
-  top: 48vh;
+  left: 80vh;
+  top: 93vh;
+}
+
+.kidneybtns {
+  z-index: 99999999;
+  font-family: 'amazon-ember';
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s !important;
+  border-radius: 6px;
+}
+
+#kidneybtn {
+  left: 80vh;
+  top: 77vh;
+}
+
+.lungbtns {
+  z-index: 99999999;
+  font-family: 'amazon-ember';
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s !important;
+  border-radius: 6px;
+}
+
+#lungbtn {
+  left: 80vh;
+  top: 90vh;
+}
+
+.stomachbtns {
+  z-index: 99999999;
+  font-family: 'amazon-ember';
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s !important;
+  border-radius: 6px;
+}
+
+#stomachbtn {
+  left: 80vh;
+  top: 85vh;
 }
 
 #search {
