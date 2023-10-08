@@ -1489,7 +1489,7 @@ function loadskeletal(val) {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
                         title: "Sternum (aka Breastbone)",
-                        text: "The bones of the forearm that allow for forearm rotation and wrist movement. ",
+                        text: "Protects the heart and lungs and anchors the ribcage. ",
                         icon: "question",
                         background: "black",
                         color: "white",
@@ -1523,6 +1523,51 @@ function loadskeletal(val) {
             );
 
             skeletalmeshes.push(scapula);
+            phalangefmat = new BABYLON.StandardMaterial("phalangef", scene);
+            phalangef = BABYLON.MeshBuilder.CreateSphere("phalangef", { diameter: 0.3, segments: 32 }, scene);
+            phalangef.position.set(0.5, -7, -0.9); // (horizontal,vertical,depth)
+            phalangef.material = phalangefmat;
+            phalangef.actionManager = new BABYLON.ActionManager(scene);
+            phalangef.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Phalange",
+                        text: "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal). ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = phalangef;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            skeletalmeshes.push(phalangef);
+            phalangehmat = new BABYLON.StandardMaterial("phalangeh", scene);
+            phalangeh = BABYLON.MeshBuilder.CreateSphere("phalangeh", { diameter: 0.3, segments: 32 }, scene);
+            phalangeh.position.set(-2.8, -0.6, -0.5); // (horizontal,vertical,depth)
+            phalangeh.material = phalangehmat;
+            phalangeh.actionManager = new BABYLON.ActionManager(scene);
+            phalangeh.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Phalange",
+                        text: "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal). ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = phalangeh;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            skeletalmeshes.push(phalangeh);
+
         } else {
             skeletalref.dispose();
             showSkeletal.textContent = "Show Skeletal";
