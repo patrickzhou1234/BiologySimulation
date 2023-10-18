@@ -42,6 +42,7 @@ backHuman = document.getElementById("backHuman");
 showSkeletal = document.getElementById("skeletal");
 showExterior = document.getElementById("exterior");
 showNeuron = document.getElementById("neuron");
+showMuscularSys = document.getElementById("muscularbtn");
 lobes = document.getElementById("lobes");
 brainDivisions = document.getElementById("brainDivisions");
 panelbtn = document.getElementById("panelbtn");
@@ -57,6 +58,7 @@ let riboref = 0;
 let lobesref = 0;
 let exteriorref = 0;
 let brainDivisionsref = 0;
+let muscularref = 0;
 let lobemeshes = [];
 let brainDivisionsMeshes = [];
 let neuronmeshes = [];
@@ -313,6 +315,13 @@ function checkvisneuron() {
     }
     return false;
 }
+function checkvismuscular() {
+    if (!showMuscularSys.classList.contains("animobtn") && showMuscularSys.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+        return true;
+    }
+    return false;
+}
+
 function loadcell() {
     // if (!backcell.classList.contains("animobtn")) {
     clearbtns();
@@ -1192,6 +1201,7 @@ function loadhuman(val) {
         clearbtns();
         showbtn(backcell);
         showbtn(showSkeletal);
+        showbtn(showMuscularSys);
 
         console.log(humanmeshes.length);
         humanmeshes.forEach((el) => {
@@ -1773,6 +1783,26 @@ function loadneuron(val) {
             brainDivisions.setAttribute("style", "");
 
             loadbrain(0);
+        }
+    }
+}
+
+function showMuscular() {
+    if (checkvismuscular()) {
+        if (showMuscularSys.textContent == "Show Muscular System"){
+            showMuscularSys.textContent = "Hide Muscular System";
+            BABYLON.SceneLoader.ImportMesh("", "", "models/muscular_system.glb", scene, function(meshes){
+                clear();
+                meshes[0].scaling = new BABYLON.Vector3(7, 7, 7);
+                muscularref = meshes[0];
+                camera.target = new BABYLON.Vector3(0,5,0);
+                camera.position = new BABYLON.Vector3(10, 45, -120);
+            })
+        }
+        else {
+            showMuscularSys.textContent = "Show Muscular System";
+            muscularref.dispose();
+            loadhuman(0);
         }
     }
 }
