@@ -11,6 +11,13 @@ panel = document.querySelectorAll(".cd-panel")[0];
 document.querySelector(".js-cd-close").onclick = () => {
     removeClass(panel, "cd-panel--is-visible");
 };
+
+ribopanel = document.querySelectorAll(".cd-ribopanel")[0];
+document.querySelector(".js-cd-riboclose").onclick = () => {
+    removeClass(ribopanel, "cd-panel--is-visible");
+    hidebtn(ribopanelbtn);
+    showbtn(searchbox);
+};
 function hasClass(el, className) {
     if (el.classList) return el.classList.contains(className);
     else return !!el.className.match(new RegExp("(\\s|^)" + className + "(\\s|$)"));
@@ -45,6 +52,7 @@ showNeuron = document.getElementById("neuron");
 lobes = document.getElementById("lobes");
 brainDivisions = document.getElementById("brainDivisions");
 panelbtn = document.getElementById("panelbtn");
+ribopanelbtn = document.getElementById("ribopanelbtn");
 searchbox = document.getElementById("searchbox");
 let cellref = 0;
 let memref = 0;
@@ -529,9 +537,15 @@ function cellSpheres() {
                 background: "black",
                 color: "white",
                 backdrop: false,
-            });
+            }).then(function() {
+                if(!(ribopanel.classList.contains("cd-panel--is-visible"))) {
+                    hidebtn(ribopanelbtn);
+                }
+                
+            })
             camera.target = ribosome;
             camera.inertialRadiusOffset += 4;
+            showbtn(ribopanelbtn)
         })
     );
     BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
@@ -688,6 +702,12 @@ function loadgolgi(val) {
 function loadpanel() {
     addClass(panel, "cd-panel--is-visible");
 }
+function loadribopanel() {
+    hidebtn(searchbox);
+    Swal.close();
+    addClass(ribopanel, "cd-panel--is-visible");
+}
+
 /* 
 Two buttons, one for lobes, one for fore/mid/hind brains 
 
