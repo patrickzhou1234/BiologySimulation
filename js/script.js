@@ -7,25 +7,30 @@ document.body.appendChild(stats.dom);
 document.querySelectorAll(".statsdom")[0].setAttribute("style", "");
 // declaration
 
-panel = document.querySelectorAll(".cd-panel")[0];
-document.querySelector(".js-cd-close").onclick = () => {
+
+panel = document.querySelectorAll(".cd-panel")[0]; // get access to the html code of the brain info panel
+document.querySelector(".js-cd-close").onclick = () => { // when the close button is clicked for the brain info panel, remove the class that makes the panel visible
     removeClass(panel, "cd-panel--is-visible");
 };
-
+// same as above but for ribosome information
 ribopanel = document.querySelectorAll(".cd-ribopanel")[0];
 document.querySelector(".js-cd-riboclose").onclick = () => {
     removeClass(ribopanel, "cd-panel--is-visible");
-    hidebtn(ribopanelbtn);
-    showbtn(searchbox);
+    hidebtn(ribopanelbtn); // dont want to see the info button when panel is closed, so hide this btn on click of the close btn
+    showbtn(searchbox); // when the panel openned, we had made the search box disappear, this makes it reappear once panel closes
 };
+
+// returns boolean on whether or not an element has a class
 function hasClass(el, className) {
     if (el.classList) return el.classList.contains(className);
     else return !!el.className.match(new RegExp("(\\s|^)" + className + "(\\s|$)"));
 }
+// adds class to an element
 function addClass(el, className) {
     if (el.classList) el.classList.add(className);
     else if (!hasClass(el, className)) el.className += " " + className;
 }
+// removes class from an element
 function removeClass(el, className) {
     if (el.classList) el.classList.remove(className);
     else if (hasClass(el, className)) {
@@ -330,11 +335,13 @@ function checkvismuscular() {
     return false;
 }
 
+// loads the cell you see on openning of website
 function loadcell() {
     // if (!backcell.classList.contains("animobtn")) {
-    clearbtns();
+    clearbtns(); // function that hides all btns
     showbtn(backHuman);
 
+    // hide human meshes but show cell meshes
     for (i = 0; i < cellmeshes.length; i++) {
         cellmeshes[i].visibility = 1;
     }
@@ -345,7 +352,6 @@ function loadcell() {
     camera.lowerRadiusLimit = 2; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
     BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
         // imports 3D mesh
-        // deletes the memref and phoref variables if they exist
         clear();
 
         hideui();
@@ -356,10 +362,11 @@ function loadcell() {
 
         cellref = meshes[0]; // sets reference to this variable
 
-        allMeshes.push(cellref);
+        allMeshes.push(cellref); // adds cellref to an array allMeshes
 
-        cellSpheres();
+        cellSpheres(); // function that displays all the spheres associated with the parts of a cell (mitochondria, ...)
     });
+    // loads in ribosome
     BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
         meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
         riboref = meshes[0];
@@ -431,10 +438,12 @@ function cellSpheres() {
                 width: window.innerWidth * 0.8,
                 backdrop: false,
             }).then(function () {
+                // hides all btns that are part of roundbtns (the hiding and showing of these btns makes more sense when u run the website and physically experiment with it)
                 for (i = 0; i < roundbtns.length; i++) {
                     hidebtn(roundbtns[i]);
                 }
             });
+            // shows all btns that are part of roundbtns
             for (i = 0; i < roundbtns.length; i++) {
                 showbtn(roundbtns[i]);
             }
@@ -547,6 +556,7 @@ function cellSpheres() {
                 color: "white",
                 backdrop: false,
             }).then(function() {
+                // after "ok" button is clicked and the ribo info panel btn does not have the specified class, then hide the btn
                 if(!(ribopanel.classList.contains("cd-panel--is-visible"))) {
                     hidebtn(ribopanelbtn);
                 }
@@ -713,7 +723,7 @@ function loadpanel() {
 }
 function loadribopanel() {
     hidebtn(searchbox);
-    Swal.close();
+    Swal.close(); // closes the pop up with info on the ribosome
     addClass(ribopanel, "cd-panel--is-visible");
 }
 
@@ -724,7 +734,9 @@ Show both buttons (for lobes and brains), and when one is clicked, have the othe
 */
 function displayLobes() {
     if (lobes.textContent == "Show Lobes" && brainDivisions.textContent == "Show Brain Divisions") {
-        // Checks to make sure the button is valid to click
+        // ^^Checks to make sure the button is valid to click
+
+        // sets the other three buttons' attributes to make them unclickable
         brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
@@ -850,6 +862,7 @@ function displayLobes() {
             });
         });
     } else {
+        // resets the page to how it was originally
         brainDivisions.setAttribute("style", "");
         backHuman.setAttribute("style", "");
         showNeuron.setAttribute("style", "");
@@ -997,7 +1010,6 @@ function showExteriorBrain() {
 
             meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
             exteriorref = meshes[0];
-            console.log("brain added");
             allMeshes.push(exteriorref);
 
             camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
@@ -1006,7 +1018,7 @@ function showExteriorBrain() {
             camera.radius = 50;
 
             medullaLobeMat = new BABYLON.StandardMaterial("medullaMat", scene);
-            medullaLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
+            medullaLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1); // changes color of sphere
             const medulla = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
             medulla.position.set(9, -7, 8.5); // (depth,vertical,horizantal)
             medulla.material = medullaLobeMat;
@@ -1108,7 +1120,6 @@ function loadbrain(val) {
 
             meshes[0].scaling = new BABYLON.Vector3(0.35, 0.35, 0.35);
             brainref = meshes[0];
-            console.log("brain added");
             allMeshes.push(brainref);
             lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
@@ -1304,7 +1315,6 @@ function loadhuman(val) {
         showbtn(showSkeletal);
         showbtn(showMuscularSys);
 
-        console.log(humanmeshes.length);
         humanmeshes.forEach((el) => {
             orgsettings(el);
         });
@@ -1389,7 +1399,6 @@ function loadstomach(val) {
 function loadskeletal(val) {
     if (checkvisskeletal() || val == 0) {
         showui();
-        console.log(showSkeletal.textContent);
         if (showSkeletal.textContent == "Show Skeletal") {
             showSkeletal.textContent = "Hide Skeletal";
 
@@ -1872,7 +1881,6 @@ function loadneuron(val) {
                 })
             );
             neuronmeshes.push(Soma);
-            console.log(neuronmeshes.length);
             for (i = 0; i < neuronmeshes.length; i++) {
                 orgsettings(neuronmeshes[i]);
             }
@@ -1908,6 +1916,7 @@ function showMuscular() {
     }
 }
 
+// clears all meshes
 function clear() {
     for (i = 0; i < allMeshes.length; i++) {
         try {
@@ -1946,6 +1955,7 @@ function clear() {
     } 
 }
 
+// clears all btns
 function clearbtns() {
     buttons.forEach((btn) => {
         hidebtn(btn);
@@ -1957,6 +1967,7 @@ function clearbtns() {
         });
     });
 }
+// search box
 function search(value) {
     clear();
     clearbtns();
