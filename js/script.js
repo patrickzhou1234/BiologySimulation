@@ -253,83 +253,8 @@ function clickcondstomach(ind) {
 
 // checks visibility of ind element in specified arrays: checks if the element does not have "animobtn" and an opaque buttin since they're only in hidden elements
 
-function checkvis(ind) {
-    if (!roundbtns[ind].classList.contains("animobtn") && roundbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-
-function checkvismito(ind) {
-    if (!mitosmlbtns[ind].classList.contains("animobtn") && mitosmlbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-
-function checkvisgolgi(ind) {
-    if (!golgismlbtns[ind].classList.contains("animobtn") && golgismlbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-
-function checkvisbrain(ind) {
-    if (!brainbtns[ind].classList.contains("animobtn") && brainbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-
-function checkvisheart(ind) {
-    if (!heartbtns[ind].classList.contains("animobtn") && heartbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-
-function checkviskidney(ind) {
-    if (!kidneybtns[ind].classList.contains("animobtn") && kidneybtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-
-function checkvislung(ind) {
-    if (!lungbtns[ind].classList.contains("animobtn") && lungbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-function checkvisstomach(ind) {
-    if (!stomachbtns[ind].classList.contains("animobtn") && stomachbtns[ind].getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-
-function checkvishuman() {
-    if (!backHuman.classList.contains("animobtn") && backHuman.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-
-function checkvisskeletal() {
-    if (!showSkeletal.classList.contains("animobtn") && backHuman.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-
-function checkvisneuron() {
-    if (!showNeuron.classList.contains("animobtn") && showNeuron.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
-        return true;
-    }
-    return false;
-}
-function checkvismuscular() {
-    if (!showMuscularSys.classList.contains("animobtn") && showMuscularSys.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
+function checkvis(btn) {
+    if (!btn.classList.contains("animobtn") && btn.getAttribute("style") != "opacity: 0.6 !important; cursor: not-allowed !important;") {
         return true;
     }
     return false;
@@ -584,7 +509,7 @@ function cellSpheres() {
 
 // handles the cases of when user clicks on the parts of the cell
 function membraneclicked() {
-    if (checkvis(0)) {
+    if (checkvis(roundbtns[0])) {
         // checks visibility
         showui();
         clickcond(0); // has the membrane be semi-transparent and have a not allowed cursor
@@ -604,7 +529,7 @@ function membraneclicked() {
 }
 
 function phosphoclicked() {
-    if (checkvis(1)) {
+    if (checkvis(roundbtns[1])) {
         showui();
         clickcond(1);
         BABYLON.SceneLoader.ImportMesh("", "", "models/phospho_sama.glb", scene, function (meshes) {
@@ -621,7 +546,7 @@ function phosphoclicked() {
 }
 
 function phosphoclicked2() {
-    if (checkvis(2)) {
+    if (checkvis(roundbtns[2])) {
         document.getElementById("swal2-html-container").innerHTML = "<ul>Selective permeability</ul><ul>Passive transport</ul><ul>Active transport</ul><ul>Facilitated transport</ul>";
         showui();
         clickcond(2);
@@ -640,7 +565,7 @@ function phosphoclicked2() {
 }
 
 function openchannel() {
-    if (checkvis(3)) {
+    if (checkvis(roundbtns[3])) {
         showui();
         clickcond(3);
         BABYLON.SceneLoader.ImportMesh("", "", "models/openchannel.glb", scene, function (meshes) {
@@ -657,7 +582,7 @@ function openchannel() {
 }
 
 function cholestrolclicked() {
-    if (checkvis(4)) {
+    if (checkvis(roundbtns[4])) {
         showui();
         clickcond(4);
         BABYLON.SceneLoader.ImportMesh("", "", "models/Cholestoral.glb", scene, function (meshes) {
@@ -683,7 +608,7 @@ function receptorproteinclicked() {
 }
 
 function loadmito(val) {
-    if (checkvismito(0) || val == 0) {
+    if (checkvis(mitosmlbtns[0]) || val == 0) {
         showui();
         clickcondmito(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/mitocondrias.glb", scene, function (meshes) {
@@ -700,7 +625,7 @@ function loadmito(val) {
 }
 
 function loadgolgi(val) {
-    if (checkvisgolgi(0) || val == 0) {
+    if (checkvis(golgismlbtns[0]) || val == 0) {
         showui();
         clickcondgolgi(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/golgi.glb", scene, function (meshes) {
@@ -1108,7 +1033,7 @@ function showExteriorBrain() {
     }
 }
 function loadbrain(val) {
-    if (checkvisbrain(0) || val == 0) {
+    if (checkvis(brainbtns[0]) || val == 0) {
         showui();
         clickcondbrain(0);
         lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
@@ -1143,7 +1068,7 @@ function loadbrain(val) {
 }
 
 function loadhuman(val) {
-    if (checkvishuman() || val == 0) {
+    if (checkvis(backHuman) || val == 0) {
         showui();
         clickcondhuman();
         showSkeletal.textContent = "Show Skeletal";
@@ -1321,7 +1246,7 @@ function loadhuman(val) {
     }
 }
 function loadheart(val) {
-    if (checkvisheart(0) || val == 0) {
+    if (checkvis(heartbtns[0]) || val == 0) {
         showui();
         clickcondheart(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/heart.glb", scene, function (meshes) {
@@ -1340,7 +1265,7 @@ function loadheart(val) {
 }
 
 function loadkidney(val) {
-    if (checkviskidney(0) || val == 0) {
+    if (checkvis(kidneybtns[0]) || val == 0) {
         showui();
         clickcondkidney(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/kidney.glb", scene, function (meshes) {
@@ -1359,7 +1284,7 @@ function loadkidney(val) {
 }
 
 function loadlung(val) {
-    if (checkvislung(0) || val == 0) {
+    if (checkvis(lungbtns[0]) || val == 0) {
         showui();
         clickcondlung(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
@@ -1378,7 +1303,7 @@ function loadlung(val) {
 }
 
 function loadstomach(val) {
-    if (checkvisstomach(0) || val == 0) {
+    if (checkvis(stomachbtns[0]) || val == 0) {
         showui();
         clickcondstomach(0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/stomach.glb", scene, function (meshes) {
@@ -1397,7 +1322,7 @@ function loadstomach(val) {
 }
 
 function loadskeletal(val) {
-    if (checkvisskeletal() || val == 0) {
+    if (checkvis(showSkeletal) || val == 0) {
         showui();
         if (showSkeletal.textContent == "Show Skeletal") {
             showSkeletal.textContent = "Hide Skeletal";
@@ -1699,7 +1624,7 @@ function loadskeletal(val) {
 }
 
 function loadneuron(val) {
-    if (checkvisneuron() || val == 0) {
+    if (checkvis(showNeuron) || val == 0) {
         if (showNeuron.textContent == "Show Neuron") {
             showNeuron.textContent = "Hide Neuron";
 
@@ -1897,7 +1822,7 @@ function loadneuron(val) {
 }
 
 function showMuscular() {
-    if (checkvismuscular()) {
+    if (checkvis(showMuscularSys)) {
         if (showMuscularSys.textContent == "Show Muscular System"){
             showMuscularSys.textContent = "Hide Muscular System";
             BABYLON.SceneLoader.ImportMesh("", "", "models/muscular_system.glb", scene, function(meshes){
