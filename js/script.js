@@ -1379,7 +1379,7 @@ function loadskeletal(val) {
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
-                        title: "Spine",
+                        title: "Vertebrae",
                         text: "Provides support and protection for the spinal cord and allows for movement. ",
                         icon: "question",
                         background: "black",
@@ -1490,7 +1490,7 @@ function loadskeletal(val) {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
                         title: "Tibula and Fibula",
-                        text: "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability. ",
+                        text: "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability. (Note: the tibia is the larger medial bone, while the fibula is the later smaller bone) ",
                         icon: "question",
                         background: "black",
                         color: "white",
@@ -1512,7 +1512,7 @@ function loadskeletal(val) {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
                         title: "Radius and Ulna",
-                        text: "The bones of the forearm that allow for forearm rotation and wrist movement. ",
+                        text: "The bones of the forearm that allow for forearm rotation and wrist movement. (Note: The ulna is always the medial bone, while the radius is lateral to the ulna) ",
                         icon: "question",
                         background: "black",
                         color: "white",
@@ -1570,15 +1570,15 @@ function loadskeletal(val) {
             skeletalmeshes.push(scapula);
             phalangefmat = new BABYLON.StandardMaterial("phalangef", scene);
             phalangef = BABYLON.MeshBuilder.CreateSphere("phalangef", { diameter: 0.3, segments: 32 }, scene);
-            phalangef.position.set(0.5, -7, -0.9); // (horizontal,vertical,depth)
+            phalangef.position.set(0.5, -7, -1.2); // (horizontal,vertical,depth)
             phalangef.material = phalangefmat;
             phalangef.actionManager = new BABYLON.ActionManager(scene);
             phalangef.actionManager.registerAction(
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
-                        title: "Phalange",
-                        text: "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal). ",
+                        title: "Phalanges",
+                        text: "Phalanges are the smaller bones that make up the fingers and toes, with each digit (except the thumb, which doesn't have an intermediate phalange) consisting of three phalanges: proximal, intermediate, and distal. ",
                         icon: "question",
                         background: "black",
                         color: "white",
@@ -1592,7 +1592,7 @@ function loadskeletal(val) {
             skeletalmeshes.push(phalangef);
             phalangehmat = new BABYLON.StandardMaterial("phalangeh", scene);
             phalangeh = BABYLON.MeshBuilder.CreateSphere("phalangeh", { diameter: 0.3, segments: 32 }, scene);
-            phalangeh.position.set(-2.8, -0.6, -0.5); // (horizontal,vertical,depth)
+            phalangeh.position.set(-2.8, -0.6, 0.1); // (horizontal,vertical,depth)
             phalangeh.material = phalangehmat;
             phalangeh.actionManager = new BABYLON.ActionManager(scene);
             phalangeh.actionManager.registerAction(
