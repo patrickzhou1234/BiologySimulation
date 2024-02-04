@@ -109,31 +109,11 @@ function showbtn(psbtn) {
     psbtn.classList.add("animbtn"); // adds a class
 }
 
-// // adds class to each item in loop
-mitosmlbtns.forEach((el) => {
-    el.classList.add("animobtn");
-});
-golgismlbtns.forEach((el) => {
-    el.classList.add("animobtn");
-});
-brainbtns.forEach((el) => {
-    el.classList.add("animobtn");
-});
-roundbtns.forEach((el) => {
-    el.classList.add("animobtn");
-});
-heartbtns.forEach((el) => {
-    el.classList.add("animobtn");
-});
-kidneybtns.forEach((el) => {
-    el.classList.add("animobtn");
-});
-lungbtns.forEach((el) => {
-    el.classList.add("animobtn");
-});
-stomachbtns.forEach((el) => {
-    el.classList.add("animobtn");
-});
+for(btn of buttonArrays){
+    btn.forEach((el) => {
+        el.classList.add("animobtn");
+    });
+}
 backcell.classList.add("animobtn");
 
 // sets up actions to be triggered when the pointer (mouse cursor) hovers over and moves away from the 3D object
@@ -143,113 +123,23 @@ function orgsettings(psorg) {
 }
 
 // sets element at index 'ind' to be semi-transparent and have a 'not allowed' cursor, all other elements in cellmeshes and roundbtns are hidden
-function clickcond(ind) {
-    for (i = 0; i < cellmeshes.length; i++) {
-        cellmeshes[i].visibility = 0;
+function clickcond(meshes, element, ind = null) {
+    for (i = 0; i < meshes.length; i++) {
+        meshes[i].visibility = 0;
     }
-    for (i = 0; i < roundbtns.length; i++) {
-        if (i != ind) {
-            hidebtn(roundbtns[i]);
-        } else {
-            roundbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+    // element is an array
+    if(ind != null){
+        for (i = 0; i < element.length; i++) {
+            if (i != ind) {
+                hidebtn(element[i]);
+            } else {
+                element[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+            }
         }
     }
-}
-
-// sets element at index 'ind' to be semi-transparent and have a 'not allowed' cursor, all other elements in cellmeshes and mitosmlbtns are hidden
-function clickcondmito(ind) {
-    for (i = 0; i < cellmeshes.length; i++) {
-        cellmeshes[i].visibility = 0;
-    }
-    for (i = 0; i < mitosmlbtns.length; i++) {
-        if (i != ind) {
-            hidebtn(mitosmlbtns[i]);
-        } else {
-            mitosmlbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-        }
-    }
-}
-
-// sets element at index 'ind' to be semi-transparent and have a 'not allowed' cursor, all other elements in cellmeshes and golgismlbtns are hidden
-function clickcondgolgi(ind) {
-    for (i = 0; i < cellmeshes.length; i++) {
-        cellmeshes[i].visibility = 0;
-    }
-    for (i = 0; i < golgismlbtns.length; i++) {
-        if (i != ind) {
-            hidebtn(golgismlbtns[i]);
-        } else {
-            golgismlbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-        }
-    }
-}
-
-function clickcondhuman() {
-    for (i = 0; i < cellmeshes.length; i++) {
-        cellmeshes[i].visibility = 0;
-    }
-    backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-}
-
-function clickcondbrain(ind) {
-    for (i = 0; i < humanmeshes.length; i++) {
-        humanmeshes[i].visibility = 0;
-    }
-    for (i = 0; i < brainbtns.length; i++) {
-        if (i != ind) {
-            hidebtn(brainbtns[i]);
-        } else {
-            brainbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-        }
-    }
-}
-
-function clickcondheart(ind) {
-    for (i = 0; i < humanmeshes.length; i++) {
-        humanmeshes[i].visibility = 0;
-    }
-    for (i = 0; i < heartbtns.length; i++) {
-        if (i != ind) {
-            hidebtn(heartbtns[i]);
-        } else {
-            heartbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-        }
-    }
-}
-function clickcondkidney(ind) {
-    for (i = 0; i < humanmeshes.length; i++) {
-        humanmeshes[i].visibility = 0;
-    }
-    for (i = 0; i < kidneybtns.length; i++) {
-        if (i != ind) {
-            hidebtn(kidneybtns[i]);
-        } else {
-            kidneybtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-        }
-    }
-}
-function clickcondlung(ind) {
-    for (i = 0; i < humanmeshes.length; i++) {
-        humanmeshes[i].visibility = 0;
-    }
-    for (i = 0; i < lungbtns.length; i++) {
-        if (i != ind) {
-            hidebtn(lungbtns[i]);
-        } else {
-            lungbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-        }
-    }
-}
-function clickcondstomach(ind) {
-    for (i = 0; i < humanmeshes.length; i++) {
-        humanmeshes[i].visibility = 0;
-    }
-    for (i = 0; i < stomachbtns.length; i++) {
-        if (i != ind) {
-            hidebtn(stomachbtns[i]);
-        } else {
-            stomachbtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
-        }
+    // element is not an array
+    else{
+        element.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
     }
 }
 function clickcondeye(ind) {
@@ -624,7 +514,7 @@ function receptorproteinclicked() {
 function loadmito(val) {
     if (checkvis(mitosmlbtns[0]) || val == 0) {
         showui();
-        clickcondmito(0);
+        clickcond(cellmeshes, mitosmlbtns, 0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/mitocondrias.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -641,7 +531,7 @@ function loadmito(val) {
 function loadgolgi(val) {
     if (checkvis(golgismlbtns[0]) || val == 0) {
         showui();
-        clickcondgolgi(0);
+        clickcond(cellmeshes, golgismlbtns, 0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/golgi.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1049,7 +939,7 @@ function showExteriorBrain() {
 function loadbrain(val) {
     if (checkvis(brainbtns[0]) || val == 0) {
         showui();
-        clickcondbrain(0);
+        clickcond(humanmeshes, brainbtns, 0);
         lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.textContent = "Show Neuron";
         BABYLON.SceneLoader.ImportMesh("", "", "models/limbic_system.glb", scene, function (meshes) {
@@ -1084,7 +974,7 @@ function loadbrain(val) {
 function loadhuman(val) {
     if (checkvis(backHuman) || val == 0) {
         showui();
-        clickcondhuman();
+        clickcond(cellmeshes, backHuman);
         showSkeletal.textContent = "Show Skeletal";
         BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
             clear();
@@ -1317,7 +1207,7 @@ function loadeye() {
 function loadheart(val) {
     if (checkvis(heartbtns[0]) || val == 0) {
         showui();
-        clickcondheart(0);
+        clickcond(humanmeshes, heartbtns, 0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/heart.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1336,7 +1226,7 @@ function loadheart(val) {
 function loadkidney(val) {
     if (checkvis(kidneybtns[0]) || val == 0) {
         showui();
-        clickcondkidney(0);
+        clickcond(humanmeshes, kidneybtns, 0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/kidney.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1355,7 +1245,7 @@ function loadkidney(val) {
 function loadlung(val) {
     if (checkvis(lungbtns[0]) || val == 0) {
         showui();
-        clickcondlung(0);
+        clickcond(humanmeshes, lungbtns, 0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1374,7 +1264,7 @@ function loadlung(val) {
 function loadstomach(val) {
     if (checkvis(stomachbtns[0]) || val == 0) {
         showui();
-        clickcondstomach(0);
+        clickcond(humanmeshes, stomachbtns, 0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/stomach.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1448,7 +1338,7 @@ function loadskeletal(val) {
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
-                        title: "Vertebrae",
+                        title: "Spine",
                         text: "Provides support and protection for the spinal cord and allows for movement. ",
                         icon: "question",
                         background: "black",
@@ -1559,7 +1449,7 @@ function loadskeletal(val) {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
                         title: "Tibula and Fibula",
-                        text: "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability. (Note: the tibia is the larger medial bone, while the fibula is the later smaller bone) ",
+                        text: "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability. ",
                         icon: "question",
                         background: "black",
                         color: "white",
@@ -1581,7 +1471,7 @@ function loadskeletal(val) {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
                         title: "Radius and Ulna",
-                        text: "The bones of the forearm that allow for forearm rotation and wrist movement. (Note: The ulna is always the medial bone, while the radius is lateral to the ulna) ",
+                        text: "The bones of the forearm that allow for forearm rotation and wrist movement. ",
                         icon: "question",
                         background: "black",
                         color: "white",
@@ -1639,15 +1529,15 @@ function loadskeletal(val) {
             skeletalmeshes.push(scapula);
             phalangefmat = new BABYLON.StandardMaterial("phalangef", scene);
             phalangef = BABYLON.MeshBuilder.CreateSphere("phalangef", { diameter: 0.3, segments: 32 }, scene);
-            phalangef.position.set(0.5, -7, -1.2); // (horizontal,vertical,depth)
+            phalangef.position.set(0.5, -7, -0.9); // (horizontal,vertical,depth)
             phalangef.material = phalangefmat;
             phalangef.actionManager = new BABYLON.ActionManager(scene);
             phalangef.actionManager.registerAction(
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
-                        title: "Phalanges",
-                        text: "Phalanges are the smaller bones that make up the fingers and toes, with each digit (except the thumb, which doesn't have an intermediate phalange) consisting of three phalanges: proximal, intermediate, and distal. ",
+                        title: "Phalange",
+                        text: "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal). ",
                         icon: "question",
                         background: "black",
                         color: "white",
@@ -1661,7 +1551,7 @@ function loadskeletal(val) {
             skeletalmeshes.push(phalangef);
             phalangehmat = new BABYLON.StandardMaterial("phalangeh", scene);
             phalangeh = BABYLON.MeshBuilder.CreateSphere("phalangeh", { diameter: 0.3, segments: 32 }, scene);
-            phalangeh.position.set(-2.8, -0.6, 0.1); // (horizontal,vertical,depth)
+            phalangeh.position.set(-2.8, -0.6, -0.5); // (horizontal,vertical,depth)
             phalangeh.material = phalangehmat;
             phalangeh.actionManager = new BABYLON.ActionManager(scene);
             phalangeh.actionManager.registerAction(
