@@ -1192,8 +1192,9 @@ function loadeye() {
             eyeref = meshes[0];
             allMeshes.push(eyeref);
 
-            
-            // camera.radius = 20;
+            camera.position = new BABYLON.Vector3(-3, 3, -35);
+            camera.target = new BABYLON.Vector3(8, 9.5, -2.7);
+            camera.radius = 4;
         });
         // camera.position = new BABYLON.Vector3(0, 0, -3);
         // camera.target = new BABYLON.Vector3(0, -1, 0);
