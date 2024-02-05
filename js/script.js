@@ -45,6 +45,7 @@ roundbtns = document.querySelectorAll(".smlbtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 golgismlbtns = document.querySelectorAll(".golgismlbtns");
 brainbtns = document.querySelectorAll(".brainbtns");
+eyebtns = document.querySelectorAll(".eyebtns");
 heartbtns = document.querySelectorAll(".heartbtns");
 kidneybtns = document.querySelectorAll(".kidneybtns");
 lungbtns = document.querySelectorAll(".lungbtns");
@@ -67,6 +68,7 @@ let humref = 0;
 let brainref = 0;
 let skeletalref = 0;
 let neuronref = 0;
+let eyeref = 0;
 let riboref = 0;
 let lobesref = 0;
 let exteriorref = 0;
@@ -77,7 +79,7 @@ let brainDivisionsMeshes = [];
 let neuronmeshes = [];
 let skeletalmeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior];
+let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior, showMuscularSys];
 let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
@@ -138,6 +140,18 @@ function clickcond(meshes, element, ind = null) {
     // element is not an array
     else{
         element.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+    }
+}
+function clickcondeye(ind) {
+    for (i = 0; i < humanmeshes.length; i++) {
+        humanmeshes[i].visibility = 0;
+    }
+    for (i = 0; i < eyebtns.length; i++) {
+        if (i != ind) {
+            hidebtn(eyebtns[i]);
+        } else {
+            eyebtns[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        }
     }
 }
 
@@ -979,6 +993,7 @@ function loadhuman(val) {
             kidneymat = new BABYLON.StandardMaterial("kidneymat", scene);
             lungmat = new BABYLON.StandardMaterial("lungmat", scene);
             stomachmat = new BABYLON.StandardMaterial("stomachmat", scene);
+            eyemat = new BABYLON.StandardMaterial("eyemat", scene);
 
             brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
 
@@ -1005,6 +1020,35 @@ function loadhuman(val) {
                         showbtn(el);
                     });
                     camera.target = brain;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
+
+            eye = BABYLON.MeshBuilder.CreateSphere("eye", { diameter: 0.25, segments: 32 }, scene);
+
+            humanmeshes.push(eye);
+            eye.position.set(0.2, 3.2, -0.3); // (horizontal,vertical,depth)
+            eye.material = eyemat;
+            eye.actionManager = new BABYLON.ActionManager(scene);
+            eye.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Eye",
+                        text: "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {
+                        eyebtns.forEach((el) => {
+                            hidebtn(el);
+                        });
+                    });
+                    eyebtns.forEach((el) => {
+                        showbtn(el);
+                    });
+                    camera.target = eye;
                     camera.inertialRadiusOffset += 4;
                 })
             );
@@ -1134,6 +1178,32 @@ function loadhuman(val) {
             orgsettings(el);
         });
     }
+}
+function loadeye() {
+
+    if (checkvis(eyebtns[0])) {
+        showui();
+        clickcondeye(0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/eye.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            console.log(meshes[0] + " HERE")
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            eyeref = meshes[0];
+            allMeshes.push(eyeref);
+
+            camera.position = new BABYLON.Vector3(-3, 3, -35);
+            camera.target = new BABYLON.Vector3(8, 9.5, -2.7);
+            camera.radius = 4;
+        });
+        // camera.position = new BABYLON.Vector3(0, 0, -3);
+        // camera.target = new BABYLON.Vector3(0, -1, 0);
+        // camera.position = new BABYLON.Vector3(0,150,30); // (x,y,z)
+        // camera.target = new BABYLON.Vector3(-20,0,-20);
+        clearbtns();
+        showbtn(backHuman);
+    }
+
 }
 function loadheart(val) {
     if (checkvis(heartbtns[0]) || val == 0) {
