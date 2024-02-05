@@ -1,15 +1,15 @@
 @font-face {
-  font-family: 'amazon-ember';
-  src: URL('Amazon-Ember-Medium.ttf') format('truetype');
+    font-family: "amazon-ember";
+    src: URL("Amazon-Ember-Medium.ttf") format("truetype");
 }
 
 #babcanv {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  outline: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    outline: none;
 }
 
 .swal2-container::-webkit-scrollbar {
@@ -30,290 +30,299 @@
 }
 
 .largeBtn {
-  position: absolute;
-  z-index: 100;
-  border: none;
-  border-radius: 6px;
-  font-family: 'amazon-ember';
-  font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    z-index: 100;
+    border: none;
+    border-radius: 6px;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
 }
 
 #backcell {
-  left: 5vh;
-  top: 2vw;
-  opacity: 0;
+    left: 5vh;
+    top: 2vw;
+    opacity: 0;
 }
 
 #backcell:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #backHuman {
-  left: 6vh;
-  opacity: 1;
+    left: 6vh;
+    opacity: 1;
 }
 
 #backHuman:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .smlbtns {
-  z-index: 99999999;
-  font-family: 'amazon-ember';
-  font-size: calc(0.65vw + 0.65vh);
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.2s !important;
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
 }
 
 #memb {
-  left: 37vw;
-  top: 12vh;
+    left: 37vw;
+    top: 12vh;
 }
 
 #phospho {
-  left: 49vw;
-  top: 28vh;
+    left: 49vw;
+    top: 28vh;
 }
 
 #channeltransport {
-  left: 44vw;
-  top: 38vh;
+    left: 44vw;
+    top: 38vh;
 }
 
 .animbtn {
-  animation: animbtn 1.3s ease forwards;
+    animation: animbtn 1.3s ease forwards;
 }
 
 .animobtn {
-  cursor: default !important;
-  animation: animobtn 1.3s ease forwards;
+    cursor: default !important;
+    animation: animobtn 1.3s ease forwards;
 }
 
 @keyframes animbtn {
-  0% {opacity: 0;display:block;}
-  100% {opacity: 1;}
+    0% {
+        opacity: 0;
+        display: block;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes animobtn {
-  0% {opacity: 1;}
-  100% {opacity: 0;display:none;}
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
 }
 
 img {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 #phospho2 {
-  left: 55vw;
-  top: 36vh;
+    left: 55vw;
+    top: 36vh;
 }
 
 #cholestrol {
-  left: 52vw;
-  top: 32vh;
+    left: 52vw;
+    top: 32vh;
 }
 
 #receptorprotein {
-  left: 37vw;
-  top: 38vh;
+    left: 37vw;
+    top: 38vh;
 }
 
 .mitosmlbtns {
-  z-index: 99999999;
-  font-family: 'amazon-ember';
-  font-size: calc(0.65vw + 0.65vh);
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.2s !important;
-  border-radius: 6px;
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
 }
 
 #mitosmlbtn {
-  left: 45vw;
-  top: 80vh;
+    left: 45vw;
+    top: 80vh;
 }
 
 .golgismlbtns {
-  z-index: 99999999;
-  font-family: 'amazon-ember';
-  font-size: calc(0.65vw + 0.65vh);
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.2s !important;
-  border-radius: 6px;
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
 }
 
 #golgismlbtn {
-  left: 45vw;
-  top: 80vh;
+    left: 45vw;
+    top: 80vh;
 }
 
 .brainbtns {
-  z-index: 99999999;
-  font-family: 'amazon-ember';
-  font-size: calc(0.65vw + 0.65vh);
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.2s !important;
-  border-radius: 6px;
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
 }
 
 #brainbtn {
-  left: 45vw;
-  top: 85vh;
+    left: 45vw;
+    top: 85vh;
 }
 
 .statsdom {
-  position: absolute;
-  right: 0px;
-  top: 0px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
 
 #babylonjsLoadingDiv {
-  z-index: 9999 !important;
+    z-index: 9999 !important;
 }
 
 #lobes {
-  left: 5vh;
-  top: 12vh;
+    left: 5vh;
+    top: 12vh;
 }
 
 #brainDivisions {
-  left: 5vh;
-  top: 18vh;
+    left: 5vh;
+    top: 18vh;
 }
 
 #panelbtn {
-  right: 5vh;
-  top: 24vh;
-  width: 15%;
-  left: 5vh;
+    right: 5vh;
+    top: 24vh;
+    width: 15%;
+    left: 5vh;
 }
 
 .sContent {
-  max-width: 90%;
-  vertical-align: baseline;
-  font-size: calc(0.75vw + 0.75vh) !important;
+    max-width: 90%;
+    vertical-align: baseline;
+    font-size: calc(0.75vw + 0.75vh) !important;
 }
 
 .sTitle {
-  font-size: calc(1vw + 1vh) !important;
-  margin-left: 2vw;
-  color:#89ba2c;
+    font-size: calc(1vw + 1vh) !important;
+    margin-left: 2vw;
+    color: #89ba2c;
 }
 
 .cd-panel__close:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #skeletal {
-  left: 5vh;
-  top: 12vh;  
+    left: 5vh;
+    top: 12vh;
 }
 
 #neuron {
-  left: 5vh;
-  top: 30vh;  
+    left: 5vh;
+    top: 30vh;
 }
 
 .heartbtns {
-  z-index: 99999999;
-  font-family: 'amazon-ember';
-  font-size: calc(0.65vw + 0.65vh);
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.2s !important;
-  border-radius: 6px;
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
 }
 
 #heartbtn {
-  left: 80vh;
-  top: 93vh;
+    left: 80vh;
+    top: 93vh;
 }
 
 .kidneybtns {
-  z-index: 99999999;
-  font-family: 'amazon-ember';
-  font-size: calc(0.65vw + 0.65vh);
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.2s !important;
-  border-radius: 6px;
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
 }
 
 #kidneybtn {
-  left: 80vh;
-  top: 77vh;
+    left: 80vh;
+    top: 77vh;
 }
 
 .lungbtns {
-  z-index: 99999999;
-  font-family: 'amazon-ember';
-  font-size: calc(0.65vw + 0.65vh);
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.2s !important;
-  border-radius: 6px;
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
 }
 
 #lungbtn {
-  left: 80vh;
-  top: 90vh;
+    left: 80vh;
+    top: 90vh;
 }
 
 .stomachbtns {
-  z-index: 99999999;
-  font-family: 'amazon-ember';
-  font-size: calc(0.65vw + 0.65vh);
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.2s !important;
-  border-radius: 6px;
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
 }
 
 #stomachbtn {
-  left: 80vh;
-  top: 85vh;
+    left: 80vh;
+    top: 85vh;
 }
 
 #search {
-  top: 2vh;
-  left: 140vh;
+    top: 2vh;
+    left: 140vh;
 }
 #dropdown {
-  position: relative;
+    position: relative;
 }
 #searchbox {
-  width: 190%;
+    width: 190%;
 }
 
 .searchContent {
-  z-index: 1;
-  position: absolute;
+    z-index: 1;
+    position: absolute;
 }
 
 #exterior {
-  left: 5vh;
-  top: 35vh;
+    left: 5vh;
+    top: 35vh;
 }
 
 #ribopanelbtn {
-  left: 65vh;
-  top: 84vh;  
-  z-index: 1080;
+    left: 65vh;
+    top: 84vh;
+    z-index: 1080;
 }
 #muscularbtn {
-  left: 5vh;
-  top: 20vh;
+    left: 5vh;
+    top: 20vh;
 }
 
 #eyebtn {
-  left: 87vh;
-  top: 74vh;
-
+    left: 87vh;
+    bottom: 10vh;
 }
