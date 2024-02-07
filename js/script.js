@@ -75,12 +75,13 @@ let exteriorref = 0;
 let brainDivisionsref = 0;
 let muscularref = 0;
 let lobemeshes = [];
+let eyemeshes = [];
 let brainDivisionsMeshes = [];
 let neuronmeshes = [];
 let skeletalmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior, showMuscularSys];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns];
+let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns, eyemeshes];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -968,6 +969,7 @@ function loadbrain(val) {
         hidebtn(backcell);
         showbtn(showNeuron);
         hidebtn(showSkeletal);
+        hidebtn(showMuscularSys);
     }
 }
 
@@ -981,6 +983,11 @@ function loadhuman(val) {
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
 
+            try {
+                eyemeshes.forEach((el) => {
+                    el.dispose();
+                });
+            } catch (err) {};
             humref = meshes[0];
             allMeshes.push(humref);
 
@@ -1187,19 +1194,36 @@ function loadeye() {
         BABYLON.SceneLoader.ImportMesh("", "", "models/eye.glb", scene, function (meshes) {
             clear();
             hideui();
-            console.log(meshes[0] + " HERE")
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             eyeref = meshes[0];
             allMeshes.push(eyeref);
 
-            camera.position = new BABYLON.Vector3(-3, 3, -35);
-            camera.target = new BABYLON.Vector3(8, 9.5, -2.7);
-            camera.radius = 4;
+            vitreousmat = new BABYLON.StandardMaterial("vitreousmat", scene);
+            vitreous = BABYLON.MeshBuilder.CreateSphere("vitreous", { diameter: 0.2, segments: 32 }, scene);
+
+            eyemeshes.push(vitreous);
+            vitreous.position.set(8.5,10,-2.1);
+            vitreous.material = vitreousmat;
+            vitreous.actionManager = new BABYLON.ActionManager(scene);
+            vitreous.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Vitreous",
+                        text: "TBD",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    })
+                })
+            );
+
+            
         });
-        // camera.position = new BABYLON.Vector3(0, 0, -3);
-        // camera.target = new BABYLON.Vector3(0, -1, 0);
-        // camera.position = new BABYLON.Vector3(0,150,30); // (x,y,z)
-        // camera.target = new BABYLON.Vector3(-20,0,-20);
+        camera.position = new BABYLON.Vector3(-3, 3, -35);
+        camera.target = new BABYLON.Vector3(8, 9.5, -2.7);
+        camera.radius = 4;
         clearbtns();
         showbtn(backHuman);
     }
