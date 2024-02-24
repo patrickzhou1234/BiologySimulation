@@ -412,100 +412,64 @@ function cellSpheres() {
     }
 }
 
-// handles the cases of when user clicks on the parts of the cell
-function membraneclicked() {
-    if (checkvis(roundbtns[0])) {
+ // btns: which array of buttons this button has
+ // ind: index of the button in the btns array
+ // filename: mesh filen name (.glb)
+function importmesh(meshes, btns, ind, filename, scaling = null, val = 1) {
+    if (checkvis(btns[ind]) || val == 0) {
         // checks visibility
         showui();
-        clickcond(0); // has the membrane be semi-transparent and have a not allowed cursor
-        BABYLON.SceneLoader.ImportMesh("", "", "models/cell_membrane.glb", scene, function (meshes) {
+        clickcond(meshes, btns, ind); // has the membrane be semi-transparent and have a not allowed cursor
+        BABYLON.SceneLoader.ImportMesh("", "", `models/${filename}`, scene, function (meshes) {
             // imports 3D model
             clear();
-
             hideui();
             camera.target = meshes[0]; // sets camera target
-            memref = meshes[0]; // sets reference of this membrane to memref
-
-            allMeshes.push(memref);
+            if(scaling != null){
+                meshes[0].scaling = scaling;
+            }
+            allMeshes.push(meshes[0]);
         });
-        hidebtn(backHuman);
-        showbtn(backcell);
     }
 }
 
+// handles the cases of when user clicks on the parts of the cell
+function membraneclicked() {
+    importmesh(cellmeshes, roundbtns, 0, "cell_membrane.glb")
+    hidebtn(backHuman);
+    showbtn(backcell);
+}
+
 function phosphoclicked() {
-    if (checkvis(roundbtns[1])) {
-        showui();
-        clickcond(1);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/phospho_sama.glb", scene, function (meshes) {
-            clear();
-            hideui();
-            camera.target = meshes[0];
-            // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
-            phoref = meshes[0];
-            allMeshes.push(phoref);
-        });
-        hidebtn(backHuman);
-        showbtn(backcell);
-    }
+    importmesh(cellmeshes, roundbtns, 1, "phospho_sama.glb")
+    hidebtn(backHuman);
+    showbtn(backcell);
 }
 
 function phosphoclicked2() {
     if (checkvis(roundbtns[2])) {
         document.getElementById("swal2-html-container").innerHTML = "<ul>Selective permeability</ul><ul>Passive transport</ul><ul>Active transport</ul><ul>Facilitated transport</ul>";
-        showui();
-        clickcond(2);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/phospholipid.glb", scene, function (meshes) {
-            clear();
-            hideui();
-            meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
-            camera.target = meshes[0];
-            // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
-            phoref = meshes[0];
-            allMeshes.push(phoref);
-        });
-        hidebtn(backHuman);
-        showbtn(backcell);
+    importmesh(cellmeshes, roundbtns, 2, "phospholipid.glb")
+    hidebtn(backHuman);
+    showbtn(backcell);  
     }
 }
 
 function openchannel() {
-    if (checkvis(roundbtns[3])) {
-        showui();
-        clickcond(3);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/openchannel.glb", scene, function (meshes) {
-            clear();
-            hideui();
-            camera.target = meshes[0];
-            // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
-            phoref = meshes[0];
-            allMeshes.push(phoref);
-        });
-        hidebtn(backHuman);
-        showbtn(backcell);
-    }
+    importmesh(cellmeshes, roundbtns, 3, "openchannel.glb")
+    hidebtn(backHuman);
+    showbtn(backcell);
 }
 
 function cholestrolclicked() {
-    if (checkvis(roundbtns[4])) {
-        showui();
-        clickcond(4);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/Cholestoral.glb", scene, function (meshes) {
-            clear();
-            hideui();
-            camera.target = meshes[0];
-            // meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
-            phoref = meshes[0];
-            allMeshes.push(phoref);
-        });
-        hidebtn(backHuman);
-        showbtn(backcell);
-    }
+    importmesh(cellmeshes, roundbtns, 4, "Cholestoral.glb")
+    hidebtn(backHuman);
+    showbtn(backcell);
 }
 
 function receptorproteinclicked() {
     showui();
-    clickcond(4);
+    clickcond(cellmeshes, roundbtns, 4);
     clear();
     hideui();
     hidebtn(backHuman);
@@ -513,39 +477,14 @@ function receptorproteinclicked() {
 }
 
 function loadmito(val) {
-    if (checkvis(mitosmlbtns[0]) || val == 0) {
-        showui();
-        clickcond(cellmeshes, mitosmlbtns, 0);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/mitocondrias.glb", scene, function (meshes) {
-            clear();
-            hideui();
-            camera.target = meshes[0];
-            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-            phoref = meshes[0];
-            allMeshes.push(phoref);
-        });
-
-        showbtn(backcell);
-    }
+    scaling = new BABYLON.Vector3(5, 5, 5)
+    importmesh(cellmeshes, mitosmlbtns, 0, "mitocondrias.glb", scaling, val)
+    showbtn(backcell);
 }
 
 function loadgolgi(val) {
-    if (checkvis(golgismlbtns[0]) || val == 0) {
-        showui();
-        clickcond(cellmeshes, golgismlbtns, 0);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/golgi.glb", scene, function (meshes) {
-            clear();
-            hideui();
-
-            camera.target = meshes[0];
-            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-            phoref = meshes[0];
-            allMeshes.push(phoref);
-        });
-        camera.inertialRadiusOffset -= 4;
-        clearbtns();
-        showbtn(backcell);
-    }
+    scaling = new BABYLON.Vector3(5, 5, 5)
+    importmesh(cellmeshes, golgismlbtns, 0, "golgi.glb", scaling, val)
 }
 
 function loadpanel() {
