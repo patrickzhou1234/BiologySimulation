@@ -400,7 +400,7 @@ function cellSpheres() {
  // btns: which array of buttons this button has
  // ind: index of the button in the btns array
  // filename: mesh filen name (.glb)
-function importmesh(meshes, btns, ind, filename, val = 1) {
+function importmesh(meshes, btns, ind, filename, scaling = null, val = 1) {
     if (checkvis(btns[ind]) || val == 0) {
         // checks visibility
         showui();
@@ -408,10 +408,11 @@ function importmesh(meshes, btns, ind, filename, val = 1) {
         BABYLON.SceneLoader.ImportMesh("", "", `models/${filename}`, scene, function (meshes) {
             // imports 3D model
             clear();
-
             hideui();
             camera.target = meshes[0]; // sets camera target
-
+            if(scaling != null){
+                meshes[0].scaling = scaling;
+            }
             allMeshes.push(meshes[0]);
         });
     }
@@ -461,12 +462,14 @@ function receptorproteinclicked() {
 }
 
 function loadmito(val) {
-    importmesh(cellmeshes, mitosmlbtns, 0, "mitocondrias.glb", val)
+    scaling = new BABYLON.Vector3(5, 5, 5)
+    importmesh(cellmeshes, mitosmlbtns, 0, "mitocondrias.glb", scaling, val)
     showbtn(backcell);
 }
 
 function loadgolgi(val) {
-    importmesh(cellmeshes, golgismlbtns, 0, "golgi.glb", val)
+    scaling = new BABYLON.Vector3(5, 5, 5)
+    importmesh(cellmeshes, golgismlbtns, 0, "golgi.glb", scaling, val)
 }
 
 function loadpanel() {
