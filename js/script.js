@@ -107,6 +107,39 @@ function showbtn(psbtn) {
     psbtn.classList.add("animbtn"); // adds a class
 }
 
+/**
+ * Creates a sphere button on a model which will show a popup upon clicking
+ *
+ * @param {string} title Title of the sphere which will be displayed at the popup
+ * @param diameter Diameter of the sphere (default is 2.5)
+ * @param description Description which will be displayed on the popup
+ * @param depth Depth of the sphere into the 3d model
+ * @param verticalpos Vertical position of the sphere
+ * @param horizontalpos Horizontal position of the sphere
+ * @param meshesarray The array to push the sphere object into (i.e. cellmeshes/humanmeshes)
+ */
+function createSphereBtn(title, diameter = 2.5, description, depth, verticalpos, horizontalpos, meshesarray){
+    mat = new BABYLON.StandardMaterial(title, scene);
+    const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: diameter, segments: 32 }, scene);
+    sphere.position.set(depth, verticalpos, horizontalpos); // (depth,vertical,horizantal)
+    thalamus.material = mat;
+    meshesarray.push(sphere); // adds frontalLobe to lobemeshes array
+    sphere.actionManager = new BABYLON.ActionManager(scene);
+    sphere.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+            camera.lowerRadiusLimit = 2;
+            Swal.fire({
+                title: title,
+                text: description,
+                icon: "question",
+                background: "black",
+                color: "white",
+                backdrop: false,
+            });
+        })
+    );
+}
+
 for(btn of buttonArrays){
     btn.forEach((el) => {
         el.classList.add("animobtn");
@@ -120,24 +153,31 @@ function orgsettings(psorg) {
     psorg.actionManager.registerAction(new BABYLON.InterpolateValueAction(BABYLON.ActionManager.OnPointerOutTrigger, psorg.material, "diffuseColor", new BABYLON.Color3(1, 1, 1), 500)); // when the pointer moves away, the diffuseColor will transition back to white for 500 milliseconds
 }
 
-// sets element at index 'ind' to be semi-transparent and have a 'not allowed' cursor, all other elements in cellmeshes and roundbtns are hidden
-function clickcond(meshes, element, ind = null) {
-    for (i = 0; i < meshes.length; i++) {
-        meshes[i].visibility = 0;
+/**
+ * sets element at index 'ind' to be semi-transparent and have a 'not allowed' cursor, all other elements in cellmeshes and roundbtns are hidden
+ *
+ * @param meshesarray The array which contains the meshes of the sphere buttons (i.e. cellmeshes/humanmeshes)
+ * @param btnclass The class of the button (i.e. roundbtns, lungbtns, etc.)
+ * @param ind index of the button in the btnclass (if applicable)
+ */
+function clickcond(meshesarray, btnclass, ind = null) {
+    // Makes all the sphere buttons dissapear
+    for (i = 0; i < meshesarray.length; i++) {
+        meshesarray[i].visibility = 0;
     }
-    // element is an array
+
     if(ind != null){
-        for (i = 0; i < element.length; i++) {
+        for (i = 0; i < btnclass.length; i++) {
             if (i != ind) {
-                hidebtn(element[i]);
+                hidebtn(btnclass[i]);
             } else {
-                element[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+                btnclass[i].setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
             }
         }
     }
-    // element is not an array
+
     else{
-        element.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
+        btnclass.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important;");
     }
 }
 
@@ -397,59 +437,75 @@ function cellSpheres() {
     }
 }
 
- // btns: which array of buttons this button has
- // ind: index of the button in the btns array
- // filename: mesh filen name (.glb)
-function importmesh(meshes, btns, ind, filename, scaling = null, val = 1) {
-    if (checkvis(btns[ind]) || val == 0) {
-        // checks visibility
-        showui();
-        clickcond(meshes, btns, ind); // has the membrane be semi-transparent and have a not allowed cursor
-        BABYLON.SceneLoader.ImportMesh("", "", `models/${filename}`, scene, function (meshes) {
-            // imports 3D model
-            clear();
-            hideui();
-            camera.target = meshes[0]; // sets camera target
-            if(scaling != null){
-                meshes[0].scaling = scaling;
-            }
-            allMeshes.push(meshes[0]);
-        });
-    }
+/**
+ * Imports a specified mesh
+ *
+ * @param meshesarray The array which contains the meshes of the sphere buttons (i.e. cellmeshes/humanmeshes)
+ * @param btnclass The class of the button (i.e. roundbtns, lungbtns, etc.)
+ * @param {number} ind index of the button in the btnclass (if applicable)
+ * @param {string} filename the name of the glb file
+ * @param {BABYLON.Vector3} scaling scaling of the mesh (i.e. new BABYLON.Vector3(5, 5, 5)), will use default scaling if argument is not provided   
+ * 
+ */ 
+function importmesh(filename, scaling = null) {
+    showui();
+    BABYLON.SceneLoader.ImportMesh("", "", `models/${filename}`, scene, function (meshes) {
+        // imports 3D model
+        clear();
+        hideui();   
+        camera.target = meshes[0]; // sets camera target
+        if(scaling != null){
+            meshes[0].scaling = scaling;
+        }
+        allMeshes.push(meshes[0]);
+    });
 }
 
 // handles the cases of when user clicks on the parts of the cell
 function membraneclicked() {
-    importmesh(cellmeshes, roundbtns, 0, "cell_membrane.glb")
-    hidebtn(backHuman);
-    showbtn(backcell);
+    if (checkvis(roundbtns[0])) {
+        clickcond(cellmeshes, roundbtns, 0);
+        importmesh("cell_membrane.glb")
+        hidebtn(backHuman);
+        showbtn(backcell);
+    }
 }
 
 function phosphoclicked() {
-    importmesh(cellmeshes, roundbtns, 1, "phospho_sama.glb")
-    hidebtn(backHuman);
-    showbtn(backcell);
+    if (checkvis(roundbtns[1])){
+        clickcond(cellmeshes, roundbtns, 1);
+        importmesh("phospho_sama.glb")
+        hidebtn(backHuman);
+        showbtn(backcell);
+    }
 }
 
 function phosphoclicked2() {
     if (checkvis(roundbtns[2])) {
         document.getElementById("swal2-html-container").innerHTML = "<ul>Selective permeability</ul><ul>Passive transport</ul><ul>Active transport</ul><ul>Facilitated transport</ul>";
-    importmesh(cellmeshes, roundbtns, 2, "phospholipid.glb")
-    hidebtn(backHuman);
-    showbtn(backcell);  
+        clickcond(cellmeshes, roundbtns, 2);
+        importmesh("phospholipid.glb")
+        hidebtn(backHuman);
+        showbtn(backcell);  
     }
 }
 
 function openchannel() {
-    importmesh(cellmeshes, roundbtns, 3, "openchannel.glb")
-    hidebtn(backHuman);
-    showbtn(backcell);
+    if (checkvis(roundbtns[3])) {
+        clickcond(cellmeshes, roundbtns, 3);
+        importmesh("openchannel.glb")
+        hidebtn(backHuman);
+        showbtn(backcell);
+    }
 }
 
 function cholestrolclicked() {
-    importmesh(cellmeshes, roundbtns, 4, "Cholestoral.glb")
-    hidebtn(backHuman);
-    showbtn(backcell);
+    if (checkvis(roundbtns[4])) {
+        clickcond(cellmeshes, roundbtns, 4);
+        importmesh("Cholestoral.glb")
+        hidebtn(backHuman);
+        showbtn(backcell);
+    }
 }
 
 function receptorproteinclicked() {
@@ -462,14 +518,20 @@ function receptorproteinclicked() {
 }
 
 function loadmito(val) {
-    scaling = new BABYLON.Vector3(5, 5, 5)
-    importmesh(cellmeshes, mitosmlbtns, 0, "mitocondrias.glb", scaling, val)
-    showbtn(backcell);
+    if (checkvis(mitosmlbtns[0]) || val == 0) {
+        clickcond(cellmeshes, mitosmlbtns, 0);
+        scaling = new BABYLON.Vector3(5, 5, 5)
+        importmesh("mitocondrias.glb", scaling)
+        showbtn(backcell);
+    }
 }
 
 function loadgolgi(val) {
-    scaling = new BABYLON.Vector3(5, 5, 5)
-    importmesh(cellmeshes, golgismlbtns, 0, "golgi.glb", scaling, val)
+    if (checkvis(golgismlbtns[0]) || val == 0) {
+        clickcond(cellmeshes, golgismlbtns, 0);
+        scaling = new BABYLON.Vector3(5, 5, 5)
+        importmesh("golgi.glb", scaling)
+    }
 }
 
 function loadpanel() {
