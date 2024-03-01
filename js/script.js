@@ -110,34 +110,63 @@ function showbtn(psbtn) {
 /**
  * Creates a sphere button on a model which will show a popup upon clicking
  *
- * @param {string} title Title of the sphere which will be displayed at the popup
  * @param diameter Diameter of the sphere (default is 2.5)
- * @param description Description which will be displayed on the popup
  * @param depth Depth of the sphere into the 3d model
  * @param verticalpos Vertical position of the sphere
  * @param horizontalpos Horizontal position of the sphere
  * @param meshesarray The array to push the sphere object into (i.e. cellmeshes/humanmeshes)
+ * @param onclick Function to call once the sphere is clicked (Swal.fire function to show a popup)
  */
-function createSphereBtn(title, diameter = 2.5, description, depth, verticalpos, horizontalpos, meshesarray){
-    mat = new BABYLON.StandardMaterial(title, scene);
+function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick, diameter = 2.5){
+    mat = new BABYLON.StandardMaterial("Material", scene);
     const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: diameter, segments: 32 }, scene);
+    meshesarray.push(sphere);
     sphere.position.set(depth, verticalpos, horizontalpos); // (depth,vertical,horizantal)
-    thalamus.material = mat;
-    meshesarray.push(sphere); // adds frontalLobe to lobemeshes array
+    sphere.material = mat;
     sphere.actionManager = new BABYLON.ActionManager(scene);
     sphere.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function(){
             camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: title,
-                text: description,
-                icon: "question",
-                background: "black",
-                color: "white",
-                backdrop: false,
-            });
+            onclick()
         })
     );
+}
+
+/**
+ * Creates a basic popup with a title, description, and 3d model button
+ * 
+ * @param {string} title Title of the popup
+ * @param {string} description k in the popup
+ * @param {*} modelBtnRef Class of the model which refers to the 3d model (i.e. mitosmlbtns)
+ */
+function createBasicPopup(title, description, modelBtnRef = null){
+    if(modelBtnRef != null){
+        Swal.fire({
+            title: title,
+            text: description,
+            icon: "question",
+            background: "black",
+            color: "white",
+            backdrop: false,
+        }).then(function () {
+            modelBtnRef.forEach((el) => {
+                hidebtn(el);
+            });
+        });
+        modelBtnRef.forEach((el) => {
+            showbtn(el);
+        });
+    }
+    else{
+        Swal.fire({
+            title: title,
+            text: description,
+            icon: "question",
+            background: "black",
+            color: "white",
+            backdrop: false,
+        }) 
+    }
 }
 
 for(btn of buttonArrays){
@@ -270,165 +299,50 @@ var createScene = function (canvas, engine) {
 };
 
 function cellSpheres() {
-    memmat = new BABYLON.StandardMaterial("mat", scene);
-
-    // Creates parts of the cells using .CreateSphere and handles what to do when the user clicks on that part of the cell
-    const membrane = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 0.25, segments: 32 }, scene);
-    membrane.position.set(0, 0, 3.8);
-    membrane.material = memmat;
-    cellmeshes.push(membrane); // adds membrane to cellmeshes array
-    membrane.actionManager = new BABYLON.ActionManager(scene);
-    membrane.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: "Cell Membrane",
-                text: "The cell membrane is composed primarily of a phospholipid bilayer, with other molecules such as proteins and cholesterol embedded. Phospholipids have 2 unsaturated fatty acid tails and one head. The phospholipid head is hydrophilic (it's attracted to water) and the 2 unsaturated fatty acid tails are hydrophobic (they repel water). The phospholipid bilayer has many kinks and bends in it. This allows the inside of the membrane to be fluid, meaning it can get more or less solid depending on outside conditions, such as temperature. This characteristic is mainly due to the cholesterol embedded. The many proteins in the membrane have a vast array of uses, some including being used for transport, attachment, and signaling.",
-                background: "black",
-                color: "white",
-                imageUrl: "images/cellmembrane.png",
-                imageWidth: window.innerWidth * 0.5,
-                imageHeight: window.innerHeight * 0.5,
-                footer: "Click on a button to learn more about a feature of the cell membrane (Hover over a button to see what feature it will show)",
-                width: window.innerWidth * 0.8,
-                backdrop: false,
-            }).then(function () {
-                // hides all btns that are part of roundbtns (the hiding and showing of these btns makes more sense when u run the website and physically experiment with it)
-                for (i = 0; i < roundbtns.length; i++) {
-                    hidebtn(roundbtns[i]);
-                }
-            });
-            // shows all btns that are part of roundbtns
+   createSphereBtn(0, 0, 3.8, cellmeshes, function(){
+        Swal.fire({
+            title: "Cell Membrane",
+            text: "The cell membrane is composed primarily of a phospholipid bilayer, with other molecules such as proteins and cholesterol embedded. Phospholipids have 2 unsaturated fatty acid tails and one head. The phospholipid head is hydrophilic (it's attracted to water) and the 2 unsaturated fatty acid tails are hydrophobic (they repel water). The phospholipid bilayer has many kinks and bends in it. This allows the inside of the membrane to be fluid, meaning it can get more or less solid depending on outside conditions, such as temperature. This characteristic is mainly due to the cholesterol embedded. The many proteins in the membrane have a vast array of uses, some including being used for transport, attachment, and signaling.",
+            background: "black",
+            color: "white",
+            imageUrl: "images/cellmembrane.png",
+            imageWidth: window.innerWidth * 0.5,
+            imageHeight: window.innerHeight * 0.5,
+            footer: "Click on a button to learn more about a feature of the cell membrane (Hover over a button to see what feature it will show)",
+            width: window.innerWidth * 0.8,
+            backdrop: false,
+        }).then(function () {
+            // hides all btns that are part of roundbtns (the hiding and showing of these btns makes more sense when u run the website and physically experiment with it)
             for (i = 0; i < roundbtns.length; i++) {
-                showbtn(roundbtns[i]);
+                hidebtn(roundbtns[i]);
             }
-            camera.target = membrane;
-            camera.inertialRadiusOffset += 4;
+        });
+        // shows all btns that are part of roundbtns
+        for (i = 0; i < roundbtns.length; i++) {
+            showbtn(roundbtns[i]);
+        }
+    })
+    createSphereBtn(0.4, 0.2, 3.3, cellmeshes, function(){createBasicPopup("Cell Mitochondria", "The mitochondria, aka the 'powerhouse of the cell', is a very important organelle that primarily functions in generating energy in the form of ATP for cellular processes through cellular respiration. The anatomy of a mitochondrion is designed to maximize energy production. The inner and outer membranes increase surface area and provide a place for energy production to happen.", mitosmlbtns)})
+    createSphereBtn(0.3, 0.2, 0, cellmeshes, function(){createBasicPopup("Cell Nucleus", "The nucleus serves as the control center of the cell, and is where genetic information is stored. The DNA is enclosed in a protective structure called the nuclear envelope. This is a double membrane made up of a phospholipid bilayer, much like that of the cell membrane. Holes in the envelope, called nuclear pores, regulate what goes in and out of the nucleus. The interior of the nucleus, also called the nucleoplasm, contains the genetic material of the cell. In humans, there are 23 pairs of chromosomes, and the nucleus is where processes such as DNA replication and transcription happen. The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis.")})
+    createSphereBtn(-1.3, 0.2, 1.7, cellmeshes, function(){createBasicPopup("Cell Golgi", 'The Golgi apparatus, aka the Golgi body, is an organelle composed of a series of small, flat sacs stacked in the cell\'s cytoplasm. The function of the Golgi apparatus is to sort out and package protein and lipid molecules synthesized by the ER or free-floating ribosomes for intercellular use or transport out of the cell. Additionally, the Golgi can add "tags" to molecules, making them more structurally stable. It can sometimes also locate where the tagged structure goes.', golgismlbtns)})
+    createSphereBtn(1, 0.2, 1.9, cellmeshes, function (){
+        Swal.fire({
+            title: "Ribosome",
+            text: "Ribosomes, complexes made of ribosomal RNA (rRNA) and protein, carry out protein synthesis in cells. They are made up of a larger top subunit and a smaller bottom subunit. These both interact with mRNA and tRNA molecules to perform translation. High rates of protein synthesis are associated with an abundance of ribosomes. Ribosomes function in two cytoplasmic locations: free ribosomes in the cytosol and bound ribosomes attached to the rough endoplasmic reticulum or nuclear envelope. Both bound and free ribosomes are structurally identical and can switch roles. Free ribosomes produce proteins for the cytosol, such as enzymes catalyzing sugar breakdown, while bound ribosomes create proteins for membrane insertion, packaging within organelles, or cell export, common in cells specialized in protein secretion, like the pancreas cells that secrete digestive enzymes.",
+            icon: "question",
+            background: "black",
+            color: "white",
+            backdrop: false,
+        }).then(function() {
+            // after "ok" button is clicked and the ribo info panel btn does not have the specified class, then hide the btn
+            if(!(ribopanel.classList.contains("cd-panel--is-visible"))) {
+                hidebtn(ribopanelbtn);
+            }
+            
         })
-    );
-    mitomat = new BABYLON.StandardMaterial("mito", scene);
-
-    mito = BABYLON.MeshBuilder.CreateSphere("mito", { diameter: 0.25, segments: 32 }, scene);
-    cellmeshes.push(mito);
-    mito.position.set(0.4, 0.2, 3.3);
-    mito.material = mitomat;
-    mito.actionManager = new BABYLON.ActionManager(scene);
-    mito.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: "Cell Mitochondria",
-                text: "The mitochondria, aka the 'powerhouse of the cell', is a very important organelle that primarily functions in generating energy in the form of ATP for cellular processes through cellular respiration. The anatomy of a mitochondrion is designed to maximize energy production. The inner and outer membranes increase surface area and provide a place for energy production to happen.",
-                icon: "question",
-                background: "black",
-                color: "white",
-                backdrop: false,
-            }).then(function () {
-                mitosmlbtns.forEach((el) => {
-                    hidebtn(el);
-                });
-            });
-            mitosmlbtns.forEach((el) => {
-                showbtn(el);
-            });
-            camera.target = mito;
-            camera.inertialRadiusOffset += 4;
-        })
-    );
-
-    nucmat = new BABYLON.StandardMaterial("nuc", scene);
-
-    nucleus = BABYLON.MeshBuilder.CreateSphere("nucleus", { diameter: 0.25, segments: 32 }, scene);
-    cellmeshes.push(nucleus);
-    nucleus.material = nucmat;
-    nucleus.position.set(0.3, 0.2, 0);
-    nucleus.actionManager = new BABYLON.ActionManager(scene);
-    nucleus.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: "Cell Nucleus",
-                text: "The nucleus serves as the control center of the cell, and is where genetic information is stored. The DNA is enclosed in a protective structure called the nuclear envelope. This is a double membrane made up of a phospholipid bilayer, much like that of the cell membrane. Holes in the envelope, called nuclear pores, regulate what goes in and out of the nucleus. The interior of the nucleus, also called the nucleoplasm, contains the genetic material of the cell. In humans, there are 23 pairs of chromosomes, and the nucleus is where processes such as DNA replication and transcription happen. The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis.",
-                icon: "question",
-                background: "black",
-                color: "white",
-                backdrop: false,
-            });
-            camera.target = nucleus;
-            camera.inertialRadiusOffset += 4;
-        })
-    );
-
-    gogmat = new BABYLON.StandardMaterial("gog", scene);
-
-    golgi = BABYLON.MeshBuilder.CreateSphere("golgi", { diameter: 0.25, segments: 32 }, scene);
-    cellmeshes.push(golgi);
-    golgi.position.set(-1.3, 0.2, 1.7);
-    golgi.material = gogmat;
-    golgi.actionManager = new BABYLON.ActionManager(scene);
-    golgi.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: "Cell Golgi",
-                text: 'The Golgi apparatus, aka the Golgi body, is an organelle composed of a series of small, flat sacs stacked in the cell\'s cytoplasm. The function of the Golgi apparatus is to sort out and package protein and lipid molecules synthesized by the ER or free-floating ribosomes for intercellular use or transport out of the cell. Additionally, the Golgi can add "tags" to molecules, making them more structurally stable. It can sometimes also locate where the tagged structure goes.',
-                icon: "question",
-                background: "black",
-                color: "white",
-                backdrop: false,
-            }).then(function () {
-                golgismlbtns.forEach((el) => {
-                    hidebtn(el);
-                });
-            });
-            golgismlbtns.forEach((el) => {
-                showbtn(el);
-            });
-            //brainbtns.forEach((el) => {
-            //  hidebtn(el);
-            //});
-            camera.target = golgi;
-            camera.inertialRadiusOffset += 4;
-        })
-    );
-
-    ribomat = new BABYLON.StandardMaterial("ribomat", scene);
-
-    // Creates parts of the cells using .CreateSphere and handles what to do when the user clicks on that part of the cell
-    const ribosome = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 0.1, segments: 32 }, scene);
-    ribosome.position.set(1, 0.2, 1.9);
-    ribosome.material = ribomat;
-    cellmeshes.push(ribosome); // adds membrane to cellmeshes array
-    ribosome.actionManager = new BABYLON.ActionManager(scene);
-    ribosome.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            Swal.fire({
-                title: "Ribosome",
-                text: "Ribosomes, complexes made of ribosomal RNA (rRNA) and protein, carry out protein synthesis in cells. They are made up of a larger top subunit and a smaller bottom subunit. These both interact with mRNA and tRNA molecules to perform translation. High rates of protein synthesis are associated with an abundance of ribosomes. Ribosomes function in two cytoplasmic locations: free ribosomes in the cytosol and bound ribosomes attached to the rough endoplasmic reticulum or nuclear envelope. Both bound and free ribosomes are structurally identical and can switch roles. Free ribosomes produce proteins for the cytosol, such as enzymes catalyzing sugar breakdown, while bound ribosomes create proteins for membrane insertion, packaging within organelles, or cell export, common in cells specialized in protein secretion, like the pancreas cells that secrete digestive enzymes.",
-                icon: "question",
-                background: "black",
-                color: "white",
-                backdrop: false,
-            }).then(function() {
-                // after "ok" button is clicked and the ribo info panel btn does not have the specified class, then hide the btn
-                if(!(ribopanel.classList.contains("cd-panel--is-visible"))) {
-                    hidebtn(ribopanelbtn);
-                }
-                
-            })
-            camera.target = ribosome;
-            camera.inertialRadiusOffset += 4;
-            showbtn(ribopanelbtn)
-        })
-    );
-    BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
-        meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-        riboref = meshes[0];
-        allMeshes.push(riboref);
-
-        riboref.position = new BABYLON.Vector3(1, -0.1, 1.9);
-    });
+    })
+    importmesh("ribosoma.glb", new BABYLON.Vector3(0.5, 0.5, 0.5), new BABYLON.Vector3(1, -0.1, 1.9))
+    console.log(cellmeshes)
 
     // tells each item in the cellmeshes array what to do when the mouse cursor hovers over and moves away from the part
 
@@ -445,9 +359,10 @@ function cellSpheres() {
  * @param {number} ind index of the button in the btnclass (if applicable)
  * @param {string} filename the name of the glb file
  * @param {BABYLON.Vector3} scaling scaling of the mesh (i.e. new BABYLON.Vector3(5, 5, 5)), will use default scaling if argument is not provided   
- * 
- */ 
-function importmesh(filename, scaling = null) {
+ * @param {BABYLON.Vector3} position position of the mesh (i.e. new BABYLON.Vector3(5, 5, 5)), will use default position if argument is not provided   
+
+*/ 
+function importmesh(filename, scaling = null, position = null) {
     showui();
     BABYLON.SceneLoader.ImportMesh("", "", `models/${filename}`, scene, function (meshes) {
         // imports 3D model
@@ -456,6 +371,9 @@ function importmesh(filename, scaling = null) {
         camera.target = meshes[0]; // sets camera target
         if(scaling != null){
             meshes[0].scaling = scaling;
+        }
+        if(position != null){
+            meshes[0].position = position;
         }
         allMeshes.push(meshes[0]);
     });
@@ -558,14 +476,9 @@ function displayLobes() {
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
         lobes.textContent = "Hide Lobes";
-        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
-            // change brain.glb to the file name with the brain model corresponding to lobes
-            brainref.dispose();
-            hideui();
 
-            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-            lobesref = meshes[0];
-            allMeshes.push(lobesref);
+        importmesh("brain.glb", new BABYLON.Vector3(5, 5, 5))
+
 
             // Frontal Lobe
             frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
@@ -676,8 +589,7 @@ function displayLobes() {
             lobemeshes.forEach((lobe) => {
                 orgsettings(lobe);
             });
-        });
-    } else {
+        } else {
         // resets the page to how it was originally
         brainDivisions.setAttribute("style", "");
         backHuman.setAttribute("style", "");
