@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <title>Biology Sim</title>
+    <link rel="stylesheet" href="static/mui.css">
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="static/slide-in-pane_style.css">
+    <link rel="stylesheet" href="static/slide-in-panel_css_demo.css">
+    <script src="js/babylon.js"></script>
+    <script src="js/babylonjs.loaders.min.js"></script>
+    <script src="js/mui.js"></script>
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="js/stats.js"></script>
+  </head>
+  <body>
+    <button onclick = "loadhuman(1)" id="backHuman" class="mui-btn mui-btn--primary largeBtn">Go Back to Human</button>
+    <button onclick = "displayLobes()" id="lobes" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Show Lobes</button>
+    <button onclick = "displayBrainDivisions()" style="display: none;" id="brainDivisions" class="mui-btn mui-btn--primary largeBtn">Show Brain Divisions</button>
+    <button onclick = "showExteriorBrain()" style="display: none;" id="exterior" class="mui-btn mui-btn--primary largeBtn">Show Exterior View</button>
+    <button onclick="loadcell()" id="backcell" class="mui-btn mui-btn--primary largeBtn">Go Back to Cell</button>
+    <button onclick="membraneclicked()" style="display: none;" id="memb" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Singular Phospholipid">1</button>
+    <button onclick="phosphoclicked()" style="display: none;" id="phospho" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Phospholipid Bilayer">2</button>
+    <button onclick="phosphoclicked2()" style="display: none;" id="phospho2" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="2 Phospholipids">3</button>
+    <button onclick="openchannel()" style="display: none;" id="channeltransport" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Channel Transport">4</button>
+    <button onclick="cholestrolclicked()" style="display: none;" id="cholestrol" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Cholesterol">5</button>
+    <button onclick="receptorproteinclicked()" style="display: none;" id="receptorprotein" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Receptor Protein">6</button>
+    <button onclick="loadmito(1)" id="mitosmlbtn" style="display: none;" class="mui-btn mui-btn--primary mitosmlbtns">3d Model</button>
+    <button onclick="loadbrain(1)" id="brainbtn" style="display: none;" class="mui-btn mui-btn--primary brainbtns">3d Model</button>
+    <button onclick="loadgolgi(1)" id="golgismlbtn" style="display: none;" class="mui-btn mui-btn--primary golgismlbtns">3d Model</button>
+    <button onclick = "loadpanel()" style="display: none;" id="panelbtn" class="mui-btn mui-btn--primary largeBtn">Brain Hierarchy</button>
+    <button onclick = "loadribopanel()" style="display: none;" id="ribopanelbtn" class="mui-btn mui-btn--primary largeBtn">Ribosome Info</button>
+    <button onclick = "loadskeletal(1)" style="display: none;" id="skeletal" class="mui-btn mui-btn--primary largeBtn">Show Skeletal</button>
+    <button onclick = "loadneuron(1)" style="display: none;" id="neuron" class="mui-btn mui-btn--primary largeBtn">Show Neuron</button>
+    <button onclick="loadheart(1)" id="heartbtn" style="display: none;" class="mui-btn mui-btn--primary heartbtns">3d Model</button>
+    <button onclick="loadkidney(1)" id="kidneybtn" style="display: none;" class="mui-btn mui-btn--primary kidneybtns">3d Model</button>
+    <button onclick="loadlung(1)" id="lungbtn" style="display: none;" class="mui-btn mui-btn--primary lungbtns">3d Model</button>
+    <button onclick="loadstomach(1)" id="stomachbtn" style="display: none;" class="mui-btn mui-btn--primary stomachbtns">3d Model</button>
+    <button onclick="showMuscular()" id="muscularbtn" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Show Muscular System</button>
+
+    <form class="largeBtn" id = "search">
+      <div id = "dropdown">
+        <select id = "searchbox" onchange = "search(this.value)">
+          <option class = "searchContent" value = "Search" disabled selected = "true">Search</option>
+          <option class = "searchContent" value = "heart" >Heart</option>
+          <option class = "searchContent" value = "cell" >Cell</option>
+          <option class = "searchContent" value = "brain" >Brain</option>
+          <option class = "searchContent" value = "human" >Human</option>
+          <option class = "searchContent" value = "skeletal" >Skeletal</option>
+          <option class = "searchContent" value = "golgi" >Golgi</option>
+          <option class = "searchContent" value = "mito" >Mitochondria</option> 
+          <option class = "searchContent" value = "neuron" >Neuron</option>         
+          
+        </select>
+      </div>
+    </form>
+
+    <canvas id="babcanv"></canvas>
+    <!-- Brain Info / Brain Hierarchy-->
+    <div class="cd-panel cd-panel--from-right js-cd-panel-main">
+      <header class="cd-panel__header">
+      <p class="sTitle">Brain Divisions</p>
+      <a class="cd-panel__close js-cd-close">Close</a>
+      </header>
+      <div class="cd-panel__container">
+        <div class="cd-panel__content">
+          <p class="sContent">The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other.<br><br> Key for Interior View of brain: [to be added] </p>
+        </div> 
+      </div> 
+    </div> 
+
+    <!-- Ribosome Menu -->
+
+    <div class="cd-ribopanel cd-panel--from-right js-cd-panel-main">
+      <header class="cd-panel__header">
+      <p class="sTitle">Ribosome Functionality</p>
+      <a class="cd-panel__close js-cd-riboclose">Close</a>
+      </header>
+      <div class="cd-panel__container">
+        <div class="cd-panel__content">
+          <p class="sContent">
+                Structure - Ribosomes are made up of two main components, the large subunit and the small subunit. Ribosomes are made in the nucleolus where four strands of rRNA combine with ribosomal proteins to make the large and small subunit. 
+                <br><br>
+                Function - The main function of ribosomes is to help build proteins. In the process of building proteins, they are present in the translation. After the transcription happens, where the mRNA is produced as a copy of DNA, The mRNA goes to the ribosome to start the process of translation. In translation, The mRNA is translated by the tRNA to bring the corresponding amino acids and produce a polypeptide chain. The process of producing a polypeptide can be split into three parts. The initiation of translation starts when the tRNA binds to the start codon of the mRNA this happens on the small subunit of the ribosome, then the large subunit of the ribosome covers the small subunit of the ribosome, the elongation of the proteins starts. To accommodate the tRNA, ribosomes have an A site, P site, and an E site. The tRNA first enters through the P site of the ribosome with an amino acid attached to it. There will be another tRNA in the P site of the ribosome with the current chain of amino acids. The chain of polypeptides on the P site will be attached to the amino acid of the tRNA on the A site so the current chain of polypeptides in the tRNA on the A site. Then the tRNA in the P site will exit the ribosome though the E site and the tRNA with the polypeptides will move to the P site. This cycle will continue till the end of the polypeptide when the tRNA reads the end codon. 
+                <br><br>
+                Position - There are two types of ribosomes, bound and unbound ribosomes. Bound ribosomes are typically present on the nuclear envelope or the endoplasmic reticulum(ER) while unbound ribosomes float around in the cytosol. While the position of the ribosomes have no difference in structure, they both produce different types of proteins. Proteins made from bound ribosomes usually carry materials that are exported from the cell or are inserted into membranes, like lysosomes. The amount of ribosomes present in the cell depends on the cell function and its need for proteins. For example, cells in the pancreas frequently export digestive enzymes, therefore it has a lot of bound ribosomes.
+                <br><br>
+                mRNA decides if protein is made on ER or cytosol. mRNA has a signal to tell if protein is made on ER or cytosol. Those made on ER need further modification
+                <br><br>
+                Evolution - Early life forms relied more heavily on RNA for both genetic information storage and catalytic functions. In the context of ribosomes, this suggests that primitive ribosomes might have been composed primarily of RNA, with catalytic roles carried out by ribozymes (RNA molecules with enzymatic activity).
+                <br><br>
+                Over time, as organisms evolved, there was a transition from an RNA-centric world to one where proteins took on more structural and catalytic roles. This led to the development of the modern ribosome, which is a complex made up of both RNA and proteins. The small and large subunits of the ribosome are composed of ribosomal RNA (rRNA) and proteins, and they work together to facilitate the synthesis of proteins in a highly orchestrated process.
+                <br><br><br><br>
+
+          </p>
+        </div> 
+      </div> 
+    </div> 
+    <script src="js/script.js"></script>
+  </body>
+</html>
