@@ -110,19 +110,19 @@ function showbtn(psbtn) {
 /**
  * Creates a sphere button on a model which will show a popup upon clicking
  *
- * @param diameter Diameter of the sphere (default is 2.5)
+ * @param diameter Diameter of the sphere (default is 0.25)
  * @param depth Depth of the sphere into the 3d model
  * @param verticalpos Vertical position of the sphere
  * @param horizontalpos Horizontal position of the sphere
  * @param meshesarray The array to push the sphere object into (i.e. cellmeshes/humanmeshes)
  * @param onclick Function to call once the sphere is clicked (Swal.fire function to show a popup)
  */
-function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick, diameter = 2.5){
+function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick, diameter = 0.25){
     mat = new BABYLON.StandardMaterial("Material", scene);
     const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: diameter, segments: 32 }, scene);
-    meshesarray.push(sphere);
     sphere.position.set(depth, verticalpos, horizontalpos); // (depth,vertical,horizantal)
     sphere.material = mat;
+    meshesarray.push(sphere);
     sphere.actionManager = new BABYLON.ActionManager(scene);
     sphere.actionManager.registerAction(
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function(){
@@ -234,9 +234,10 @@ function loadcell() {
     }
     showui();
     camera.lowerRadiusLimit = 2; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
+    clear()
+    importmesh("ribosoma.glb", new BABYLON.Vector3(0.5, 0.5, 0.5), new BABYLON.Vector3(1, -0.1, 1.9))
     BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
         // imports 3D mesh
-        clear();
 
         hideui();
 
@@ -250,15 +251,6 @@ function loadcell() {
 
         cellSpheres(); // function that displays all the spheres associated with the parts of a cell (mitochondria, ...)
     });
-    // loads in ribosome
-    BABYLON.SceneLoader.ImportMesh("", "", "models/ribosoma.glb", scene, function (meshes) {
-        meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-        riboref = meshes[0];
-        allMeshes.push(riboref);
-
-        riboref.position = new BABYLON.Vector3(1, -0.1, 1.9);
-    });
-    // }
 }
 
 var createScene = function (canvas, engine) {
@@ -281,6 +273,14 @@ var createScene = function (canvas, engine) {
     var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene); // adds shining light effect
 
     light.intensity = 0.7; // sets intesity of light
+
+    BABYLON.SceneLoader.ImportMesh("", "", `models/ribosoma.glb`, scene, function (meshes) {
+        // imports 3D model
+        hideui();   
+        meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+        meshes[0].position = new BABYLON.Vector3(1, -0.1, 1.9);
+        allMeshes.push(meshes[0]);
+    });
 
     BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
         // imports mesh from animal_cell.glb
@@ -322,7 +322,33 @@ function cellSpheres() {
             showbtn(roundbtns[i]);
         }
     })
-    createSphereBtn(0.4, 0.2, 3.3, cellmeshes, function(){createBasicPopup("Cell Mitochondria", "The mitochondria, aka the 'powerhouse of the cell', is a very important organelle that primarily functions in generating energy in the form of ATP for cellular processes through cellular respiration. The anatomy of a mitochondrion is designed to maximize energy production. The inner and outer membranes increase surface area and provide a place for energy production to happen.", mitosmlbtns)})
+    // createSphereBtn(0.4, 0.2, 3.3, cellmeshes, function(){createBasicPopup("Cell Mitochondria", "The mitochondria, aka the 'powerhouse of the cell', is a very important organelle that primarily functions in generating energy in the form of ATP for cellular processes through cellular respiration. The anatomy of a mitochondrion is designed to maximize energy production. The inner and outer membranes increase surface area and provide a place for energy production to happen.", mitosmlbtns)})
+    mitomat = new BABYLON.StandardMaterial("Material", scene);
+    mito = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 0.25, segments: 32 }, scene);
+    cellmeshes.push(mito)
+    mito.position.set(0.4, 0.2, 3.3);
+    mito.material = mitomat;
+    mito.actionManager = new BABYLON.ActionManager(scene);
+    mito.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+            camera.lowerRadiusLimit = 2;
+            Swal.fire({
+                title: "Cell Mitochondria",
+                text: "The mitochondria, aka the 'powerhouse of the cell', is a very important organelle that primarily functions in generating energy in the form of ATP for cellular processes through cellular respiration. The anatomy of a mitochondrion is designed to maximize energy production. The inner and outer membranes increase surface area and provide a place for energy production to happen.",
+                icon: "question",
+                background: "black",
+                color: "white",
+                backdrop: false,
+            }).then(function () {
+                mitosmlbtns.forEach((el) => {
+                    hidebtn(el);
+                });
+            });
+            mitosmlbtns.forEach((el) => {
+                showbtn(el);
+            });
+        })
+    );
     createSphereBtn(0.3, 0.2, 0, cellmeshes, function(){createBasicPopup("Cell Nucleus", "The nucleus serves as the control center of the cell, and is where genetic information is stored. The DNA is enclosed in a protective structure called the nuclear envelope. This is a double membrane made up of a phospholipid bilayer, much like that of the cell membrane. Holes in the envelope, called nuclear pores, regulate what goes in and out of the nucleus. The interior of the nucleus, also called the nucleoplasm, contains the genetic material of the cell. In humans, there are 23 pairs of chromosomes, and the nucleus is where processes such as DNA replication and transcription happen. The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis.")})
     createSphereBtn(-1.3, 0.2, 1.7, cellmeshes, function(){createBasicPopup("Cell Golgi", 'The Golgi apparatus, aka the Golgi body, is an organelle composed of a series of small, flat sacs stacked in the cell\'s cytoplasm. The function of the Golgi apparatus is to sort out and package protein and lipid molecules synthesized by the ER or free-floating ribosomes for intercellular use or transport out of the cell. Additionally, the Golgi can add "tags" to molecules, making them more structurally stable. It can sometimes also locate where the tagged structure goes.', golgismlbtns)})
     createSphereBtn(1, 0.2, 1.9, cellmeshes, function (){
@@ -341,8 +367,6 @@ function cellSpheres() {
             
         })
     })
-    importmesh("ribosoma.glb", new BABYLON.Vector3(0.5, 0.5, 0.5), new BABYLON.Vector3(1, -0.1, 1.9))
-    console.log(cellmeshes)
 
     // tells each item in the cellmeshes array what to do when the mouse cursor hovers over and moves away from the part
 
@@ -366,7 +390,6 @@ function importmesh(filename, scaling = null, position = null) {
     showui();
     BABYLON.SceneLoader.ImportMesh("", "", `models/${filename}`, scene, function (meshes) {
         // imports 3D model
-        clear();
         hideui();   
         camera.target = meshes[0]; // sets camera target
         if(scaling != null){
@@ -383,6 +406,7 @@ function importmesh(filename, scaling = null, position = null) {
 function membraneclicked() {
     if (checkvis(roundbtns[0])) {
         clickcond(cellmeshes, roundbtns, 0);
+        clear()
         importmesh("cell_membrane.glb")
         hidebtn(backHuman);
         showbtn(backcell);
@@ -392,6 +416,7 @@ function membraneclicked() {
 function phosphoclicked() {
     if (checkvis(roundbtns[1])){
         clickcond(cellmeshes, roundbtns, 1);
+        clear()
         importmesh("phospho_sama.glb")
         hidebtn(backHuman);
         showbtn(backcell);
@@ -402,6 +427,7 @@ function phosphoclicked2() {
     if (checkvis(roundbtns[2])) {
         document.getElementById("swal2-html-container").innerHTML = "<ul>Selective permeability</ul><ul>Passive transport</ul><ul>Active transport</ul><ul>Facilitated transport</ul>";
         clickcond(cellmeshes, roundbtns, 2);
+        clear()
         importmesh("phospholipid.glb")
         hidebtn(backHuman);
         showbtn(backcell);  
@@ -411,6 +437,7 @@ function phosphoclicked2() {
 function openchannel() {
     if (checkvis(roundbtns[3])) {
         clickcond(cellmeshes, roundbtns, 3);
+        clear()
         importmesh("openchannel.glb")
         hidebtn(backHuman);
         showbtn(backcell);
@@ -420,6 +447,7 @@ function openchannel() {
 function cholestrolclicked() {
     if (checkvis(roundbtns[4])) {
         clickcond(cellmeshes, roundbtns, 4);
+        clear()
         importmesh("Cholestoral.glb")
         hidebtn(backHuman);
         showbtn(backcell);
@@ -438,6 +466,7 @@ function receptorproteinclicked() {
 function loadmito(val) {
     if (checkvis(mitosmlbtns[0]) || val == 0) {
         clickcond(cellmeshes, mitosmlbtns, 0);
+        clear()
         scaling = new BABYLON.Vector3(5, 5, 5)
         importmesh("mitocondrias.glb", scaling)
         showbtn(backcell);
@@ -447,6 +476,7 @@ function loadmito(val) {
 function loadgolgi(val) {
     if (checkvis(golgismlbtns[0]) || val == 0) {
         clickcond(cellmeshes, golgismlbtns, 0);
+        clear()
         scaling = new BABYLON.Vector3(5, 5, 5)
         importmesh("golgi.glb", scaling)
     }
@@ -477,118 +507,119 @@ function displayLobes() {
 
         lobes.textContent = "Hide Lobes";
 
+        clear()
         importmesh("brain.glb", new BABYLON.Vector3(5, 5, 5))
 
 
-            // Frontal Lobe
-            frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
-            const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            frontalLobe.position.set(-2.5, 18, 8);
-            frontalLobe.material = frontalLobemat;
-            lobemeshes.push(frontalLobe); // adds frontalLobe to lobemeshes array
-            frontalLobe.actionManager = new BABYLON.ActionManager(scene);
-            frontalLobe.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Frontal Lobe",
-                        text: "The frontal lobe, located at the front of the cerebral cortex, plays a critical role in various higher-level cognitive functions and personality traits. It is responsible for  functions such as decision-making, problem-solving, and planning. The frontal lobe also houses the primary motor cortex, which controls voluntary movements throughout the body. In addition, it is involved in regulating emotions, social behavior, and aspects of personality, including shaping our ability to interact with others and exhibit self-control. The frontal lobe's intricate neural networks and connectivity enable us to engage in complex cognitive processes, exercise self-awareness, and make conscious choices.                        ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    });
-                })
-            );
+        // Frontal Lobe
+        frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
+        const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        frontalLobe.position.set(-2.5, 18, 8);
+        frontalLobe.material = frontalLobemat;
+        lobemeshes.push(frontalLobe); // adds frontalLobe to lobemeshes array
+        frontalLobe.actionManager = new BABYLON.ActionManager(scene);
+        frontalLobe.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Frontal Lobe",
+                    text: "The frontal lobe, located at the front of the cerebral cortex, plays a critical role in various higher-level cognitive functions and personality traits. It is responsible for  functions such as decision-making, problem-solving, and planning. The frontal lobe also houses the primary motor cortex, which controls voluntary movements throughout the body. In addition, it is involved in regulating emotions, social behavior, and aspects of personality, including shaping our ability to interact with others and exhibit self-control. The frontal lobe's intricate neural networks and connectivity enable us to engage in complex cognitive processes, exercise self-awareness, and make conscious choices.                        ",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
 
-            // Temporal Lobes
-            temporalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
+        // Temporal Lobes
+        temporalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
 
-            const temporal1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            temporal1.position.set(10.5, 5, 20.5); // (depth,vertical,horizantal)
-            temporal1.material = temporalLobeMat;
-            lobemeshes.push(temporal1); // adds frontalLobe to lobemeshes array
-            temporal1.actionManager = new BABYLON.ActionManager(scene);
-            temporal1.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Temporal Lobe",
-                        text: "The temporal lobes, found on both sides of the brain, have distinct functions and differences. The left temporal lobe is crucial for understanding language, memory, and verbal skills. On the other hand, the right temporal lobe is involved in processing non-verbal information, recognizing faces and expressions, and understanding drawings and music. These lobes depend on input from various brain areas and sensory information, and they can even convert sounds into mental images. For instance, without the temporal lobes, comprehending speech would be difficult. In these lobes, there's a region called Wernicke's area, vital for language comprehension and speech meaning. The auditory cortex, within the temporal lobe, processes auditory information by filtering out irrelevant details and sending meaningful information to be understood. This cortex is essential for hearing and language processing, and it's a part of the limbic system, which handles emotions, memories, and motivation. The hippocampus in the temporal lobe forms new memories, while the amygdala, also in the limbic system, processes emotions, fear, and reward, influencing memory strength based on emotional significance.",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    });
-                })
-            );
+        const temporal1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        temporal1.position.set(10.5, 5, 20.5); // (depth,vertical,horizantal)
+        temporal1.material = temporalLobeMat;
+        lobemeshes.push(temporal1); // adds frontalLobe to lobemeshes array
+        temporal1.actionManager = new BABYLON.ActionManager(scene);
+        temporal1.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Temporal Lobe",
+                    text: "The temporal lobes, found on both sides of the brain, have distinct functions and differences. The left temporal lobe is crucial for understanding language, memory, and verbal skills. On the other hand, the right temporal lobe is involved in processing non-verbal information, recognizing faces and expressions, and understanding drawings and music. These lobes depend on input from various brain areas and sensory information, and they can even convert sounds into mental images. For instance, without the temporal lobes, comprehending speech would be difficult. In these lobes, there's a region called Wernicke's area, vital for language comprehension and speech meaning. The auditory cortex, within the temporal lobe, processes auditory information by filtering out irrelevant details and sending meaningful information to be understood. This cortex is essential for hearing and language processing, and it's a part of the limbic system, which handles emotions, memories, and motivation. The hippocampus in the temporal lobe forms new memories, while the amygdala, also in the limbic system, processes emotions, fear, and reward, influencing memory strength based on emotional significance.",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
 
-            const temporal2 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            temporal2.position.set(10.5, 5, -4); // (depth,vertical,horizantal)
-            temporal2.material = temporalLobeMat;
-            lobemeshes.push(temporal2); // adds frontalLobe to lobemeshes array
-            temporal2.actionManager = new BABYLON.ActionManager(scene);
-            temporal2.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Temporal Lobe",
-                        text: "The temporal lobes, found on both sides of the brain, have distinct functions and differences. The left temporal lobe is crucial for understanding language, memory, and verbal skills. On the other hand, the right temporal lobe is involved in processing non-verbal information, recognizing faces and expressions, and understanding drawings and music. These lobes depend on input from various brain areas and sensory information, and they can even convert sounds into mental images. For instance, without the temporal lobes, comprehending speech would be difficult. In these lobes, there's a region called Wernicke's area, vital for language comprehension and speech meaning. The auditory cortex, within the temporal lobe, processes auditory information by filtering out irrelevant details and sending meaningful information to be understood. This cortex is essential for hearing and language processing, and it's a part of the limbic system, which handles emotions, memories, and motivation. The hippocampus in the temporal lobe forms new memories, while the amygdala, also in the limbic system, processes emotions, fear, and reward, influencing memory strength based on emotional significance.",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    });
-                })
-            );
+        const temporal2 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        temporal2.position.set(10.5, 5, -4); // (depth,vertical,horizantal)
+        temporal2.material = temporalLobeMat;
+        lobemeshes.push(temporal2); // adds frontalLobe to lobemeshes array
+        temporal2.actionManager = new BABYLON.ActionManager(scene);
+        temporal2.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Temporal Lobe",
+                    text: "The temporal lobes, found on both sides of the brain, have distinct functions and differences. The left temporal lobe is crucial for understanding language, memory, and verbal skills. On the other hand, the right temporal lobe is involved in processing non-verbal information, recognizing faces and expressions, and understanding drawings and music. These lobes depend on input from various brain areas and sensory information, and they can even convert sounds into mental images. For instance, without the temporal lobes, comprehending speech would be difficult. In these lobes, there's a region called Wernicke's area, vital for language comprehension and speech meaning. The auditory cortex, within the temporal lobe, processes auditory information by filtering out irrelevant details and sending meaningful information to be understood. This cortex is essential for hearing and language processing, and it's a part of the limbic system, which handles emotions, memories, and motivation. The hippocampus in the temporal lobe forms new memories, while the amygdala, also in the limbic system, processes emotions, fear, and reward, influencing memory strength based on emotional significance.",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
 
-            // Parietal Lobe
-            parietalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
+        // Parietal Lobe
+        parietalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
 
-            const parietal = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            parietal.position.set(15.5, 17, 8); // (depth,vertical,horizantal)
-            parietal.material = parietalLobeMat;
-            lobemeshes.push(parietal); // adds frontalLobe to lobemeshes array
-            parietal.actionManager = new BABYLON.ActionManager(scene);
-            parietal.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Parietal Lobe",
-                        text: "The parietal lobe constitutes approximately 19% of the total neocortical volume, slightly larger than the occipital lobe. Its spatial expanse extends from the central sulcus anteriorly, demarcating it from the frontal lobe, to the parieto-occipital fissure posteriorly, segregating it from the occipital lobe. Its inferolateral boundary coincides with the lateral sulcus, separating it from the temporal lobe. Medially, its confines are defined by the medial longitudinal fissure that splits both cerebral hemispheres. Primarily responsible for sensory perception and integration, the parietal lobe plays a pivotal role in processing taste, hearing, sight, touch, and smell. Within its realm lies the brain's primary somatic sensory cortex, a critical area for interpreting input from various body regions. Remarkably, research underscores a direct relationship between sensory input and parietal lobe surface area, with more prominent sensory regions of the body, such as the fingers and hands, corresponding to larger dedicated sections of the parietal lobe. Yet, despite the progress in understanding, the parietal lobe remains enigmatic, with ongoing studies continually unveiling new insights into its functions, emphasizing the likelihood that its complete range of roles is yet to be fully uncovered.                        ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    });
-                })
-            );
+        const parietal = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        parietal.position.set(15.5, 17, 8); // (depth,vertical,horizantal)
+        parietal.material = parietalLobeMat;
+        lobemeshes.push(parietal); // adds frontalLobe to lobemeshes array
+        parietal.actionManager = new BABYLON.ActionManager(scene);
+        parietal.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Parietal Lobe",
+                    text: "The parietal lobe constitutes approximately 19% of the total neocortical volume, slightly larger than the occipital lobe. Its spatial expanse extends from the central sulcus anteriorly, demarcating it from the frontal lobe, to the parieto-occipital fissure posteriorly, segregating it from the occipital lobe. Its inferolateral boundary coincides with the lateral sulcus, separating it from the temporal lobe. Medially, its confines are defined by the medial longitudinal fissure that splits both cerebral hemispheres. Primarily responsible for sensory perception and integration, the parietal lobe plays a pivotal role in processing taste, hearing, sight, touch, and smell. Within its realm lies the brain's primary somatic sensory cortex, a critical area for interpreting input from various body regions. Remarkably, research underscores a direct relationship between sensory input and parietal lobe surface area, with more prominent sensory regions of the body, such as the fingers and hands, corresponding to larger dedicated sections of the parietal lobe. Yet, despite the progress in understanding, the parietal lobe remains enigmatic, with ongoing studies continually unveiling new insights into its functions, emphasizing the likelihood that its complete range of roles is yet to be fully uncovered.                        ",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
 
-            // Occipital Lobe
-            occipitalLobeMat = new BABYLON.StandardMaterial("occipitalLobe", scene);
+        // Occipital Lobe
+        occipitalLobeMat = new BABYLON.StandardMaterial("occipitalLobe", scene);
 
-            const occipital = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            occipital.position.set(22, 5, 8); // (depth,vertical,horizantal)
-            occipital.material = occipitalLobeMat;
-            lobemeshes.push(occipital); // adds frontalLobe to lobemeshes array
-            occipital.actionManager = new BABYLON.ActionManager(scene);
-            occipital.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Occipital Lobe",
-                        text: "The occipital lobe is a part of the brain responsible for processing visual information. On its outer surface, there are raised areas called gyri and grooves called sulci. The sides of the occipital lobe have three specific sulci that help define its shape. Inside, on the middle surface, there's a distinct calcarine sulcus, which divides it into the cuneus and lingual regions. The upper and lower parts of the calcarine sulcus contain the primary visual cortex, which is where we process what we see. This cortex gets information from our eyes and helps us understand things like shapes, colors, and distances. The occipital lobe's main job is to help us understand and recognize what we see. There are different areas in this lobe, like the primary visual cortex, which receives information directly from our eyes, and secondary visual cortex areas that work with this information to help us recognize objects and understand where they are. The occipital lobe also sends information to other parts of the brain through two pathways: the dorsal stream for recognizing where objects are and the ventral stream for recognizing what objects are.",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    });
-                })
-            );
+        const occipital = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        occipital.position.set(22, 5, 8); // (depth,vertical,horizantal)
+        occipital.material = occipitalLobeMat;
+        lobemeshes.push(occipital); // adds frontalLobe to lobemeshes array
+        occipital.actionManager = new BABYLON.ActionManager(scene);
+        occipital.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Occipital Lobe",
+                    text: "The occipital lobe is a part of the brain responsible for processing visual information. On its outer surface, there are raised areas called gyri and grooves called sulci. The sides of the occipital lobe have three specific sulci that help define its shape. Inside, on the middle surface, there's a distinct calcarine sulcus, which divides it into the cuneus and lingual regions. The upper and lower parts of the calcarine sulcus contain the primary visual cortex, which is where we process what we see. This cortex gets information from our eyes and helps us understand things like shapes, colors, and distances. The occipital lobe's main job is to help us understand and recognize what we see. There are different areas in this lobe, like the primary visual cortex, which receives information directly from our eyes, and secondary visual cortex areas that work with this information to help us recognize objects and understand where they are. The occipital lobe also sends information to other parts of the brain through two pathways: the dorsal stream for recognizing where objects are and the ventral stream for recognizing what objects are.",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
 
-            lobemeshes.forEach((lobe) => {
-                orgsettings(lobe);
-            });
+        lobemeshes.forEach((lobe) => {
+            orgsettings(lobe);
+        });
         } else {
         // resets the page to how it was originally
         brainDivisions.setAttribute("style", "");
