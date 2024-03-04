@@ -44,6 +44,7 @@ humanmeshes = [];
 roundbtns = document.querySelectorAll(".smlbtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 golgismlbtns = document.querySelectorAll(".golgismlbtns");
+roughersmlbtns = document.querySelectorAll(".roughersmlbtns");
 brainbtns = document.querySelectorAll(".brainbtns");
 eyebtns = document.querySelectorAll(".eyebtns");
 heartbtns = document.querySelectorAll(".heartbtns");
@@ -281,7 +282,7 @@ var createScene = function (canvas, engine) {
 
     // upper and lower bounds for camera distance from model
     camera.lowerRadiusLimit = 2;
-    camera.upperRadiusLimit = 20;
+    camera.upperRadiusLimit = 100;
 
     camera.radius = 5;
 
@@ -356,6 +357,7 @@ function cellSpheres() {
             
         })
     })
+    createSphereBtn(1.8, 0.2, -0.5, cellmeshes, function(){createBasicPopup("Rough ER", "add description here", roughersmlbtns)})
 
     // tells each item in the cellmeshes array what to do when the mouse cursor hovers over and moves away from the part
 
@@ -469,6 +471,12 @@ function loadgolgi(val) {
         scaling = new BABYLON.Vector3(5, 5, 5)
         importmesh("golgi.glb", scaling)
     }
+}
+
+function loadrougher(val) {
+    clickcond(cellmeshes, golgismlbtns, 0);
+    clear()
+    importmesh("rough_er.glb", new BABYLON.Vector3(20, 20, 20))
 }
 
 function loadpanel() {
