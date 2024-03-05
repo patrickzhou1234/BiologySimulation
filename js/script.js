@@ -44,7 +44,7 @@ humanmeshes = [];
 roundbtns = document.querySelectorAll(".smlbtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 golgismlbtns = document.querySelectorAll(".golgismlbtns");
-roughersmlbtns = document.querySelectorAll(".roughersmlbtns");
+ersmlbtns = document.querySelectorAll(".ersmlbtns");
 brainbtns = document.querySelectorAll(".brainbtns");
 eyebtns = document.querySelectorAll(".eyebtns");
 heartbtns = document.querySelectorAll(".heartbtns");
@@ -82,7 +82,7 @@ let neuronmeshes = [];
 let skeletalmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior, showMuscularSys];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns, eyemeshes];
+let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns, eyemeshes, ersmlbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -285,6 +285,7 @@ var createScene = function (canvas, engine) {
     camera.upperRadiusLimit = 100;
 
     camera.radius = 5;
+    camera.target._isDirty = false;
 
     var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene); // adds shining light effect
 
@@ -310,6 +311,8 @@ var createScene = function (canvas, engine) {
     document.addEventListener("DOMContentLoaded", function () {
         cellSpheres();
     });
+
+    // const axes = new BABYLON.AxesViewer(scene);
 
     return scene;
 };
@@ -357,7 +360,7 @@ function cellSpheres() {
             
         })
     })
-    createSphereBtn(1.8, 0.2, -0.5, cellmeshes, function(){createBasicPopup("Rough ER", "add description here", roughersmlbtns)})
+    createSphereBtn(1.8, 0.2, -0.5, cellmeshes, function(){createBasicPopup("Endoplasmic Reticulum", "add description here", ersmlbtns)})
 
     // tells each item in the cellmeshes array what to do when the mouse cursor hovers over and moves away from the part
 
@@ -374,15 +377,21 @@ function cellSpheres() {
  * @param {number} ind index of the button in the btnclass (if applicable)
  * @param {string} filename the name of the glb file
  * @param {BABYLON.Vector3} scaling scaling of the mesh (i.e. new BABYLON.Vector3(5, 5, 5)), will use default scaling if argument is not provided   
- * @param {BABYLON.Vector3} position position of the mesh (i.e. new BABYLON.Vector3(5, 5, 5)), will use default position if argument is not provided   
+ * @param {BABYLON.Vector3} position position of the mesh (i.e. new BABYLON.Vector3(5, 5, 5)), will use default position if argument is not provided  
+ * @param {BABYLON.Vector3} camera_target axes to target the camera at (i.e. new BABYLON.Vector3(5, 5, 5)), will use default axes if argument is not provided  
 
 */ 
-function importmesh(filename, scaling = null, position = null) {
+function importmesh(filename, scaling = null, position = null, target = null) {
     showui();
     BABYLON.SceneLoader.ImportMesh("", "", `models/${filename}`, scene, function (meshes) {
         // imports 3D model
-        hideui();   
-        camera.target = meshes[0]; // sets camera target
+        hideui();  
+        if(target == null){
+            camera.target = meshes[0]; // sets camera target
+        }
+        else{
+            camera.target = target;
+        }
         if(scaling != null){
             meshes[0].scaling = scaling;
         }
@@ -474,9 +483,15 @@ function loadgolgi(val) {
 }
 
 function loadrougher(val) {
-    clickcond(cellmeshes, golgismlbtns, 0);
+    clickcond(cellmeshes, ersmlbtns, 0);
     clear()
     importmesh("rough_er.glb", new BABYLON.Vector3(20, 20, 20))
+}
+
+function loadsmoother(val) {
+    clickcond(cellmeshes, ersmlbtns, 1);
+    clear()
+    importmesh("smooth_er.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), new BABYLON.Vector3(0, 0, 0.5), new BABYLON.Vector3(0, 0, 0))
 }
 
 function loadpanel() {

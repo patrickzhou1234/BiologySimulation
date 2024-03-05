@@ -163,7 +163,7 @@ img {
     top: 80vh;
 }
 
-.roughersmlbtns {
+.ersmlbtns {
     z-index: 99999999;
     font-family: "amazon-ember";
     font-size: calc(0.65vw + 0.65vh);
@@ -174,7 +174,12 @@ img {
 }
 
 #roughersmlbtn {
-    left: 45vw;
+    left: 38vw;
+    top: 80vh;
+}
+
+#smoothersmlbtn {
+    left: 52vw;
     top: 80vh;
 }
 
