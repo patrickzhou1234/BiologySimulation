@@ -360,7 +360,9 @@ function cellSpheres() {
             
         })
     })
-    createSphereBtn(1.8, 0.2, -0.5, cellmeshes, function(){createBasicPopup("Endoplasmic Reticulum", "add description here", ersmlbtns)})
+    createSphereBtn(1.8, 0.2, -0.5, cellmeshes, function(){createBasicPopup("Endoplasmic Reticulum", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell. On the other hand, the smooth ER... (add description here)", ersmlbtns)})
+    createSphereBtn(0.35, 0.35, -0.4, cellmeshes, function(){createBasicPopup("Nucleolus", "The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis. ")}) 
+    createSphereBtn(1.3, 0.1, 2.3, cellmeshes, function(){createBasicPopup("Centrioles", "Centrioles are essential for cell division, aiding in the organization of microtubules during mitosis and meiosis. They also contribute to the formation of cilia and flagella, crucial for cell movement and sensory functions. ")}) 
 
     // tells each item in the cellmeshes array what to do when the mouse cursor hovers over and moves away from the part
 
@@ -1150,8 +1152,8 @@ function loadeye() {
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
-                        title: "Vitreous",
-                        text: "TBD",
+                        title: "Sclera",
+                        text: "The sclera is a protective layer that surrounds the eye. It is the 'white' of the eye. ",
                         icon: "question",
                         background: "black",
                         color: "white",
@@ -1159,6 +1161,8 @@ function loadeye() {
                     })
                 })
             );
+            createSphereBtn(8.55, 9.5, -3.4, eyemeshes, function(){createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ")}) 
+            createSphereBtn(8.25, 9.5, -3.4, eyemeshes, function(){createBasicPopup("Pupil", "The pupil is a hole in the eye where light enters from. ")}) 
 
             
         });
