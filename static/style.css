@@ -281,6 +281,11 @@ img {
     top: 77vh;
 }
 
+#kidney2dmodelbtn {
+    left: 5vh;
+    top: 8vh;
+}
+
 .lungbtns {
     z-index: 99999999;
     font-family: "amazon-ember";

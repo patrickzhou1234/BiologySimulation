@@ -62,6 +62,7 @@ brainDivisions = document.getElementById("brainDivisions");
 panelbtn = document.getElementById("panelbtn");
 ribopanelbtn = document.getElementById("ribopanelbtn");
 searchbox = document.getElementById("searchbox");
+kidney2dmodelbtn = document.getElementById("kidney2dmodelbtn");
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
@@ -80,8 +81,9 @@ let eyemeshes = [];
 let brainDivisionsMeshes = [];
 let neuronmeshes = [];
 let skeletalmeshes = [];
+let kidneymeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior, showMuscularSys];
+let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior, showMuscularSys, kidney2dmodelbtn];
 let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns, eyemeshes, ersmlbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
@@ -285,7 +287,6 @@ var createScene = function (canvas, engine) {
     camera.upperRadiusLimit = 100;
 
     camera.radius = 5;
-    camera.target._isDirty = false;
 
     var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene); // adds shining light effect
 
@@ -293,7 +294,6 @@ var createScene = function (canvas, engine) {
 
     BABYLON.SceneLoader.ImportMesh("", "", `models/ribosoma.glb`, scene, function (meshes) {
         // imports 3D model
-        hideui();   
         meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
         meshes[0].position = new BABYLON.Vector3(1, -0.1, 1.9);
         allMeshes.push(meshes[0]);
@@ -312,7 +312,7 @@ var createScene = function (canvas, engine) {
         cellSpheres();
     });
 
-    // const axes = new BABYLON.AxesViewer(scene);
+    const axes = new BABYLON.AxesViewer(scene);
 
     return scene;
 };
@@ -345,6 +345,7 @@ function cellSpheres() {
     createSphereBtn(0.3, 0.2, 0, cellmeshes, function(){createBasicPopup("Cell Nucleus", "The nucleus serves as the control center of the cell, and is where genetic information is stored. The DNA is enclosed in a protective structure called the nuclear envelope. This is a double membrane made up of a phospholipid bilayer, much like that of the cell membrane. Holes in the envelope, called nuclear pores, regulate what goes in and out of the nucleus. The interior of the nucleus, also called the nucleoplasm, contains the genetic material of the cell. In humans, there are 23 pairs of chromosomes, and the nucleus is where processes such as DNA replication and transcription happen. The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis.")})
     createSphereBtn(-1.3, 0.2, 1.7, cellmeshes, function(){createBasicPopup("Cell Golgi", 'The Golgi apparatus, aka the Golgi body, is an organelle composed of a series of small, flat sacs stacked in the cell\'s cytoplasm. The function of the Golgi apparatus is to sort out and package protein and lipid molecules synthesized by the ER or free-floating ribosomes for intercellular use or transport out of the cell. Additionally, the Golgi can add "tags" to molecules, making them more structurally stable. It can sometimes also locate where the tagged structure goes.', golgismlbtns)})
     createSphereBtn(1, 0.2, 1.9, cellmeshes, function (){
+        showbtn(ribopanelbtn)
         Swal.fire({
             title: "Ribosome",
             text: "Ribosomes, complexes made of ribosomal RNA (rRNA) and protein, carry out protein synthesis in cells. They are made up of a larger top subunit and a smaller bottom subunit. These both interact with mRNA and tRNA molecules to perform translation. High rates of protein synthesis are associated with an abundance of ribosomes. Ribosomes function in two cytoplasmic locations: free ribosomes in the cytosol and bound ribosomes attached to the rough endoplasmic reticulum or nuclear envelope. Both bound and free ribosomes are structurally identical and can switch roles. Free ribosomes produce proteins for the cytosol, such as enzymes catalyzing sugar breakdown, while bound ribosomes create proteins for membrane insertion, packaging within organelles, or cell export, common in cells specialized in protein secretion, like the pancreas cells that secrete digestive enzymes.",
@@ -501,6 +502,7 @@ function loadpanel() {
 }
 function loadribopanel() {
     hidebtn(searchbox);
+    hidebtn(ribopanelbtn)
     Swal.close(); // closes the pop up with info on the ribosome
     addClass(ribopanel, "cd-panel--is-visible");
 }
@@ -1195,21 +1197,26 @@ function loadheart(val) {
 
 function loadkidney(val) {
     if (checkvis(kidneybtns[0]) || val == 0) {
-        showui();
-        clickcond(humanmeshes, kidneybtns, 0);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/kidney.glb", scene, function (meshes) {
-            clear();
-            hideui();
-            camera.target = meshes[0];
-            meshes[0].scaling = new BABYLON.Vector3(0.075, 0.045, 0.075);
-            heartref = meshes[0];
-
-            allMeshes.push(heartref);
-        });
-        camera.position = new BABYLON.Vector3(2000, 750, -4500);
         clearbtns();
+        clear()
+        importmesh("kidney.glb", new BABYLON.Vector3(0.005, 0.005, 0.005))
+        clickcond(kidneymeshes, kidneybtns, 0);
         showbtn(backHuman);
+        showbtn(kidney2dmodelbtn);
+
+        createSphereBtn(-0.35, -0.15, 0, kidneymeshes, function(){createBasicPopup("Uretur", "The channel through which the urine formed in the kidney enters the urinary bladder.")}, 0.1)
+        createSphereBtn(0, 0, 0.225, kidneymeshes, function(){createBasicPopup("Renal Capsule", "The outermost layer of the kidney. It is a tough, fibrous membrane that protects the kidney. The Renal Capsule is surrounded by Adipose Tissues, which are two layers of fat which serves both as a cushion and insulation for the kidney")}, 0.1)
+        createSphereBtn(0.26, 0, -0.025, kidneymeshes, function(){createBasicPopup("Renal Cortex", "The outer region of the kidney that houses the glomerulus and convoluted tubules of the nephrons.")}, 0.1)
+        createSphereBtn(0.19, -0.15, -0.025, kidneymeshes, function(){createBasicPopup("Renal Medulla", "The inner region of the kidney that houses the loops of Henle.")}, 0.1)
+        createSphereBtn(-0.15, -0.175, -0.025, kidneymeshes, function(){createBasicPopup("Renal Pelvis", "The inner region of the kidney that houses the loops of Henle.")}, 0.1)
+
     }
+}
+
+function kidney2dmodel(){
+    Swal.fire({
+        imageUrl: "images/kidney.png"
+    });
 }
 
 function loadlung(val) {
@@ -1803,6 +1810,11 @@ function clear() {
         } catch (err) {}
     }
     for (i = 0; i < skeletalmeshes.length; i++) {
+        try {
+            skeletalmeshes[i].dispose();
+        } catch (err) {}
+    } 
+    for (i = 0; i < kidneymeshes.length; i++) {
         try {
             skeletalmeshes[i].dispose();
         } catch (err) {}
