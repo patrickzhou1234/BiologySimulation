@@ -312,7 +312,7 @@ var createScene = function (canvas, engine) {
         cellSpheres();
     });
 
-    const axes = new BABYLON.AxesViewer(scene);
+    // const axes = new BABYLON.AxesViewer(scene);
 
     return scene;
 };
