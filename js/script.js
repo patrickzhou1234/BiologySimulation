@@ -49,10 +49,12 @@ brainbtns = document.querySelectorAll(".brainbtns");
 eyebtns = document.querySelectorAll(".eyebtns");
 heartbtns = document.querySelectorAll(".heartbtns");
 kidneybtns = document.querySelectorAll(".kidneybtns");
+exretorybtns = document.querySelectorAll(".exretorybtns");
 lungbtns = document.querySelectorAll(".lungbtns");
 stomachbtns = document.querySelectorAll(".stomachbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
+backExretory = document.getElementById("backExretory");
 showSkeletal = document.getElementById("skeletal");
 showExterior = document.getElementById("exterior");
 showNeuron = document.getElementById("neuron");
@@ -82,9 +84,10 @@ let brainDivisionsMeshes = [];
 let neuronmeshes = [];
 let skeletalmeshes = [];
 let kidneymeshes = [];
+let exretorymeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior, showMuscularSys, kidney2dmodelbtn];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns, eyemeshes, ersmlbtns];
+let buttons = [backcell, backHuman, backExretory, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior, showMuscularSys, kidney2dmodelbtn];
+let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns, eyemeshes, ersmlbtns, exretorybtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -312,7 +315,15 @@ var createScene = function (canvas, engine) {
         cellSpheres();
     });
 
-    const axes = new BABYLON.AxesViewer(scene);
+    // const axes = new BABYLON.AxesViewer(scene);
+    // let vector = { x:'', y:'', z:'' };
+    // scene.onPointerDown = function (event, pickResult){
+    //         //left mouse click
+    //         if(event.button == 0){
+    //                 vector = pickResult.pickedPoint;
+    //                 console.log('left mouse click: ' + vector.x + ',' + vector.y + ',' + vector.z );
+    //         }
+    // }
 
     return scene;
 };
@@ -375,25 +386,23 @@ function cellSpheres() {
 /**
  * Imports a specified mesh
  *
- * @param meshesarray The array which contains the meshes of the sphere buttons (i.e. cellmeshes/humanmeshes)
- * @param btnclass The class of the button (i.e. roundbtns, lungbtns, etc.)
- * @param {number} ind index of the button in the btnclass (if applicable)
  * @param {string} filename the name of the glb file
  * @param {BABYLON.Vector3} scaling scaling of the mesh (i.e. new BABYLON.Vector3(5, 5, 5)), will use default scaling if argument is not provided   
  * @param {BABYLON.Vector3} position position of the mesh (i.e. new BABYLON.Vector3(5, 5, 5)), will use default position if argument is not provided  
- * @param {BABYLON.Vector3} camera_target axes to target the camera at (i.e. new BABYLON.Vector3(5, 5, 5)), will use default axes if argument is not provided  
+ * @param {BABYLON.Vector3} camera_target axes to target the camera at (i.e. new BABYLON.Vector3(5, 5, 5)), will use default axes if argument is not provided
+ * @param {BABYLON.Vector3} camera_position initial position of the camera (i.e. new BABYLON.Vector3(5, 5, 5)), will use position axes if argument is not provided
 
 */ 
-function importmesh(filename, scaling = null, position = null, target = null) {
+function importmesh(filename, scaling = null, position = null, camera_target = null, camera_position = new BABYLON.Vector3(0, 0, 0)) {
     showui();
     BABYLON.SceneLoader.ImportMesh("", "", `models/${filename}`, scene, function (meshes) {
         // imports 3D model
         hideui();  
-        if(target == null){
+        if(camera_target == null){
             camera.target = meshes[0]; // sets camera target
         }
         else{
-            camera.target = target;
+            camera.target = camera_target;
         }
         if(scaling != null){
             meshes[0].scaling = scaling;
@@ -401,6 +410,7 @@ function importmesh(filename, scaling = null, position = null, target = null) {
         if(position != null){
             meshes[0].position = position;
         }
+        camera.position = camera_position;
         allMeshes.push(meshes[0]);
     });
 }
@@ -1043,18 +1053,18 @@ function loadhuman(val) {
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
-                        title: "Kidney",
-                        text: "The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, playing a pivotal role in regulating electrolyte balance, blood pressure, and producing urine for waste elimination. ",
+                        title: "Exretory System",
+                        text: "add description here",
                         icon: "question",
                         background: "black",
                         color: "white",
                         backdrop: false,
                     }).then(function () {
-                        kidneybtns.forEach((el) => {
+                        exretorybtns.forEach((el) => {
                             hidebtn(el);
                         });
                     });
-                    kidneybtns.forEach((el) => {
+                    exretorybtns.forEach((el) => {
                         showbtn(el);
                     });
                     camera.target = kidney;
@@ -1195,13 +1205,28 @@ function loadheart(val) {
     }
 }
 
+function loadexretory(val) {
+    if (checkvis(exretorybtns[0]) || val == 0) {
+        clearbtns()
+        clear()
+        importmesh("exretory_system.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -15))
+        showbtn(backHuman)
+
+        createSphereBtn(1.3, 5, -0.6, exretorymeshes, function(){createBasicPopup("Kidney", "The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, playing a pivotal role in regulating electrolyte balance, blood pressure, and producing urine for waste elimination.", kidneybtns)})
+        createSphereBtn(0.98, 0, -0.25, exretorymeshes, function(){createBasicPopup("Ureter", "The channel through which the urine formed in the kidney enters the urinary bladder.")})
+        createSphereBtn(-0.04, -4.42, -1.29, exretorymeshes, function(){createBasicPopup("Urinary Bladder", "The urinary bladder is made up of several layers of tissues that are able to stretch as the bladder gets filled. And there are sphincter muscles between the bladder and the urethra that help to control urination.")})
+        createSphereBtn(0.07, -5.27, -0.43, exretorymeshes, function(){createBasicPopup("Urethra", "Where the urine leaves the body.")})
+    }
+}
+
 function loadkidney(val) {
     if (checkvis(kidneybtns[0]) || val == 0) {
         clearbtns();
         clear()
-        importmesh("kidney.glb", new BABYLON.Vector3(0.005, 0.005, 0.005))
+        importmesh("kidney.glb", new BABYLON.Vector3(0.005, 0.005, 0.005), null, null, new BABYLON.Vector3(0, 0, -0.10))
         clickcond(kidneymeshes, kidneybtns, 0);
         showbtn(backHuman);
+        showbtn(backExretory);
         showbtn(kidney2dmodelbtn);
 
         createSphereBtn(-0.35, -0.15, 0, kidneymeshes, function(){createBasicPopup("Uretur", "The channel through which the urine formed in the kidney enters the urinary bladder.")}, 0.1)
@@ -1816,7 +1841,12 @@ function clear() {
     } 
     for (i = 0; i < kidneymeshes.length; i++) {
         try {
-            skeletalmeshes[i].dispose();
+            kidneymeshes[i].dispose();
+        } catch (err) {}
+    } 
+    for (i = 0; i < exretorymeshes.length; i++) {
+        try {
+            exretorymeshes[i].dispose();
         } catch (err) {}
     } 
 }
@@ -1859,4 +1889,4 @@ engine.runRenderLoop(function () {
 
 window.addEventListener("resize", function () {
     engine.resize();
-});
+})
