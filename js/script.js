@@ -1053,8 +1053,8 @@ function loadhuman(val) {
                 new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
-                        title: "Exretory System",
-                        text: "add description here",
+                        title: "Excretory System",
+                        text: "This body system filters the blood for waste prodcuts and removes them from the body.",
                         icon: "question",
                         background: "black",
                         color: "white",
@@ -1212,10 +1212,10 @@ function loadexretory(val) {
         importmesh("exretory_system.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -15))
         showbtn(backHuman)
 
-        createSphereBtn(1.3, 5, -0.6, exretorymeshes, function(){createBasicPopup("Kidney", "The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, playing a pivotal role in regulating electrolyte balance, blood pressure, and producing urine for waste elimination.", kidneybtns)})
-        createSphereBtn(0.98, 0, -0.25, exretorymeshes, function(){createBasicPopup("Ureter", "The channel through which the urine formed in the kidney enters the urinary bladder.")})
-        createSphereBtn(-0.04, -4.42, -1.29, exretorymeshes, function(){createBasicPopup("Urinary Bladder", "The urinary bladder is made up of several layers of tissues that are able to stretch as the bladder gets filled. And there are sphincter muscles between the bladder and the urethra that help to control urination.")})
-        createSphereBtn(0.07, -5.27, -0.43, exretorymeshes, function(){createBasicPopup("Urethra", "Where the urine leaves the body.")})
+        createSphereBtn(1.3, 5, -0.6, exretorymeshes, function(){createBasicPopup("Kidney", "The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, regulating electrolyte balance, blood pressure, and producing urine for waste elimination.", kidneybtns)})
+        createSphereBtn(0.98, 0, -0.25, exretorymeshes, function(){createBasicPopup("Ureter", "The channels through which the urine formed in the kidney enters the urinary bladder.")})
+        createSphereBtn(-0.04, -4.42, -1.29, exretorymeshes, function(){createBasicPopup("Urinary Bladder", "The urinary bladder is made up of several layers of tissues and lined with transitional eptilhelium, which can relax and contract to accomodate urine. There are sphincter muscles between the bladder and the urethra that control urination.")})
+        createSphereBtn(0.07, -5.27, -0.43, exretorymeshes, function(){createBasicPopup("Urethra", "The tube through which urine leaves the body.")})
     }
 }
 
@@ -1230,10 +1230,10 @@ function loadkidney(val) {
         showbtn(kidney2dmodelbtn);
 
         createSphereBtn(-0.35, -0.15, 0, kidneymeshes, function(){createBasicPopup("Uretur", "The channel through which the urine formed in the kidney enters the urinary bladder.")}, 0.1)
-        createSphereBtn(0, 0, 0.225, kidneymeshes, function(){createBasicPopup("Renal Capsule", "The outermost layer of the kidney. It is a tough, fibrous membrane that protects the kidney. The Renal Capsule is surrounded by Adipose Tissues, which are two layers of fat which serves both as a cushion and insulation for the kidney")}, 0.1)
-        createSphereBtn(0.26, 0, -0.025, kidneymeshes, function(){createBasicPopup("Renal Cortex", "The outer region of the kidney that houses the glomerulus and convoluted tubules of the nephrons.")}, 0.1)
-        createSphereBtn(0.19, -0.15, -0.025, kidneymeshes, function(){createBasicPopup("Renal Medulla", "The inner region of the kidney that houses the loops of Henle.")}, 0.1)
-        createSphereBtn(-0.15, -0.175, -0.025, kidneymeshes, function(){createBasicPopup("Renal Pelvis", "The inner region of the kidney that houses the loops of Henle.")}, 0.1)
+        createSphereBtn(0, 0, 0.225, kidneymeshes, function(){createBasicPopup("Renal Capsule", "The outermost layer of the kidney. It is a tough, fibrous membrane that protects the kidney. The renal capsule is surrounded by adipose tissues. ")}, 0.1)
+        createSphereBtn(0.26, 0, -0.025, kidneymeshes, function(){createBasicPopup("Renal Cortex", "The outer region of the kidney that houses the glomerulus and convoluted tubules of the nephrons. Nephorons are units of cells that filter the blood. ")}, 0.1)
+        createSphereBtn(0.19, -0.15, -0.025, kidneymeshes, function(){createBasicPopup("Renal Medulla", "Filters waste materials and eliminates fluid from the body. It also houses the loops of Henle, which are units that reabsorb water into the bloodstream")}, 0.1)
+        createSphereBtn(-0.15, -0.175, -0.025, kidneymeshes, function(){createBasicPopup("Renal Pelvis", "The inner region of the kidney that collects urine as it is produced, and sends it through the ureturs to the bladder.")}, 0.1)
 
     }
 }
@@ -1642,6 +1642,8 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
+            createSphereBtn(1.8, 0.2, -0.5, neuronmeshes, function(){createBasicPopup("Endoplasmic Reticulum", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell. On the other hand, the smooth ER... (add description here)", ersmlbtns)})
+
             neuronmeshes.push(axon);
             axotmat = new BABYLON.StandardMaterial("axot", scene);
             axot = BABYLON.MeshBuilder.CreateSphere("axot", { diameter: 3, segments: 32 }, scene);
@@ -1745,27 +1747,9 @@ function loadneuron(val) {
                 })
             );
 
-            neuronmeshes.push(synapse);
-            Somamat = new BABYLON.StandardMaterial("Soma", scene);
-            Soma = BABYLON.MeshBuilder.CreateSphere("Soma", { diameter: 3, segments: 32 }, scene);
-            Soma.position.set(-65, -15, 0);
-            Soma.material = Somamat;
-            Soma.actionManager = new BABYLON.ActionManager(scene);
-            Soma.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Soma",
-                        text: "The soma is essentially the cell body of the neuron. It houses the nucleus and various organelles that are crucial for the normal functioning of the neuron. Signals received by the dendrites are directed to the soma where they are processed and then sent further down to the axon. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {});
-                    camera.target = soma;
-                    camera.inertialRadiusOffset += 4;
-                })
-            );
+           
+            createSphereBtn(-65, -15, 0, neuronmeshes, function(){createBasicPopup("Soma", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell. On the other hand, the smooth ER... (add description here)", diameter = -5000000)})
+
             neuronmeshes.push(Soma);
             for (i = 0; i < neuronmeshes.length; i++) {
                 orgsettings(neuronmeshes[i]);
