@@ -1246,19 +1246,10 @@ function kidney2dmodel(){
 
 function loadlung(val) {
     if (checkvis(lungbtns[0]) || val == 0) {
-        showui();
-        clickcond(humanmeshes, lungbtns, 0);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
-            clear();
-            hideui();
-            camera.target = meshes[0];
-            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-            lungref = meshes[0];
-
-            allMeshes.push(lungref);
-        });
-        camera.position = new BABYLON.Vector3(0, 5, 0);
+        clear()
         clearbtns();
+        clickcond(humanmeshes, lungbtns, 0);
+        importmesh("lung.glb", new BABYLON.Vector3(5, 5, 5))
         showbtn(backHuman);
     }
 }
