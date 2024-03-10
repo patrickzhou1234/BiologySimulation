@@ -53,6 +53,11 @@
     opacity: 1;
 }
 
+#backBrain{
+    left: 8vh;
+    opacity: 1;
+}
+
 #backHuman:hover {
     cursor: pointer;
 }
@@ -208,19 +213,9 @@ img {
     z-index: 9999 !important;
 }
 
-#lobes {
-    left: 5vh;
-    top: 12vh;
-}
-
-#brainDivisions {
-    left: 5vh;
-    top: 18vh;
-}
-
 #panelbtn {
     right: 5vh;
-    top: 24vh;
+    top: 30vh;
     width: 15%;
     left: 5vh;
 }
@@ -248,7 +243,7 @@ img {
 
 #neuron {
     left: 5vh;
-    top: 30vh;
+    top: 13vh;
 }
 
 .heartbtns {
@@ -352,10 +347,24 @@ img {
     z-index: 1;
     position: absolute;
 }
+#systems {
+    top: 88vh;
+    left: 1800vh;
+}
+#dropdown {
+    position: relative;
+}
+#searchbox {
+    width: 190%;
+}
 
+.searchContent {
+    z-index: 1;
+    position: absolute;
+}
 #exterior {
     left: 5vh;
-    top: 35vh;
+    top: 8vh;
 }
 
 #ribopanelbtn {
