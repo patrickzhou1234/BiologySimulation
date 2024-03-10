@@ -18,8 +18,6 @@
   <body>
     <button onclick = "loadhuman(1)" id="backHuman" class="mui-btn mui-btn--primary largeBtn">Go Back to Human</button>
     <button onclick = "loadexretory(0)" id="backExretory" class="mui-btn mui-btn--primary largeBtn">Go Back to Exretory System</button>
-    <button onclick = "displayLobes()" id="lobes" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Show Lobes</button>
-    <button onclick = "displayBrainDivisions()" style="display: none;" id="brainDivisions" class="mui-btn mui-btn--primary largeBtn">Show Brain Divisions</button>
     <button onclick = "showExteriorBrain()" style="display: none;" id="exterior" class="mui-btn mui-btn--primary largeBtn">Show Exterior View</button>
     <button onclick="loadcell()" id="backcell" class="mui-btn mui-btn--primary largeBtn">Go Back to Cell</button>
     <button onclick="membraneclicked()" style="display: none;" id="memb" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Singular Phospholipid">1</button>
@@ -34,7 +32,7 @@
     <button onclick="loadgolgi(1)" id="golgismlbtn" style="display: none;" class="mui-btn mui-btn--primary golgismlbtns">3d Model</button>
     <button onclick="loadrougher()" id="roughersmlbtn" style="display: none;" class="mui-btn mui-btn--primary ersmlbtns">RER 3d Model</button>
     <button onclick="loadsmoother()" id="smoothersmlbtn" style="display: none;" class="mui-btn mui-btn--primary ersmlbtns">SER 3d Model</button>
-    <button onclick = "loadpanel()" style="display: none;" id="panelbtn" class="mui-btn mui-btn--primary largeBtn">Brain Hierarchy</button>
+    <button onclick = "loadpanel()" style="display: none;" id="panelbtn" class="mui-btn mui-btn--primary largeBtn">Brain Information</button>
     <button onclick = "loadribopanel()" style="display: none;" id="ribopanelbtn" class="mui-btn mui-btn--primary largeBtn">Ribosome Info</button>
     <button onclick = "loadskeletal(1)" style="display: none;" id="skeletal" class="mui-btn mui-btn--primary largeBtn">Show Skeletal</button>
     <button onclick = "loadneuron(1)" style="display: none;" id="neuron" class="mui-btn mui-btn--primary largeBtn">Show Neuron</button>
@@ -49,15 +47,13 @@
     <form class="largeBtn" id = "search">
       <div id = "dropdown">
         <select id = "searchbox" onchange = "search(this.value)">
-          <option class = "searchContent" value = "Search" disabled selected = "true">Search</option>
-          <option class = "searchContent" value = "cell" >Cell</option>
+          <option class = "searchContent" value = "Search" disabled selected = "true">Jump to System</option>
           <option class = "searchContent" value = "brain" >Nervous System</option>
-          <option class = "searchContent" value = "human" >Human</option>
           <option class = "searchContent" value = "skeletal" >Skeletal System</option>
           <option class = "searchContent" value = "exretory" >Excretory system</option>
           <option class = "searchContent" value = "heart" >Circulatory System</option>
-          <option class = "searchContent" value = "lung" >Respirtory system</option>
-          <option class = "searchContent" value = "stomach" >Digestive System</option>            
+          <option class = "searchContent" value = "lung" >Respiratory system</option>
+          <option class = "searchContent" value = "stomach" >Digestive System</option>          
           
         </select>
       </div>
@@ -72,7 +68,7 @@
       </header>
       <div class="cd-panel__container">
         <div class="cd-panel__content">
-          <p class="sContent">The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other.<br><br> Key for Interior View of brain: [to be added] </p>
+          <p class="sContent">The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other. <br></br> Notable structures seen in this image include: </br><br>- The pituitary gland, also known as the 'master gland', which controls hormonal balances in the body.  <br>- The amygdala, which controls the emotion of fear and influences aggression, reward-based learning, unconscious memory, social understanding, parenting emotions, memory-emotion connections, and addiction behaviors. <br>- The hippocampus, part of the brain's limbic system, is vital for memory, learning, and emotions. It stores short-term memories and facilitates their conversion into long-term memory.  Key functions include storing declarative facts, transferring short-term to long-term memory (assisted by sleep), and aiding spatial navigation and mental mapping. <br>- The hypothalamus, deep within the brain, links the endocrine and nervous systems to maintain body stability (homeostasis). It interprets chemical signals from the brain and peripheral nerves, regulating vital functions like temperature, blood pressure, hunger, thirst, and mood. It also influences sex drive and sleep, controlling these processes through the autonomic nervous system and hormone regulation. </br>   </p>
         </div> 
       </div> 
     </div> 
