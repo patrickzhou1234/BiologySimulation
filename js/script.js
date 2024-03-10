@@ -59,8 +59,6 @@ showSkeletal = document.getElementById("skeletal");
 showExterior = document.getElementById("exterior");
 showNeuron = document.getElementById("neuron");
 showMuscularSys = document.getElementById("muscularbtn");
-lobes = document.getElementById("lobes");
-brainDivisions = document.getElementById("brainDivisions");
 panelbtn = document.getElementById("panelbtn");
 ribopanelbtn = document.getElementById("ribopanelbtn");
 searchbox = document.getElementById("searchbox");
@@ -74,19 +72,16 @@ let skeletalref = 0;
 let neuronref = 0;
 let eyeref = 0;
 let riboref = 0;
-let lobesref = 0;
 let exteriorref = 0;
-let brainDivisionsref = 0;
 let muscularref = 0;
 let lobemeshes = [];
 let eyemeshes = [];
-let brainDivisionsMeshes = [];
 let neuronmeshes = [];
 let skeletalmeshes = [];
 let kidneymeshes = [];
 let exretorymeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, backExretory, showSkeletal, showNeuron, lobes, brainDivisions, panelbtn, showExterior, showMuscularSys, kidney2dmodelbtn];
+let buttons = [backcell, backHuman, backExretory, showSkeletal, showNeuron, panelbtn, showExterior, showMuscularSys, kidney2dmodelbtn];
 let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns, eyemeshes, ersmlbtns, exretorybtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
@@ -517,276 +512,11 @@ function loadribopanel() {
     addClass(ribopanel, "cd-panel--is-visible");
 }
 
-/* 
-Two buttons, one for lobes, one for fore/mid/hind brains 
-
-Show both buttons (for lobes and brains), and when one is clicked, have the other opaque and change text from "Show Lobes" to "Hide Lobes" for examples
-*/
-function displayLobes() {
-    if (lobes.textContent == "Show Lobes" && brainDivisions.textContent == "Show Brain Divisions") {
-        // ^^Checks to make sure the button is valid to click
-
-        // sets the other three buttons' attributes to make them unclickable
-        brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-        showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-
-        lobes.textContent = "Hide Lobes";
-
-        clear()
-        importmesh("brain.glb", new BABYLON.Vector3(5, 5, 5))
-
-
-        // Frontal Lobe
-        frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
-        const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        frontalLobe.position.set(-2.5, 18, 8);
-        frontalLobe.material = frontalLobemat;
-        lobemeshes.push(frontalLobe); // adds frontalLobe to lobemeshes array
-        frontalLobe.actionManager = new BABYLON.ActionManager(scene);
-        frontalLobe.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                camera.lowerRadiusLimit = 2;
-                Swal.fire({
-                    title: "Frontal Lobe",
-                    text: "The frontal lobe, located at the front of the cerebral cortex, plays a critical role in various higher-level cognitive functions and personality traits. It is responsible for  functions such as decision-making, problem-solving, and planning. The frontal lobe also houses the primary motor cortex, which controls voluntary movements throughout the body. In addition, it is involved in regulating emotions, social behavior, and aspects of personality, including shaping our ability to interact with others and exhibit self-control. The frontal lobe's intricate neural networks and connectivity enable us to engage in complex cognitive processes, exercise self-awareness, and make conscious choices.                        ",
-                    icon: "question",
-                    background: "black",
-                    color: "white",
-                    backdrop: false,
-                });
-            })
-        );
-
-        // Temporal Lobes
-        temporalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
-
-        const temporal1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        temporal1.position.set(10.5, 5, 20.5); // (depth,vertical,horizantal)
-        temporal1.material = temporalLobeMat;
-        lobemeshes.push(temporal1); // adds frontalLobe to lobemeshes array
-        temporal1.actionManager = new BABYLON.ActionManager(scene);
-        temporal1.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                camera.lowerRadiusLimit = 2;
-                Swal.fire({
-                    title: "Temporal Lobe",
-                    text: "The temporal lobes, found on both sides of the brain, have distinct functions and differences. The left temporal lobe is crucial for understanding language, memory, and verbal skills. On the other hand, the right temporal lobe is involved in processing non-verbal information, recognizing faces and expressions, and understanding drawings and music. These lobes depend on input from various brain areas and sensory information, and they can even convert sounds into mental images. For instance, without the temporal lobes, comprehending speech would be difficult. In these lobes, there's a region called Wernicke's area, vital for language comprehension and speech meaning. The auditory cortex, within the temporal lobe, processes auditory information by filtering out irrelevant details and sending meaningful information to be understood. This cortex is essential for hearing and language processing, and it's a part of the limbic system, which handles emotions, memories, and motivation. The hippocampus in the temporal lobe forms new memories, while the amygdala, also in the limbic system, processes emotions, fear, and reward, influencing memory strength based on emotional significance.",
-                    icon: "question",
-                    background: "black",
-                    color: "white",
-                    backdrop: false,
-                });
-            })
-        );
-
-        const temporal2 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        temporal2.position.set(10.5, 5, -4); // (depth,vertical,horizantal)
-        temporal2.material = temporalLobeMat;
-        lobemeshes.push(temporal2); // adds frontalLobe to lobemeshes array
-        temporal2.actionManager = new BABYLON.ActionManager(scene);
-        temporal2.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                camera.lowerRadiusLimit = 2;
-                Swal.fire({
-                    title: "Temporal Lobe",
-                    text: "The temporal lobes, found on both sides of the brain, have distinct functions and differences. The left temporal lobe is crucial for understanding language, memory, and verbal skills. On the other hand, the right temporal lobe is involved in processing non-verbal information, recognizing faces and expressions, and understanding drawings and music. These lobes depend on input from various brain areas and sensory information, and they can even convert sounds into mental images. For instance, without the temporal lobes, comprehending speech would be difficult. In these lobes, there's a region called Wernicke's area, vital for language comprehension and speech meaning. The auditory cortex, within the temporal lobe, processes auditory information by filtering out irrelevant details and sending meaningful information to be understood. This cortex is essential for hearing and language processing, and it's a part of the limbic system, which handles emotions, memories, and motivation. The hippocampus in the temporal lobe forms new memories, while the amygdala, also in the limbic system, processes emotions, fear, and reward, influencing memory strength based on emotional significance.",
-                    icon: "question",
-                    background: "black",
-                    color: "white",
-                    backdrop: false,
-                });
-            })
-        );
-
-        // Parietal Lobe
-        parietalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
-
-        const parietal = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        parietal.position.set(15.5, 17, 8); // (depth,vertical,horizantal)
-        parietal.material = parietalLobeMat;
-        lobemeshes.push(parietal); // adds frontalLobe to lobemeshes array
-        parietal.actionManager = new BABYLON.ActionManager(scene);
-        parietal.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                camera.lowerRadiusLimit = 2;
-                Swal.fire({
-                    title: "Parietal Lobe",
-                    text: "The parietal lobe constitutes approximately 19% of the total neocortical volume, slightly larger than the occipital lobe. Its spatial expanse extends from the central sulcus anteriorly, demarcating it from the frontal lobe, to the parieto-occipital fissure posteriorly, segregating it from the occipital lobe. Its inferolateral boundary coincides with the lateral sulcus, separating it from the temporal lobe. Medially, its confines are defined by the medial longitudinal fissure that splits both cerebral hemispheres. Primarily responsible for sensory perception and integration, the parietal lobe plays a pivotal role in processing taste, hearing, sight, touch, and smell. Within its realm lies the brain's primary somatic sensory cortex, a critical area for interpreting input from various body regions. Remarkably, research underscores a direct relationship between sensory input and parietal lobe surface area, with more prominent sensory regions of the body, such as the fingers and hands, corresponding to larger dedicated sections of the parietal lobe. Yet, despite the progress in understanding, the parietal lobe remains enigmatic, with ongoing studies continually unveiling new insights into its functions, emphasizing the likelihood that its complete range of roles is yet to be fully uncovered.                        ",
-                    icon: "question",
-                    background: "black",
-                    color: "white",
-                    backdrop: false,
-                });
-            })
-        );
-
-        // Occipital Lobe
-        occipitalLobeMat = new BABYLON.StandardMaterial("occipitalLobe", scene);
-
-        const occipital = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        occipital.position.set(22, 5, 8); // (depth,vertical,horizantal)
-        occipital.material = occipitalLobeMat;
-        lobemeshes.push(occipital); // adds frontalLobe to lobemeshes array
-        occipital.actionManager = new BABYLON.ActionManager(scene);
-        occipital.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                camera.lowerRadiusLimit = 2;
-                Swal.fire({
-                    title: "Occipital Lobe",
-                    text: "The occipital lobe is a part of the brain responsible for processing visual information. On its outer surface, there are raised areas called gyri and grooves called sulci. The sides of the occipital lobe have three specific sulci that help define its shape. Inside, on the middle surface, there's a distinct calcarine sulcus, which divides it into the cuneus and lingual regions. The upper and lower parts of the calcarine sulcus contain the primary visual cortex, which is where we process what we see. This cortex gets information from our eyes and helps us understand things like shapes, colors, and distances. The occipital lobe's main job is to help us understand and recognize what we see. There are different areas in this lobe, like the primary visual cortex, which receives information directly from our eyes, and secondary visual cortex areas that work with this information to help us recognize objects and understand where they are. The occipital lobe also sends information to other parts of the brain through two pathways: the dorsal stream for recognizing where objects are and the ventral stream for recognizing what objects are.",
-                    icon: "question",
-                    background: "black",
-                    color: "white",
-                    backdrop: false,
-                });
-            })
-        );
-
-        lobemeshes.forEach((lobe) => {
-            orgsettings(lobe);
-        });
-        } else {
-        // resets the page to how it was originally
-        brainDivisions.setAttribute("style", "");
-        backHuman.setAttribute("style", "");
-        showNeuron.setAttribute("style", "");
-
-        lobes.textContent = "Show Lobes";
-
-        lobemeshes.forEach((lobe) => {
-            lobe.dispose();
-        });
-
-        camera.target = new BABYLON.Vector3(5, 5, 10);
-
-        lobesref.dispose();
-
-        BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
-            clear();
-
-            hideui();
-
-            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-            brainref = meshes[0];
-
-            allMeshes.push(brainref);
-        });
-    }
-}
-
-function displayBrainDivisions() {
-    if (brainDivisions.textContent == "Show Brain Divisions") {
-        try {
-            lobemeshes.forEach((el) => {
-                el.dispose();
-            });
-        } catch (err) {};
-        lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-        showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-        backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-        brainDivisions.textContent = "Hide Brain Divisions";
-        BABYLON.SceneLoader.ImportMesh("", "", "models/limbic_system.glb", scene, function (meshes) {
-            // change brain.glb to the file name with the brain model corresponding to brain divisions
-            meshes[0].scaling = new BABYLON.Vector3(0.35, 0.35, 0.35);
-            brainref.dispose();
-            hideui();
-
-            camera.upperRadiusLimit = 100;
-            camera.radius = 50;
-
-            brainDivisionsref = meshes[0];
-            BABYLON.BoundingBoxGizmo.MakeNotPickableAndWrapInBoundingBox(meshes[0]);
-
-            allMeshes.push(brainDivisionsref);
-        });
-
-
-        hindmat = new BABYLON.StandardMaterial("hindmat", scene);
-        hindmat.diffuseColor = new BABYLON.Color3(20, 5, 1);
-        const hind = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        hind.position.set(-4.5, -7, -2.5); // (depth,vertical,horizantal)
-        hind.material = hindmat;
-        brainDivisionsMeshes.push(hind); // adds hind brain to brain divisions array
-        hind.actionManager = new BABYLON.ActionManager(scene);
-        hind.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                camera.lowerRadiusLimit = 2;
-                Swal.fire({
-                    title: "Hind Brain",
-                    text: "",
-                    icon: "question",
-                    background: "black",
-                    color: "white",
-                    backdrop: false,
-                });
-            })
-        );
-
-        midmat = new BABYLON.StandardMaterial("midmat", scene);
-        midmat.diffuseColor = new BABYLON.Color3(20, 5, 1);
-        const mid = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        mid.position.set(-4.5, 5, -2.5); // (depth,vertical,horizantal)
-        mid.material = midmat;
-        brainDivisionsMeshes.push(mid); // adds hind brain to brain divisions array
-        mid.actionManager = new BABYLON.ActionManager(scene);
-        mid.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                camera.lowerRadiusLimit = 2;
-                Swal.fire({
-                    title: "Mid Brain",
-                    text: "",
-                    icon: "question",
-                    background: "black",
-                    color: "white",
-                    backdrop: false,
-                });
-            })
-        );
-
-        foremat = new BABYLON.StandardMaterial("foremat", scene);
-        foremat.diffuseColor = new BABYLON.Color3(20, 5, 1);
-        const fore = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        fore.position.set(-4.5, 13, -2.5); // (depth,vertical,horizantal)
-        fore.material = foremat;
-        brainDivisionsMeshes.push(fore); // adds hind brain to brain divisions array
-        fore.actionManager = new BABYLON.ActionManager(scene);
-        fore.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                camera.lowerRadiusLimit = 2;
-                Swal.fire({
-                    title: "Fore Brain",
-                    text: "",
-                    icon: "question",
-                    background: "black",
-                    color: "white",
-                    backdrop: false,
-                });
-            })
-        );
-    } else {
-        lobes.setAttribute("style", "");
-        backHuman.setAttribute("style", "");
-        showNeuron.setAttribute("style", "");
-        brainDivisions.textContent = "Show Brain Divisions";
-
-        for (i = 0; i < brainDivisionsMeshes.length; i++) {
-            try {
-                brainDivisionsMeshes[i].dispose();
-            } catch (err) {};
-        } 
-
-
-        loadbrain(0);
-    }
-}
 function showExteriorBrain() {
     if (showExterior.textContent == "Show Exterior View") {
         showExterior.textContent = "Hide Exterior View";
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-        brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-        showbtn(lobes);
         showNeuron.textContent = "Show Neuron";
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             clear();
@@ -803,9 +533,8 @@ function showExteriorBrain() {
             camera.radius = 50;
 
             medullaLobeMat = new BABYLON.StandardMaterial("medullaMat", scene);
-            medullaLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1); // changes color of sphere
             const medulla = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            medulla.position.set(9, -7, 8.5); // (depth,vertical,horizantal)
+            medulla.position.set(8, -5, 8.5); // (depth,vertical,horizantal)
             medulla.material = medullaLobeMat;
             lobemeshes.push(medulla); // adds frontalLobe to lobemeshes array
             medulla.actionManager = new BABYLON.ActionManager(scene);
@@ -824,9 +553,8 @@ function showExteriorBrain() {
             );
 
             ponsLobeMat = new BABYLON.StandardMaterial("ponsMat", scene);
-            ponsLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
             const pons = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            pons.position.set(6, -3, 8.5); // (depth,vertical,horizantal)
+            pons.position.set(6, -3, 8.5 ); // (depth,vertical,horizantal)
             pons.material = ponsLobeMat;
             lobemeshes.push(pons);
             pons.actionManager = new BABYLON.ActionManager(scene);
@@ -845,9 +573,8 @@ function showExteriorBrain() {
             );
 
             thalamusLobeMat = new BABYLON.StandardMaterial("thalamusMat", scene);
-            thalamusLobeMat.diffuseColor = new BABYLON.Color3(0.5, 1, 1);
             const thalamus = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            thalamus.position.set(4, 0, 8.5); // (depth,vertical,horizantal)
+            thalamus.position.set(2, 0, 8.5); // (depth,vertical,horizantal)
             thalamus.material = thalamusLobeMat;
             lobemeshes.push(thalamus); // adds frontalLobe to lobemeshes array
             thalamus.actionManager = new BABYLON.ActionManager(scene);
@@ -884,11 +611,113 @@ function showExteriorBrain() {
                     });
                 })
             );
+            // Frontal Lobe
+            frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
+            const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+            frontalLobe.position.set(-2.5, 18, 8);
+            frontalLobe.material = frontalLobemat;
+            lobemeshes.push(frontalLobe); // adds frontalLobe to lobemeshes array
+            frontalLobe.actionManager = new BABYLON.ActionManager(scene);
+            frontalLobe.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Frontal Lobe",
+                        text: "The frontal lobe, located at the front of the cerebral cortex, plays roles in various higher-level cognitive functions and personality traits. It is responsible for functions such as decision-making, problem-solving, planning, and concsious thought. The frontal lobe also houses the primary motor cortex, which controls voluntary movements throughout the body. ",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    });
+                })
+            );
+
+             // Temporal Lobes
+        temporalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
+        const temporal1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        temporal1.position.set(10.5, 5, 20.5); // (depth,vertical,horizantal)
+        temporal1.material = temporalLobeMat;
+        lobemeshes.push(temporal1); // adds frontalLobe to lobemeshes array
+        temporal1.actionManager = new BABYLON.ActionManager(scene);
+        temporal1.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Temporal Lobe",
+                    text: "The temporal lobes are found on both sides of the brain. They serve to help you hear and process auditory information. Part of them is an area called Wernicke's Area, which plays critical roles in comprehending speech.",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
+
+        const temporal2 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        temporal2.position.set(10.5, 5, -4); // (depth,vertical,horizantal)
+        temporal2.material = temporalLobeMat;
+        lobemeshes.push(temporal2); // adds frontalLobe to lobemeshes array
+        temporal2.actionManager = new BABYLON.ActionManager(scene);
+        temporal2.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Temporal Lobe",
+                    text: "The temporal lobes are found on both sides of the brain. They serve to help you hear and process auditory information. Part of them is an area called Wernicke's Area, which plays critical roles in comprehending speech.",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
+
+        // Parietal Lobe
+        parietalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
+
+        const parietal = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        parietal.position.set(15.5, 17, 8); // (depth,vertical,horizantal)
+        parietal.material = parietalLobeMat;
+        lobemeshes.push(parietal); // adds frontalLobe to lobemeshes array
+        parietal.actionManager = new BABYLON.ActionManager(scene);
+        parietal.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Parietal Lobe",
+                    text: "The parietal lobe plays roles in processing sensory info such as touch, pressure, heat, cold, and pain. The parietal lobes are also involved in the perception of body awareness and the construction of a spatial coordinate system (mental map) to represent the world around us.",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
+
+        // Occipital Lobe
+        occipitalLobeMat = new BABYLON.StandardMaterial("occipitalLobe", scene);
+
+        const occipital = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
+        occipital.position.set(22, 5, 8); // (depth,vertical,horizantal)
+        occipital.material = occipitalLobeMat;
+        lobemeshes.push(occipital); // adds frontalLobe to lobemeshes array
+        occipital.actionManager = new BABYLON.ActionManager(scene);
+        occipital.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Occipital Lobe",
+                    text: "The occipital lobe is a part of the brain responsible for processing visual information. On its outer surface, there are raised areas called gyri and grooves called sulci. The sides of the occipital lobe have three specific sulci that help define its shape. Inside, on the middle surface, there's a distinct calcarine sulcus, which divides it into the cuneus and lingual regions. The upper and lower parts of the calcarine sulcus contain the primary visual cortex, which is where we process what we see. This cortex gets information from our eyes and helps us understand things like shapes, colors, and distances. The occipital lobe's main job is to help us understand and recognize what we see. There are different areas in this lobe, like the primary visual cortex, which receives information directly from our eyes, and secondary visual cortex areas that work with this information to help us recognize objects and understand where they are. The occipital lobe also sends information to other parts of the brain through two pathways: the dorsal stream for recognizing where objects are and the ventral stream for recognizing what objects are.",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                });
+            })
+        );
+
         });
     } else {
         exteriorref.dispose();
         showExterior.textContent = "Show Exterior View";
-        lobes.textContent = "Show Lobes";
         loadbrain(0);
     }
 }
@@ -896,7 +725,6 @@ function loadbrain(val) {
     if (checkvis(brainbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, brainbtns, 0);
-        lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.textContent = "Show Neuron";
         BABYLON.SceneLoader.ImportMesh("", "", "models/limbic_system.glb", scene, function (meshes) {
             clear();
@@ -906,7 +734,6 @@ function loadbrain(val) {
             meshes[0].scaling = new BABYLON.Vector3(0.35, 0.35, 0.35);
             brainref = meshes[0];
             allMeshes.push(brainref);
-            lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
 
             camera.position = new BABYLON.Vector3(-2, 1, -60);
             camera.target = new BABYLON.Vector3(-5, 2, -2);
@@ -917,9 +744,7 @@ function loadbrain(val) {
         
 
         showbtn(backHuman);
-        showbtn(lobes);
         showbtn(showExterior);
-        showbtn(brainDivisions);
         showbtn(panelbtn);
         hidebtn(backcell);
         showbtn(showNeuron);
@@ -1590,19 +1415,8 @@ function loadneuron(val) {
 
             clearbtns();
             clear();
-            showbtn(backHuman);
-            backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-
-            showbtn(brainDivisions);
-            brainDivisions.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-
-            showbtn(lobes);
-            lobes.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
-
-            showbtn(panelbtn);
             showbtn(showNeuron);
-            showbtn(showExterior);
-
+            
             BABYLON.SceneLoader.ImportMesh("", "", "models/neuron.glb", scene, function (meshes) {
                 meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
 
@@ -1737,9 +1551,27 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-
-           
-            createSphereBtn(-65, -15, 0, neuronmeshes, function(){createBasicPopup("Soma", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell. On the other hand, the smooth ER... (add description here)", diameter = -5000000)})
+            neuronmeshes.push(synapse);
+            Somamat = new BABYLON.StandardMaterial("Soma", scene);
+            Soma = BABYLON.MeshBuilder.CreateSphere("Soma", { diameter: 3, segments: 32 }, scene);
+            Soma.position.set(-65, -15, 0);
+            Soma.material = Somamat;
+            Soma.actionManager = new BABYLON.ActionManager(scene);
+            Soma.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Soma",
+                        text: "The soma is essentially the cell body of the neuron. It houses the nucleus and various organelles that are crucial for the normal functioning of the neuron. Signals received by the dendrites are directed to the soma where they are processed and then sent further down to the axon. ",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {});
+                    camera.target = Soma;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
 
             neuronmeshes.push(Soma);
             for (i = 0; i < neuronmeshes.length; i++) {
@@ -1749,8 +1581,6 @@ function loadneuron(val) {
             showNeuron.textContent = "Show Neuron";
 
             backHuman.setAttribute("style", "");
-            lobes.setAttribute("style", "");
-            brainDivisions.setAttribute("style", "");
 
             loadbrain(0);
         }
@@ -1787,11 +1617,6 @@ function clear() {
     for (i = 0; i < lobemeshes.length; i++) {
         try {
             lobemeshes[i].dispose();
-        } catch (err) {}
-    }
-    for (i = 0; i < brainDivisionsMeshes.length; i++) {
-        try {
-            brainDivisionsMeshes[i].dispose();
         } catch (err) {}
     }
     for (i = 0; i < neuronmeshes.length; i++) {
