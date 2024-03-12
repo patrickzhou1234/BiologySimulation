@@ -1180,9 +1180,11 @@ function loadskeletal(val) {
                     Swal.fire({
                         title: "Femur",
                         text: "The thigh bone, which is the longest and strongest bone in the body, supporting body weight and facilitating walking and running. ",
-                        icon: "question",
                         background: "black",
                         color: "white",
+                        imageUrl: "images/femur.png",
+                        imageWidth: window.innerWidth * 0.2,
+                        imageHeight: window.innerHeight * 0.7,
                         backdrop: false,
                     }).then(function () {});
                     camera.target = femur;
@@ -1202,9 +1204,11 @@ function loadskeletal(val) {
                     Swal.fire({
                         title: "Pelvis",
                         text: "Forms the base of the spine and supports the body's weight; also protects internal reproductive organs. ",
-                        icon: "question",
                         background: "black",
                         color: "white",
+                        imageUrl: "images/pelvis.png",
+                        imageWidth: window.innerWidth * 0.4,
+                        imageHeight: window.innerHeight * 0.4,
                         backdrop: false,
                     }).then(function () {});
                     camera.target = pelvis;
@@ -1224,9 +1228,11 @@ function loadskeletal(val) {
                     Swal.fire({
                         title: "Ribs",
                         text: "Protect the vital organs in the chest, such as the heart and lungs. ",
-                        icon: "question",
                         background: "black",
                         color: "white",
+                        imageUrl: "images/ribs.png",
+                        imageWidth: window.innerWidth * 0.4,
+                        imageHeight: window.innerHeight * 0.4,
                         backdrop: false,
                     }).then(function () {});
                     camera.target = ribs;
@@ -1246,9 +1252,11 @@ function loadskeletal(val) {
                     Swal.fire({
                         title: "Humerus",
                         text: "The upper arm bone that connects the shoulder to the elbow and allows for arm movement. ",
-                        icon: "question",
                         background: "black",
                         color: "white",
+                        imageUrl: "images/humerus.png",
+                        imageWidth: window.innerWidth * 0.4,
+                        imageHeight: window.innerHeight * 0.6,
                         backdrop: false,
                     }).then(function () {});
                     camera.target = humerus;
