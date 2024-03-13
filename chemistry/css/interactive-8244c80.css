@@ -1,0 +1,704 @@
+:root {
+	--block-s:			#ffb3c9;
+	--block-p:			#93ffda;
+	--block-d:			#daf78c;
+	--block-f:			#c1d0ff;
+
+	--weight-end:		hsl(0, 100%, 47%);
+	--electrons-start:	hsl(80, 70%, 95%);
+	--electrons-end:	hsl(80, 53%, 33%);
+	--electroneg-start:	hsl(60, 100%, 50%);
+	--electroneg-end:	hsl(25, 100%, 39%);
+	--meltboil-start:	hsl(240, 100%, 75%);
+	--meltboil-end:		hsl(0, 100%, 47%);
+	--affinity-end:		hsl(302, 100%, 42%);
+	--ionize-start:		hsl(120, 100%, 50%);
+	--ionize-end:		hsl(240, 100%, 69%);
+	--radius-start:		hsl(180, 100%, 94%);
+	--radius-end:		hsl(180, 45%, 35%);
+	--hardness-end:		hsl(276, 100%, 60%);
+	--modulus-start:	hsl(38, 100%, 96%);
+	--modulus-end:		hsl(38, 100%, 44%);
+	--density-start:	hsl(165, 100%, 91%);
+	--density-end:		hsl(165, 100%, 27%);
+	--conduct-start:	hsl(240, 66%, 94%);
+	--conduct-end:		hsl(240, 100%, 69%);
+	--heat-start:		hsl(60, 100%, 50%);
+	--heat-end:			hsl(0, 100%, 50%);
+	--abundance-start:	var(--blocks);
+	--abundance-end:	hsl(0, 97%, 49%);
+}
+.Dark {
+	--block-s:			#004c52;
+	--block-p:			#3b5800;
+	--block-d:			#5f003f;
+	--block-f:			#0023bb;
+
+	--weight-end:		hsl(0, 100%, 45%);
+	--electrons-start:	hsl(20, 0%, 23%);
+	--electrons-end:	hsl(80, 55%, 32%);
+	--electroneg-start:	hsl(233, 97%, 31%);
+	--electroneg-end:	hsl(51, 80%, 29%);
+	--meltboil-start:	hsl(240, 100%, 68%);
+	--meltboil-end:		hsl(0, 100%, 46%);
+	--affinity-end:		hsl(302, 100%, 41%);
+	--ionize-start:		hsl(294, 100%, 21%);
+	--ionize-end:		hsl(52, 80%, 23%);
+	--radius-start:		hsl(0, 0%, 20%);
+	--radius-end:		hsl(180, 49%, 33%);
+	--hardness-end:		hsl(276, 100%, 59%);
+	--modulus-start:	hsl(0, 0%, 31%);
+	--modulus-end:		hsl(38, 100%, 32%);
+	--density-start:	hsl(0, 0%, 17%);
+	--density-end:		hsl(165, 100%, 25%);
+	--conduct-start:	hsl(0, 0%, 26%);
+	--conduct-end:		hsl(240, 100%, 68%);
+	--heat-start:		hsl(60, 100%, 13%);
+	--heat-end:			hsl(0, 62%, 54%);
+	--abundance-start:	hsl(0, 5%, 21%);
+	--abundance-end:	hsl(0, 50%, 50%);
+}
+
+.Slider > label:hover	{ color: LinkText; text-decoration: underline; }
+ol > li data			{ pointer-events: none; }
+
+.Shine > li,
+.Shine > li > abbr		{ animation: shine 0.3s ease-in-out var(--shine) 1; }
+@keyframes shine {
+	50% { filter: brightness(1.05); }
+}
+
+.FullScreen,
+header,
+.Group, .Period,
+.Slider,
+.SearchConsole ul,
+[draggable="true"],
+.ConfigBlocks,
+.StateKey dt,
+.NoSelect,
+.PropertyKey			{ user-select: none; }
+ol > li					{ user-select: contain; }
+
+/*** Search ***/
+.SearchActive .Dim		{ opacity: 0.20; }
+ol						{ transform: perspective(50em); /* Fix Chromium #339273 causing wild bounces */ }
+.SearchAnchor			{ margin-inline-start: 50%; }
+.SearchActive ol		{ transform-origin: bottom; transform: perspective(50em) rotateX(calc(var(--groupfactor) * 10deg - 3deg)); /* target: 7deg normal, 17deg wide */}
+.SearchActive .SearchConsole	{ visibility: visible; }
+.SearchConsole			{ display: flex; align-items: baseline; }
+.SearchConsole ul		{ display: flex; align-items: baseline; opacity: 0.2; }
+.SearchConsole ul span	{ margin-inline-start: var(--2margin); }
+.SearchConsole ul.Ambiguous	{ opacity: unset; }
+.SearchConsole > input	{ border: none; max-width: 10em; padding: 0.1em 0.4em; font-size: 1.3em; color: inherit; }
+
+/*** Colors ***/
+.Electron .s .s, .BlockS > div > div	{ background-color: var(--block-s); }
+.Electron .p .p, .BlockP > div > div	{ background-color: var(--block-p); }
+.Electron .d .d, .BlockD > div > div	{ background-color: var(--block-d); }
+.Electron .f .f, .BlockF > div > div	{ background-color: var(--block-f); }
+
+.Stable, .AlphaEmission, .BetaDecay, .DoubleBetaDecay, .BetaPlusDecay, .DoubleBetaPlusDecay, .ElectronCapture, .NeutronEmission, .TwoNeutronEmission, .PositronEmission, .ProtonEmission, .TwoProtonEmission, .SpontaneousFission	{ outline-color: transparent; }
+.Stable .Stable							{ outline-color: black; }
+.AlphaEmission .AlphaEmission			{ outline-color: orange; }
+.BetaDecay .BetaDecay					{ outline-color: blue; }
+.DoubleBetaDecay .DoubleBetaDecay		{ outline-color: blue; outline-style: double; }
+.BetaPlusDecay .BetaPlusDecay			{ outline-color: purple; }
+.DoubleBetaPlusDecay .DoubleBetaPlusDecay{ outline-color: purple; outline-style: double; }
+.ElectronCapture .ElectronCapture		{ outline-color: purple; outline-style: dashed; }
+.NeutronEmission .NeutronEmission		{ outline-color: green; }
+.TwoNeutronEmission .TwoNeutronEmission	{ outline-color: green; outline-style: double; }
+.PositronEmission	{ }
+.ProtonEmission .ProtonEmission			{ outline-color: red; }
+.TwoProtonEmission .TwoProtonEmission	{ outline-color: red; outline-style: double; }
+.SpontaneousFission .SpontaneousFission	{ outline-color: black; outline-style: dotted; }
+
+/*** Element hover ***/
+ol.Hover > li:hover,
+ol > li:focus,
+ol > li.Active				{ outline-width: var(--fixedgridgap); z-index: 2; }
+ol > li.Active				{ outline-color: var(--tab-active); z-index: 3; }
+ol.Fanned > li:focus		{ outline-width: thick; }
+.ConfigBlocks .Active		{ outline: var(--fixedgridgap) solid var(--tab-active); z-index: 3; }
+
+li.Active.Loading,
+li.Active.Loading > abbr	{ animation: element-loading 0.5s linear infinite alternate; }
+@keyframes element-loading {
+	50%		{ filter: contrast(0.5); }
+	100%	{ filter: contrast(1.5); }
+}
+
+/*** Tab Sliding ***/
+.Reset .KeyRegion > *,
+.Property .name .KeyRegion > *,
+.Property .state .KeyRegion > *,
+.Property .series .KeyRegion > *,
+.Property .discover .KeyRegion > *,
+.Reset .DataRegion > *,
+.Property .DataRegion > *	{ transform: translateX(calc(var(--rtl) * 0 * 100%)); }
+
+.Property .KeyRegion > *,
+.Electron .DataRegion > *	{ transform: translateX(calc(var(--rtl) * -1 * 100%)); }
+
+.Electron .KeyRegion > *,
+.Isotope .DataRegion > *	{ transform: translateX(calc(var(--rtl) * -2 * 100%)); }
+
+.Isotope .KeyRegion > *,
+.Compound .DataRegion > *	{ transform: translateX(calc(var(--rtl) * -3 * 100%)); }
+
+.Compound .KeyRegion > *	{ transform: translateX(calc(var(--rtl) * -4 * 100%)); }
+
+.Property .state .Series	{ visibility: hidden; opacity: 0; }
+.discover .Undiscovered		{ background-color: transparent; }
+
+/*** Wide view ***/
+:root:not([data-wide="0"]) .WideKeyRegion	{ display: block; grid-column: 14 / span calc(var(--groups) - 18); grid-row: 2 / span 3; }
+:root:not([data-wide="0"]) .WideGap			{ display: block; grid-row-end: span 2; grid-column-end: span calc(var(--groups) - 18); }
+[data-wide="1"] [data-wide~="1"],
+[data-wide="2"] [data-wide~="2"],
+[data-wide="3"] [data-wide~="3"],
+[data-wide="4"] [data-wide~="4"],
+[data-wide="5"] [data-wide~="5"],
+[data-wide="6"] [data-wide~="6"],
+[data-wide="7"] [data-wide~="7"],
+[data-wide="8"] [data-wide~="8"],
+[data-wide="9"] [data-wide~="9"],
+[data-wide="10"] [data-wide~="10"],
+[data-wide="11"] [data-wide~="11"],
+[data-wide="12"] [data-wide~="12"],
+[data-wide="13"] [data-wide~="13"],
+[data-wide="14"] [data-wide~="14"],
+[data-wide="15"] [data-wide~="15"]	{ grid-row-start: auto; }
+
+[data-wide="15"] .VerticalInner,
+[data-wide="15"] .PosterLogo,
+[data-wide="15"] .Label57to71,
+[data-wide="15"] .Label89to103,
+[data-wide="15"] .Removed6,
+[data-wide="15"] .Removed7			{ display: none; }
+[data-wide="15"] .Parentheses		{ grid-column: 4 / span 14; grid-row-start: 6; }
+[data-wide="15"] .KeyRegion			{ grid-row-end: span 4; font-size: 130%; }
+:root[data-wide="15"] .WideGap		{ display: none; }
+
+/*** Writeup ***/
+.name	{
+	--alkali:		#ff6666;
+	--alkaline:		#ffdead;
+	--lanthanoid:	#ffbfff;
+	--actinoid:		#ff99cc;
+	--transition:	#ffc0c0;
+	--poor:			#cccccc;
+	--metalloid:	#cccc99;
+	--nonmetal:		#f0ff8f;
+	--noble:		#c0ffff;
+	--nocategory:	#e8e8e8;
+}
+.Dark .name	{
+	--alkali:		#532020;
+	--alkaline:		#483d2c;
+	--lanthanoid:	#3e2d3e;
+	--actinoid:		#64384e;
+	--transition:	#5b4444;
+	--poor:			#3c3a3a;
+	--metalloid:	#464618;
+	--nonmetal:		#5d642e;
+	--noble:		#264242;
+	--nocategory:	unset;
+}
+
+/*** Gapless trend visualization ***/
+.Property article:not(.name):not(.discover):not(.series) .VerticalInner	{ opacity: 0; }
+.Property article:not(.name):not(.discover):not(.series) .PosterLogo	{ grid-column-end: span 3; }
+.Property article:not(.name):not(.discover):not(.series) {
+	--gridgap: 0em;
+	--bordercolor: transparent;
+	--fixedborderwidth: var(--fixedgridgap);
+}
+.Label57to71:hover ~ .VerticalInner,
+.Label57to71:focus ~ .VerticalInner,
+.Label89to103:hover ~ .VerticalInner,
+.Label89to103:focus ~ .VerticalInner,
+.VerticalInner:hover	{ background-color: var(--dividerhover); opacity: 1 !important; cursor: pointer; z-index: 2; }
+
+/*** Lock ***/
+:root			{ --lock:	1; }
+.Compound		{ --lock:	0; }
+@media (hover: none), (pointer: coarse) {
+	.Compound	{ --lock:	8; }
+	.CompoundDragTarget:empty::before	{ content: attr(data-placeholder-click); }
+}
+
+/*** Property Legend ***/
+.PropertyKey > dl			{ position: relative; padding: var(--2margin); border-color: var(--selected); display: flex; justify-content: space-between; border-radius: var(--margin); }
+.PropertyKey > dl > legend	{ position: absolute; top: 0; margin-top: calc(-1 * var(--2margin)); background-color: var(--blocks); line-height: 1; }
+.SchemeScale				{ display: flex; }
+.SchemeScale > input:disabled + li	{ opacity: 0.4; filter: contrast(75%); }
+.SchemeScale > li			{ flex-direction: column; padding: 0; }
+.SchemeScale > li > label	{ display: flex; flex-direction: column; align-items: center; flex-grow: 1; line-height: 1.8; padding: var(--margin) var(--2margin); }
+.SchemeScale > li > label::before	{ content: " "; flex-grow: 1; width: 5.5em; background-size: contain; background-repeat: no-repeat; background-position: center; }
+[for="Linear"]::before		{ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E %3Cdefs%3E  %3Cmarker id='arrow' markerWidth='10' markerHeight='10' refX='5' refY='5' orient='auto'%3E   %3Cpolyline points='3,3 5,5 3,7' fill='none' stroke='%23555' /%3E  %3C/marker%3E %3C/defs%3E  %3Cg stroke='%23555' stroke-width='3'%3E  %3Cline x1='10' y1='100' x2='10' y2='10' marker-end='url(%23arrow)' /%3E  %3Cline x1='0' y1='90' x2='90' y2='90'  marker-end='url(%23arrow)' /%3E  %3Cline x1='20' y1='80' x2='80' y2='20' /%3E %3C/g%3E%3C/svg%3E"); }
+[for="Logarithmic"]::before	{ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E %3Cdefs%3E  %3Cmarker id='arrow' markerWidth='10' markerHeight='10' refX='5' refY='5' orient='auto'%3E   %3Cpolyline points='3,3 5,5 3,7' fill='none' stroke='%23555' /%3E  %3C/marker%3E %3C/defs%3E %3Cg stroke='%23555' stroke-width='3'%3E  %3Cline x1='10' y1='100' x2='10' y2='10' marker-end='url(%23arrow)' /%3E  %3Cline x1='0' y1='90' x2='90' y2='90' marker-end='url(%23arrow)' /%3E  %3Cpath d='M20,80 Q20,20 80,20' fill='none' /%3E %3C/g%3E%3C/svg%3E"); }
+.Dark .SchemeScale ::before	{ filter: invert(1); }
+.Colors						{ flex-direction: column; }
+.Colors > div:first-of-type	{ flex-basis: 70%; }
+.Colors > div:last-of-type	{ flex-basis: 20%; color: GrayText; }
+.Colors > div				{ display: flex; justify-content: flex-end; white-space: nowrap; }
+.Colors > div > :first-child{ display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; line-height: 1; }
+.Colors > div > :last-child	{ width: var(--track-height); border: thin solid ButtonShadow; margin-inline-start: var(--2margin); }
+.Colors input				{ height: 100%; width: calc(4 * var(--2margin)); }
+.Colors > div > div > div > *	{ vertical-align: middle; }
+.Hide						{ visibility: hidden; opacity: 0; }
+
+/*** Electron Legend ***/
+.Blocks dt					{ border-color: rgba(0,0,0,0.16); }
+.ConfigBlocks				{ display: flex; font-size: 0.65em; margin: calc(-1 * var(--2margin)) 0; align-self: center; }
+.ConfigBlocks > div			{ display: flex; flex-direction: column-reverse; justify-content: flex-end; margin: 0 0.2em; }
+.ConfigBlocks > .BlockS		{ margin-top: 1em; }
+.ConfigBlocks > .BlockD		{ margin-top: 0.33em; }
+.ConfigBlocks > .BlockF		{ margin-top: 0.66em; }
+.ConfigBlocks > div > div	{ display: flex; margin: 0.1em 0; justify-content: flex-end; }
+.ConfigBlocks > div > div > span		{ margin-right: 0.1em; }
+.ConfigBlocks > div > div > div			{ border-color: rgba(0,0,0,0.16); margin: 0 0.1em; padding: 0 0.1em; line-height: 1; display: flex; cursor: pointer; }
+.ConfigBlocks > div > div > div::before,
+.ConfigBlocks > div > div > div::after	{ content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='57 195 70 191.5'%3E %3Cpath d='M109.6875 385.875 L95.9062 385.875 L95.9062 237.2344 Q78.0469 253.2656 57.9375 260.0156 L57.9375 249.8906 Q86.625 230.2031 99.4219 195.1875 L109.6875 195.1875 L109.6875 385.875 Z'/%3E%3C/svg%3E"); visibility: hidden; width: 0.4em; }
+.Dark .ConfigBlocks > div > div > div::before,
+.Dark .ConfigBlocks > div > div > div::after	{ filter: invert(1); }
+.ConfigBlocks > div > div > div::after	{ transform: rotate(180deg); }
+.ConfigBlocks .One::before,
+.ConfigBlocks .Two::after				{ visibility: visible; /* edge bug */ }
+
+/*** Isotope Legend ***/
+.KeyRegion > .IsotopeKey			{ padding: 0; /* override padding on > * selector */ }
+.IsotopeKey							{ flex-direction: column; overflow: hidden; }
+.IsotopeKey > *						{ min-height: 100%; }
+.IsotopeKey > div:first-child		{ display: flex; align-items: center; }
+.IsotopeKey > div:first-child::before,
+.CompoundResults:empty::before,
+.CompoundDragTarget:empty::before	{ content: attr(data-placeholder); margin: auto; color: GrayText; font-size: larger; }
+.DecayModes dt						{ outline-width: medium; outline-style: solid; }
+.DecayModes							{ display: grid; grid-auto-flow: column; grid-template-rows: repeat(4, auto); align-content: space-evenly; align-items: center; visibility: hidden; }
+.DecayModes > button				{ position: absolute; top: var(--2margin); right: var(--2margin); }
+.Fanned .IsotopeKey > *				{ transform: translateY(-100%); }
+.Fanned .DecayModes					{ visibility: visible; }
+
+/*** CPK colors ***/
+.Compound [data-atomic="1"] { background-color: #f1f1f1; }
+.Compound [data-atomic="2"] { background-color: #d1f7f7; }
+.Compound [data-atomic="3"] { background-color: #ffbdff; }
+.Compound [data-atomic="4"] { background-color: #c3ff04; }
+.Compound [data-atomic="5"] { background-color: #ffd2d1; }
+.Compound [data-atomic="6"] { background-color: #dadada; }
+.Compound [data-atomic="7"] { background-color: #c2bcff; }
+.Compound [data-atomic="8"] { background-color: #ff885d; }
+.Compound [data-atomic="9"] { background-color: #abfb6a; }
+.Compound [data-atomic="10"] { background-color: #c1f2ff; }
+.Compound [data-atomic="11"] { background-color: #ffb2ff; }
+.Compound [data-atomic="12"] { background-color: #92ff19; }
+.Compound [data-atomic="13"] { background-color: #f4d9d9; }
+.Compound [data-atomic="14"] { background-color: #ffdfb6; }
+.Compound [data-atomic="15"] { background-color: #ffb94b; }
+.Compound [data-atomic="16"] { background-color: #f5f621; }
+.Compound [data-atomic="17"] { background-color: #4dff40; }
+.Compound [data-atomic="18"] { background-color: #a1f2ff; }
+.Compound [data-atomic="19"] { background-color: #ffacff; }
+.Compound [data-atomic="20"] { background-color: #51ff23; }
+.Compound [data-atomic="21"] { background-color: #ececec; }
+.Compound [data-atomic="22"] { background-color: #e1e5ea; }
+.Compound [data-atomic="23"] { background-color: #dedee3; }
+.Compound [data-atomic="24"] { background-color: #cddbff; }
+.Compound [data-atomic="25"] { background-color: #efc9ff; }
+.Compound [data-atomic="26"] { background-color: #ffb37a; }
+.Compound [data-atomic="27"] { background-color: #ffc3d3; }
+.Compound [data-atomic="28"] { background-color: #80fd79; }
+.Compound [data-atomic="29"] { background-color: #ffc877; }
+.Compound [data-atomic="30"] { background-color: #d2d4ff; }
+.Compound [data-atomic="31"] { background-color: #ffcfce; }
+.Compound [data-atomic="32"] { background-color: #b5e1e0; }
+.Compound [data-atomic="33"] { background-color: #ffc3ff; }
+.Compound [data-atomic="34"] { background-color: #ffcb41; }
+.Compound [data-atomic="35"] { background-color: #ffa494; }
+.Compound [data-atomic="36"] { background-color: #93eeff; }
+.Compound [data-atomic="37"] { background-color: #f8abff; }
+.Compound [data-atomic="38"] { background-color: #33ff25; }
+.Compound [data-atomic="39"] { background-color: #94ffff; }
+.Compound [data-atomic="40"] { background-color: #a9f6f6; }
+.Compound [data-atomic="41"] { background-color: #a0f0f7; }
+.Compound [data-atomic="42"] { background-color: #8fefef; }
+.Compound [data-atomic="43"] { background-color: #8beae9; }
+.Compound [data-atomic="44"] { background-color: #86e7e6; }
+.Compound [data-atomic="45"] { background-color: #87e2f2; }
+.Compound [data-atomic="46"] { background-color: #8edafa; }
+.Compound [data-atomic="47"] { background-color: #e4e4e4; }
+.Compound [data-atomic="48"] { background-color: #ffe49a; }
+.Compound [data-atomic="49"] { background-color: #ffc9c6; }
+.Compound [data-atomic="50"] { background-color: #bfdbdb; }
+.Compound [data-atomic="51"] { background-color: #ffbeff; }
+.Compound [data-atomic="52"] { background-color: #ffc257; }
+.Compound [data-atomic="53"] { background-color: #ff9bff; }
+.Compound [data-atomic="54"] { background-color: #90e8fb; }
+.Compound [data-atomic="55"] { background-color: #f2a8ff; }
+.Compound [data-atomic="56"] { background-color: #62fe4d; }
+.Compound [data-atomic="57"] { background-color: #91f3ff; }
+.Compound [data-atomic="58"] { background-color: #f3f3bb; }
+.Compound [data-atomic="59"] { background-color: #d3f9c1; }
+.Compound [data-atomic="60"] { background-color: #c4fcc4; }
+.Compound [data-atomic="61"] { background-color: #a4ffc8; }
+.Compound [data-atomic="62"] { background-color: #92ffca; }
+.Compound [data-atomic="63"] { background-color: #69ffce; }
+.Compound [data-atomic="64"] { background-color: #51ffcf; }
+.Compound [data-atomic="65"] { background-color: #41ffd0; }
+.Compound [data-atomic="66"] { background-color: #36ffd0; }
+.Compound [data-atomic="67"] { background-color: #2cffa7; }
+.Compound [data-atomic="68"] { background-color: #49ff91; }
+.Compound [data-atomic="69"] { background-color: #58ff7b; }
+.Compound [data-atomic="70"] { background-color: #66fb71; }
+.Compound [data-atomic="71"] { background-color: #71f66d; }
+.Compound [data-atomic="72"] { background-color: #82efff; }
+.Compound [data-atomic="73"] { background-color: #95e4ff; }
+.Compound [data-atomic="74"] { background-color: #88e3ff; }
+.Compound [data-atomic="75"] { background-color: #94ddff; }
+.Compound [data-atomic="76"] { background-color: #9fd5ff; }
+.Compound [data-atomic="77"] { background-color: #a2d0ff; }
+.Compound [data-atomic="78"] { background-color: #e6e6f7; }
+.Compound [data-atomic="79"] { background-color: #ffe23a; }
+.Compound [data-atomic="80"] { background-color: #e1e1fa; }
+.Compound [data-atomic="81"] { background-color: #ffb9ae; }
+.Compound [data-atomic="82"] { background-color: #cbcdd7; }
+.Compound [data-atomic="83"] { background-color: #ffb3ff; }
+.Compound [data-atomic="84"] { background-color: #ffbc68; }
+.Compound [data-atomic="85"] { background-color: #f0c3b6; }
+.Compound [data-atomic="86"] { background-color: #a0dff5; }
+.Compound [data-atomic="87"] { background-color: #eda6ff; }
+.Compound [data-atomic="88"] { background-color: #86e871; }
+.Compound [data-atomic="89"] { background-color: #abe3ff; }
+.Compound [data-atomic="90"] { background-color: #6aefff; }
+.Compound [data-atomic="91"] { background-color: #7ce4ff; }
+.Compound [data-atomic="92"] { background-color: #8addff; }
+.Compound [data-atomic="93"] { background-color: #95d6ff; }
+.Compound [data-atomic="94"] { background-color: #a4cbff; }
+.Compound [data-atomic="95"] { background-color: #cbc0ff; }
+.Compound [data-atomic="96"] { background-color: #e3bdff; }
+.Compound [data-atomic="97"] { background-color: #f8b3ff; }
+.Compound [data-atomic="98"] { background-color: #ffa4ff; }
+.Compound [data-atomic="99"] { background-color: #ff98ff; }
+.Compound [data-atomic="100"] { background-color: #ff9aff; }
+.Compound [data-atomic="101"] { background-color: #ff97ff; }
+.Compound [data-atomic="102"] { background-color: #ff96f7; }
+.Compound [data-atomic="103"] { background-color: #ff93cf; }
+.Compound [data-atomic="104"] { background-color: #ff92be; }
+.Compound [data-atomic="105"] { background-color: #ff91b1; }
+.Compound [data-atomic="106"] { background-color: #ff90a2; }
+.Compound [data-atomic="107"] { background-color: #ff8e90; }
+.Compound [data-atomic="108"] { background-color: #ff8d83; }
+.Compound [data-atomic="109"] { background-color: #ff8c79; }
+
+.Dark.Compound [data-atomic="1"] { background-color: #777777; }
+.Dark.Compound [data-atomic="2"] { background-color: #587a7a; }
+.Dark.Compound [data-atomic="3"] { background-color: #702aa2; }
+.Dark.Compound [data-atomic="4"] { background-color: #3b7e00; }
+.Dark.Compound [data-atomic="5"] { background-color: #8c4c4e; }
+.Dark.Compound [data-atomic="6"] { background-color: #464646; }
+.Dark.Compound [data-atomic="7"] { background-color: #0022bc; }
+.Dark.Compound [data-atomic="8"] { background-color: #a60000; }
+.Dark.Compound [data-atomic="9"] { background-color: #137100; }
+.Dark.Compound [data-atomic="10"] { background-color: #406e7e; }
+.Dark.Compound [data-atomic="11"] { background-color: #5e0fa5; }
+.Dark.Compound [data-atomic="12"] { background-color: #008000; }
+.Dark.Compound [data-atomic="13"] { background-color: #634d4d; }
+.Dark.Compound [data-atomic="14"] { background-color: #7c5b38; }
+.Dark.Compound [data-atomic="15"] { background-color: #962500; }
+.Dark.Compound [data-atomic="16"] { background-color: #717a00; }
+.Dark.Compound [data-atomic="17"] { background-color: #007a00; }
+.Dark.Compound [data-atomic="18"] { background-color: #006878; }
+.Dark.Compound [data-atomic="19"] { background-color: #510097; }
+.Dark.Compound [data-atomic="20"] { background-color: #008100; }
+.Dark.Compound [data-atomic="21"] { background-color: #6c6c6c; }
+.Dark.Compound [data-atomic="22"] { background-color: #5a5c61; }
+.Dark.Compound [data-atomic="23"] { background-color: #505054; }
+.Dark.Compound [data-atomic="24"] { background-color: #3a4a73; }
+.Dark.Compound [data-atomic="25"] { background-color: #52357b; }
+.Dark.Compound [data-atomic="26"] { background-color: #871400; }
+.Dark.Compound [data-atomic="27"] { background-color: #8b3548; }
+.Dark.Compound [data-atomic="28"] { background-color: #006b00; }
+.Dark.Compound [data-atomic="29"] { background-color: #713600; }
+.Dark.Compound [data-atomic="30"] { background-color: #393e69; }
+.Dark.Compound [data-atomic="31"] { background-color: #6b3f40; }
+.Dark.Compound [data-atomic="32"] { background-color: #214949; }
+.Dark.Compound [data-atomic="33"] { background-color: #67318c; }
+.Dark.Compound [data-atomic="34"] { background-color: #8e4200; }
+.Dark.Compound [data-atomic="35"] { background-color: #6e0000; }
+.Dark.Compound [data-atomic="36"] { background-color: #005d74; }
+.Dark.Compound [data-atomic="37"] { background-color: #400082; }
+.Dark.Compound [data-atomic="38"] { background-color: #008100; }
+.Dark.Compound [data-atomic="39"] { background-color: #007e7f; }
+.Dark.Compound [data-atomic="40"] { background-color: #1d6f70; }
+.Dark.Compound [data-atomic="41"] { background-color: #006168; }
+.Dark.Compound [data-atomic="42"] { background-color: #005c5e; }
+.Dark.Compound [data-atomic="43"] { background-color: #005253; }
+.Dark.Compound [data-atomic="44"] { background-color: #004b4d; }
+.Dark.Compound [data-atomic="45"] { background-color: #004351; }
+.Dark.Compound [data-atomic="46"] { background-color: #003953; }
+.Dark.Compound [data-atomic="47"] { background-color: #5b5b5b; }
+.Dark.Compound [data-atomic="48"] { background-color: #81641f; }
+.Dark.Compound [data-atomic="49"] { background-color: #5e3433; }
+.Dark.Compound [data-atomic="50"] { background-color: #294142; }
+.Dark.Compound [data-atomic="51"] { background-color: #5b2471; }
+.Dark.Compound [data-atomic="52"] { background-color: #7b2f00; }
+.Dark.Compound [data-atomic="53"] { background-color: #640067; }
+.Dark.Compound [data-atomic="54"] { background-color: #005162; }
+.Dark.Compound [data-atomic="55"] { background-color: #35006e; }
+.Dark.Compound [data-atomic="56"] { background-color: #006800; }
+.Dark.Compound [data-atomic="57"] { background-color: #006a90; }
+.Dark.Compound [data-atomic="58"] { background-color: #777847; }
+.Dark.Compound [data-atomic="59"] { background-color: #597b4a; }
+.Dark.Compound [data-atomic="60"] { background-color: #497c4c; }
+.Dark.Compound [data-atomic="61"] { background-color: #1d7e4e; }
+.Dark.Compound [data-atomic="62"] { background-color: #007f50; }
+.Dark.Compound [data-atomic="63"] { background-color: #008052; }
+.Dark.Compound [data-atomic="64"] { background-color: #008052; }
+.Dark.Compound [data-atomic="65"] { background-color: #008053; }
+.Dark.Compound [data-atomic="66"] { background-color: #008053; }
+.Dark.Compound [data-atomic="67"] { background-color: #00812b; }
+.Dark.Compound [data-atomic="68"] { background-color: #007507; }
+.Dark.Compound [data-atomic="69"] { background-color: #006d00; }
+.Dark.Compound [data-atomic="70"] { background-color: #006300; }
+.Dark.Compound [data-atomic="71"] { background-color: #005a00; }
+.Dark.Compound [data-atomic="72"] { background-color: #006298; }
+.Dark.Compound [data-atomic="73"] { background-color: #0053a2; }
+.Dark.Compound [data-atomic="74"] { background-color: #004c87; }
+.Dark.Compound [data-atomic="75"] { background-color: #00426b; }
+.Dark.Compound [data-atomic="76"] { background-color: #003662; }
+.Dark.Compound [data-atomic="77"] { background-color: #002e5c; }
+.Dark.Compound [data-atomic="78"] { background-color: #626270; }
+.Dark.Compound [data-atomic="79"] { background-color: #806100; }
+.Dark.Compound [data-atomic="80"] { background-color: #57576c; }
+.Dark.Compound [data-atomic="81"] { background-color: #661b1b; }
+.Dark.Compound [data-atomic="82"] { background-color: #2c2e35; }
+.Dark.Compound [data-atomic="83"] { background-color: #5f0e76; }
+.Dark.Compound [data-atomic="84"] { background-color: #672200; }
+.Dark.Compound [data-atomic="85"] { background-color: #46241c; }
+.Dark.Compound [data-atomic="86"] { background-color: #004456; }
+.Dark.Compound [data-atomic="87"] { background-color: #2e0053; }
+.Dark.Compound [data-atomic="88"] { background-color: #004400; }
+.Dark.Compound [data-atomic="89"] { background-color: #00549a; }
+.Dark.Compound [data-atomic="90"] { background-color: #005f9c; }
+.Dark.Compound [data-atomic="91"] { background-color: #0052a6; }
+.Dark.Compound [data-atomic="92"] { background-color: #0049ad; }
+.Dark.Compound [data-atomic="93"] { background-color: #0041b2; }
+.Dark.Compound [data-atomic="94"] { background-color: #0035ba; }
+.Dark.Compound [data-atomic="95"] { background-color: #0028b1; }
+.Dark.Compound [data-atomic="96"] { background-color: #3124a0; }
+.Dark.Compound [data-atomic="97"] { background-color: #4711a1; }
+.Dark.Compound [data-atomic="98"] { background-color: #610095; }
+.Dark.Compound [data-atomic="99"] { background-color: #710095; }
+.Dark.Compound [data-atomic="100"] { background-color: #74007e; }
+.Dark.Compound [data-atomic="101"] { background-color: #76006e; }
+.Dark.Compound [data-atomic="102"] { background-color: #7e0052; }
+.Dark.Compound [data-atomic="103"] { background-color: #850034; }
+.Dark.Compound [data-atomic="104"] { background-color: #880028; }
+.Dark.Compound [data-atomic="105"] { background-color: #8b001f; }
+.Dark.Compound [data-atomic="106"] { background-color: #900015; }
+.Dark.Compound [data-atomic="107"] { background-color: #940004; }
+.Dark.Compound [data-atomic="108"] { background-color: #970000; }
+.Dark.Compound [data-atomic="109"] { background-color: #9a0000; }
+
+/*** Compound Legend ***/
+.CompoundDragTarget			{ display: flex; flex-grow: 1; border: 0.25em dashed var(--selected); background-clip: padding-box; padding: var(--2margin); border-radius: var(--2margin); }
+.CompoundDragTarget	li		{ margin: 0 var(--margin); width: 2.2em; height: 2.2em; font-size: 1.1em; display: flex; align-items: center; justify-content: center; }
+.CompoundDragTarget	li > abbr::after	{ content: attr(data-count); vertical-align: sub; font-size: 0.8em; }
+.CompoundDragTarget	li > :not(abbr)	{ display: none; }
+.CompoundDragTarget.DragOver{ background-color: var(--body-bg); border-color: #BBB; }
+.CompoundDragTarget > div	{ display: flex; flex-direction: column; justify-content: space-between; background-color: transparent !important; }
+.Up, .Down					{ font-size: inherit; color: gray; background-color: inherit; border: none; }
+.Up::before					{ content: "▲"; }
+.Up							{ visibility: hidden; }
+.Down::before				{ content: "▼"; }
+[data-count="0"] .Down::before	{ content: "×"; }
+
+/*** Electrons ***/
+.Electron .Legend		{ grid-column-start: auto; }
+.DataRegion > .Electrons{ grid-template-columns: auto var(--square); }
+canvas					{ grid-row-end: span 6; width: 100%; height: 100%; cursor: move; touch-action: pinch-zoom; }
+#orbital_lmn			{ position: absolute; bottom: var(--margin); inset-inline-end: var(--margin); line-height: 1.1; white-space: pre; text-align: end; }
+
+[value="expandedconfig"] + li > output > b					{ font-weight: normal; color: var(--gas); text-decoration: overline; cursor: pointer; }
+[value="expandedconfig"] + li > output > b:hover::before	{ content: "Exception to Madelung energy ordering rule"; position: absolute; background-color: var(--blocks); padding: var(--margin); margin-top: calc(1em + var(--margin)); margin-inline-start: -11em; width: 11em; white-space: initial; direction: initial; cursor: initial; }
+
+/*** Isotopes ***/
+.Tilt					{ transform: perspective(50em) rotateX(-3deg) rotateY(3deg); transform-origin: top left; }
+.Tope:focus ~ .Tope,
+.Tope:hover ~ .Tope		{ opacity: 0.4; }
+.Tope:focus + .Tope,
+.Tope:hover + .Tope,
+.Tope:focus + .Tope + .Tope,
+.Tope:hover + .Tope + .Tope,
+.Tope:focus + .Tope + .Tope + .Tope,
+.Tope:hover + .Tope + .Tope	+ .Tope	{ opacity: 0; }
+.Tope.Active ~ .Tope	{ pointer-events: none; opacity: 0; }
+.Tope ~ .Tope.Active	{ opacity: unset !important; }
+.Isotope .Tilt .Tope	{ opacity: 0.5; }
+.Fanned					{ --shiftX: 17px; --shiftY: 17px; }
+body:not(.SearchActive) .Fanned:not(.Tilt)	{ transform: unset; }
+ol > .Tope				{ --offset: 0; cursor: move; transform: translate3d(calc(var(--shiftX) * var(--offset)), calc(var(--shiftY) * var(--offset)), calc(var(--margin) * var(--offset))); }
+:root:not([data-wide="15"]):not([data-wide="0"]) ol > .Tope	{ opacity: 0; }
+li.Tope					{ outline: medium solid var(--bordercolor); position: absolute; width: 2.7em; user-select: none; touch-action: pinch-zoom; }
+li.Tope *				{ pointer-events: none; }
+.Tope b					{ display: none; }
+.Tope abbr				{ display: flex; align-items: center; line-height: 1.1; }
+abbr > span				{ display: flex; flex-direction: column; align-items: flex-end; font-size: 0.75em; font-weight: normal; letter-spacing: -0.08em; }
+abbr > span > *			{ font-size: 1em; }
+
+.Isotope .Isotopes > input:disabled + li	{ background-color: var(--body-bg); color: GrayText; }
+
+/*** Writeup iframe ***/
+.Clone					{ position: fixed; margin: 0; padding: 0; }
+.Expand					{ top: calc(25vh / 2); left: calc(25vw / 2); right: calc(25vw / 2); bottom: calc(25vh / 2); }
+figure iframe			{ display: none; border: none; position: absolute; left: 0; width: 100%; top: 0; height: 100%; opacity: 1; background-color: var(--body-bg); }
+.Disappear				{ top: calc(30vh / 2); left: calc(30vw / 2); right: calc(30vw / 2); bottom: calc(30vh / 2); opacity: 0; }
+.Overlay > :not(figure)	{ opacity: 0.3; }
+figure > button			{ visibility: hidden; }
+.Overlay figure > button{ visibility: visible; position: fixed; top: calc(25vh / 2); right: calc(25vw / 2); margin: -1.6em; }
+.Overlay figure > button::after	{ content: "✕"; }
+.ExpandDone > iframe	{ display: initial; }
+
+/*** Transitions ***/
+.DataRegion > *,
+.KeyRegion > *,
+.IsotopeKey > *	{ transition:
+					transform 0.3s ease-out;
+				}
+figure			{ transition:
+					background-color 0.1s linear; /* Ptable.HOVER_ELEMENT_DELAY */
+				}
+nav input + label	{ transition:
+					box-shadow 0.3s ease-in-out,
+					color 0.3s linear;
+				}
+header > input + label	{ transition:
+					box-shadow 0.1s ease-in-out,
+					color 0.1s linear,
+					background-color 0.1s linear;
+				}
+.Notice			{ transition:
+					min-height 0.4s ease-in-out;
+				}
+.SmoothResize aside	{ transition: /* maybe just ALL */
+					all 300ms linear, /* should be flex-basis, Safari bug #180435 */
+					visibility 0.3s linear,
+					opacity 0.3s linear;
+				}
+.SmoothResize .DataRegion { transition:
+					font-size 0.3s linear;
+				}
+.Slider			{ transition:
+					flex-basis 0.3s linear,
+					visibility 0.3s linear,
+					opacity 0.3s linear;
+				}
+.SmoothResize .Slider	{ transition:
+					flex-basis 0.3s linear, /* duplicates of above to add font */
+					visibility 0.3s linear,
+					opacity 0.3s linear,
+					font-size 0.3s linear;
+				}
+.SmoothResize .SearchConsole,
+.SmoothResize ol	{ transition:
+					font-size 0.3s linear;
+				}
+.SmoothResize body > *	{ transition:
+					font-size 0.3s linear,
+					padding 0.3s linear;
+				}
+.SmoothResize header svg	{ transition:
+					height 0.3s linear;
+				}
+/* Search tilt */
+ol				{ transition:
+					transform 0.6s ease-out,
+					transform-origin 0.6s step-end;
+				}
+.SearchActive ol,
+.Tilt			{ transition:
+					transform 0.6s cubic-bezier(0.2,1,0.3,1),
+					transform-origin 0.6s step-start;
+				}
+.SearchConsole	{ transition:
+					visibility 0.3s linear;
+				}
+.SearchConsole input	{ transition:
+					max-width 0.15s linear;
+				}
+/* Dataset change */
+.Series > *,
+.StateOfMatter dt,
+.VerticalInner	{ transition:
+					color 0.2s ease-in-out,
+					background-color 0.2s ease-in-out,
+					opacity 0.2s linear;
+				}
+ol > li			{ transition:
+					transform 0.2s linear,
+					box-shadow 0.3s cubic-bezier(.25,.8,.25,1),
+					background-color ease-in-out 0.2s,
+					color ease-in-out 0.2s,
+					opacity 0.6s cubic-bezier(0.2,1,0.3,1),
+					outline-width 0.1s linear,
+					outline-color 0.1s linear;
+				}
+ol:not(.Tilt).Fanned > li /* full speed drag, above except transform */
+				{ transition:
+					box-shadow 0.3s cubic-bezier(.25,.8,.25,1),
+					background-color ease-in-out 0.2s,
+					color ease-in-out 0.2s,
+					opacity 0.6s cubic-bezier(0.2,1,0.3,1),
+					outline-width 0.1s linear,
+					outline-color 0.1s linear;
+				}
+.Colors > div > div > div	{ transition:
+					opacity 0.2s linear,
+					visibility 0.2s linear;
+				}
+.ConfigBlocks .Active	{ transition:
+					outline-width 0.1s linear;
+				}
+li > abbr		{ transition:
+					color ease-in-out 0.2s;
+				}
+ul > li			{ transition:
+					background-color 0.2s ease-in-out,
+					outline-width 0.1s linear,
+					outline-color 0.1s linear;
+				}
+
+figure > *, output span		{ transition: opacity 0.5s ease-in-out; }
+.Overlay > *				{ transition: opacity 0.15s ease-in; }
+.Clone						{ transition: all 0.15s ease-in; }
+.Overlay figure > button	{ transition: visibility 0.15s step-end; }
+footer			{ transition:
+					transform 0.25s cubic-bezier(0, 0, 0.2, 1),
+					visibility 0.25s linear;
+				}
+
+@keyframes flash {
+	50% { opacity: 0; }
+}
+.FlashPlaceholder .KeyRegion > div:not(.NoSelect) [data-placeholder]::before,
+:not(.state) > .Flash:not(.Fanned) > li > data,
+.Flash.Fanned > li.Tope > data,
+.FlashHelp > .Parentheses	{ animation: flash 0.2s linear 1; }
+
+@media print {
+	.DataRegion::before,
+	.DataRegion::after,
+	header, aside, footer > dl, .Slider, .Notice	{ display: none; }
+	body > h1			{ display: block; font-size: 8vmin; font-weight: normal; text-align: center; text-transform: uppercase; margin: 1vw 0; line-height: 1; }
+	label > select		{ background-color: inherit !important; }
+	html, body			{ background-color: transparent; }
+	*					{ box-shadow: none !important; }
+	.PosterLogo			{ background-image: url("../icon/ptable-logo.svg"); background-repeat: no-repeat; background-position: bottom; background-origin: content-box; padding: 0 0.2vw 0.2vw 1.5vw; }
+	main, ol, addr		{ margin: 0; }
+	footer				{ padding: 0; }
+}
+
+/*** Undo aside, keys hidden in initial in case JS racing this file shows it before it can be styled ***/
+.KeyRegion > :not(.SeriesState)	{ display: flex; }
