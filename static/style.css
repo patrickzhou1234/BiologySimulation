@@ -40,7 +40,7 @@
 
 #backcell {
     left: 5vh;
-    top: 2vw;
+    top: 3vw;
     opacity: 0;
 }
 
@@ -245,7 +245,10 @@ img {
     left: 5vh;
     top: 13vh;
 }
-
+#ETC{
+    left: 5vh;
+    top: 15vh;
+}
 .heartbtns {
     z-index: 99999999;
     font-family: "amazon-ember";
@@ -372,11 +375,6 @@ img {
     top: 84vh;
     z-index: 1080;
 }
-#muscularbtn {
-    left: 5vh;
-    top: 20vh;
-}
-
 #eyebtn {
     left: 87vh;
     bottom: 10vh;
