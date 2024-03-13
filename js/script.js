@@ -44,7 +44,8 @@ humanmeshes = [];
 roundbtns = document.querySelectorAll(".smlbtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 golgismlbtns = document.querySelectorAll(".golgismlbtns");
-ersmlbtns = document.querySelectorAll(".ersmlbtns");
+roughersmlbtns = document.querySelectorAll(".roughersmlbtns");
+smoothersmlbtns = document.querySelectorAll(".smoothersmlbtns");
 brainbtns = document.querySelectorAll(".brainbtns");
 eyebtns = document.querySelectorAll(".eyebtns");
 heartbtns = document.querySelectorAll(".heartbtns");
@@ -52,13 +53,19 @@ kidneybtns = document.querySelectorAll(".kidneybtns");
 exretorybtns = document.querySelectorAll(".exretorybtns");
 lungbtns = document.querySelectorAll(".lungbtns");
 stomachbtns = document.querySelectorAll(".stomachbtns");
+digestivebtns = document.querySelectorAll(".digestivebtns");
+circulatorybtns = document.querySelectorAll(".circulatorybtns");
+bronchibtns = document.querySelectorAll(".bronchibtns");
+lymphbtns = document.querySelectorAll(".lymphbtns");
+endocrinebtns = document.querySelectorAll(".endocrinebtns");
+muscularbtns = document.querySelectorAll(".muscularbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 backExretory = document.getElementById("backExretory");
 showSkeletal = document.getElementById("skeletal");
 showExterior = document.getElementById("exterior");
 showNeuron = document.getElementById("neuron");
-showMuscularSys = document.getElementById("muscularbtn");
+showETC = document.getElementById("ETC");
 panelbtn = document.getElementById("panelbtn");
 ribopanelbtn = document.getElementById("ribopanelbtn");
 searchbox = document.getElementById("searchbox");
@@ -69,20 +76,33 @@ let phoref = 0;
 let humref = 0;
 let brainref = 0;
 let skeletalref = 0;
+let circulatoryref = 0;
+let bronchiref = 0;
+let digestiveref = 0;
+let lymphref = 0;
+let muscularref =0;
+let endocrineref=0;
+let ETCref = 0;
 let neuronref = 0;
 let eyeref = 0;
 let riboref = 0;
 let exteriorref = 0;
-let muscularref = 0;
 let lobemeshes = [];
 let eyemeshes = [];
 let neuronmeshes = [];
+let lungmeshes = [];
 let skeletalmeshes = [];
 let kidneymeshes = [];
+let digestivemeshes = [];
+let circulatorymeshes = [];
+let bronchimeshes = [];
+let lymphmeshes = [];
+let muscularmeshes = [];
+let endocrinemeshes = [];
 let exretorymeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, backExretory, showSkeletal, showNeuron, panelbtn, showExterior, showMuscularSys, kidney2dmodelbtn];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, lungbtns, stomachbtns, eyemeshes, ersmlbtns, exretorybtns];
+let buttons = [backcell, backHuman, backExretory, showSkeletal, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn];
+let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, endocrinebtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -251,7 +271,7 @@ function loadcell() {
     showui();
     camera.lowerRadiusLimit = 2; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
     clear()
-    importmesh("ribosoma.glb", new BABYLON.Vector3(0.5, 0.5, 0.5), new BABYLON.Vector3(1, -0.1, 1.9))
+    importmesh("ribosoma.glb", new BABYLON.Vector3(0.5, 0.5, 0.5), new BABYLON.Vector3(0.4855579893367401,-0.19247690443455667,2.106724807070549))
     BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
         // imports 3D mesh
 
@@ -293,7 +313,7 @@ var createScene = function (canvas, engine) {
     BABYLON.SceneLoader.ImportMesh("", "", `models/ribosoma.glb`, scene, function (meshes) {
         // imports 3D model
         meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-        meshes[0].position = new BABYLON.Vector3(1, -0.1, 1.9);
+        meshes[0].position = new BABYLON.Vector3(0.4855579893367401,-0.19247690443455667,2.106724807070549);
         allMeshes.push(meshes[0]);
     });
 
@@ -311,6 +331,9 @@ var createScene = function (canvas, engine) {
     });
 
     // const axes = new BABYLON.AxesViewer(scene);
+
+
+
     // let vector = { x:'', y:'', z:'' };
     // scene.onPointerDown = function (event, pickResult){
     //         //left mouse click
@@ -350,7 +373,7 @@ function cellSpheres() {
     createSphereBtn(0.4, 0.2, 3.3, cellmeshes, function(){createBasicPopup("Cell Mitochondria", "The mitochondria, aka the 'powerhouse of the cell', is a very important organelle that primarily functions in generating energy in the form of ATP for cellular processes through cellular respiration. The anatomy of a mitochondrion is designed to maximize energy production. The inner and outer membranes increase surface area and provide a place for energy production to happen.", mitosmlbtns)})
     createSphereBtn(0.3, 0.2, 0, cellmeshes, function(){createBasicPopup("Cell Nucleus", "The nucleus serves as the control center of the cell, and is where genetic information is stored. The DNA is enclosed in a protective structure called the nuclear envelope. This is a double membrane made up of a phospholipid bilayer, much like that of the cell membrane. Holes in the envelope, called nuclear pores, regulate what goes in and out of the nucleus. The interior of the nucleus, also called the nucleoplasm, contains the genetic material of the cell. In humans, there are 23 pairs of chromosomes, and the nucleus is where processes such as DNA replication and transcription happen. The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis.")})
     createSphereBtn(-1.3, 0.2, 1.7, cellmeshes, function(){createBasicPopup("Cell Golgi", 'The Golgi apparatus, aka the Golgi body, is an organelle composed of a series of small, flat sacs stacked in the cell\'s cytoplasm. The function of the Golgi apparatus is to sort out and package protein and lipid molecules synthesized by the ER or free-floating ribosomes for intercellular use or transport out of the cell. Additionally, the Golgi can add "tags" to molecules, making them more structurally stable. It can sometimes also locate where the tagged structure goes.', golgismlbtns)})
-    createSphereBtn(1, 0.2, 1.9, cellmeshes, function (){
+    createSphereBtn(0.4839717512431795,0.070853748469808,2.111442063940009, cellmeshes, function (){
         showbtn(ribopanelbtn)
         Swal.fire({
             title: "Ribosome",
@@ -364,12 +387,12 @@ function cellSpheres() {
             if(!(ribopanel.classList.contains("cd-panel--is-visible"))) {
                 hidebtn(ribopanelbtn);
             }
-            
         })
-    })
-    createSphereBtn(1.8, 0.2, -0.5, cellmeshes, function(){createBasicPopup("Endoplasmic Reticulum", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell. On the other hand, the smooth ER... (add description here)", ersmlbtns)})
-    createSphereBtn(0.35, 0.35, -0.4, cellmeshes, function(){createBasicPopup("Nucleolus", "The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis. ")}) 
-    createSphereBtn(1.3, 0.1, 2.3, cellmeshes, function(){createBasicPopup("Centrioles", "Centrioles are essential for cell division, aiding in the organization of microtubules during mitosis and meiosis. They also contribute to the formation of cilia and flagella, crucial for cell movement and sensory functions. ")}) 
+    }, 0.15)
+    createSphereBtn(1.8, 0.2, -0.5, cellmeshes, function(){createBasicPopup("Rough Endoplasmic Reticulum", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell.", roughersmlbtns)})
+    createSphereBtn(1.2248904211980474,0.16952203700465684,1.8693672639905412, cellmeshes, function(){createBasicPopup("Smooth Endoplasmic Reticulum", "(add description here)", smoothersmlbtns)})
+    createSphereBtn(0.353150398090031,0.4304624896982965,-0.32896007806854577, cellmeshes, function(){createBasicPopup("Nucleolus", "The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis. ")}) 
+    createSphereBtn(1.1942075977140756,0.15042321941889902,2.4992473761184826, cellmeshes, function(){createBasicPopup("Centrioles", "Centrioles are essential for cell division, aiding in the organization of microtubules during mitosis and meiosis. They also contribute to the formation of cilia and flagella, crucial for cell movement and sensory functions. ")}) 
 
     // tells each item in the cellmeshes array what to do when the mouse cursor hovers over and moves away from the part
 
@@ -478,7 +501,23 @@ function loadmito(val) {
         scaling = new BABYLON.Vector3(5, 5, 5)
         importmesh("mitocondrias.glb", scaling)
         showbtn(backcell);
+        showbtn(showETC);
+        showETC.textContent = "Show Electron Transport Chain";
     }
+}
+function loadETC(val){
+    if (showETC.textContent == "Show Electron Transport Chain") {
+        showETC.textContent = "Hide Electron Transport Chain";
+        showETC.textContent = "Hide Electron Transport Chain";
+        scaling = new BABYLON.Vector3(5, 5, 5)
+        clearbtns();
+        clear();
+        BABYLON.SceneLoader.ImportMesh("", "", "models/etc.glb", scene, function (meshes) {
+            etcref = meshes[0];
+            allMeshes.push(etcref);
+            showbtn(backcell);
+        });
+}
 }
 
 function loadgolgi(val) {
@@ -491,13 +530,13 @@ function loadgolgi(val) {
 }
 
 function loadrougher(val) {
-    clickcond(cellmeshes, ersmlbtns, 0);
+    clickcond(cellmeshes, roughersmlbtns, 0);
     clear()
     importmesh("rough_er.glb", new BABYLON.Vector3(20, 20, 20))
 }
 
 function loadsmoother(val) {
-    clickcond(cellmeshes, ersmlbtns, 1);
+    clickcond(cellmeshes, smoothersmlbtns, 1);
     clear()
     importmesh("smooth_er.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), new BABYLON.Vector3(0, 0, 0.5), new BABYLON.Vector3(0, 0, 0))
 }
@@ -749,7 +788,6 @@ function loadbrain(val) {
         hidebtn(backcell);
         showbtn(showNeuron);
         hidebtn(showSkeletal);
-        hidebtn(showMuscularSys);
     }
 }
 
@@ -778,6 +816,9 @@ function loadhuman(val) {
             brainmat = new BABYLON.StandardMaterial("brain", scene);
             heartmat = new BABYLON.StandardMaterial("heartmat", scene);
             kidneymat = new BABYLON.StandardMaterial("kidneymat", scene);
+            digestivemat = new BABYLON.StandardMaterial("digestivemat", scene);
+            circulatorymat = new BABYLON.StandardMaterial("circulatorymat", scene);
+            lymphmat = new BABYLON.StandardMaterial("lymphmat", scene);
             lungmat = new BABYLON.StandardMaterial("lungmat", scene);
             stomachmat = new BABYLON.StandardMaterial("stomachmat", scene);
             eyemat = new BABYLON.StandardMaterial("eyemat", scene);
@@ -897,34 +938,7 @@ function loadhuman(val) {
                 })
             );
 
-            lung = BABYLON.MeshBuilder.CreateSphere("lung", { diameter: 0.25, segments: 32 }, scene);
-
-            humanmeshes.push(lung);
-            lung.position.set(-0.25, 1, -0.6);
-            lung.material = lungmat;
-            lung.actionManager = new BABYLON.ActionManager(scene);
-            lung.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Lung",
-                        text: "The lungs, crucial for breathing, sit symmetrically in the chest. The right lung has three lobes, while the left has two. Their main job is gas exchange, taking in oxygen and releasing carbon dioxide. Air enters through the nose/mouth, travels down the airway, and reaches tiny sacs called alveoli. Here, oxygen enters the blood, and carbon dioxide is removed. Protective features like nasal hairs and mucus ensure smooth airflow. Lungs are buoyant, and one can function with just one. Regular exercise boosts lung capacity, and adults have millions of alveoli. In essence, lungs play a vital role in maintaining our health and sustaining life through efficient gas exchange. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {
-                        lungbtns.forEach((el) => {
-                            hidebtn(el);
-                        });
-                    });
-                    lungbtns.forEach((el) => {
-                        showbtn(el);
-                    });
-                    camera.target = lung;
-                    camera.inertialRadiusOffset += 4;
-                })
-            );
+            createSphereBtn(-0.25, 1, -0.6, humanmeshes, function(){createBasicPopup("Lung", "The lungs, crucial for breathing, sit symmetrically in the chest. The right lung has three lobes, while the left has two. Their main job is gas exchange, taking in oxygen and releasing carbon dioxide. Air enters through the nose/mouth, travels down the airway, and reaches tiny sacs called alveoli. Here, oxygen enters the blood, and carbon dioxide is removed. Protective features like nasal hairs and mucus ensure smooth airflow. Lungs are buoyant, and one can function with just one. Regular exercise boosts lung capacity, and adults have millions of alveoli. In essence, lungs play a vital role in maintaining our health and sustaining life through efficient gas exchange.")}, 0.2)
 
             stomach = BABYLON.MeshBuilder.CreateSphere("stomach", { diameter: 0.2, segments: 32 }, scene);
 
@@ -959,7 +973,6 @@ function loadhuman(val) {
         clearbtns();
         showbtn(backcell);
         showbtn(showSkeletal);
-        showbtn(showMuscularSys);
 
         humanmeshes.forEach((el) => {
             orgsettings(el);
@@ -1044,6 +1057,155 @@ function loadexretory(val) {
     }
 }
 
+function loaddigestive(val) {
+    if (checkvis(digestivebtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, digestivebtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/digestive_system1.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(4.7, 15.25, -127);
+            camera.target = new BABYLON.Vector3(0, 9, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
+            digestiveref = meshes[0];
+            allMeshes.push(digestiveref);
+
+        });
+    }
+}
+
+function loadcirculatory(val) {
+    if (checkvis(circulatorybtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, circulatorybtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/circulatory_system.glb", scene, function (meshes) {
+            clear();
+            hideui();
+
+            camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
+            camera.target = new BABYLON.Vector3(0, 9, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            circulatoryref = meshes[0];
+            allMeshes.push(circulatoryref);
+
+        });
+        camera.position = new BABYLON.Vector3(80, 0.5, 80);
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
+function loadbronchi(val) {
+    if (checkvis(bronchibtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, bronchibtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/bronchi.glb", scene, function (meshes) {
+            clear();
+            hideui();
+
+            camera.position = new BABYLON.Vector3(-184, 1.25, 620);
+            camera.target = new BABYLON.Vector3(0, 9, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            bronchiref = meshes[0];
+            allMeshes.push(bronchiref);
+
+        });
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
+function loadlymphatic(val) {
+    if (checkvis(lymphbtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, lymphbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/lymphatic_system.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
+            camera.target = new BABYLON.Vector3(0, 0, -8);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(.01, .01, .01);
+            lymphref = meshes[0];
+            allMeshes.push(lymphref);
+
+        });
+        camera.position = new BABYLON.Vector3(0, 0.5, 80);
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
+function loadendocrine(val) {
+    if (checkvis(endocrinebtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, endocrinebtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/endocrine_system.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(4.7, -35.25, -127);
+            camera.target = new BABYLON.Vector3(0, 9, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            endocrineref = meshes[0];
+            allMeshes.push(endocrineref);
+
+        });
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
+function loadmuscular(val) {
+    if (checkvis(muscularbtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, muscularbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/muscular_system.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(804.7, 1.25, 0);
+            camera.target = new BABYLON.Vector3(0, 9, );
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector31(.005, .005, .005);
+            muscularref = meshes[0];
+            allMeshes.push(muscularref);
+
+        });
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
+
+
 function loadkidney(val) {
     if (checkvis(kidneybtns[0]) || val == 0) {
         clearbtns();
@@ -1074,8 +1236,10 @@ function loadlung(val) {
         clear()
         clearbtns();
         clickcond(humanmeshes, lungbtns, 0);
-        importmesh("lung.glb", new BABYLON.Vector3(5, 5, 5))
         showbtn(backHuman);
+        importmesh("lung.glb", new BABYLON.Vector3(.18, .18, .18))
+        showbtn(backHuman);
+        createSphereBtn(0, .2, 0.025, lungmeshes, function(){createBasicPopup("Bronchi", "desc", bronchibtns)}, .05)
     }
 }
 
@@ -1455,7 +1619,7 @@ function loadneuron(val) {
                     camera.inertialRadiusOffset += 4;
                 })
             );
-            createSphereBtn(1.8, 0.2, -0.5, neuronmeshes, function(){createBasicPopup("Endoplasmic Reticulum", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell. On the other hand, the smooth ER... (add description here)", ersmlbtns)})
+            // createSphereBtn(1.8, 0.2, -0.5, neuronmeshes, function(){createBasicPopup("Endoplasmic Reticulum", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell. On the other hand, the smooth ER... (add description here)", ersmlbtns)})
 
             neuronmeshes.push(axon);
             axotmat = new BABYLON.StandardMaterial("axot", scene);
@@ -1595,26 +1759,6 @@ function loadneuron(val) {
     }
 }
 
-function showMuscular() {
-    if (checkvis(showMuscularSys)) {
-        if (showMuscularSys.textContent == "Show Muscular System"){
-            showMuscularSys.textContent = "Hide Muscular System";
-            BABYLON.SceneLoader.ImportMesh("", "", "models/muscular_system.glb", scene, function(meshes){
-                clear();
-                meshes[0].scaling = new BABYLON.Vector3(7, 7, 7);
-                muscularref = meshes[0];
-                camera.target = new BABYLON.Vector3(0,5,0);
-                camera.position = new BABYLON.Vector3(10, 45, -120);
-            })
-        }
-        else {
-            showMuscularSys.textContent = "Show Muscular System";
-            muscularref.dispose();
-            loadhuman(0);
-        }
-    }
-}
-
 // clears all meshes
 function clear() {
     for (i = 0; i < allMeshes.length; i++) {
@@ -1652,6 +1796,31 @@ function clear() {
             kidneymeshes[i].dispose();
         } catch (err) {}
     } 
+    for (i = 0; i < digestivemeshes.length; i++) {
+        try {
+            digestivemeshes[i].dispose();
+        } catch (err) {}
+    } 
+    for (i = 0; i < circulatorymeshes.length; i++) {
+        try {
+            circulatorymeshes[i].dispose();
+        } catch (err) {}
+    } 
+    for (i = 0; i < endocrinemeshes.length; i++) {
+        try {
+            endocrinemeshes[i].dispose();
+        } catch (err) {}
+    } 
+    for (i = 0; i < muscularmeshes.length; i++) {
+        try {
+            muscularmeshes[i].dispose();
+        } catch (err) {}
+    } 
+    for (i = 0; i < bronchimeshes.length; i++) {
+        try {
+            bronchimeshes[i].dispose();
+        } catch (err) {}
+    }
     for (i = 0; i < exretorymeshes.length; i++) {
         try {
             exretorymeshes[i].dispose();
