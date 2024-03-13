@@ -90,6 +90,7 @@ let exteriorref = 0;
 let lobemeshes = [];
 let eyemeshes = [];
 let neuronmeshes = [];
+let lungmeshes = [];
 let skeletalmeshes = [];
 let kidneymeshes = [];
 let digestivemeshes = [];
@@ -1113,7 +1114,7 @@ function loadbronchi(val) {
             clear();
             hideui();
 
-            camera.position = new BABYLON.Vector3(-184, 1.25, 150);
+            camera.position = new BABYLON.Vector3(-184, 1.25, 620);
             camera.target = new BABYLON.Vector3(0, 9, 0);
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
@@ -1235,8 +1236,10 @@ function loadlung(val) {
         clear()
         clearbtns();
         clickcond(humanmeshes, lungbtns, 0);
-        importmesh("lung.glb", new BABYLON.Vector3(5, 5, 5))
         showbtn(backHuman);
+        importmesh("lung.glb", new BABYLON.Vector3(.18, .18, .18))
+        showbtn(backHuman);
+        createSphereBtn(0, .2, 0.025, lungmeshes, function(){createBasicPopup("Bronchi", "desc", bronchibtns)}, .05)
     }
 }
 
