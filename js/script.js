@@ -54,6 +54,7 @@ lungbtns = document.querySelectorAll(".lungbtns");
 stomachbtns = document.querySelectorAll(".stomachbtns");
 digestivebtns = document.querySelectorAll(".digestivebtns");
 circulatorybtns = document.querySelectorAll(".circulatorybtns");
+bronchibtns = document.querySelectorAll(".bronchibtns");
 lymphbtns = document.querySelectorAll(".lymphbtns");
 endocrinebtns = document.querySelectorAll(".endocrinebtns");
 muscularbtns = document.querySelectorAll(".muscularbtns");
@@ -75,6 +76,7 @@ let humref = 0;
 let brainref = 0;
 let skeletalref = 0;
 let circulatoryref = 0;
+let bronchiref = 0;
 let digestiveref = 0;
 let lymphref = 0;
 let muscularref =0;
@@ -91,13 +93,14 @@ let skeletalmeshes = [];
 let kidneymeshes = [];
 let digestivemeshes = [];
 let circulatorymeshes = [];
+let bronchimeshes = [];
 let lymphmeshes = [];
 let muscularmeshes = [];
 let endocrinemeshes = [];
 let exretorymeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, backExretory, showSkeletal, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, endocrinebtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, ersmlbtns, exretorybtns];
+let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, endocrinebtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, ersmlbtns, exretorybtns, bronchibtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -1120,6 +1123,31 @@ function loadcirculatory(val) {
         showbtn(backHuman);
     }
 }
+function loadbronchi(val) {
+    if (checkvis(bronchibtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, bronchibtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/bronchi.glb", scene, function (meshes) {
+            clear();
+            hideui();
+
+            camera.position = new BABYLON.Vector3(-184, 1.25, 150);
+            camera.target = new BABYLON.Vector3(0, 9, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            bronchiref = meshes[0];
+            allMeshes.push(bronchiref);
+
+        });
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
 function loadlymphatic(val) {
     if (checkvis(lymphbtns[0]) || val == 0) {
         showui();
@@ -1803,6 +1831,11 @@ function clear() {
             muscularmeshes[i].dispose();
         } catch (err) {}
     } 
+    for (i = 0; i < bronchimeshes.length; i++) {
+        try {
+            bronchimeshes[i].dispose();
+        } catch (err) {}
+    }
     for (i = 0; i < exretorymeshes.length; i++) {
         try {
             exretorymeshes[i].dispose();
