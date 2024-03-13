@@ -16,6 +16,19 @@
     display: none;
 }
 
+.bronchibtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+#bronchibtn{
+left: 80vh;
+    top: 73vh;
+}
 #babcanv:hover {
     cursor: move;
     cursor: grab;
@@ -40,7 +53,7 @@
 
 #backcell {
     left: 5vh;
-    top: 2vw;
+    top: 3vw;
     opacity: 0;
 }
 
@@ -168,7 +181,17 @@ img {
     top: 80vh;
 }
 
-.ersmlbtns {
+.roughersmlbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+
+.smoothersmlbtns {
     z-index: 99999999;
     font-family: "amazon-ember";
     font-size: calc(0.65vw + 0.65vh);
@@ -179,12 +202,12 @@ img {
 }
 
 #roughersmlbtn {
-    left: 38vw;
+    left: 45vw;
     top: 80vh;
 }
 
 #smoothersmlbtn {
-    left: 52vw;
+    left: 45vw;
     top: 80vh;
 }
 
@@ -245,7 +268,10 @@ img {
     left: 5vh;
     top: 13vh;
 }
-
+#ETC{
+    left: 5vh;
+    top: 15vh;
+}
 .heartbtns {
     z-index: 99999999;
     font-family: "amazon-ember";
@@ -372,11 +398,6 @@ img {
     top: 84vh;
     z-index: 1080;
 }
-#muscularbtn {
-    left: 5vh;
-    top: 20vh;
-}
-
 #eyebtn {
     left: 87vh;
     bottom: 10vh;
