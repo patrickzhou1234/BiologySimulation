@@ -168,7 +168,17 @@ img {
     top: 80vh;
 }
 
-.ersmlbtns {
+.roughersmlbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+
+.smoothersmlbtns {
     z-index: 99999999;
     font-family: "amazon-ember";
     font-size: calc(0.65vw + 0.65vh);
@@ -179,12 +189,12 @@ img {
 }
 
 #roughersmlbtn {
-    left: 38vw;
+    left: 45vw;
     top: 80vh;
 }
 
 #smoothersmlbtn {
-    left: 52vw;
+    left: 45vw;
     top: 80vh;
 }
 
