@@ -66,6 +66,7 @@ endocrinebtns = document.querySelectorAll(".endocrinebtns");
 muscularbtns = document.querySelectorAll(".muscularbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
+nephronbtn = document.getElementById("nephronbtn");
 backExretory = document.getElementById("backExretory");
 showSkeletal = document.getElementById("skeletal");
 showExterior = document.getElementById("exterior");
@@ -103,6 +104,7 @@ let neuronmeshes = [];
 let lungmeshes = [];
 let skeletalmeshes = [];
 let kidneymeshes = [];
+let nephronmeshes = [];
 let digestivemeshes = [];
 let circulatorymeshes = [];
 let bronchimeshes = [];
@@ -116,7 +118,7 @@ let spleenmeshes = [];
 let pancreasmeshes = [];
 let colonmeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, backExretory, showSkeletal, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn];
+let buttons = [backcell, backHuman, backExretory, backKidney, showSkeletal, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
 let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, spleenmeshes, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
@@ -353,8 +355,10 @@ var createScene = function (canvas, engine) {
     // scene.onPointerDown = function (event, pickResult){
     //         //left mouse click
     //         if(event.button == 0){
+    //             try{
     //                 vector = pickResult.pickedPoint;
     //                 console.log('left mouse click: ' + vector.x + ',' + vector.y + ',' + vector.z );
+    //             }catch (err){}
     //         }
     // }
 
@@ -1345,6 +1349,20 @@ function loadmuscular(val) {
     }
 }
 
+function loadnephron(val) {
+    if (checkvis(nephronbtn) || val == 0) {
+        clearbtns();
+        clear()
+        importmesh("nephron.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -10))
+        showbtn(backHuman);
+        showbtn(backKidney);
+
+        createSphereBtn(3.375595141346529,2.4682702873351188,0.6946576585017357, nephronmeshes, function(){createBasicPopup("Glomerulus", "A network of tiny capillaries that filters blood plasma")}, 0.25)
+        createSphereBtn(3.1098293040773948,1.8883451424945672,-0.05928368389477079, nephronmeshes, function(){createBasicPopup("Bowman's Capsule", "A double-walled sac that surrounds the glomerulus and collects the filtered fluid, called filtrate. ")}, 0.25)
+        createSphereBtn(5.089893115931107,2.713369118639208,1.0275498790554836, nephronmeshes, function(){createBasicPopup("Afferent Arteriole", "The afferent ateriole brings in blood to the glomerulus, and it is much larger than the efferent arteriole. This produces a huge amount of pressure on the blood in the glomerulus. This pressure is what allows fluid (water, urea, etc.), small molecules (glucose, vitamins, etc), and ions (Na+, etc.) to pass through the pores in the walls of the glomerular capillaries and into the Bowman's capsule.")}, 0.25)
+        createSphereBtn(4.579063780991133,1.662565291025302,0.5811871632474528, nephronmeshes, function(){createBasicPopup("Efferent Arteriole", "The efferent arteriole brings blood out of the glomerulus. Because blood cells and proteins are too big to be able to pass through the tiny pores of the capillaries, they remain in the blood and leave through the efferent arteriole.")}, 0.25)
+    }
+}
 
 function loadkidney(val) {
     if (checkvis(kidneybtns[0]) || val == 0) {
@@ -1355,6 +1373,7 @@ function loadkidney(val) {
         showbtn(backHuman);
         showbtn(backExretory);
         showbtn(kidney2dmodelbtn);
+        showbtn(nephronbtn)
 
         createSphereBtn(-0.35, -0.15, 0, kidneymeshes, function(){createBasicPopup("Uretur", "The channel through which the urine formed in the kidney enters the urinary bladder.")}, 0.1)
         createSphereBtn(0, 0, 0.225, kidneymeshes, function(){createBasicPopup("Renal Capsule", "The outermost layer of the kidney. It is a tough, fibrous membrane that protects the kidney. The renal capsule is surrounded by adipose tissues. ")}, 0.1)
@@ -1934,6 +1953,11 @@ function clear() {
     for (i = 0; i < kidneymeshes.length; i++) {
         try {
             kidneymeshes[i].dispose();
+        } catch (err) {}
+    } 
+    for (i = 0; i < nephronmeshes.length; i++) {
+        try {
+            nephronmeshes[i].dispose();
         } catch (err) {}
     } 
     for (i = 0; i < digestivemeshes.length; i++) {

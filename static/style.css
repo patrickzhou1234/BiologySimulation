@@ -363,6 +363,21 @@ img {
     top: 77vh;
 }
 
+.nephronbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+
+#nephronbtn {
+    left: 5vh;
+    top: 20vh;
+}
+
 .exretorybtns {
     z-index: 99999999;
     font-family: "amazon-ember";
@@ -379,6 +394,12 @@ img {
 }
 
 #backExretory {
+    left: 5vh;
+    top: 8vh;
+    opacity: 0;
+}
+
+#backKidney {
     left: 5vh;
     top: 8vh;
     opacity: 0;
