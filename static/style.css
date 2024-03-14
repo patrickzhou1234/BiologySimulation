@@ -25,9 +25,70 @@
     transition: opacity 0.2s !important;
     border-radius: 6px;
 }
+.liverbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}.intestinebtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}.pancreasbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}.spleenbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}.colonbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
 #bronchibtn{
 left: 80vh;
     top: 73vh;
+}
+#liverbtn{
+    left: 80vh;
+        top: 73vh;
+    }
+#intestinebtn{
+left: 80vh;
+    top: 73vh;
+}
+#pancreasbtn{
+    left: 80vh;
+        top: 73vh;
+    }
+#spleenbtn{
+    left: 80vh;
+        top: 73vh;
+}
+#colonbtn{
+    left: 80vh;
+        top: 73vh;
 }
 #babcanv:hover {
     cursor: move;

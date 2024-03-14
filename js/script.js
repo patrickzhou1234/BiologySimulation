@@ -57,6 +57,11 @@ digestivebtns = document.querySelectorAll(".digestivebtns");
 circulatorybtns = document.querySelectorAll(".circulatorybtns");
 bronchibtns = document.querySelectorAll(".bronchibtns");
 lymphbtns = document.querySelectorAll(".lymphbtns");
+liverbtns = document.querySelectorAll(".liverbtns");
+intestinebtns = document.querySelectorAll(".intestinebtns");
+spleenbtns = document.querySelectorAll(".spleenbtns");
+pancreasbtns = document.querySelectorAll(".pancreasbtns");
+colonbtns = document.querySelectorAll(".colonbtns");
 endocrinebtns = document.querySelectorAll(".endocrinebtns");
 muscularbtns = document.querySelectorAll(".muscularbtns");
 backcell = document.getElementById("backcell");
@@ -75,6 +80,11 @@ let memref = 0;
 let phoref = 0;
 let humref = 0;
 let brainref = 0;
+let liverref =0;
+let intestineref = 0;
+let spleenref = 0;
+let pancreasref = 0;
+let colonref = 0;
 let skeletalref = 0;
 let circulatoryref = 0;
 let bronchiref = 0;
@@ -100,9 +110,14 @@ let lymphmeshes = [];
 let muscularmeshes = [];
 let endocrinemeshes = [];
 let exretorymeshes = [];
+let livermeshes =[];
+let intestinemeshes = [];
+let spleenmeshes = [];
+let pancreasmeshes = [];
+let colonmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, backExretory, showSkeletal, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, endocrinebtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
+let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, spleenmeshes, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -744,7 +759,7 @@ function showExteriorBrain() {
                 camera.lowerRadiusLimit = 2;
                 Swal.fire({
                     title: "Occipital Lobe",
-                    text: "The occipital lobe is a part of the brain responsible for processing visual information. On its outer surface, there are raised areas called gyri and grooves called sulci. The sides of the occipital lobe have three specific sulci that help define its shape. Inside, on the middle surface, there's a distinct calcarine sulcus, which divides it into the cuneus and lingual regions. The upper and lower parts of the calcarine sulcus contain the primary visual cortex, which is where we process what we see. This cortex gets information from our eyes and helps us understand things like shapes, colors, and distances. The occipital lobe's main job is to help us understand and recognize what we see. There are different areas in this lobe, like the primary visual cortex, which receives information directly from our eyes, and secondary visual cortex areas that work with this information to help us recognize objects and understand where they are. The occipital lobe also sends information to other parts of the brain through two pathways: the dorsal stream for recognizing where objects are and the ventral stream for recognizing what objects are.",
+                    text: "The occipital lobe is a part of the brain responsible for processing visual information. On its outer surface, there are raised areas called gyri and grooves called sulci. The sides of the occipital lobe have three specific sulci that help define its shape. Inside, on the middle surface, there's a distinct calcarine sulcus, which divides it into the cuneus and lingual regions. The upper and lower parts of the calcarine sulcus contain the primary visual cortex, which is where we process what we see. This cortex gets information from our eyes and helps us understand things like shapes, colors, and distances. The occipital lobe's main job is to help us understand and recognize what we see. There are different areas in this lobe, like the primary visual cortex, which receives information directly from our eyes, and secondary visual cortex areas that work with this information to help us recognize objects and understand where they are. The occipital lobe also sends information to other parts of the brain c two pathways: the dorsal stream for recognizing where objects are and the ventral stream for recognizing what objects are.",
                     icon: "question",
                     background: "black",
                     color: "white",
@@ -1075,6 +1090,104 @@ function loaddigestive(val) {
             meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
             digestiveref = meshes[0];
             allMeshes.push(digestiveref);
+            createSphereBtn(0, 2, -1.025, digestivemeshes, function(){createBasicPopup("Intestines", "desc", intestinebtns)}, .7)
+            createSphereBtn(0, 4, 0.2, digestivemeshes, function(){createBasicPopup("Pancreas", "desc", pancreasbtns)}, .7)
+            createSphereBtn(-1, 5, -1.3, digestivemeshes, function(){createBasicPopup("Stomach", "The stomach, a key part of the gastrointestinal (GI) tract, is a muscular organ that digests food using acids and enzymes. It's located in the upper left abdomen and has five sections: cardia, fundus, body, antrum, and pylorus. These sections work together to contract, mix, and process food before passing it to the small intestine. ", stomachbtns)}, .7)
+
+        });
+    }
+}
+function loadliver(val) {
+    if (checkvis(liverbtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, liverbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/livergallbladder.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(4.7, 15.25, -127);
+            camera.target = new BABYLON.Vector3(0, 0, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            liverref = meshes[0];
+            allMeshes.push(liverref);
+            clearbtns();
+
+        });
+    }
+}
+function loadintestine(val) {
+    if (checkvis(intestinebtns[0]) || val == 0) {
+        showui();
+        clearbtns();
+        clickcond(humanmeshes, intestinebtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/intestine.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(4.7, 15.25, -127);
+            camera.target = new BABYLON.Vector3(0, 0, -20);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(20, 20, 20);
+            intestineref = meshes[0];
+            allMeshes.push(intestineref);
+            clearbtns();
+            createSphereBtn(2, 10, 0.025, intestinemeshes, function(){createBasicPopup("Colon", "desc", colonbtns)}, 2)
+
+        });
+    }
+}
+function loadcolon(val) {
+    if (checkvis(colonbtns[0]) || val == 0) {
+        showui();
+        clearbtns();
+        clickcond(humanmeshes, colonbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/colon.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(-20, 0, -0);
+            camera.target = new BABYLON.Vector3(0, 0, );
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(.1, .1, .1);
+            colonref = meshes[0];
+            allMeshes.push(colonref);
+            clearbtns();
+
+        });
+    }
+}
+function loadpancreas(val) {
+    if (checkvis(pancreasbtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, pancreasbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/pancreas.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(4.7, 15.25, -127);
+            camera.target = new BABYLON.Vector3(-8, 0, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(30, 30, 30);
+            pancreasref = meshes[0];
+            allMeshes.push(pancreasref);
+            clearbtns();
 
         });
     }
@@ -1099,6 +1212,7 @@ function loadcirculatory(val) {
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             circulatoryref = meshes[0];
             allMeshes.push(circulatoryref);
+            createSphereBtn(0, 12.8, -0.6, circulatorymeshes, function(){createBasicPopup("Heart", "The heart is the central organ of the circulatory, or cardiovascular, system. Its main function is to pump blood to deliver oxygen and nutrients to all the cells and tissues in the body. The heart maintains homeostasis and plays a critical role in oxygenating blood. In addition, it regulates blood pressure and supports the entire circulatory system. The heart is divided into four chambers: two atria and two ventricles, with one atrium and one ventricle on the left side and one atrium and one ventricle on the right side. The right atrium receives deoxygenated blood from the body and pumps it into the right ventricle, which then sends the blood to the lungs through the pulmonary artery for oxygenation. The left atrium receives freshly oxygenated blood from the lungs and pushes it into the left ventricle, which pumps the oxygen-rich blood out to the rest of the body. To ensure a one-way circulation of blood, valves are located between the atria and ventricles, preventing backflow.", heartbtns)}, .5)
 
         });
         camera.position = new BABYLON.Vector3(80, 0.5, 80);
@@ -1152,6 +1266,32 @@ function loadlymphatic(val) {
 
         });
         camera.position = new BABYLON.Vector3(0, 0.5, 80);
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
+function loadspleen(val) {
+    if (checkvis(spleenbtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, spleenbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/spleen.glb", scene, function (meshes) {
+            clear();
+            hideui();
+
+            camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
+            camera.target = new BABYLON.Vector3(0, 9, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            spleenref = meshes[0];
+            allMeshes.push(spleenref);
+
+        });
+        camera.position = new BABYLON.Vector3(80, 0.5, 80);
         clearbtns();
         showbtn(backHuman);
     }
@@ -1819,6 +1959,27 @@ function clear() {
     for (i = 0; i < bronchimeshes.length; i++) {
         try {
             bronchimeshes[i].dispose();
+        } catch (err) {}
+    }
+    for (i = 0; i < spleenmeshes.length; i++) {
+        try {
+            spleenmeshes[i].dispose();
+        } catch (err) {}
+    } for (i = 0; i < intestinemeshes.length; i++) {
+        try {
+            intestinemeshes[i].dispose();
+        } catch (err) {}
+    } for (i = 0; i < colonmeshes.length; i++) {
+        try {
+            colonmeshes[i].dispose();
+        } catch (err) {}
+    } for (i = 0; i < livermeshes.length; i++) {
+        try {
+            livermesheseshes[i].dispose();
+        } catch (err) {}
+    } for (i = 0; i < pancreasmeshes.length; i++) {
+        try {
+            pancreasmeshes[i].dispose();
         } catch (err) {}
     }
     for (i = 0; i < exretorymeshes.length; i++) {
