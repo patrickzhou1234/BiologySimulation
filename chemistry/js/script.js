@@ -14,7 +14,7 @@ var createScene = function () {
     var manager = new BABYLON.GUI.GUI3DManager(scene);
 
     var panel = new BABYLON.GUI.CylinderPanel();
-    panel.margin = 0.5;
+    panel.margin = 0.1;
 
     manager.addControl(panel);
     panel.linkToTransformNode(anchor);
@@ -29,7 +29,6 @@ var createScene = function () {
             .then((response) => response.json())
             .then((data) => {
                 button.text = i + " " + data.elements[i].name;
-                console.log(data);
             });
     };
 
