@@ -35,7 +35,6 @@
     <button onclick="loadsmoother()" id="smoothersmlbtn" style="display: none;" class="mui-btn mui-btn--primary smoothersmlbtns">SER 3d Model</button>
     <button onclick = "loadpanel()" style="display: none;" id="panelbtn" class="mui-btn mui-btn--primary largeBtn">Brain Information</button>
     <button onclick = "loadribopanel()" style="display: none;" id="ribopanelbtn" class="mui-btn mui-btn--primary largeBtn">Ribosome Info</button>
-    <button onclick = "loadskeletal(1)" style="display: none;" id="skeletal" class="mui-btn mui-btn--primary largeBtn">Show Skeletal</button>
     <button onclick = "loadneuron(1)" style="display: none;" id="neuron" class="mui-btn mui-btn--primary largeBtn">Show Neuron</button>
     <button onclick = "loadETC(1)" style="display: none;" id="ETC" class="mui-btn mui-btn--primary largeBtn">Show Election Transport Chain</button>
     <button onclick="loadheart(1)" id="heartbtn" style="display: none;" class="mui-btn mui-btn--primary heartbtns">3d Model</button>
@@ -45,7 +44,7 @@
     <button onclick="kidney2dmodel()" id="kidney2dmodelbtn" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Kidney 2d Model</button>
     <button onclick="loadlung(1)" id="lungbtn" style="display: none;" class="mui-btn mui-btn--primary lungbtns">3d Model</button>
     <button onclick="loadstomach(1)" id="stomachbtn" style="display: none;" class="mui-btn mui-btn--primary stomachbtns">3d Model</button>
-    <button onclick="loadigestive(1)" id="digestivebtn" style="display: none;" class="mui-btn mui-btn--primary digestivebtns">THIS LOADS IN DIGESTIVE SYSTEM VIA SEARCH</button>
+    <button onclick="loaddigestive(1)" id="digestivebtn" style="display: none;" class="mui-btn mui-btn--primary digestivebtns">3d Model</button>
     <button onclick="loadcirculatory(1)" id="circulatorybtns" style="display: none;" class="mui-btn mui-btn--primary circulatorybtns">THIS LOADS IN CIRCULATORY SYSTEM VIA SEARCH</button>
     <button onclick="loadlymphatic(1)" id="lymphbtns" style="display: none;" class="mui-btn mui-btn--primary lymphbtns">THIS LOADS IN LYMPHATIC SYSTEM VIA SEARCH</button>
     <button onclick="loadendocrine(1)" id="endocrinebtns" style="display: none;" class="mui-btn mui-btn--primary endocrinebtns">THIS LOADS IN ENDOCRINE SYSTEM VIA SEARCH</button>
@@ -55,17 +54,20 @@
     <button onclick="loadintestine(1)" id="intestinebtn" style="display: none;" class="mui-btn mui-btn--primary intestinebtns">3d Model</button>
     <button onclick="loadcolon(1)" id="colonbtn" style="display: none;" class="mui-btn mui-btn--primary colonbtns">3d Model</button>
     <button onclick="loadpancreas(1)" id="pancreasbtn" style="display: none;" class="mui-btn mui-btn--primary pancreasbtns">3d Model</button>
+    <button onclick="loadspine(1)" id="spinebtn" style="display: none;" class="mui-btn mui-btn--primary spinebtns">THIS LOADS IN NERVOUS SYSTEM VIA SEARCH</button>
+    <button onclick="loaddigestiveinsitu(1)" id="digestiveinsitubtn" style="display: none;" class="mui-btn mui-btn--primary digestiveinsitubtns">THIS LOADS IN DIGESTIVE SYSTEM VIA SEARCH</button>
+    <button onclick="loadskull(1)" id="skullbtn" style="display: none;" class="mui-btn mui-btn--primary skullbtns">3d Model</button>
 
 
     <form class="largeBtn" id = "search">
       <div id = "dropdown">
         <select id = "searchbox" onchange = "search(this.value)">
           <option class = "searchContent" value = "Search" disabled selected = "true">Jump to System</option>
-          <option class = "searchContent" value = "brain" >Nervous System</option>
+          <option class = "searchContent" value = "spine" >Nervous System</option>
           <option class = "searchContent" value = "skeletal" >Skeletal System</option>
           <option class = "searchContent" value = "exretory" >Excretory system</option>
           <option class = "searchContent" value = "lung" >Respiratory system</option>
-          <option class = "searchContent" value = "digestive" >Digestive System</option>
+          <option class = "searchContent" value = "digestiveinsitu" >Digestive System</option>
           <option class = "searchContent" value = "circulatory" >Circulatory System</option>   
           <option class = "searchContent" value = "lymphatic" >Lymphatic System</option> 
           <option class = "searchContent" value = "muscular" >Muscular System</option>
