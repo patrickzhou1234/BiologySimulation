@@ -64,11 +64,13 @@ pancreasbtns = document.querySelectorAll(".pancreasbtns");
 colonbtns = document.querySelectorAll(".colonbtns");
 endocrinebtns = document.querySelectorAll(".endocrinebtns");
 muscularbtns = document.querySelectorAll(".muscularbtns");
+spinebtns = document.querySelectorAll(".spinebtns");
+digestiveinsitubtns = document.querySelectorAll(".digestiveinsitubtns");
+skullbtns = document.querySelectorAll(".skullbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 nephronbtn = document.getElementById("nephronbtn");
 backExretory = document.getElementById("backExretory");
-showSkeletal = document.getElementById("skeletal");
 showExterior = document.getElementById("exterior");
 showNeuron = document.getElementById("neuron");
 showETC = document.getElementById("ETC");
@@ -87,6 +89,8 @@ let spleenref = 0;
 let pancreasref = 0;
 let colonref = 0;
 let skeletalref = 0;
+let digestiveinsituref = 0;
+let skullref = 0;
 let circulatoryref = 0;
 let bronchiref = 0;
 let digestiveref = 0;
@@ -98,18 +102,22 @@ let neuronref = 0;
 let eyeref = 0;
 let riboref = 0;
 let exteriorref = 0;
+let spineref = 0;
 let lobemeshes = [];
 let eyemeshes = [];
 let neuronmeshes = [];
 let lungmeshes = [];
+let digestiveinsitumeshes = [];
 let skeletalmeshes = [];
 let kidneymeshes = [];
 let nephronmeshes = [];
 let digestivemeshes = [];
+let skullmeshes = [];
 let circulatorymeshes = [];
 let bronchimeshes = [];
 let lymphmeshes = [];
 let muscularmeshes = [];
+let spinemeshes = [];
 let endocrinemeshes = [];
 let exretorymeshes = [];
 let livermeshes =[];
@@ -118,8 +126,8 @@ let spleenmeshes = [];
 let pancreasmeshes = [];
 let colonmeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, backExretory, backKidney, showSkeletal, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, kidneybtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, spleenmeshes, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
+let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
+let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -581,7 +589,7 @@ function showExteriorBrain() {
 
             hideui();
 
-            meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            meshes[0].scaling = new BABYLON.Vector3(175, 175, 175);
             exteriorref = meshes[0];
             allMeshes.push(exteriorref);
 
@@ -652,7 +660,7 @@ function showExteriorBrain() {
 
             cerebellumLobeMat = new BABYLON.StandardMaterial("cerebellumMat", scene);
             const cerebellum = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            cerebellum.position.set(16.5, -3, 8.5); // (depth,vertical,horizantal)
+            cerebellum.position.set(13, -7, 5); // (depth,vertical,horizantal)
             cerebellum.material = cerebellumLobeMat;
             lobemeshes.push(cerebellum); // adds frontalLobe to lobemeshes array
             cerebellum.actionManager = new BABYLON.ActionManager(scene);
@@ -672,7 +680,7 @@ function showExteriorBrain() {
             // Frontal Lobe
             frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
             const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            frontalLobe.position.set(-2.5, 18, 8);
+            frontalLobe.position.set(0, 28, 0);
             frontalLobe.material = frontalLobemat;
             lobemeshes.push(frontalLobe); // adds frontalLobe to lobemeshes array
             frontalLobe.actionManager = new BABYLON.ActionManager(scene);
@@ -732,7 +740,7 @@ function showExteriorBrain() {
         parietalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
 
         const parietal = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        parietal.position.set(15.5, 17, 8); // (depth,vertical,horizantal)
+        parietal.position.set(15.5, 10, 8); // (depth,vertical,horizantal)
         parietal.material = parietalLobeMat;
         lobemeshes.push(parietal); // adds frontalLobe to lobemeshes array
         parietal.actionManager = new BABYLON.ActionManager(scene);
@@ -754,7 +762,7 @@ function showExteriorBrain() {
         occipitalLobeMat = new BABYLON.StandardMaterial("occipitalLobe", scene);
 
         const occipital = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        occipital.position.set(22, 5, 8); // (depth,vertical,horizantal)
+        occipital.position.set(16.5, -3, 8.5); // (depth,vertical,horizantal)
         occipital.material = occipitalLobeMat;
         lobemeshes.push(occipital); // adds frontalLobe to lobemeshes array
         occipital.actionManager = new BABYLON.ActionManager(scene);
@@ -806,19 +814,42 @@ function loadbrain(val) {
         showbtn(panelbtn);
         hidebtn(backcell);
         showbtn(showNeuron);
-        hidebtn(showSkeletal);
     }
 }
+function loadspine(val) {
+    if (checkvis(spinebtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, spinebtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/spine.glb", scene, function (meshes) {
+            clear();
+            hideui();
 
+            camera.position = new BABYLON.Vector3(10,1,10);
+            camera.target = new BABYLON.Vector3(0, 5, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(.13, .13, .13);
+            spineref = meshes[0];
+            allMeshes.push(spineref);
+            createSphereBtn(0, 7.5, 2.5, spinemeshes, function(){createBasicPopup("Brain", "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.", brainbtns)}, .5)
+
+        });
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
 function loadhuman(val) {
     if (checkvis(backHuman) || val == 0) {
         showui();
         clickcond(cellmeshes, backHuman);
-        showSkeletal.textContent = "Show Skeletal";
         BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
             clear();
             hideui();
-            meshes[0].scaling = new BABYLON.Vector3(400, 400, 400);
+            meshes[0].scaling = new BABYLON.Vector3(6, 6, 6);
 
             try {
                 eyemeshes.forEach((el) => {
@@ -828,171 +859,46 @@ function loadhuman(val) {
             humref = meshes[0];
             allMeshes.push(humref);
 
-            camera.position = new BABYLON.Vector3(0, 1.9, -20);
-            camera.target = new BABYLON.Vector3(0, -1, 0);
+            camera.position = new BABYLON.Vector3(0, 0, -20);
+            camera.target = new BABYLON.Vector3(0, 5, 0);
             camera.radius = 20;
 
-            brainmat = new BABYLON.StandardMaterial("brain", scene);
-            heartmat = new BABYLON.StandardMaterial("heartmat", scene);
-            kidneymat = new BABYLON.StandardMaterial("kidneymat", scene);
-            digestivemat = new BABYLON.StandardMaterial("digestivemat", scene);
-            circulatorymat = new BABYLON.StandardMaterial("circulatorymat", scene);
-            lymphmat = new BABYLON.StandardMaterial("lymphmat", scene);
-            lungmat = new BABYLON.StandardMaterial("lungmat", scene);
-            stomachmat = new BABYLON.StandardMaterial("stomachmat", scene);
+        
             eyemat = new BABYLON.StandardMaterial("eyemat", scene);
 
-            brain = BABYLON.MeshBuilder.CreateSphere("brain", { diameter: 0.25, segments: 32 }, scene);
+            // eye = BABYLON.MeshBuilder.CreateSphere("eye", { diameter: 0.25, segments: 32 }, scene);
 
-            humanmeshes.push(brain);
-            brain.position.set(0, 3.75, -0.25);
-            brain.material = brainmat;
-            brain.actionManager = new BABYLON.ActionManager(scene);
-            brain.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Brain",
-                        text: "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {
-                        brainbtns.forEach((el) => {
-                            hidebtn(el);
-                        });
-                    });
-                    brainbtns.forEach((el) => {
-                        showbtn(el);
-                    });
-                    camera.target = brain;
-                    camera.inertialRadiusOffset += 4;
-                })
-            );
+            // humanmeshes.push(eye);
+            // eye.position.set(0.2, 3.2, -0.3); // (horizontal,vertical,depth)
+            // eye.material = eyemat;
+            // eye.actionManager = new BABYLON.ActionManager(scene);
+            // eye.actionManager.registerAction(
+            //     new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+            //         camera.lowerRadiusLimit = 2;
+            //         Swal.fire({
+            //             title: "Eye",
+            //             text: "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world.",
+            //             icon: "question",
+            //             background: "black",
+            //             color: "white",
+            //             backdrop: false,
+            //         }).then(function () {
+            //             eyebtns.forEach((el) => {
+            //                 hidebtn(el);
+            //             });
+            //         });
+            //         eyebtns.forEach((el) => {
+            //             showbtn(el);
+            //         });
+            //         camera.target = eye;
+            //         camera.inertialRadiusOffset += 4;
+            //     })
+            // );
 
-            eye = BABYLON.MeshBuilder.CreateSphere("eye", { diameter: 0.25, segments: 32 }, scene);
-
-            humanmeshes.push(eye);
-            eye.position.set(0.2, 3.2, -0.3); // (horizontal,vertical,depth)
-            eye.material = eyemat;
-            eye.actionManager = new BABYLON.ActionManager(scene);
-            eye.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Eye",
-                        text: "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world.",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {
-                        eyebtns.forEach((el) => {
-                            hidebtn(el);
-                        });
-                    });
-                    eyebtns.forEach((el) => {
-                        showbtn(el);
-                    });
-                    camera.target = eye;
-                    camera.inertialRadiusOffset += 4;
-                })
-            );
-
-            heart = BABYLON.MeshBuilder.CreateSphere("heart", { diameter: 0.25, segments: 32 }, scene);
-
-            humanmeshes.push(heart);
-            heart.position.set(0.25, 1.4, -0.5);
-            heart.material = heartmat;
-            heart.actionManager = new BABYLON.ActionManager(scene);
-            heart.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Heart",
-                        text: "The heart is the central organ of the circulatory, or cardiovascular, system. Its main function is to pump blood to deliver oxygen and nutrients to all the cells and tissues in the body. The heart maintains homeostasis and plays a critical role in oxygenating blood. In addition, it regulates blood pressure and supports the entire circulatory system. The heart is divided into four chambers: two atria and two ventricles, with one atrium and one ventricle on the left side and one atrium and one ventricle on the right side. The right atrium receives deoxygenated blood from the body and pumps it into the right ventricle, which then sends the blood to the lungs through the pulmonary artery for oxygenation. The left atrium receives freshly oxygenated blood from the lungs and pushes it into the left ventricle, which pumps the oxygen-rich blood out to the rest of the body. To ensure a one-way circulation of blood, valves are located between the atria and ventricles, preventing backflow.",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {
-                        heartbtns.forEach((el) => {
-                            hidebtn(el);
-                        });
-                    });
-                    heartbtns.forEach((el) => {
-                        showbtn(el);
-                    });
-                    camera.target = heart;
-                    camera.inertialRadiusOffset += 4;
-                })
-            );
-            kidney = BABYLON.MeshBuilder.CreateSphere("kidney", { diameter: 0.2, segments: 32 }, scene);
-
-            humanmeshes.push(kidney);
-            kidney.position.set(-0.25, -0.5, -0.5);
-            kidney.material = kidneymat;
-            kidney.actionManager = new BABYLON.ActionManager(scene);
-            kidney.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Excretory System",
-                        text: "This body system filters the blood for waste prodcuts and removes them from the body.",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {
-                        exretorybtns.forEach((el) => {
-                            hidebtn(el);
-                        });
-                    });
-                    exretorybtns.forEach((el) => {
-                        showbtn(el);
-                    });
-                    camera.target = kidney;
-                    camera.inertialRadiusOffset += 4;
-                })
-            );
-
-            createSphereBtn(-0.25, 1, -0.6, humanmeshes, function(){createBasicPopup("Lung", "The lungs, crucial for breathing, sit symmetrically in the chest. The right lung has three lobes, while the left has two. Their main job is gas exchange, taking in oxygen and releasing carbon dioxide. Air enters through the nose/mouth, travels down the airway, and reaches tiny sacs called alveoli. Here, oxygen enters the blood, and carbon dioxide is removed. Protective features like nasal hairs and mucus ensure smooth airflow. Lungs are buoyant, and one can function with just one. Regular exercise boosts lung capacity, and adults have millions of alveoli. In essence, lungs play a vital role in maintaining our health and sustaining life through efficient gas exchange.")}, 0.2)
-
-            stomach = BABYLON.MeshBuilder.CreateSphere("stomach", { diameter: 0.2, segments: 32 }, scene);
-
-            humanmeshes.push(stomach);
-            stomach.position.set(0.5, 0.4, -0.6);
-            stomach.material = stomachmat;
-            stomach.actionManager = new BABYLON.ActionManager(scene);
-            stomach.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Stomach",
-                        text: "The stomach, a key part of the gastrointestinal (GI) tract, is a muscular organ that digests food using acids and enzymes. It's located in the upper left abdomen and has five sections: cardia, fundus, body, antrum, and pylorus. These sections work together to contract, mix, and process food before passing it to the small intestine. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {
-                        stomachbtns.forEach((el) => {
-                            hidebtn(el);
-                        });
-                    });
-                    stomachbtns.forEach((el) => {
-                        showbtn(el);
-                    });
-                    camera.target = stomach;
-                    camera.inertialRadiusOffset += 4;
-                })
-            );
         });
 
         clearbtns();
         showbtn(backcell);
-        showbtn(showSkeletal);
-
         humanmeshes.forEach((el) => {
             orgsettings(el);
         });
@@ -1097,6 +1003,29 @@ function loaddigestive(val) {
             createSphereBtn(0, 2, -1.025, digestivemeshes, function(){createBasicPopup("Intestines", "desc", intestinebtns)}, .7)
             createSphereBtn(0, 4, 0.2, digestivemeshes, function(){createBasicPopup("Pancreas", "desc", pancreasbtns)}, .7)
             createSphereBtn(-1, 5, -1.3, digestivemeshes, function(){createBasicPopup("Stomach", "The stomach, a key part of the gastrointestinal (GI) tract, is a muscular organ that digests food using acids and enzymes. It's located in the upper left abdomen and has five sections: cardia, fundus, body, antrum, and pylorus. These sections work together to contract, mix, and process food before passing it to the small intestine. ", stomachbtns)}, .7)
+
+        });
+    }
+}
+function loaddigestiveinsitu(val) {
+    if (checkvis(digestiveinsitubtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, digestiveinsitubtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/digestiveinsitu.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(4.7, 10.25, -127);
+            camera.target = new BABYLON.Vector3(0, 9, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
+            digestiveinsuturef = meshes[0];
+            allMeshes.push(digestiveinsuturef);
+            createSphereBtn(0, 2, -1.025, digestiveinsitumeshes, function(){createBasicPopup("View Digestive System", "desc", digestivebtns)}, .7)
 
         });
     }
@@ -1332,16 +1261,40 @@ function loadmuscular(val) {
             clear();
             hideui();
             camera.position = new BABYLON.Vector3(804.7, 1.25, 0);
-            camera.target = new BABYLON.Vector3(0, 9, );
+            camera.target = new BABYLON.Vector3(0, 9,0 );
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
             clear();
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
-            meshes[0].scaling = new BABYLON.Vector31(.005, .005, .005);
+            meshes[0].scaling = new BABYLON.Vector3(.005, .005, .005);
             muscularref = meshes[0];
             allMeshes.push(muscularref);
+
+        });
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
+function loadskull(val) {
+    if (checkvis(skullbtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, skullbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/skull.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(4.7, 0, 30);
+            camera.target = new BABYLON.Vector3(0, 0, 0 );
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(5, 5,5);
+            skullref = meshes[0];
+            allMeshes.push(skullref);
 
         });
         clearbtns();
@@ -1422,12 +1375,9 @@ function loadstomach(val) {
 }
 
 function loadskeletal(val) {
-    if (checkvis(showSkeletal) || val == 0) {
+    if (val == 0) {
         showui();
-        if (showSkeletal.textContent == "Show Skeletal") {
-            showSkeletal.textContent = "Hide Skeletal";
-
-            camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
+        camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
             camera.target = new BABYLON.Vector3(0, -0.25, 0);
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
@@ -1440,9 +1390,9 @@ function loadskeletal(val) {
                 hideui();
                 clearbtns();
                 showbtn(backcell);
-                showbtn(showSkeletal);
 
                 meshes[0].scaling = new BABYLON.Vector3(0.9, 0.9, 0.9);
+                createSphereBtn(0, 7, -0.51, skeletalmeshes, function(){createBasicPopup("Skull", "Protects the brain and houses sensory organs like the eyes and ears.", skullbtns)}, .5)
 
                 skeletalref = meshes[0];
                 allMeshes.push(skeletalref);
@@ -1723,11 +1673,8 @@ function loadskeletal(val) {
 
         } else {
             skeletalref.dispose();
-            showSkeletal.textContent = "Show Skeletal";
-
             showbtn(backHuman);
             loadhuman();
-        }
     }
 }
 
@@ -1984,8 +1931,7 @@ function clear() {
         try {
             bronchimeshes[i].dispose();
         } catch (err) {}
-    }
-    for (i = 0; i < spleenmeshes.length; i++) {
+    }for (i = 0; i < spleenmeshes.length; i++) {
         try {
             spleenmeshes[i].dispose();
         } catch (err) {}
@@ -2005,8 +1951,20 @@ function clear() {
         try {
             pancreasmeshes[i].dispose();
         } catch (err) {}
+    } for (i = 0; i < spinemeshes.length; i++) {
+        try {
+            spinemeshes[i].dispose();
+        } catch (err) {}
+    }for (i = 0; i < digestiveinsitumeshes.length; i++) {
+        try {
+            digestiveinsitumeshes[i].dispose();
+        } catch (err) {}
+    for (i = 0; i < skullmeshes.length; i++) {
+            try {
+                skullmeshes[i].dispose();
+            } catch (err) {}
     }
-    for (i = 0; i < exretorymeshes.length; i++) {
+    }for (i = 0; i < exretorymeshes.length; i++) {
         try {
             exretorymeshes[i].dispose();
         } catch (err) {}
@@ -2036,7 +1994,6 @@ function search(value) {
 
     searchbox.value = "Search";
 
-    showSkeletal.textContent = "Show Skeletal";
     showNeuron.textContent = "Show Neuron";
     showExterior.textContent = "Show Exterior View";
 
