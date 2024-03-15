@@ -281,12 +281,36 @@ img {
     transition: opacity 0.2s !important;
     border-radius: 6px;
 }
-
+.digestivebtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
 #brainbtn {
+    left: 45vw;
+    top: 92vh;
+}
+.skullbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+#skullbtn {
     left: 45vw;
     top: 85vh;
 }
-
+#digestivebtn {
+    left: 45vw;
+    top: 92vh;
+}
 .statsdom {
     position: absolute;
     right: 0px;
@@ -475,11 +499,11 @@ img {
     top: 8vh;
 }
 
-#ribopanelbtn {
+/* #ribopanelbtn {
     left: 65vh;
     top: 84vh;
     z-index: 1080;
-}
+} */
 #eyebtn {
     left: 87vh;
     bottom: 10vh;
