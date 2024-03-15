@@ -1,510 +1,128 @@
-@font-face {
-    font-family: "amazon-ember";
-    src: URL("Amazon-Ember-Medium.ttf") format("truetype");
-}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <title>Biology Sim</title>
+    <link rel="stylesheet" href="static/mui.css">
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="static/slide-in-pane_style.css">
+    <link rel="stylesheet" href="static/slide-in-panel_css_demo.css">
+    <script src="js/babylon.js"></script>
+    <script src="js/babylonjs.loaders.min.js"></script>
+    <script src="js/mui.js"></script>
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="js/stats.js"></script>
+  </head>
+  <body>
+    <button onclick = "loadhuman(1)" id="backHuman" class="mui-btn mui-btn--primary largeBtn">Go Back to Human</button>
+    <button onclick = "loadexretory(0)" id="backExretory" class="mui-btn mui-btn--primary largeBtn">Go Back to Exretory System</button>
+    <button onclick = "loadkidney(0)" id="backKidney" class="mui-btn mui-btn--primary largeBtn">Go Back to Kidney</button>
+    <button onclick = "showExteriorBrain()" style="display: none;" id="exterior" class="mui-btn mui-btn--primary largeBtn">Show Exterior View</button>
+    <button onclick="loadcell()" id="backcell" class="mui-btn mui-btn--primary largeBtn">Go Back to Cell</button>
+    <button onclick="membraneclicked()" style="display: none;" id="memb" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Singular Phospholipid">1</button>
+    <button onclick="phosphoclicked()" style="display: none;" id="phospho" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Phospholipid Bilayer">2</button>
+    <button onclick="phosphoclicked2()" style="display: none;" id="phospho2" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="2 Phospholipids">3</button>
+    <button onclick="openchannel()" style="display: none;" id="channeltransport" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Channel Transport">4</button>
+    <button onclick="cholestrolclicked()" style="display: none;" id="cholestrol" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Cholesterol">5</button>
+    <button onclick="receptorproteinclicked()" style="display: none;" id="receptorprotein" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Receptor Protein">6</button>
+    <button onclick="loadmito(1)" id="mitosmlbtn" style="display: none;" class="mui-btn mui-btn--primary mitosmlbtns">3d Model</button>
+    <button onclick="loadbrain(1)" id="brainbtn" style="display: none;" class="mui-btn mui-btn--primary brainbtns">3d Model</button>
+    <button onclick="loadeye()" id="eyebtn" style="display: none;" class="mui-btn mui-btn--primary eyebtns largeBtn">3d Model</button>
+    <button onclick="loadgolgi(1)" id="golgismlbtn" style="display: none;" class="mui-btn mui-btn--primary golgismlbtns">3d Model</button>
+    <button onclick="loadrougher()" id="roughersmlbtn" style="display: none;" class="mui-btn mui-btn--primary roughersmlbtns">RER 3d Model</button>
+    <button onclick="loadsmoother()" id="smoothersmlbtn" style="display: none;" class="mui-btn mui-btn--primary smoothersmlbtns">SER 3d Model</button>
+    <button onclick = "loadpanel()" style="display: none;" id="panelbtn" class="mui-btn mui-btn--primary largeBtn">Brain Information</button>
+    <button onclick = "loadribopanel()" style="display: none;" id="ribopanelbtn" class="mui-btn mui-btn--primary largeBtn">Ribosome Info</button>
+    <button onclick = "loadneuron(1)" style="display: none;" id="neuron" class="mui-btn mui-btn--primary largeBtn">Show Neuron</button>
+    <button onclick = "loadETC(1)" style="display: none;" id="ETC" class="mui-btn mui-btn--primary largeBtn">Show Election Transport Chain</button>
+    <button onclick="loadheart(1)" id="heartbtn" style="display: none;" class="mui-btn mui-btn--primary heartbtns">3d Model</button>
+    <button onclick="loadkidney(1)" id="kidneybtn" style="display: none;" class="mui-btn mui-btn--primary kidneybtns">3d Model</button>
+    <button onclick="loadnephron(1)" id="nephronbtn" style="display: none;" class="mui-btn mui-btn--primary nephronbtns">Show Nepheron</button>
+    <button onclick="loadexretory(1)" id="exretorybtn" style="display: none;" class="mui-btn mui-btn--primary exretorybtns">3d Model</button>
+    <button onclick="kidney2dmodel()" id="kidney2dmodelbtn" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Kidney 2d Model</button>
+    <button onclick="loadlung(1)" id="lungbtn" style="display: none;" class="mui-btn mui-btn--primary lungbtns">3d Model</button>
+    <button onclick="loadstomach(1)" id="stomachbtn" style="display: none;" class="mui-btn mui-btn--primary stomachbtns">3d Model</button>
+    <button onclick="loaddigestive(1)" id="digestivebtn" style="display: none;" class="mui-btn mui-btn--primary digestivebtns">3d Model</button>
+    <button onclick="loadcirculatory(1)" id="circulatorybtns" style="display: none;" class="mui-btn mui-btn--primary circulatorybtns">THIS LOADS IN CIRCULATORY SYSTEM VIA SEARCH</button>
+    <button onclick="loadlymphatic(1)" id="lymphbtns" style="display: none;" class="mui-btn mui-btn--primary lymphbtns">THIS LOADS IN LYMPHATIC SYSTEM VIA SEARCH</button>
+    <button onclick="loadendocrine(1)" id="endocrinebtns" style="display: none;" class="mui-btn mui-btn--primary endocrinebtns">THIS LOADS IN ENDOCRINE SYSTEM VIA SEARCH</button>
+    <button onclick="loadmuscular(1)" id="muscularbtns" style="display: none;" class="mui-btn mui-btn--primary muscularbtns">THIS LOADS IN MUSCULAR SYSTEM VIA SEARCH</button>
+    <button onclick="loadbronchi(1)" id="bronchibtn" style="display: none;" class="mui-btn mui-btn--primary bronchibtns">3d Model</button>
+    <button onclick="loadliver(1)" id="liverbtn" style="display: none;" class="mui-btn mui-btn--primary liverbtns">3d Model</button>
+    <button onclick="loadintestine(1)" id="intestinebtn" style="display: none;" class="mui-btn mui-btn--primary intestinebtns">3d Model</button>
+    <button onclick="loadcolon(1)" id="colonbtn" style="display: none;" class="mui-btn mui-btn--primary colonbtns">3d Model</button>
+    <button onclick="loadpancreas(1)" id="pancreasbtn" style="display: none;" class="mui-btn mui-btn--primary pancreasbtns">3d Model</button>
+    <button onclick="loadspine(1)" id="spinebtn" style="display: none;" class="mui-btn mui-btn--primary spinebtns">THIS LOADS IN NERVOUS SYSTEM VIA SEARCH</button>
+    <button onclick="loaddigestiveinsitu(1)" id="digestiveinsitubtn" style="display: none;" class="mui-btn mui-btn--primary digestiveinsitubtns">THIS LOADS IN DIGESTIVE SYSTEM VIA SEARCH</button>
+    <button onclick="loadskull(1)" id="skullbtn" style="display: none;" class="mui-btn mui-btn--primary skullbtns">3d Model</button>
 
-#babcanv {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    outline: none;
-}
 
-.swal2-container::-webkit-scrollbar {
-    display: none;
-}
+    <form class="largeBtn" id = "search">
+      <div id = "dropdown">
+        <select id = "searchbox" onchange = "search(this.value)">
+          <option class = "searchContent" value = "Search" disabled selected = "true">Jump to System</option>
+          <option class = "searchContent" value = "spine" >Nervous System</option>
+          <option class = "searchContent" value = "skeletal" >Skeletal System</option>
+          <option class = "searchContent" value = "exretory" >Excretory system</option>
+          <option class = "searchContent" value = "lung" >Respiratory system</option>
+          <option class = "searchContent" value = "digestiveinsitu" >Digestive System</option>
+          <option class = "searchContent" value = "circulatory" >Circulatory System</option>   
+          <option class = "searchContent" value = "lymphatic" >Lymphatic System</option> 
+          <option class = "searchContent" value = "muscular" >Muscular System</option>
+          <option class = "searchContent" value = "endocrine" >Endocrine System</option> 
 
-.bronchibtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-.liverbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}.intestinebtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}.pancreasbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}.spleenbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}.colonbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-#bronchibtn{
-left: 80vh;
-    top: 73vh;
-}
-#liverbtn{
-    left: 80vh;
-        top: 73vh;
-    }
-#intestinebtn{
-left: 80vh;
-    top: 73vh;
-}
-#pancreasbtn{
-    left: 80vh;
-        top: 73vh;
-    }
-#spleenbtn{
-    left: 80vh;
-        top: 73vh;
-}
-#colonbtn{
-    left: 80vh;
-        top: 73vh;
-}
-#babcanv:hover {
-    cursor: move;
-    cursor: grab;
-    cursor: -moz-grab;
-    cursor: -webkit-grab;
-}
+ 
 
-#babcanv:active {
-    cursor: grabbing;
-    cursor: -moz-grabbing;
-    cursor: -webkit-grabbing;
-}
+     
+  
 
-.largeBtn {
-    position: absolute;
-    z-index: 100;
-    border: none;
-    border-radius: 6px;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-}
+          
+        </select>
+      </div>
+    </form>
 
-#backcell {
-    left: 5vh;
-    top: 3vw;
-    opacity: 0;
-}
+    <canvas id="babcanv"></canvas>
+    <!-- Brain Info / Brain Hierarchy-->
+    <div class="cd-panel cd-panel--from-right js-cd-panel-main">
+      <header class="cd-panel__header">
+      <p class="sTitle">Brain Divisions</p>
+      <a class="cd-panel__close js-cd-close">Close</a>
+      </header>
+      <div class="cd-panel__container">
+        <div class="cd-panel__content">
+          <p class="sContent">The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other. <br></br> Notable structures seen in this image include: </br><br>- The pituitary gland, also known as the 'master gland', which controls hormonal balances in the body.  <br>- The amygdala, which controls the emotion of fear and influences aggression, reward-based learning, unconscious memory, social understanding, parenting emotions, memory-emotion connections, and addiction behaviors. <br>- The hippocampus, part of the brain's limbic system, is vital for memory, learning, and emotions. It stores short-term memories and facilitates their conversion into long-term memory.  Key functions include storing declarative facts, transferring short-term to long-term memory (assisted by sleep), and aiding spatial navigation and mental mapping. <br>- The hypothalamus, deep within the brain, links the endocrine and nervous systems to maintain body stability (homeostasis). It interprets chemical signals from the brain and peripheral nerves, regulating vital functions like temperature, blood pressure, hunger, thirst, and mood. It also influences sex drive and sleep, controlling these processes through the autonomic nervous system and hormone regulation. </br>   </p>
+        </div> 
+      </div> 
+    </div> 
+    <!-- Ribosome Menu -->
+    <div class="cd-ribopanel cd-panel--from-right js-cd-panel-main">
+        <header class="cd-panel__header">
+        <p class="sTitle">Ribosome Functionality</p>
+        <a class="cd-panel__close js-cd-riboclose">Close</a>
+        </header>
+        <div class="cd-panel__container">
+          <div class="cd-panel__content">
+            <p class="sContent">
+                  Structure - Ribosomes are made up of two main components, the large subunit and the small subunit. Ribosomes are made in the nucleolus where four strands of rRNA combine with ribosomal proteins to make the large and small subunit. 
+                  <br><br>
+                  Function - The main function of ribosomes is to help build proteins. In the process of building proteins, they are present in the translation. After the transcription happens, where the mRNA is produced as a copy of DNA, The mRNA goes to the ribosome to start the process of translation. In translation, The mRNA is translated by the tRNA to bring the corresponding amino acids and produce a polypeptide chain. The process of producing a polypeptide can be split into three parts. The initiation of translation starts when the tRNA binds to the start codon of the mRNA this happens on the small subunit of the ribosome, then the large subunit of the ribosome covers the small subunit of the ribosome, the elongation of the proteins starts. To accommodate the tRNA, ribosomes have an A site, P site, and an E site. The tRNA first enters through the P site of the ribosome with an amino acid attached to it. There will be another tRNA in the P site of the ribosome with the current chain of amino acids. The chain of polypeptides on the P site will be attached to the amino acid of the tRNA on the A site so the current chain of polypeptides in the tRNA on the A site. Then the tRNA in the P site will exit the ribosome though the E site and the tRNA with the polypeptides will move to the P site. This cycle will continue till the end of the polypeptide when the tRNA reads the end codon. 
+                  <br><br>
+                  Position - There are two types of ribosomes, bound and unbound ribosomes. Bound ribosomes are typically present on the nuclear envelope or the endoplasmic reticulum(ER) while unbound ribosomes float around in the cytosol. While the position of the ribosomes have no difference in structure, they both produce different types of proteins. Proteins made from bound ribosomes usually carry materials that are exported from the cell or are inserted into membranes, like lysosomes. The amount of ribosomes present in the cell depends on the cell function and its need for proteins. For example, cells in the pancreas frequently export digestive enzymes, therefore it has a lot of bound ribosomes.
+                  <br><br>
+                  mRNA decides if protein is made on ER or cytosol. mRNA has a signal to tell if protein is made on ER or cytosol. Those made on ER need further modification
+                  <br><br>
+                  Evolution - Early life forms relied more heavily on RNA for both genetic information storage and catalytic functions. In the context of ribosomes, this suggests that primitive ribosomes might have been composed primarily of RNA, with catalytic roles carried out by ribozymes (RNA molecules with enzymatic activity).
+                  <br><br>
+                  Over time, as organisms evolved, there was a transition from an RNA-centric world to one where proteins took on more structural and catalytic roles. This led to the development of the modern ribosome, which is a complex made up of both RNA and proteins. The small and large subunits of the ribosome are composed of ribosomal RNA (rRNA) and proteins, and they work together to facilitate the synthesis of proteins in a highly orchestrated process.
+                  <br><br><br><br>
+  
+            </p>
+          </div> 
+        </div> 
+      </div> 
+      <script src="js/script.js"></script>
+</body>
 
-#backcell:hover {
-    cursor: pointer;
-}
-
-#backHuman {
-    left: 6vh;
-    opacity: 1;
-}
-
-#backBrain{
-    left: 8vh;
-    opacity: 1;
-}
-
-#backHuman:hover {
-    cursor: pointer;
-}
-
-.smlbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-}
-
-#memb {
-    left: 37vw;
-    top: 12vh;
-}
-
-#phospho {
-    left: 49vw;
-    top: 28vh;
-}
-
-#channeltransport {
-    left: 44vw;
-    top: 38vh;
-}
-
-.animbtn {
-    animation: animbtn 1.3s ease forwards;
-}
-
-.animobtn {
-    cursor: default !important;
-    animation: animobtn 1.3s ease forwards;
-}
-
-@keyframes animbtn {
-    0% {
-        opacity: 0;
-        display: block;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes animobtn {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        display: none;
-    }
-}
-
-img {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-#phospho2 {
-    left: 55vw;
-    top: 36vh;
-}
-
-#cholestrol {
-    left: 52vw;
-    top: 32vh;
-}
-
-#receptorprotein {
-    left: 37vw;
-    top: 38vh;
-}
-
-.mitosmlbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-
-#mitosmlbtn {
-    left: 45vw;
-    top: 80vh;
-}
-
-.golgismlbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-
-#golgismlbtn {
-    left: 45vw;
-    top: 80vh;
-}
-
-.roughersmlbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-
-.smoothersmlbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-
-#roughersmlbtn {
-    left: 45vw;
-    top: 80vh;
-}
-
-#smoothersmlbtn {
-    left: 45vw;
-    top: 80vh;
-}
-
-.brainbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-.digestivebtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-#brainbtn {
-    left: 45vw;
-    top: 92vh;
-}
-.skullbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-#skullbtn {
-    left: 45vw;
-    top: 85vh;
-}
-#digestivebtn {
-    left: 45vw;
-    top: 92vh;
-}
-.statsdom {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-}
-
-#babylonjsLoadingDiv {
-    z-index: 9999 !important;
-}
-
-#panelbtn {
-    right: 5vh;
-    top: 30vh;
-    width: 15%;
-    left: 5vh;
-}
-
-.sContent {
-    max-width: 90%;
-    vertical-align: baseline;
-    font-size: calc(0.75vw + 0.75vh) !important;
-}
-
-.sTitle {
-    font-size: calc(1vw + 1vh) !important;
-    margin-left: 2vw;
-    color: #89ba2c;
-}
-
-.cd-panel__close:hover {
-    cursor: pointer;
-}
-
-#skeletal {
-    left: 5vh;
-    top: 12vh;
-}
-
-#neuron {
-    left: 5vh;
-    top: 13vh;
-}
-#ETC{
-    left: 5vh;
-    top: 15vh;
-}
-.heartbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-
-#heartbtn {
-    left: 80vh;
-    top: 93vh;
-}
-
-.kidneybtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-
-#kidneybtn {
-    left: 80vh;
-    top: 77vh;
-}
-
-.nephronbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-
-#nephronbtn {
-    left: 5vh;
-    top: 20vh;
-}
-
-.exretorybtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-
-#exretorybtn {
-    left: 80vh;
-    top: 77vh;
-}
-
-#backExretory {
-    left: 5vh;
-    top: 8vh;
-    opacity: 0;
-}
-
-#backKidney {
-    left: 5vh;
-    top: 8vh;
-    opacity: 0;
-}
-
-#kidney2dmodelbtn {
-    left: 5vh;
-    top: 14vh;
-}
-
-.lungbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-
-#lungbtn {
-    left: 80vh;
-    top: 90vh;
-}
-
-.stomachbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}
-
-#stomachbtn {
-    left: 80vh;
-    top: 85vh;
-}
-
-#search {
-    top: 2vh;
-    left: 140vh;
-}
-#dropdown {
-    position: relative;
-}
-#searchbox {
-    width: 190%;
-}
-
-.searchContent {
-    z-index: 1;
-    position: absolute;
-}
-#systems {
-    top: 88vh;
-    left: 1800vh;
-}
-#dropdown {
-    position: relative;
-}
-#searchbox {
-    width: 190%;
-}
-
-.searchContent {
-    z-index: 1;
-    position: absolute;
-}
-#exterior {
-    left: 5vh;
-    top: 8vh;
-}
-
-/* #ribopanelbtn {
-    left: 65vh;
-    top: 84vh;
-    z-index: 1080;
-} */
-#eyebtn {
-    left: 87vh;
-    bottom: 10vh;
-}
+</html>
