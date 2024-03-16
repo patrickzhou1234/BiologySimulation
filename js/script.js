@@ -62,6 +62,7 @@ intestinebtns = document.querySelectorAll(".intestinebtns");
 spleenbtns = document.querySelectorAll(".spleenbtns");
 pancreasbtns = document.querySelectorAll(".pancreasbtns");
 colonbtns = document.querySelectorAll(".colonbtns");
+skinbtns = document.querySelectorAll(".skinbtns");
 endocrinebtns = document.querySelectorAll(".endocrinebtns");
 muscularbtns = document.querySelectorAll(".muscularbtns");
 spinebtns = document.querySelectorAll(".spinebtns");
@@ -84,6 +85,7 @@ let phoref = 0;
 let humref = 0;
 let brainref = 0;
 let liverref =0;
+let skinref = 0;
 let intestineref = 0;
 let spleenref = 0;
 let pancreasref = 0;
@@ -113,6 +115,7 @@ let kidneymeshes = [];
 let nephronmeshes = [];
 let digestivemeshes = [];
 let skullmeshes = [];
+let skinmeshes = [];
 let circulatorymeshes = [];
 let bronchimeshes = [];
 let lymphmeshes = [];
@@ -127,7 +130,7 @@ let pancreasmeshes = [];
 let colonmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
+let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -1062,18 +1065,18 @@ function loadintestine(val) {
             clear();
             hideui();
             camera.position = new BABYLON.Vector3(4.7, 15.25, -127);
-            camera.target = new BABYLON.Vector3(0, 0, -20);
+            camera.target = new BABYLON.Vector3(0, 0, 0);
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
             clear();
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
-            meshes[0].scaling = new BABYLON.Vector3(20, 20, 20);
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             intestineref = meshes[0];
             allMeshes.push(intestineref);
             clearbtns();
-            createSphereBtn(2, 10, 0.025, intestinemeshes, function(){createBasicPopup("Colon", "desc", colonbtns)}, 2)
+            createSphereBtn(1, 4, 0.025, intestinemeshes, function(){createBasicPopup("Colon", "desc", colonbtns)}, 1.5)
 
         });
     }
@@ -1086,15 +1089,15 @@ function loadcolon(val) {
         BABYLON.SceneLoader.ImportMesh("", "", "models/colon.glb", scene, function (meshes) {
             clear();
             hideui();
-            camera.position = new BABYLON.Vector3(-20, 0, -0);
-            camera.target = new BABYLON.Vector3(0, 0, );
+            camera.position = new BABYLON.Vector3(190, 0, -200);
+            camera.target = new BABYLON.Vector3(0, 0,0 );
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
             clear();
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
-            meshes[0].scaling = new BABYLON.Vector3(.1, .1, .1);
+            meshes[0].scaling = new BABYLON.Vector3(.025, .025, .025);
             colonref = meshes[0];
             allMeshes.push(colonref);
             clearbtns();
@@ -1247,6 +1250,30 @@ function loadendocrine(val) {
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             endocrineref = meshes[0];
             allMeshes.push(endocrineref);
+
+        });
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
+function loadskin(val) {
+    if (checkvis(skinbtns[0]) || val == 0) {
+        showui();
+        clickcond(humanmeshes, skinbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/skin.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(0, 0, -127);
+            camera.target = new BABYLON.Vector3(0, 6, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(.05, .05, .05);
+            skinref = meshes[0];
+            allMeshes.push(skinref);
 
         });
         clearbtns();
@@ -1950,6 +1977,10 @@ function clear() {
     } for (i = 0; i < pancreasmeshes.length; i++) {
         try {
             pancreasmeshes[i].dispose();
+        } catch (err) {}
+    } for (i = 0; i < skinmeshes.length; i++) {
+        try {
+            skinmeshes[i].dispose();
         } catch (err) {}
     } for (i = 0; i < spinemeshes.length; i++) {
         try {
