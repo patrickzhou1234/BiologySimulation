@@ -16,6 +16,80 @@
     display: none;
 }
 
+.bronchibtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+.liverbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}.intestinebtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}.pancreasbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}.spleenbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}.colonbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+#bronchibtn{
+left: 80vh;
+    top: 73vh;
+}
+#liverbtn{
+    left: 80vh;
+        top: 73vh;
+    }
+#intestinebtn{
+left: 80vh;
+    top: 73vh;
+}
+#pancreasbtn{
+    left: 80vh;
+        top: 73vh;
+    }
+#spleenbtn{
+    left: 80vh;
+        top: 73vh;
+}
+#colonbtn{
+    left: 80vh;
+        top: 73vh;
+}
 #babcanv:hover {
     cursor: move;
     cursor: grab;
@@ -40,7 +114,7 @@
 
 #backcell {
     left: 5vh;
-    top: 2vw;
+    top: 3vw;
     opacity: 0;
 }
 
@@ -50,6 +124,11 @@
 
 #backHuman {
     left: 6vh;
+    opacity: 1;
+}
+
+#backBrain{
+    left: 8vh;
     opacity: 1;
 }
 
@@ -173,7 +252,22 @@ img {
     border-radius: 6px;
 }
 
+.smoothersmlbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+
 #roughersmlbtn {
+    left: 45vw;
+    top: 80vh;
+}
+
+#smoothersmlbtn {
     left: 45vw;
     top: 80vh;
 }
@@ -187,12 +281,36 @@ img {
     transition: opacity 0.2s !important;
     border-radius: 6px;
 }
-
+.digestivebtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
 #brainbtn {
+    left: 45vw;
+    top: 92vh;
+}
+.skullbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+#skullbtn {
     left: 45vw;
     top: 85vh;
 }
-
+#digestivebtn {
+    left: 45vw;
+    top: 92vh;
+}
 .statsdom {
     position: absolute;
     right: 0px;
@@ -203,19 +321,9 @@ img {
     z-index: 9999 !important;
 }
 
-#lobes {
-    left: 5vh;
-    top: 12vh;
-}
-
-#brainDivisions {
-    left: 5vh;
-    top: 18vh;
-}
-
 #panelbtn {
     right: 5vh;
-    top: 24vh;
+    top: 30vh;
     width: 15%;
     left: 5vh;
 }
@@ -243,9 +351,12 @@ img {
 
 #neuron {
     left: 5vh;
-    top: 30vh;
+    top: 13vh;
 }
-
+#ETC{
+    left: 5vh;
+    top: 15vh;
+}
 .heartbtns {
     z-index: 99999999;
     font-family: "amazon-ember";
@@ -274,6 +385,53 @@ img {
 #kidneybtn {
     left: 80vh;
     top: 77vh;
+}
+
+.nephronbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+
+#nephronbtn {
+    left: 5vh;
+    top: 20vh;
+}
+
+.exretorybtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+
+#exretorybtn {
+    left: 80vh;
+    top: 77vh;
+}
+
+#backExretory {
+    left: 5vh;
+    top: 8vh;
+    opacity: 0;
+}
+
+#backKidney {
+    left: 5vh;
+    top: 8vh;
+    opacity: 0;
+}
+
+#kidney2dmodelbtn {
+    left: 5vh;
+    top: 14vh;
 }
 
 .lungbtns {
@@ -321,22 +479,31 @@ img {
     z-index: 1;
     position: absolute;
 }
-
-#exterior {
-    left: 5vh;
-    top: 35vh;
+#systems {
+    top: 88vh;
+    left: 1800vh;
+}
+#dropdown {
+    position: relative;
+}
+#searchbox {
+    width: 190%;
 }
 
-#ribopanelbtn {
+.searchContent {
+    z-index: 1;
+    position: absolute;
+}
+#exterior {
+    left: 5vh;
+    top: 8vh;
+}
+
+/* #ribopanelbtn {
     left: 65vh;
     top: 84vh;
     z-index: 1080;
-}
-#muscularbtn {
-    left: 5vh;
-    top: 20vh;
-}
-
+} */
 #eyebtn {
     left: 87vh;
     bottom: 10vh;

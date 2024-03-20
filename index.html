@@ -3,6 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Biology Simulation is a biology simulation platform that offers interactive 3D models of cellular structures and processes. Users can explore detailed visualizations of cell components and biological systems. The site serves as an educational tool, bridging the gap between traditional learning and modern visualization techniques.">
+    <meta property="og:description" content="Biology Simulation is a biology simulation platform that offers interactive 3D models of cellular structures and processes. Users can explore detailed visualizations of cell components and biological systems. The site serves as an educational tool, bridging the gap between traditional learning and modern visualization techniques.">
+    <meta property="og:url" content="https://bio-sim.us" />
+    <meta property="og:site_name" content="Biology Simulation" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Biology Simulation" />
+    <meta property="og:image" content="images/favicon.png" />
+    <meta property="og:image:secure_url" content="images/favicon.png" />
+    <meta property="og:image:width" content="640" />
+    <meta property="og:image:height" content="480" />
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
     <title>Biology Sim</title>
     <link rel="stylesheet" href="static/mui.css">
@@ -17,8 +28,8 @@
   </head>
   <body>
     <button onclick = "loadhuman(1)" id="backHuman" class="mui-btn mui-btn--primary largeBtn">Go Back to Human</button>
-    <button onclick = "displayLobes()" id="lobes" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Show Lobes</button>
-    <button onclick = "displayBrainDivisions()" style="display: none;" id="brainDivisions" class="mui-btn mui-btn--primary largeBtn">Show Brain Divisions</button>
+    <button onclick = "loadexretory(0)" id="backExretory" class="mui-btn mui-btn--primary largeBtn">Go Back to Exretory System</button>
+    <button onclick = "loadkidney(0)" id="backKidney" class="mui-btn mui-btn--primary largeBtn">Go Back to Kidney</button>
     <button onclick = "showExteriorBrain()" style="display: none;" id="exterior" class="mui-btn mui-btn--primary largeBtn">Show Exterior View</button>
     <button onclick="loadcell()" id="backcell" class="mui-btn mui-btn--primary largeBtn">Go Back to Cell</button>
     <button onclick="membraneclicked()" style="display: none;" id="memb" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Singular Phospholipid">1</button>
@@ -31,29 +42,55 @@
     <button onclick="loadbrain(1)" id="brainbtn" style="display: none;" class="mui-btn mui-btn--primary brainbtns">3d Model</button>
     <button onclick="loadeye()" id="eyebtn" style="display: none;" class="mui-btn mui-btn--primary eyebtns largeBtn">3d Model</button>
     <button onclick="loadgolgi(1)" id="golgismlbtn" style="display: none;" class="mui-btn mui-btn--primary golgismlbtns">3d Model</button>
-    <button onclick="loadrougher()" id="roughersmlbtn" style="display: none;" class="mui-btn mui-btn--primary roughersmlbtns">3d Model</button>
-    <button onclick = "loadpanel()" style="display: none;" id="panelbtn" class="mui-btn mui-btn--primary largeBtn">Brain Hierarchy</button>
+    <button onclick="loadrougher()" id="roughersmlbtn" style="display: none;" class="mui-btn mui-btn--primary roughersmlbtns">RER 3d Model</button>
+    <button onclick="loadsmoother()" id="smoothersmlbtn" style="display: none;" class="mui-btn mui-btn--primary smoothersmlbtns">SER 3d Model</button>
+    <button onclick = "loadpanel()" style="display: none;" id="panelbtn" class="mui-btn mui-btn--primary largeBtn">Brain Information</button>
     <button onclick = "loadribopanel()" style="display: none;" id="ribopanelbtn" class="mui-btn mui-btn--primary largeBtn">Ribosome Info</button>
-    <button onclick = "loadskeletal(1)" style="display: none;" id="skeletal" class="mui-btn mui-btn--primary largeBtn">Show Skeletal</button>
     <button onclick = "loadneuron(1)" style="display: none;" id="neuron" class="mui-btn mui-btn--primary largeBtn">Show Neuron</button>
+    <button onclick = "loadETC(1)" style="display: none;" id="ETC" class="mui-btn mui-btn--primary largeBtn">Show Election Transport Chain</button>
     <button onclick="loadheart(1)" id="heartbtn" style="display: none;" class="mui-btn mui-btn--primary heartbtns">3d Model</button>
     <button onclick="loadkidney(1)" id="kidneybtn" style="display: none;" class="mui-btn mui-btn--primary kidneybtns">3d Model</button>
+    <button onclick="loadnephron(1)" id="nephronbtn" style="display: none;" class="mui-btn mui-btn--primary nephronbtns">Show Nepheron</button>
+    <button onclick="loadexretory(1)" id="exretorybtn" style="display: none;" class="mui-btn mui-btn--primary exretorybtns">3d Model</button>
+    <button onclick="kidney2dmodel()" id="kidney2dmodelbtn" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Kidney 2d Model</button>
     <button onclick="loadlung(1)" id="lungbtn" style="display: none;" class="mui-btn mui-btn--primary lungbtns">3d Model</button>
     <button onclick="loadstomach(1)" id="stomachbtn" style="display: none;" class="mui-btn mui-btn--primary stomachbtns">3d Model</button>
-    <button onclick="showMuscular()" id="muscularbtn" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Show Muscular System</button>
+    <button onclick="loaddigestive(1)" id="digestivebtn" style="display: none;" class="mui-btn mui-btn--primary digestivebtns">3d Model</button>
+    <button onclick="loadcirculatory(1)" id="circulatorybtns" style="display: none;" class="mui-btn mui-btn--primary circulatorybtns">THIS LOADS IN CIRCULATORY SYSTEM VIA SEARCH</button>
+    <button onclick="loadlymphatic(1)" id="lymphbtns" style="display: none;" class="mui-btn mui-btn--primary lymphbtns">THIS LOADS IN LYMPHATIC SYSTEM VIA SEARCH</button>
+    <button onclick="loadendocrine(1)" id="endocrinebtns" style="display: none;" class="mui-btn mui-btn--primary endocrinebtns">THIS LOADS IN ENDOCRINE SYSTEM VIA SEARCH</button>
+    <button onclick="loadmuscular(1)" id="muscularbtns" style="display: none;" class="mui-btn mui-btn--primary muscularbtns">THIS LOADS IN MUSCULAR SYSTEM VIA SEARCH</button>
+    <button onclick="loadbronchi(1)" id="bronchibtn" style="display: none;" class="mui-btn mui-btn--primary bronchibtns">3d Model</button>
+    <button onclick="loadliver(1)" id="liverbtn" style="display: none;" class="mui-btn mui-btn--primary liverbtns">3d Model</button>
+    <button onclick="loadintestine(1)" id="intestinebtn" style="display: none;" class="mui-btn mui-btn--primary intestinebtns">3d Model</button>
+    <button onclick="loadcolon(1)" id="colonbtn" style="display: none;" class="mui-btn mui-btn--primary colonbtns">3d Model</button>
+    <button onclick="loadpancreas(1)" id="pancreasbtn" style="display: none;" class="mui-btn mui-btn--primary pancreasbtns">3d Model</button>
+    <button onclick="loadspine(1)" id="spinebtn" style="display: none;" class="mui-btn mui-btn--primary spinebtns">THIS LOADS IN NERVOUS SYSTEM VIA SEARCH</button>
+    <button onclick="loaddigestiveinsitu(1)" id="digestiveinsitubtn" style="display: none;" class="mui-btn mui-btn--primary digestiveinsitubtns">THIS LOADS IN DIGESTIVE SYSTEM VIA SEARCH</button>
+    <button onclick="loadskull(1)" id="skullbtn" style="display: none;" class="mui-btn mui-btn--primary skullbtns">3d Model</button>
+    <button onclick="loadskin(1)" id="skinbtn" style="display: none;" class="mui-btn mui-btn--primary skinbtns">THIS LOADS IN INTEGUMENTARY SYSTEM VIA SERACH</button>
+
 
     <form class="largeBtn" id = "search">
       <div id = "dropdown">
         <select id = "searchbox" onchange = "search(this.value)">
-          <option class = "searchContent" value = "Search" disabled selected = "true">Search</option>
-          <option class = "searchContent" value = "heart" >Heart</option>
-          <option class = "searchContent" value = "cell" >Cell</option>
-          <option class = "searchContent" value = "brain" >Brain</option>
-          <option class = "searchContent" value = "human" >Human</option>
-          <option class = "searchContent" value = "skeletal" >Skeletal</option>
-          <option class = "searchContent" value = "golgi" >Golgi</option>
-          <option class = "searchContent" value = "mito" >Mitochondria</option> 
-          <option class = "searchContent" value = "neuron" >Neuron</option>         
+          <option class = "searchContent" value = "Search" disabled selected = "true">Jump to System</option>
+          <option class = "searchContent" value = "spine" >Nervous System</option>
+          <option class = "searchContent" value = "skeletal" >Skeletal System</option>
+          <option class = "searchContent" value = "exretory" >Excretory system</option>
+          <option class = "searchContent" value = "lung" >Respiratory system</option>
+          <option class = "searchContent" value = "digestiveinsitu" >Digestive System</option>
+          <option class = "searchContent" value = "circulatory" >Circulatory System</option>   
+          <option class = "searchContent" value = "lymphatic" >Lymphatic System</option> 
+          <option class = "searchContent" value = "muscular" >Muscular System</option>
+          <option class = "searchContent" value = "endocrine" >Endocrine System</option> 
+          <option class = "searchContent" value = "skin" >Integumentary System</option> 
+
+ 
+
+     
+  
+
           
         </select>
       </div>
@@ -68,12 +105,11 @@
       </header>
       <div class="cd-panel__container">
         <div class="cd-panel__content">
-          <p class="sContent">The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other.<br><br> Key for Interior View of brain: [to be added] </p>
+          <p class="sContent">The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other. <br></br> Notable structures seen in this image include: </br><br>- The pituitary gland, also known as the 'master gland', which controls hormonal balances in the body.  <br>- The amygdala, which controls the emotion of fear and influences aggression, reward-based learning, unconscious memory, social understanding, parenting emotions, memory-emotion connections, and addiction behaviors. <br>- The hippocampus, part of the brain's limbic system, is vital for memory, learning, and emotions. It stores short-term memories and facilitates their conversion into long-term memory.  Key functions include storing declarative facts, transferring short-term to long-term memory (assisted by sleep), and aiding spatial navigation and mental mapping. <br>- The hypothalamus, deep within the brain, links the endocrine and nervous systems to maintain body stability (homeostasis). It interprets chemical signals from the brain and peripheral nerves, regulating vital functions like temperature, blood pressure, hunger, thirst, and mood. It also influences sex drive and sleep, controlling these processes through the autonomic nervous system and hormone regulation. </br>   </p>
         </div> 
       </div> 
     </div> 
     <!-- Ribosome Menu -->
-
     <div class="cd-ribopanel cd-panel--from-right js-cd-panel-main">
         <header class="cd-panel__header">
         <p class="sTitle">Ribosome Functionality</p>
