@@ -888,34 +888,34 @@ function loadhuman(val) {
 
             eyemat = new BABYLON.StandardMaterial("eyemat", scene);
 
-            // eye = BABYLON.MeshBuilder.CreateSphere("eye", { diameter: 0.25, segments: 32 }, scene);
+            eye = BABYLON.MeshBuilder.CreateSphere("eye", { diameter: 0.2, segments: 32 }, scene);
 
-            // humanmeshes.push(eye);
-            // eye.position.set(0.2, 3.2, -0.3); // (horizontal,vertical,depth)
-            // eye.material = eyemat;
-            // eye.actionManager = new BABYLON.ActionManager(scene);
-            // eye.actionManager.registerAction(
-            //     new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            //         camera.lowerRadiusLimit = 2;
-            //         Swal.fire({
-            //             title: "Eye",
-            //             text: "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world.",
-            //             icon: "question",
-            //             background: "black",
-            //             color: "white",
-            //             backdrop: false,
-            //         }).then(function () {
-            //             eyebtns.forEach((el) => {
-            //                 hidebtn(el);
-            //             });
-            //         });
-            //         eyebtns.forEach((el) => {
-            //             showbtn(el);
-            //         });
-            //         camera.target = eye;
-            //         camera.inertialRadiusOffset += 4;
-            //     })
-            // );
+            humanmeshes.push(eye);
+            eye.position.set(0.1, 10, -.7); // (horizontal,vertical,depth)
+            eye.material = eyemat;
+            eye.actionManager = new BABYLON.ActionManager(scene);
+            eye.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Eye",
+                        text: "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world.",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function () {
+                        eyebtns.forEach((el) => {
+                            hidebtn(el);
+                        });
+                    });
+                    eyebtns.forEach((el) => {
+                        showbtn(el);
+                    });
+                    camera.target = eye;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
         });
 
         clearbtns();
