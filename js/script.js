@@ -1205,9 +1205,9 @@ function loadtrachea(val) {
             });
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             trachearef = meshes[0];
-            allMeshes.push(bronchiref);
-            createSphereBtn(10, 2, -105, lungmeshes, function(){createBasicPopup("Trachea", "", tracheabtns)}, 2.0)
-
+            allMeshes.push(trachearef);
+            createSphereBtn(-40, -30, 720, lungmeshes, function(){createBasicPopup("Trachea", "The trachea (also called the windpipe) is the large tube that brings air from the nasal passages, throat, and larynx (the upper respiratory tract) to the two large airways that branch off into each lung (bronchi). An important function of the trachea is warming and moisturizing the air, as well as catching debris and microbes before they can enter the lungs. The function of the trachea is to be the main passageway for air to pass from the upper respiratory tract to the lungs. As air flows into the trachea during inhalation, it is warmed and moisturized before entering the lungs.", tracheabtns)}, 14.0)
+            
         });
         clearbtns();
         showbtn(backHuman);
