@@ -73,7 +73,12 @@
     opacity: 0;
     transition: opacity 0.2s !important;
     border-radius: 6px;
+    
 }
+#tracheabtn{
+    left: 80vh;
+        top: 73vh;
+    }
 #bronchibtn{
 left: 80vh;
     top: 73vh;
