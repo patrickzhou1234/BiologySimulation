@@ -290,7 +290,7 @@ function checkvis(btn) {
 function loadcell() {
     // if (!backcell.classList.contains("animobtn")) {
     clearbtns(); // function that hides all btns
-    showbtn(backHuman);
+    // showbtn(backHuman);
 
     // hide human meshes but show cell meshes
     for (i = 0; i < cellmeshes.length; i++) {
@@ -341,24 +341,24 @@ var createScene = function (canvas, engine) {
 
     light.intensity = 0.7; // sets intesity of light
 
-    BABYLON.SceneLoader.ImportMesh("", "", `models/ribosoma.glb`, scene, function (meshes) {
-        // imports 3D model
-        meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-        meshes[0].position = new BABYLON.Vector3(0.4855579893367401,-0.19247690443455667,2.106724807070549);
-        allMeshes.push(meshes[0]);
-    });
+    // BABYLON.SceneLoader.ImportMesh("", "", `models/ribosoma.glb`, scene, function (meshes) {
+    //     // imports 3D model
+    //     meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+    //     meshes[0].position = new BABYLON.Vector3(0.4855579893367401,-0.19247690443455667,2.106724807070549);
+    //     allMeshes.push(meshes[0]);
+    // });
 
-    BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
-        // imports mesh from animal_cell.glb
-        camera.target = meshes[0]; // sets camera target to first element of meshes array
-        hideui();
-        cellref = meshes[0];
+    // BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
+    //     // imports mesh from animal_cell.glb
+    //     camera.target = meshes[0]; // sets camera target to first element of meshes array
+    //     hideui();
+    //     cellref = meshes[0];
 
-        allMeshes.push(cellref);
-    });
+    //     allMeshes.push(cellref);
+    // });
 
     document.addEventListener("DOMContentLoaded", function () {
-        cellSpheres();
+        loadhuman(0);
     });
 
     // const axes = new BABYLON.AxesViewer(scene);
@@ -865,7 +865,7 @@ function loadhuman(val) {
             humref = meshes[0];
             allMeshes.push(humref);
 
-            camera.position = new BABYLON.Vector3(0, 0, -20);
+            camera.position = new BABYLON.Vector3(0, 1, -20);
             camera.target = new BABYLON.Vector3(0, 5, 0);
             camera.radius = 20;
 
@@ -904,7 +904,7 @@ function loadhuman(val) {
         });
 
         clearbtns();
-        showbtn(backcell);
+        // showbtn(backcell);
         humanmeshes.forEach((el) => {
             orgsettings(el);
         });
