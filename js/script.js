@@ -1319,15 +1319,16 @@ function loadmuscular(val) {
         BABYLON.SceneLoader.ImportMesh("", "", "models/muscular_system.glb", scene, function (meshes) {
             clear();
             hideui();
-            camera.position = new BABYLON.Vector3(804.7, 1.25, 0);
-            camera.target = new BABYLON.Vector3(0, 9,0 );
+            // camera.position = new BABYLON.Vector3(804.7, 1.25, 0);
+            camera.position = new BABYLON.Vector3(4, 1, -20);
+            camera.target = new BABYLON.Vector3(0, -2, 0);
             camera.upperRadiusLimit = 100;
-            camera.radius = 23;
+            camera.radius = 30;
             clear();
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
-            meshes[0].scaling = new BABYLON.Vector3(.005, .005, .005);
+            meshes[0].scaling = new BABYLON.Vector3(0.3, 0.3, 0.3);
             muscularref = meshes[0];
             allMeshes.push(muscularref);
 
@@ -1408,7 +1409,7 @@ function loadlung(val) {
         clearbtns();
         clickcond(humanmeshes, lungbtns, 0);
         showbtn(backHuman);
-        importmesh("lung.glb", new BABYLON.Vector3(.18, .18, .18))
+        importmesh("lung.glb", scaling = new BABYLON.Vector3(.18, 0.18, .18), camera_position = new BABYLON.Vector3(0, 0, 0))
         showbtn(backHuman);
         createSphereBtn(0, 0.2, 0.025, lungmeshes, function(){createBasicPopup("Trachea", "The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.", tracheabtns)}, .05)
         createSphereBtn(0, 0, 0.025, lungmeshes, function(){createBasicPopup("Bronchi", "The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.", bronchibtns)}, .05)
