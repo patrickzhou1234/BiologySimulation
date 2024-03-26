@@ -133,7 +133,7 @@ let tracheameshes = [];
 let colonmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
+let buttonArrays = [tracheabtns, roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -1186,33 +1186,7 @@ function loadbronchi(val) {
         showbtn(backHuman);
     }
 }
-function loadtrachea(val) {
-    if (checkvis(tracheabtns[0]) || val == 0) {
-        showui();
-        clearbtns();
-        clickcond(humanmeshes, tracheabtns, 0);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/trachea.glb", scene, function (meshes) {
-            clear();
-            hideui();
 
-            camera.position = new BABYLON.Vector3(-184, 1.25, 620);
-            camera.target = new BABYLON.Vector3(0, 9, 0);
-            camera.upperRadiusLimit = 100;
-            camera.radius = 23;
-            clear();
-            humanmeshes.forEach((el) => {
-                el.visibility = 0;
-            });
-            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
-            trachearef = meshes[0];
-            allMeshes.push(trachearef);
-            createSphereBtn(-40, -30, 720, lungmeshes, function(){createBasicPopup("Trachea", "The trachea (also called the windpipe) is the large tube that brings air from the nasal passages, throat, and larynx (the upper respiratory tract) to the two large airways that branch off into each lung (bronchi). An important function of the trachea is warming and moisturizing the air, as well as catching debris and microbes before they can enter the lungs. The function of the trachea is to be the main passageway for air to pass from the upper respiratory tract to the lungs. As air flows into the trachea during inhalation, it is warmed and moisturized before entering the lungs.", tracheabtns)}, 14.0)
-            
-        });
-        clearbtns();
-        showbtn(backHuman);
-    }
-}
 function loadlymphatic(val) {
     if (checkvis(lymphbtns[0]) || val == 0) {
         showui();
@@ -1475,8 +1449,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = skull;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = skull;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1497,8 +1471,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = spine;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = spine;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1521,8 +1495,8 @@ function loadskeletal(val) {
                         imageHeight: window.innerHeight * 0.7,
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = femur;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = femur;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1545,8 +1519,8 @@ function loadskeletal(val) {
                         imageHeight: window.innerHeight * 0.4,
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = pelvis;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = pelvis;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1569,8 +1543,8 @@ function loadskeletal(val) {
                         imageHeight: window.innerHeight * 0.4,
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = ribs;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = ribs;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1593,8 +1567,8 @@ function loadskeletal(val) {
                         imageHeight: window.innerHeight * 0.6,
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = humerus;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = humerus;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1615,8 +1589,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = tibfib;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = tibfib;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1637,8 +1611,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = raduln;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = raduln;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1659,8 +1633,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = sternum;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = sternum;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1681,8 +1655,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = scapula;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = scapula;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1703,8 +1677,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = phalangef;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = phalangef;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1725,8 +1699,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = phalangeh;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = phalangeh;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
