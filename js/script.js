@@ -1377,19 +1377,37 @@ function kidney2dmodel(){
     });
 }
 
-function loadlung(val) {
+function loadresp(val) {
     if (checkvis(lungbtns[0]) || val == 0) {
         clear()
         clearbtns();
         clickcond(humanmeshes, lungbtns, 0);
         showbtn(backHuman);
-        importmesh("lung.glb", scaling = new BABYLON.Vector3(.18, 0.18, .18), camera_position = new BABYLON.Vector3(0, 0, 0))
+
+        camera.target = new BABYLON.Vector3(0, -0.75, 0);
+        camera.position = new BABYLON.Vector3(0,0,3);
+        // importmesh("lung.glb", scaling = new BABYLON.Vector3(.18, 0.18, .18), camera_target = new BABYLON.Vector3(0, -1, 0), camera_position = new BABYLON.Vector3(0, 0, 5))
+        BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
+            meshes[0].scaling = new BABYLON.Vector3(0.18, 0.18, 0.18);
+            lungref = meshes[0];
+            allMeshes.push(lungref);
+        });
+        loaddiaphragm();
+        // camera.radius.upperRadiusLimit = 100;
+        // camera.radius = 15;
         showbtn(backHuman);
         createSphereBtn(0, 0.2, 0.025, lungmeshes, function(){createBasicPopup("Trachea", "The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.", tracheabtns)}, .05)
         createSphereBtn(0, 0, 0.025, lungmeshes, function(){createBasicPopup("Bronchi", "The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.", bronchibtns)}, .05)
     }
 }
-
+function loaddiaphragm() {
+    BABYLON.SceneLoader.ImportMesh("", "", "models/diaphragm.glb", scene, function (meshes) {
+        meshes[0].scaling = new BABYLON.Vector3(7, 7, -7);
+        meshes[0].position = new BABYLON.Vector3(0,-3.5,0);
+        diaphragm = meshes[0];
+        allMeshes.push(diaphragmref);
+    });
+}
 function loadstomach(val) {
     if (checkvis(stomachbtns[0]) || val == 0) {
         showui();
