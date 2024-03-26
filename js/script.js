@@ -71,6 +71,7 @@ digestiveinsitubtns = document.querySelectorAll(".digestiveinsitubtns");
 skullbtns = document.querySelectorAll(".skullbtns");
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
+backPageBtn = document.getElementById("backbtn");
 nephronbtn = document.getElementById("nephronbtn");
 backExretory = document.getElementById("backExretory");
 showExterior = document.getElementById("exterior");
@@ -107,6 +108,7 @@ let eyeref = 0;
 let riboref = 0;
 let exteriorref = 0;
 let spineref = 0;
+let curFunction = "";
 let lobemeshes = [];
 let eyemeshes = [];
 let neuronmeshes = [];
@@ -187,6 +189,26 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
     );
 }
 
+class Memory {
+    constructor(parent,child) {
+        this.p = parent;
+        this.c = child;
+    }
+    getParent() {
+        return this.p;
+    }
+    getChild() {
+        return this.c;
+    }
+    setParent(parent) {
+        this.p = parent;
+    }
+    setChild(child) {
+        this.c = child;
+    }
+}
+
+const m = new Memory(null, "loadhuman(0)");
 /**
  * Creates a basic popup with a title, description, and 3d model button
  * 
@@ -194,6 +216,11 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
  * @param {string} description k in the popup
  * @param {*} modelBtnRef Class of the model which refers to the 3d model (i.e. mitosmlbtns)
  */
+function change(prev, next) {
+    m.setParent(prev);
+    m.setChild(next);
+}
+
 function createBasicPopup(title, description, modelBtnRef = null){
     if(modelBtnRef != null){
         Swal.fire({
@@ -291,7 +318,7 @@ function loadcell() {
     // if (!backcell.classList.contains("animobtn")) {
     clearbtns(); // function that hides all btns
     // showbtn(backHuman);
-
+    change(m.getChild(), "loadcell()");
     // hide human meshes but show cell meshes
     for (i = 0; i < cellmeshes.length; i++) {
         cellmeshes[i].visibility = 1;
@@ -585,6 +612,7 @@ function loadribopanel() {
 }
 
 function showExteriorBrain() {
+    change(m.getChild(), "showExteriorBrain()");
     if (showExterior.textContent == "Show Exterior View") {
         showExterior.textContent = "Hide Exterior View";
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
@@ -794,6 +822,7 @@ function showExteriorBrain() {
     }
 }
 function loadbrain(val) {
+    change(m.getChild(), "loadbrain(0)");
     if (checkvis(brainbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, brainbtns, 0);
@@ -823,6 +852,7 @@ function loadbrain(val) {
     }
 }
 function loadspine(val) {
+    change(m.getChild(), "loadspine(0)");
     if (checkvis(spinebtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, spinebtns, 0);
@@ -849,6 +879,7 @@ function loadspine(val) {
     }
 }
 function loadhuman(val) {
+    change(m.getChild(), "loadhuman(0)");
     if (checkvis(backHuman) || val == 0) {
         showui();
         clickcond(cellmeshes, backHuman);
@@ -911,7 +942,7 @@ function loadhuman(val) {
     }
 }
 function loadeye() {
-
+    change(m.getChild(), "loadeye()");
     if (checkvis(eyebtns[0])) {
         showui();
         clickcondeye(0);
@@ -956,6 +987,7 @@ function loadeye() {
 
 }
 function loadheart(val) {
+    change(m.getChild(), "loadheart(0)");
     if (checkvis(heartbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, heartbtns, 0);
@@ -975,6 +1007,7 @@ function loadheart(val) {
 }
 
 function loadexretory(val) {
+    change(m.getChild(), "loadexretory(0)");
     if (checkvis(exretorybtns[0]) || val == 0) {
         clearbtns()
         clear()
@@ -989,6 +1022,7 @@ function loadexretory(val) {
 }
 
 function loaddigestive(val) {
+    change(m.getChild(), "loaddigestive(0)");
     if (checkvis(digestivebtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, digestivebtns, 0);
@@ -1014,6 +1048,7 @@ function loaddigestive(val) {
     }
 }
 function loaddigestiveinsitu(val) {
+    change(m.getChild(), "loaddigestiveinsitu(0)");
     if (checkvis(digestiveinsitubtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, digestiveinsitubtns, 0);
@@ -1037,6 +1072,7 @@ function loaddigestiveinsitu(val) {
     }
 }
 function loadliver(val) {
+    change(m.getChild(), "loadliver(0)");
     if (checkvis(liverbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, liverbtns, 0);
@@ -1060,6 +1096,7 @@ function loadliver(val) {
     }
 }
 function loadintestine(val) {
+    change(m.getChild(), "loadintestine(0)");
     if (checkvis(intestinebtns[0]) || val == 0) {
         showui();
         clearbtns();
@@ -1085,6 +1122,7 @@ function loadintestine(val) {
     }
 }
 function loadcolon(val) {
+    change(m.getChild(), "loadcolon(0)");
     if (checkvis(colonbtns[0]) || val == 0) {
         showui();
         clearbtns();
@@ -1109,6 +1147,7 @@ function loadcolon(val) {
     }
 }
 function loadpancreas(val) {
+    change(m.getChild(), "loadpancreas(0)");
     if (checkvis(pancreasbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, pancreasbtns, 0);
@@ -1133,6 +1172,7 @@ function loadpancreas(val) {
 }
 
 function loadcirculatory(val) {
+    change(m.getChild(), "loadcirculatory(0)");
     if (checkvis(circulatorybtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, circulatorybtns, 0);
@@ -1160,6 +1200,7 @@ function loadcirculatory(val) {
     }
 }
 function loadbronchi(val) {
+    change(m.getChild(), "loadbronchi(0)");
     if (checkvis(bronchibtns[0]) || val == 0) {
         showui();
         clearbtns();
@@ -1188,6 +1229,7 @@ function loadbronchi(val) {
 }
 
 function loadlymphatic(val) {
+    change(m.getChild(), "loadlymphatic(0)");
     if (checkvis(lymphbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, lymphbtns, 0);
@@ -1213,6 +1255,7 @@ function loadlymphatic(val) {
     }
 }
 function loadspleen(val) {
+    change(m.getChild(), "loadspleen(0)");
     if (checkvis(spleenbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, spleenbtns, 0);
@@ -1239,6 +1282,7 @@ function loadspleen(val) {
     }
 }
 function loadendocrine(val) {
+    change(m.getChild(), "loadendocrine(0)");
     if (checkvis(endocrinebtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, endocrinebtns, 0);
@@ -1263,6 +1307,7 @@ function loadendocrine(val) {
     }
 }
 function loadskin(val) {
+    change(m.getChild(), "loadskin(0)");
     if (checkvis(skinbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, skinbtns, 0);
@@ -1287,6 +1332,7 @@ function loadskin(val) {
     }
 }
 function loadmuscular(val) {
+    change(m.getChild(), "loadmuscular(0)");
     if (checkvis(muscularbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, muscularbtns, 0);
@@ -1312,6 +1358,7 @@ function loadmuscular(val) {
     }
 }
 function loadskull(val) {
+    change(m.getChild(), "loadskull(0)");
     if (checkvis(skullbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, skullbtns, 0);
@@ -1337,6 +1384,7 @@ function loadskull(val) {
 }
 
 function loadnephron(val) {
+    change(m.getChild(), "loadnephron(0)");
     if (checkvis(nephronbtn) || val == 0) {
         clearbtns();
         clear()
@@ -1352,6 +1400,7 @@ function loadnephron(val) {
 }
 
 function loadkidney(val) {
+    change(m.getChild(), "loadkidney(0)");
     if (checkvis(kidneybtns[0]) || val == 0) {
         clearbtns();
         clear()
@@ -1378,6 +1427,7 @@ function kidney2dmodel(){
 }
 
 function loadresp(val) {
+    change(m.getChild(), "loadresp(0)");
     if (checkvis(lungbtns[0]) || val == 0) {
         clear()
         clearbtns();
@@ -1409,6 +1459,7 @@ function loaddiaphragm() {
     });
 }
 function loadstomach(val) {
+    change(m.getChild(), "loadstomach(0)");
     if (checkvis(stomachbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, stomachbtns, 0);
@@ -1428,6 +1479,7 @@ function loadstomach(val) {
 }
 
 function loadskeletal(val) {
+    change(m.getChild(), "loadskeletal(0)");
     if (val == 0) {
         showui();
         camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
@@ -1732,6 +1784,7 @@ function loadskeletal(val) {
 }
 
 function loadneuron(val) {
+    change(m.getChild(), "loadneuron(0)");
     if (checkvis(showNeuron) || val == 0) {
         if (showNeuron.textContent == "Show Neuron") {
             showNeuron.textContent = "Hide Neuron";
@@ -1917,7 +1970,9 @@ function loadneuron(val) {
         }
     }
 }
-
+function backPage() {
+    eval(m.getParent())
+}
 // clears all meshes
 function clear() {
     for (i = 0; i < allMeshes.length; i++) {
