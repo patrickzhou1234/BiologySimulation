@@ -133,7 +133,7 @@ let tracheameshes = [];
 let colonmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
-let buttonArrays = [roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
+let buttonArrays = [tracheabtns, roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -290,7 +290,7 @@ function checkvis(btn) {
 function loadcell() {
     // if (!backcell.classList.contains("animobtn")) {
     clearbtns(); // function that hides all btns
-    showbtn(backHuman);
+    // showbtn(backHuman);
 
     // hide human meshes but show cell meshes
     for (i = 0; i < cellmeshes.length; i++) {
@@ -341,24 +341,24 @@ var createScene = function (canvas, engine) {
 
     light.intensity = 0.7; // sets intesity of light
 
-    BABYLON.SceneLoader.ImportMesh("", "", `models/ribosoma.glb`, scene, function (meshes) {
-        // imports 3D model
-        meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-        meshes[0].position = new BABYLON.Vector3(0.4855579893367401,-0.19247690443455667,2.106724807070549);
-        allMeshes.push(meshes[0]);
-    });
+    // BABYLON.SceneLoader.ImportMesh("", "", `models/ribosoma.glb`, scene, function (meshes) {
+    //     // imports 3D model
+    //     meshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+    //     meshes[0].position = new BABYLON.Vector3(0.4855579893367401,-0.19247690443455667,2.106724807070549);
+    //     allMeshes.push(meshes[0]);
+    // });
 
-    BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
-        // imports mesh from animal_cell.glb
-        camera.target = meshes[0]; // sets camera target to first element of meshes array
-        hideui();
-        cellref = meshes[0];
+    // BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
+    //     // imports mesh from animal_cell.glb
+    //     camera.target = meshes[0]; // sets camera target to first element of meshes array
+    //     hideui();
+    //     cellref = meshes[0];
 
-        allMeshes.push(cellref);
-    });
+    //     allMeshes.push(cellref);
+    // });
 
     document.addEventListener("DOMContentLoaded", function () {
-        cellSpheres();
+        loadhuman(0);
     });
 
     // const axes = new BABYLON.AxesViewer(scene);
@@ -865,7 +865,7 @@ function loadhuman(val) {
             humref = meshes[0];
             allMeshes.push(humref);
 
-            camera.position = new BABYLON.Vector3(0, 0, -20);
+            camera.position = new BABYLON.Vector3(0, 1, -20);
             camera.target = new BABYLON.Vector3(0, 5, 0);
             camera.radius = 20;
 
@@ -904,7 +904,7 @@ function loadhuman(val) {
         });
 
         clearbtns();
-        showbtn(backcell);
+        // showbtn(backcell);
         humanmeshes.forEach((el) => {
             orgsettings(el);
         });
@@ -1186,33 +1186,7 @@ function loadbronchi(val) {
         showbtn(backHuman);
     }
 }
-function loadtrachea(val) {
-    if (checkvis(tracheabtns[0]) || val == 0) {
-        showui();
-        clearbtns();
-        clickcond(humanmeshes, tracheabtns, 0);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/trachea.glb", scene, function (meshes) {
-            clear();
-            hideui();
 
-            camera.position = new BABYLON.Vector3(-184, 1.25, 620);
-            camera.target = new BABYLON.Vector3(0, 9, 0);
-            camera.upperRadiusLimit = 100;
-            camera.radius = 23;
-            clear();
-            humanmeshes.forEach((el) => {
-                el.visibility = 0;
-            });
-            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
-            trachearef = meshes[0];
-            allMeshes.push(trachearef);
-            createSphereBtn(-40, -30, 720, lungmeshes, function(){createBasicPopup("Trachea", "The trachea (also called the windpipe) is the large tube that brings air from the nasal passages, throat, and larynx (the upper respiratory tract) to the two large airways that branch off into each lung (bronchi). An important function of the trachea is warming and moisturizing the air, as well as catching debris and microbes before they can enter the lungs. The function of the trachea is to be the main passageway for air to pass from the upper respiratory tract to the lungs. As air flows into the trachea during inhalation, it is warmed and moisturized before entering the lungs.", tracheabtns)}, 14.0)
-            
-        });
-        clearbtns();
-        showbtn(backHuman);
-    }
-}
 function loadlymphatic(val) {
     if (checkvis(lymphbtns[0]) || val == 0) {
         showui();
@@ -1403,19 +1377,37 @@ function kidney2dmodel(){
     });
 }
 
-function loadlung(val) {
+function loadresp(val) {
     if (checkvis(lungbtns[0]) || val == 0) {
         clear()
         clearbtns();
         clickcond(humanmeshes, lungbtns, 0);
         showbtn(backHuman);
-        importmesh("lung.glb", scaling = new BABYLON.Vector3(.18, 0.18, .18), camera_position = new BABYLON.Vector3(0, 0, 0))
+
+        camera.target = new BABYLON.Vector3(0, -0.75, 0);
+        camera.position = new BABYLON.Vector3(0,0,3);
+        // importmesh("lung.glb", scaling = new BABYLON.Vector3(.18, 0.18, .18), camera_target = new BABYLON.Vector3(0, -1, 0), camera_position = new BABYLON.Vector3(0, 0, 5))
+        BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
+            meshes[0].scaling = new BABYLON.Vector3(0.18, 0.18, 0.18);
+            lungref = meshes[0];
+            allMeshes.push(lungref);
+        });
+        loaddiaphragm();
+        // camera.radius.upperRadiusLimit = 100;
+        // camera.radius = 15;
         showbtn(backHuman);
         createSphereBtn(0, 0.2, 0.025, lungmeshes, function(){createBasicPopup("Trachea", "The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.", tracheabtns)}, .05)
         createSphereBtn(0, 0, 0.025, lungmeshes, function(){createBasicPopup("Bronchi", "The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.", bronchibtns)}, .05)
     }
 }
-
+function loaddiaphragm() {
+    BABYLON.SceneLoader.ImportMesh("", "", "models/diaphragm.glb", scene, function (meshes) {
+        meshes[0].scaling = new BABYLON.Vector3(7, 7, -7);
+        meshes[0].position = new BABYLON.Vector3(0,-3.5,0);
+        diaphragm = meshes[0];
+        allMeshes.push(diaphragmref);
+    });
+}
 function loadstomach(val) {
     if (checkvis(stomachbtns[0]) || val == 0) {
         showui();
@@ -1475,8 +1467,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = skull;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = skull;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1497,8 +1489,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = spine;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = spine;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1521,8 +1513,8 @@ function loadskeletal(val) {
                         imageHeight: window.innerHeight * 0.7,
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = femur;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = femur;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1545,8 +1537,8 @@ function loadskeletal(val) {
                         imageHeight: window.innerHeight * 0.4,
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = pelvis;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = pelvis;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1569,8 +1561,8 @@ function loadskeletal(val) {
                         imageHeight: window.innerHeight * 0.4,
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = ribs;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = ribs;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1593,8 +1585,8 @@ function loadskeletal(val) {
                         imageHeight: window.innerHeight * 0.6,
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = humerus;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = humerus;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1615,8 +1607,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = tibfib;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = tibfib;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1637,8 +1629,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = raduln;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = raduln;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1659,8 +1651,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = sternum;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = sternum;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1681,8 +1673,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = scapula;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = scapula;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1703,8 +1695,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = phalangef;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = phalangef;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -1725,8 +1717,8 @@ function loadskeletal(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = phalangeh;
-                    camera.inertialRadiusOffset += 4;
+                    // camera.target = phalangeh;
+                    // camera.inertialRadiusOffset += 4;
                 })
             );
 
