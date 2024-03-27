@@ -59,6 +59,7 @@ circulatorybtns = document.querySelectorAll(".circulatorybtns");
 bronchibtns = document.querySelectorAll(".bronchibtns");
 lymphbtns = document.querySelectorAll(".lymphbtns");
 liverbtns = document.querySelectorAll(".liverbtns");
+esophagusbtns = document.querySelectorAll(".esophagusbtns");
 intestinebtns = document.querySelectorAll(".intestinebtns");
 spleenbtns = document.querySelectorAll(".spleenbtns");
 pancreasbtns = document.querySelectorAll(".pancreasbtns");
@@ -91,6 +92,7 @@ let skinref = 0;
 let intestineref = 0;
 let spleenref = 0;
 let pancreasref = 0;
+let esophagusref = 0;
 let colonref = 0;
 let skeletalref = 0;
 let digestiveinsituref = 0;
@@ -131,11 +133,12 @@ let livermeshes =[];
 let intestinemeshes = [];
 let spleenmeshes = [];
 let pancreasmeshes = [];
+let esophagusmeshes = [];
 let tracheameshes = [];
 let colonmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
-let buttonArrays = [tracheabtns, roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
+let buttonArrays = [tracheabtns, roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -1142,6 +1145,31 @@ function loadcolon(val) {
             meshes[0].scaling = new BABYLON.Vector3(.025, .025, .025);
             colonref = meshes[0];
             allMeshes.push(colonref);
+            clearbtns();
+
+        });
+    }
+}
+function loadesophagus(val) {
+    change(m.getChild(), "loadesophagus(0)");
+    if (checkvis(esophagusbtns[0]) || val == 0) {
+        showui();
+        clearbtns();
+        clickcond(humanmeshes, esophagusbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/esophagus.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(190, 0, -200);
+            camera.target = new BABYLON.Vector3(0, 0,0 );
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(.25, .25, .25);
+            esophagusref = meshes[0];
+            allMeshes.push(esophagusref);
             clearbtns();
 
         });
