@@ -918,6 +918,7 @@ function loadhuman(val) {
             //             icon: "question",
             //             background: "black",
             //             color: "white",
+            //             imageUrl: "images/Eye.png"
             //             backdrop: false,
             //         }).then(function () {
             //             eyebtns.forEach((el) => {
