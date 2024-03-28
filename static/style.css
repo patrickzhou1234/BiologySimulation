@@ -82,11 +82,26 @@
     opacity: 0;
     transition: opacity 0.2s !important;
     border-radius: 6px;
+}.spleenbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+#spleenbtn{
+left: 80vh;
+    top: 93h;
 }
 #bronchibtn{
 left: 80vh;
     top: 73vh;
-}
+}#esophagusbtn{
+    left: 80vh;
+        top: 73vh;
+    }
 #liverbtn{
     left: 80vh;
         top: 73vh;
@@ -131,7 +146,7 @@ left: 80vh;
 
 #backcell {
     left: 5vh;
-    top: 3vw;
+    top: 0vw;
     opacity: 0;
 }
 

@@ -67,6 +67,7 @@
     <button onclick="loadcolon(1)" id="colonbtn" style="display: none;" class="mui-btn mui-btn--primary colonbtns">3d Model</button>
     <button onclick="loadpancreas(1)" id="pancreasbtn" style="display: none;" class="mui-btn mui-btn--primary pancreasbtns">3d Model</button>
     <button onclick="loadspine(1)" id="spinebtn" style="display: none;" class="mui-btn mui-btn--primary spinebtns">THIS LOADS IN NERVOUS SYSTEM VIA SEARCH</button>
+    <button onclick="loadspleen(1)" id="spleenbtn" style="display: none;" class="mui-btn mui-btn--primary spleenbtns">3d Model</button>
     <button onclick="loaddigestiveinsitu(1)" id="digestiveinsitubtn" style="display: none;" class="mui-btn mui-btn--primary digestiveinsitubtns">THIS LOADS IN DIGESTIVE SYSTEM VIA SEARCH</button>
     <button onclick="loadskull(1)" id="skullbtn" style="display: none;" class="mui-btn mui-btn--primary skullbtns">3d Model</button>
     <button onclick="loadskin(1)" id="skinbtn" style="display: none;" class="mui-btn mui-btn--primary skinbtns">THIS LOADS IN INTEGUMENTARY SYSTEM VIA SERACH</button>
@@ -78,7 +79,6 @@
       <div id = "dropdown">
         <select id = "searchbox" onchange = "search(this.value)">
           <option class = "searchContent" value = "Search" disabled selected = "true">Jump to System</option>
-          <option class = "searchContent" value = "human" >Home Screen: Human</option>
           <option class = "searchContent" value = "spine" >Nervous System</option>
           <option class = "searchContent" value = "skeletal" >Skeletal System</option>
           <option class = "searchContent" value = "exretory" >Excretory system</option>
@@ -89,8 +89,6 @@
           <option class = "searchContent" value = "muscular" >Muscular System</option>
           <option class = "searchContent" value = "endocrine" >Endocrine System</option> 
           <option class = "searchContent" value = "skin" >Integumentary System</option> 
-          <option class = "searchContent" value = "cell" >Cell System</option> 
-          <option class = "searchContent" value = "esophagus" >Esophagus</option>
 
      
   
@@ -115,7 +113,7 @@
     </div> 
     <!-- Ribosome Menu -->
     <div class="cd-ribopanel cd-panel--from-right js-cd-panel-main">
-        <header class="cd-panel__header">
+        <!-- <header class="cd-panel__header"> -->
         <p class="sTitle">Ribosome Functionality</p>
         <a class="cd-panel__close js-cd-riboclose">Close</a>
         </header>
