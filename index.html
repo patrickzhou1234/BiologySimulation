@@ -61,11 +61,13 @@
     <button onclick="loadendocrine(1)" id="endocrinebtns" style="display: none;" class="mui-btn mui-btn--primary endocrinebtns">THIS LOADS IN ENDOCRINE SYSTEM VIA SEARCH</button>
     <button onclick="loadmuscular(1)" id="muscularbtns" style="display: none;" class="mui-btn mui-btn--primary muscularbtns">THIS LOADS IN MUSCULAR SYSTEM VIA SEARCH</button>
     <button onclick="loadbronchi(1)" id="bronchibtn" style="display: none;" class="mui-btn mui-btn--primary bronchibtns">3d Model</button>
+    <button onclick="loadesophagus(1)" id="esophagusbtn" style="display: none;" class="mui-btn mui-btn--primary esophagusbtns">3d Model</button>
     <button onclick="loadliver(1)" id="liverbtn" style="display: none;" class="mui-btn mui-btn--primary liverbtns">3d Model</button>
     <button onclick="loadintestine(1)" id="intestinebtn" style="display: none;" class="mui-btn mui-btn--primary intestinebtns">3d Model</button>
     <button onclick="loadcolon(1)" id="colonbtn" style="display: none;" class="mui-btn mui-btn--primary colonbtns">3d Model</button>
     <button onclick="loadpancreas(1)" id="pancreasbtn" style="display: none;" class="mui-btn mui-btn--primary pancreasbtns">3d Model</button>
     <button onclick="loadspine(1)" id="spinebtn" style="display: none;" class="mui-btn mui-btn--primary spinebtns">THIS LOADS IN NERVOUS SYSTEM VIA SEARCH</button>
+    <button onclick="loadspleen(1)" id="spleenbtn" style="display: none;" class="mui-btn mui-btn--primary spleenbtns">3d Model</button>
     <button onclick="loaddigestiveinsitu(1)" id="digestiveinsitubtn" style="display: none;" class="mui-btn mui-btn--primary digestiveinsitubtns">THIS LOADS IN DIGESTIVE SYSTEM VIA SEARCH</button>
     <button onclick="loadskull(1)" id="skullbtn" style="display: none;" class="mui-btn mui-btn--primary skullbtns">3d Model</button>
     <button onclick="loadskin(1)" id="skinbtn" style="display: none;" class="mui-btn mui-btn--primary skinbtns">THIS LOADS IN INTEGUMENTARY SYSTEM VIA SERACH</button>
@@ -77,7 +79,6 @@
       <div id = "dropdown">
         <select id = "searchbox" onchange = "search(this.value)">
           <option class = "searchContent" value = "Search" disabled selected = "true">Jump to System</option>
-          <option class = "searchContent" value = "human" >Home Screen: Human</option>
           <option class = "searchContent" value = "spine" >Nervous System</option>
           <option class = "searchContent" value = "skeletal" >Skeletal System</option>
           <option class = "searchContent" value = "exretory" >Excretory system</option>
@@ -88,8 +89,6 @@
           <option class = "searchContent" value = "muscular" >Muscular System</option>
           <option class = "searchContent" value = "endocrine" >Endocrine System</option> 
           <option class = "searchContent" value = "skin" >Integumentary System</option> 
-          <option class = "searchContent" value = "cell" >Cell System</option> 
- 
 
      
   
@@ -114,7 +113,7 @@
     </div> 
     <!-- Ribosome Menu -->
     <div class="cd-ribopanel cd-panel--from-right js-cd-panel-main">
-        <header class="cd-panel__header">
+        <!-- <header class="cd-panel__header"> -->
         <p class="sTitle">Ribosome Functionality</p>
         <a class="cd-panel__close js-cd-riboclose">Close</a>
         </header>

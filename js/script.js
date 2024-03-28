@@ -59,6 +59,7 @@ circulatorybtns = document.querySelectorAll(".circulatorybtns");
 bronchibtns = document.querySelectorAll(".bronchibtns");
 lymphbtns = document.querySelectorAll(".lymphbtns");
 liverbtns = document.querySelectorAll(".liverbtns");
+esophagusbtns = document.querySelectorAll(".esophagusbtns");
 intestinebtns = document.querySelectorAll(".intestinebtns");
 spleenbtns = document.querySelectorAll(".spleenbtns");
 pancreasbtns = document.querySelectorAll(".pancreasbtns");
@@ -91,6 +92,7 @@ let skinref = 0;
 let intestineref = 0;
 let spleenref = 0;
 let pancreasref = 0;
+let esophagusref = 0;
 let colonref = 0;
 let skeletalref = 0;
 let digestiveinsituref = 0;
@@ -131,11 +133,12 @@ let livermeshes =[];
 let intestinemeshes = [];
 let spleenmeshes = [];
 let pancreasmeshes = [];
+let esophagusmeshes = [];
 let tracheameshes = [];
 let colonmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
-let buttonArrays = [tracheabtns, roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns];
+let buttonArrays = [tracheabtns, roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -317,6 +320,7 @@ function checkvis(btn) {
 function loadcell() {
     // if (!backcell.classList.contains("animobtn")) {
     clearbtns(); // function that hides all btns
+    showbtn(backHuman);
     // showbtn(backHuman);
     change(m.getChild(), "loadcell()");
     // hide human meshes but show cell meshes
@@ -895,44 +899,42 @@ function loadhuman(val) {
             } catch (err) {};
             humref = meshes[0];
             allMeshes.push(humref);
+            createSphereBtn(0, 10.8, -0.2, humanmeshes, function(){createBasicPopup("Hair", "desc.")}, .25)
 
-            camera.position = new BABYLON.Vector3(0, 1, -20);
+            camera.position = new BABYLON.Vector3(0, 5, -20);
             camera.target = new BABYLON.Vector3(0, 5, 0);
             camera.radius = 20;
 
-        
+            showbtn(backcell);
             eyemat = new BABYLON.StandardMaterial("eyemat", scene);
 
-            // eye = BABYLON.MeshBuilder.CreateSphere("eye", { diameter: 0.25, segments: 32 }, scene);
+            eye = BABYLON.MeshBuilder.CreateSphere("eye", { diameter: 0.25, segments: 32 }, scene);
 
-            // humanmeshes.push(eye);
-            // eye.position.set(0.2, 3.2, -0.3); // (horizontal,vertical,depth)
-            // eye.material = eyemat;
-            // eye.actionManager = new BABYLON.ActionManager(scene);
-            // eye.actionManager.registerAction(
-            //     new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            //         camera.lowerRadiusLimit = 2;
-            //         Swal.fire({
-            //             title: "Eye",
-            //             text: "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world.",
-            //             icon: "question",
-            //             background: "black",
-            //             color: "white",
-            //             imageUrl: "images/Eye.png"
-            //             backdrop: false,
-            //         }).then(function () {
-            //             eyebtns.forEach((el) => {
-            //                 hidebtn(el);
-            //             });
-            //         });
-            //         eyebtns.forEach((el) => {
-            //             showbtn(el);
-            //         });
-            //         camera.target = eye;
-            //         camera.inertialRadiusOffset += 4;
-            //     })
-            // );
-
+            humanmeshes.push(eye);
+            eye.position.set(0.2, 10, -0.8); // (horizontal,vertical,depth)
+            eye.material = eyemat;
+            eye.actionManager = new BABYLON.ActionManager(scene);
+            eye.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Eye",
+                        text: "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world.",
+                        background: "black",
+                        color: "white",
+                        imageUrl: "images/Eye.png"
+                    }).then(function () {
+                        eyebtns.forEach((el) => {
+                            hidebtn(el);
+                        });
+                    });
+                    eyebtns.forEach((el) => {
+                        showbtn(el);
+                    });
+                    camera.target = eye;
+                    camera.inertialRadiusOffset += 4;
+                })
+            );
         });
 
         clearbtns();
@@ -1044,7 +1046,8 @@ function loaddigestive(val) {
             createSphereBtn(0, 2, -1.025, digestivemeshes, function(){createBasicPopup("Intestines", "desc", intestinebtns)}, .7)
             createSphereBtn(0, 4, 0.2, digestivemeshes, function(){createBasicPopup("Pancreas", "desc", pancreasbtns)}, .7)
             createSphereBtn(-1, 5, -1.3, digestivemeshes, function(){createBasicPopup("Stomach", "The stomach, a key part of the gastrointestinal (GI) tract, is a muscular organ that digests food using acids and enzymes. It's located in the upper left abdomen and has five sections: cardia, fundus, body, antrum, and pylorus. These sections work together to contract, mix, and process food before passing it to the small intestine. ", stomachbtns)}, .7)
-
+            createSphereBtn(0, 10, 1.025, digestivemeshes, function(){createBasicPopup("Esophagus", "desc ", esophagusbtns)}, .7)
+            createSphereBtn(1,6, -1.5, digestivemeshes, function(){createBasicPopup("Liver", "desc ", liverbtns)}, .7)
         });
     }
 }
@@ -1052,6 +1055,7 @@ function loaddigestiveinsitu(val) {
     change(m.getChild(), "loaddigestiveinsitu(0)");
     if (checkvis(digestiveinsitubtns[0]) || val == 0) {
         showui();
+        showbtn(backHuman);
         clickcond(humanmeshes, digestiveinsitubtns, 0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/digestiveinsitu.glb", scene, function (meshes) {
             clear();
@@ -1080,15 +1084,15 @@ function loadliver(val) {
         BABYLON.SceneLoader.ImportMesh("", "", "models/livergallbladder.glb", scene, function (meshes) {
             clear();
             hideui();
-            camera.position = new BABYLON.Vector3(4.7, 15.25, -127);
-            camera.target = new BABYLON.Vector3(0, 0, 0);
+            camera.position = new BABYLON.Vector3(4.7,0, -127);
+            camera.target = new BABYLON.Vector3(0, 9, 0);
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
             clear();
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
-            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            meshes[0].scaling = new BABYLON.Vector3(50, 50, 50);
             liverref = meshes[0];
             allMeshes.push(liverref);
             clearbtns();
@@ -1142,6 +1146,31 @@ function loadcolon(val) {
             meshes[0].scaling = new BABYLON.Vector3(.025, .025, .025);
             colonref = meshes[0];
             allMeshes.push(colonref);
+            clearbtns();
+
+        });
+    }
+}
+function loadesophagus(val) {
+    change(m.getChild(), "loadesophagus(0)");
+    if (checkvis(esophagusbtns[0]) || val == 0) {
+        showui();
+        clearbtns();
+        clickcond(humanmeshes, esophagusbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/esophagus.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(190, 0, -200);
+            camera.target = new BABYLON.Vector3(0, 9,0 );
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
+            esophagusref = meshes[0];
+            allMeshes.push(esophagusref);
             clearbtns();
 
         });
@@ -1248,6 +1277,7 @@ function loadlymphatic(val) {
             meshes[0].scaling = new BABYLON.Vector3(.01, .01, .01);
             lymphref = meshes[0];
             allMeshes.push(lymphref);
+            createSphereBtn(1, 3, -7, lymphmeshes, function(){createBasicPopup("Spleen", "desc", spleenmeshes)}, 0.4)
 
         });
         camera.position = new BABYLON.Vector3(0, 0.5, 80);
