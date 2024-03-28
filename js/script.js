@@ -1471,7 +1471,7 @@ function loadresp(val) {
         BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
             meshes[0].scaling = new BABYLON.Vector3(0.18, 0.18, 0.18);
             lungref = meshes[0];
-            allMeshes.push(lungref);
+            muscularmeshes.push(lungref);
         });
         loaddiaphragm();
         // camera.radius.upperRadiusLimit = 100;
@@ -1479,14 +1479,16 @@ function loadresp(val) {
         showbtn(backHuman);
         createSphereBtn(0, 0.2, 0.025, lungmeshes, function(){createBasicPopup("Trachea", "The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.", tracheabtns)}, .05)
         createSphereBtn(0, 0, 0.025, lungmeshes, function(){createBasicPopup("Bronchi", "The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.", bronchibtns)}, .05)
+        
+        
     }
 }
 function loaddiaphragm() {
     BABYLON.SceneLoader.ImportMesh("", "", "models/diaphragm.glb", scene, function (meshes) {
         meshes[0].scaling = new BABYLON.Vector3(7, 7, -7);
         meshes[0].position = new BABYLON.Vector3(0,-3.5,0);
-        diaphragm = meshes[0];
-        allMeshes.push(diaphragmref);
+        diaphragmref = meshes[0];
+        muscularmeshes.push(diaphragmref);
     });
 }
 function loadstomach(val) {
