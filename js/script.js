@@ -900,7 +900,6 @@ function loadhuman(val) {
             } catch (err) {};
             humref = meshes[0];
             allMeshes.push(humref);
-            createSphereBtn(0, 10.8, -0.2, humanmeshes, function(){createBasicPopup("Hair", "desc.")}, .25)
 
             camera.position = new BABYLON.Vector3(0, 5, -20);
             camera.target = new BABYLON.Vector3(0, 5, 0);
