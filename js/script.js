@@ -190,6 +190,7 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
             onclick()
         })
     );
+    return sphere;
 }
 
 class Memory {
@@ -931,8 +932,6 @@ function loadhuman(val) {
                     eyebtns.forEach((el) => {
                         showbtn(el);
                     });
-                    camera.target = eye;
-                    camera.inertialRadiusOffset += 4;
                 })
             );
         });
@@ -1860,8 +1859,6 @@ function loadneuron(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = axon;
-                    camera.inertialRadiusOffset += 4;
                 })
             );
             // createSphereBtn(1.8, 0.2, -0.5, neuronmeshes, function(){createBasicPopup("Endoplasmic Reticulum", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell. On the other hand, the smooth ER... (add description here)", ersmlbtns)})
@@ -1883,8 +1880,6 @@ function loadneuron(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = axot;
-                    camera.inertialRadiusOffset += 4;
                 })
             );
             neuronmeshes.push(axot);
@@ -1904,8 +1899,6 @@ function loadneuron(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = dend;
-                    camera.inertialRadiusOffset += 4;
                 })
             );
             neuronmeshes.push(dend);
@@ -1925,7 +1918,6 @@ function loadneuron(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.inertialRadiusOffset += 4;
                 })
             );
             neuronmeshes.push(sheath);
@@ -1945,7 +1937,6 @@ function loadneuron(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.inertialRadiusOffset += 4;
                 })
             );
             neuronmeshes.push(node);
@@ -1965,7 +1956,6 @@ function loadneuron(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.inertialRadiusOffset += 4;
                 })
             );
             neuronmeshes.push(synapse);
@@ -1985,8 +1975,6 @@ function loadneuron(val) {
                         color: "white",
                         backdrop: false,
                     }).then(function () {});
-                    camera.target = Soma;
-                    camera.inertialRadiusOffset += 4;
                 })
             );
 
@@ -2117,6 +2105,16 @@ function clear() {
     for (i = 0; i < tracheameshes.length; i++) {
         try {
             tracheameshes[i].dispose();
+        } catch (err) {}
+    }
+    for (i = 0; i < lungmeshes.length; i++) {
+        try {
+            lungmeshes[i].dispose();
+        } catch (err) {}
+    }
+    for (i = 0; i < lymphmeshes.length; i++) {
+        try {
+            lymphmeshes[i].dispose();
         } catch (err) {}
     }
 }
