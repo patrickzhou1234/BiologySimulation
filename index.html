@@ -77,7 +77,7 @@
     <button onclick="backPage()" id="backbtn" style="display: block;" class="mui-btn mui-btn--primary largeBtn">Go Back</button>
 
 
-    <form class="largeBtn" id = "search">
+    <!-- <form class="largeBtn" id = "search">
       <div id = "dropdown">
         <select id = "searchbox" onchange = "search(this.value)">
           <option class = "searchContent" value = "Search" disabled selected = "true">Jump to System</option>
@@ -98,137 +98,182 @@
           
         </select>
       </div>
-    </form>
-      <button onclick="tabs()" id="systembtn" style="display: block;" class="mui-btn mui-btn--primary largeBtn">Show Human Body Systems</button>
+    </form> -->
+      <button onclick="tabsMenu()" id="systembtn" style="display: block;" class="mui-btn mui-btn--primary largeBtn">Show Human Body Systems</button>
+      <div class="topnav" id = "tabBtn" style="display: none;">
+        <button class="tablinks largeBtn" onclick="loadspine(0)">Nervous</button>
+        <button class="tablinks largeBtn" onclick="loadskeletal(0)">Skeletal</button>
+        <button class="tablinks largeBtn" onclick="loadexretory(0)">Exretory</button>
+        <button class="tablinks largeBtn" onclick="loadresp(0)">Respiratory</button>
+        <button class="tablinks largeBtn" onclick="loaddigestiveinsitu(0)">Digestive</button>
+        <button class="tablinks largeBtn" onclick="loadcirculatory(0)">Circulatory</button>
+        <button class="tablinks largeBtn" onclick="loadlymphatic(0)">Lymphatic</button>
+        <button class="tablinks largeBtn" onclick="loadmuscular(0)">Muscular</button>
+        <button class="tablinks largeBtn" onclick="loadendocrine(0)">Endocrine</button>
+        <button class="tablinks largeBtn" onclick="loadskin(0)">Integumentary</button>
 
+      </div>
       <script>
-        var l = window.location['href'];        
-        var nerv;
-        var skel;
-        var exc;
-        var resp;
-        var dig;
-        var circ;
-        var lymp;
-        var musc;
-        var endo;
-        var inte;
+        function tabsMenu() {
 
-        const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-
-        function Nervous() {
-          nerv = window.open(l, `_blank_nervous`);
-          console.log("inside nerv " + nerv)
-          nerv.onload = function() {
-            nerv.loadspine(2);
-            nerv.document.title = "Nervous System";
-          }
-        }
-        function Skeletal() {
-          skel = window.open(l, "_blank_skeletal");
-          console.log("inside skel " + skel)
-          skel.onload = function() {
-            skel.loadskeletal(2);
-            skel.document.title = "Skeletal System";
-          }
-        }
-        function Excretory() {
-          exc = window.open(l, "_blank", "exretory");
-          exc.onload = function() {
-            exc.loadexretory(2);
-            exc.document.title = "Excretory System";
-          }
-        }
-        function Respiratory() {
-          resp = window.open(l, "_blank", "respiratory");
-          resp.onload = function() {
-            resp.loadresp(2);
-            resp.document.title = "Respiratory System";
-          }
-        }
-        function Digestive() {
-          dig = window.open(l, "_blank", "digestive");
-          dig.onload = function() {
-            dig.loaddigestiveinsitu(2);
-            dig.document.title = "Digestive System";
-          }
-        }
-        function Circulatory() {
-          circ = window.open(l, "_blank", "circulatory");
-          circ.onload = function() {
-            circ.loadcirculatory(2);
-            circ.document.title = "Circulatory System";
-          }
-        }
-        function Lymphatic() {
-          lymp = window.open(l, "_blank", "lymphatic");
-          lymp.onload = function() {
-            lymp.loadlymphatic(2);
-            lymp.document.title = "Lymphatic System";
-          }
-        }
-        function Muscular() {
-          musc = window.open(l, "_blank", "muscular");
-          musc.onload = function() {
-            musc.loadmuscular(2);
-            musc.document.title = "Muscular System";
-          }
-        }
-        function Endocrine() {
-          endo = window.open(l, "_blank", "endocrine");
-          endo.onload = function() {
-            endo.loadendocrine(2);
-            endo.document.title = "Endocrine System";
-          }
-        }
-        function Integumentary() {
-          inte = window.open(l, "_blank", "integumentary");
-          inte.onload = function() {
-            inte.loadskin(2);
-            inte.document.title = "Integumentary System";
-          }
-        }
-        async function tabs() {
-          if(document.getElementById("systembtn").textContent == "Show Human Body Systems") {
+          console.log("in")
+          if (document.getElementById("systembtn").textContent == "Show Human Body Systems") {
+            document.getElementById("tabBtn").style.display = "block";
             document.getElementById("systembtn").textContent = "Hide Human Body Systems";
-            console.log("at nervous");
-            Nervous();
-            await sleep(500);
-            console.log("at skeletal");
-            Skeletal();
-            await sleep(500);
-            Excretory();
-            await sleep(500);
-            Respiratory();
-            await sleep(500);
-            Digestive();
-            await sleep(500);
-            Circulatory();
-            await sleep(500);
-            Lymphatic();
-            await sleep(500);
-            Muscular();
-            await sleep(500);
-            Endocrine();
-            await sleep(500);
-            Integumentary();
           }
           else {
-            document.getElementById("systembtn").textContent = "Show Human Body Systems";  
-            nerv.close();
-            skel.close();
-            exc.close();
-            resp.close();
-            dig.close();
-            circ.close();
-            lymp.close();
-            musc.close();
-            endo.close();
-            inte.close();        
+            document.getElementById("tabBtn").style.display = "none";
+            document.getElementById("systembtn").textContent = "Show Human Body Systems";
           }
-          
-          
+            
         }
+        function openPage(pageName, elmnt, color) {
+          // Hide all elements with class="tabcontent" by default */
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+
+          // Remove the background color of all tablinks/buttons
+          tablinks = document.getElementsByClassName("tablink");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+          }
+
+          // Show the specific tab content
+          document.getElementById(pageName).style.display = "block";
+
+          // Add the specific color to the button used to open the tab content
+          elmnt.style.backgroundColor = color;
+        }
+        // var l = window.location['href'];        
+        // var nerv;
+        // var skel;
+        // var exc;
+        // var resp;
+        // var dig;
+        // var circ;
+        // var lymp;
+        // var musc;
+        // var endo;
+        // var inte;
+
+        // const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+
+        // function Nervous() {
+        //   nerv = window.open(l, "_blank");
+        //   console.log("inside nerv " + nerv)
+        //   nerv.onload = function() {
+        //     nerv.loadspine(2);
+        //     nerv.document.title = "Nervous System";
+        //   }
+        // }
+        // function Skeletal() {
+        //   skel = window.open(l, "_blank");
+        //   console.log("inside skel " + skel)
+        //   skel.onload = function() {
+        //     skel.loadskeletal(2);
+        //     skel.document.title = "Skeletal System";
+        //   }
+        // }
+        // function Excretory() {
+        //   exc = window.open(l, "_blank", "exretory");
+        //   exc.onload = function() {
+        //     exc.loadexretory(2);
+        //     exc.document.title = "Excretory System";
+        //   }
+        // }
+        // function Respiratory() {
+        //   resp = window.open(l, "_blank", "respiratory");
+        //   resp.onload = function() {
+        //     resp.loadresp(2);
+        //     resp.document.title = "Respiratory System";
+        //   }
+        // }
+        // function Digestive() {
+        //   dig = window.open(l, "_blank", "digestive");
+        //   dig.onload = function() {
+        //     dig.loaddigestiveinsitu(2);
+        //     dig.document.title = "Digestive System";
+        //   }
+        // }
+        // function Circulatory() {
+        //   circ = window.open(l, "_blank", "circulatory");
+        //   circ.onload = function() {
+        //     circ.loadcirculatory(2);
+        //     circ.document.title = "Circulatory System";
+        //   }
+        // }
+        // function Lymphatic() {
+        //   lymp = window.open(l, "_blank", "lymphatic");
+        //   lymp.onload = function() {
+        //     lymp.loadlymphatic(2);
+        //     lymp.document.title = "Lymphatic System";
+        //   }
+        // }
+        // function Muscular() {
+        //   musc = window.open(l, "_blank", "muscular");
+        //   musc.onload = function() {
+        //     musc.loadmuscular(2);
+        //     musc.document.title = "Muscular System";
+        //   }
+        // }
+        // function Endocrine() {
+        //   endo = window.open(l, "_blank", "endocrine");
+        //   endo.onload = function() {
+        //     endo.loadendocrine(2);
+        //     endo.document.title = "Endocrine System";
+        //   }
+        // }
+        // function Integumentary() {
+        //   inte = window.open(l, "_blank", "integumentary");
+        //   inte.onload = function() {
+        //     inte.loadskin(2);
+        //     inte.document.title = "Integumentary System";
+        //   }
+        // }
+        // async function tabs() {
+        //   if(document.getElementById("systembtn").textContent == "Show Human Body Systems") {
+        //     document.getElementById("systembtn").textContent = "Hide Human Body Systems";
+        //     console.log("at nervous");
+        //     Nervous();
+        //     await sleep(500);
+        //     console.log("at skeletal");
+        //     Skeletal();
+        //     await sleep(500);
+        //     Excretory();
+        //     await sleep(500);
+        //     Respiratory();
+        //     await sleep(500);
+        //     Digestive();
+        //     await sleep(500);
+        //     Circulatory();
+        //     await sleep(500);
+        //     Lymphatic();
+        //     await sleep(500);
+        //     Muscular();
+        //     await sleep(500);
+        //     Endocrine();
+        //     await sleep(500);
+        //     Integumentary();
+        //   }
+        //   else {
+        //     document.getElementById("systembtn").textContent = "Show Human Body Systems";  
+        //     nerv.close();
+        //     skel.close();
+        //     exc.close();
+        //     resp.close();
+        //     dig.close();
+        //     circ.close();
+        //     lymp.close();
+        //     musc.close();
+        //     endo.close();
+        //     inte.close();        
+        //   }
+          
+          
+        // }
       </script>
     <canvas id="babcanv"></canvas>
     <!-- Brain Info / Brain Hierarchy-->
