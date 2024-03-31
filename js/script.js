@@ -65,6 +65,8 @@ spleenbtns = document.querySelectorAll(".spleenbtns");
 pancreasbtns = document.querySelectorAll(".pancreasbtns");
 colonbtns = document.querySelectorAll(".colonbtns");
 skinbtns = document.querySelectorAll(".skinbtns");
+vesselbtns = document.querySelectorAll(".vesselbtns");
+rbcbtns = document.querySelectorAll(".rbcbtns");
 endocrinebtns = document.querySelectorAll(".endocrinebtns");
 muscularbtns = document.querySelectorAll(".muscularbtns");
 spinebtns = document.querySelectorAll(".spinebtns");
@@ -77,6 +79,8 @@ nephronbtn = document.getElementById("nephronbtn");
 backExretory = document.getElementById("backExretory");
 showExterior = document.getElementById("exterior");
 showNeuron = document.getElementById("neuron");
+showrbc = document.getElementById("rbc");
+showvessel = document.getElementById("vessel");
 showETC = document.getElementById("ETC");
 panelbtn = document.getElementById("panelbtn");
 ribopanelbtn = document.getElementById("ribopanelbtn");
@@ -93,6 +97,8 @@ let intestineref = 0;
 let spleenref = 0;
 let pancreasref = 0;
 let esophagusref = 0;
+let rbcref = 0;
+let vesselref = 0;
 let colonref = 0;
 let skeletalref = 0;
 let digestiveinsituref = 0;
@@ -124,6 +130,8 @@ let skullmeshes = [];
 let skinmeshes = [];
 let circulatorymeshes = [];
 let bronchimeshes = [];
+let rbcmeshes = [];
+let vesselmeshes = [];
 let lymphmeshes = [];
 let muscularmeshes = [];
 let spinemeshes = [];
@@ -137,8 +145,8 @@ let esophagusmeshes = [];
 let tracheameshes = [];
 let colonmeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
-let buttonArrays = [tracheabtns, roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns];
+let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showvessel, showrbc, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
+let buttonArrays = [tracheabtns, roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, rbcbtns, vesselbtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -1207,6 +1215,10 @@ function loadcirculatory(val) {
         BABYLON.SceneLoader.ImportMesh("", "", "models/circulatory_system.glb", scene, function (meshes) {
             clear();
             hideui();
+            showbtn(showrbc);
+            showbtn(showvessel);
+            showvessel.textContent = "Show Blood Vessel";
+            showrbc.textContent = "Show Red Blood Cell";
 
             camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
             camera.target = new BABYLON.Vector3(0, 9, 0);
@@ -1229,9 +1241,36 @@ function loadcirculatory(val) {
 
         });
         camera.position = new BABYLON.Vector3(80, 0.5, 80);
-        clearbtns();
         showbtn(backHuman);
     }
+}
+
+function loadvessel(val){
+    if (showvessel.textContent == "Show Blood Vessel") {
+        showvessel.textContent = "Hide Blood Vessel";
+        showvessel.textContent = "Hide Blood Vessel";
+        scaling = new BABYLON.Vector3(0, 0, 0)
+        clearbtns();
+        clear();
+        BABYLON.SceneLoader.ImportMesh("", "", "models/vessel.glb", scene, function (meshes) {
+            vesselref = meshes[0];
+            allMeshes.push(vesselref);
+
+        });
+}
+}
+function loadrbc(val){
+    if (showrbc.textContent == "Show Red Blood Cell") {
+        showrbc.textContent = "Hide Red Blood Cell";
+        showrbc.textContent = "Hide Red Blood Cell";
+        scaling = new BABYLON.Vector3(5, 5, 5)
+        clearbtns();
+        clear();
+        BABYLON.SceneLoader.ImportMesh("", "", "models/rbc.glb", scene, function (meshes) {
+            rbcref = meshes[0];
+            allMeshes.push(rbcref);
+        });
+}
 }
 function loadbronchi(val) {
     change(m.getChild(), "loadbronchi(0)");
@@ -2079,7 +2118,15 @@ function clear() {
         } catch (err) {}
     } for (i = 0; i < livermeshes.length; i++) {
         try {
-            livermesheseshes[i].dispose();
+            livermeshes[i].dispose();
+        } catch (err) {}
+    } for (i = 0; i < rbcmeshes.length; i++) {
+        try {
+            rbcmeshes[i].dispose();
+        } catch (err) {}
+    } for (i = 0; i < vesselmeshes.length; i++) {
+        try {
+            vesselmeshes[i].dispose();
         } catch (err) {}
     } for (i = 0; i < pancreasmeshes.length; i++) {
         try {
