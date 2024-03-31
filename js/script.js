@@ -86,6 +86,7 @@ panelbtn = document.getElementById("panelbtn");
 ribopanelbtn = document.getElementById("ribopanelbtn");
 searchbox = document.getElementById("searchbox");
 kidney2dmodelbtn = document.getElementById("kidney2dmodelbtn");
+showsystems = document.getElementById("systembtn");
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
@@ -866,9 +867,20 @@ function loadbrain(val) {
 }
 function loadspine(val) {
     change(m.getChild(), "loadspine(0)");
-    if (checkvis(spinebtns[0]) || val == 0) {
+    hidebtn(showsystems);
+    hidebtn(backcell);
+    if (checkvis(spinebtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, spinebtns, 0);
+        if (val == 2) {
+            console.log("inside load spine 2")
+            clear();
+            clearbtns();
+            hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
         BABYLON.SceneLoader.ImportMesh("", "", "models/spine.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1018,23 +1030,46 @@ function loadheart(val) {
 function loadexretory(val) {
     change(m.getChild(), "loadexretory(0)");
     if (checkvis(exretorybtns[0]) || val == 0) {
-        clearbtns()
-        clear()
-        importmesh("exretory_system.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -15))
-        showbtn(backHuman)
+        clearbtns();
+        clear();
+        hidebtn(showsystems);
+        hidebtn(backcell);
+        showbtn(backHuman);
+        if (val == 2) {
+            console.log("inside load resp 2")
+            clear();
+            clearbtns();
+            hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
+        importmesh("exretory_system.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -15));
+        
 
-        createSphereBtn(1.3, 5, -0.6, exretorymeshes, function(){createBasicPopup("Kidney", "The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, regulating electrolyte balance, blood pressure, and producing urine for waste elimination.", kidneybtns)})
-        createSphereBtn(0.98, 0, -0.25, exretorymeshes, function(){createBasicPopup("Ureter", "The channels through which the urine formed in the kidney enters the urinary bladder.")})
-        createSphereBtn(-0.04, -4.42, -1.29, exretorymeshes, function(){createBasicPopup("Urinary Bladder", "The urinary bladder is made up of several layers of tissues and lined with transitional eptilhelium, which can relax and contract to accomodate urine. There are sphincter muscles between the bladder and the urethra that control urination.")})
-        createSphereBtn(0.07, -5.27, -0.43, exretorymeshes, function(){createBasicPopup("Urethra", "The tube through which urine leaves the body.")})
+        createSphereBtn(1.3, 5, -0.6, exretorymeshes, function(){createBasicPopup("Kidney", "The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, regulating electrolyte balance, blood pressure, and producing urine for waste elimination.", kidneybtns)});
+        createSphereBtn(0.98, 0, -0.25, exretorymeshes, function(){createBasicPopup("Ureter", "The channels through which the urine formed in the kidney enters the urinary bladder.")});
+        createSphereBtn(-0.04, -4.42, -1.29, exretorymeshes, function(){createBasicPopup("Urinary Bladder", "The urinary bladder is made up of several layers of tissues and lined with transitional eptilhelium, which can relax and contract to accomodate urine. There are sphincter muscles between the bladder and the urethra that control urination.")});
+        createSphereBtn(0.07, -5.27, -0.43, exretorymeshes, function(){createBasicPopup("Urethra", "The tube through which urine leaves the body.")});
     }
 }
 
 function loaddigestive(val) {
     change(m.getChild(), "loaddigestive(0)");
-    if (checkvis(digestivebtns[0]) || val == 0) {
+    if (checkvis(digestivebtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, digestivebtns, 0);
+        hidebtn(showsystems);
+        hidebtn(backcell);
+        if (val == 2) {
+            console.log("inside load digest 2")
+            clear();
+            clearbtns();
+            hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
         BABYLON.SceneLoader.ImportMesh("", "", "models/digestive_system1.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1062,6 +1097,8 @@ function loaddigestiveinsitu(val) {
     if (checkvis(digestiveinsitubtns[0]) || val == 0) {
         showui();
         showbtn(backHuman);
+        hidebtn(showsystems);
+        hidebtn(backcell);
         clickcond(humanmeshes, digestiveinsitubtns, 0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/digestiveinsitu.glb", scene, function (meshes) {
             clear();
@@ -1209,9 +1246,20 @@ function loadpancreas(val) {
 
 function loadcirculatory(val) {
     change(m.getChild(), "loadcirculatory(0)");
-    if (checkvis(circulatorybtns[0]) || val == 0) {
+    if (checkvis(circulatorybtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, circulatorybtns, 0);
+        hidebtn(showsystems);
+        hidebtn(backcell);
+        if (val == 2) {
+            console.log("inside load circ 2")
+            clear();
+            clearbtns();
+            hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
         BABYLON.SceneLoader.ImportMesh("", "", "models/circulatory_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1303,9 +1351,20 @@ function loadbronchi(val) {
 
 function loadlymphatic(val) {
     change(m.getChild(), "loadlymphatic(0)");
-    if (checkvis(lymphbtns[0]) || val == 0) {
+    if (checkvis(lymphbtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, lymphbtns, 0);
+        hidebtn(showsystems);
+        hidebtn(backcell);
+        if (val == 2) {
+            console.log("inside load lymp 2")
+            clear();
+            clearbtns();
+            hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
         BABYLON.SceneLoader.ImportMesh("", "", "models/lymphatic_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1357,9 +1416,20 @@ function loadspleen(val) {
 }
 function loadendocrine(val) {
     change(m.getChild(), "loadendocrine(0)");
-    if (checkvis(endocrinebtns[0]) || val == 0) {
+    if (checkvis(endocrinebtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, endocrinebtns, 0);
+        hidebtn(showsystems);
+        hidebtn(backcell);
+        if (val == 2) {
+            console.log("inside load endo 2")
+            clear();
+            clearbtns();
+            hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
         BABYLON.SceneLoader.ImportMesh("", "", "models/endocrine_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1382,9 +1452,20 @@ function loadendocrine(val) {
 }
 function loadskin(val) {
     change(m.getChild(), "loadskin(0)");
-    if (checkvis(skinbtns[0]) || val == 0) {
+    if (checkvis(skinbtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, skinbtns, 0);
+        hidebtn(showsystems);
+        hidebtn(backcell);
+        if (val == 2) {
+            console.log("inside load skin 2")
+            clear();
+            clearbtns();
+            hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
         BABYLON.SceneLoader.ImportMesh("", "", "models/skin.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1407,9 +1488,20 @@ function loadskin(val) {
 }
 function loadmuscular(val) {
     change(m.getChild(), "loadmuscular(0)");
-    if (checkvis(muscularbtns[0]) || val == 0) {
+    if (checkvis(muscularbtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, muscularbtns, 0);
+        hidebtn(showsystems);
+        hidebtn(backcell);
+        if (val == 2) {
+            console.log("inside load musc 2")
+            clear();
+            clearbtns();
+            hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
         BABYLON.SceneLoader.ImportMesh("", "", "models/muscular_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1502,12 +1594,21 @@ function kidney2dmodel(){
 
 function loadresp(val) {
     change(m.getChild(), "loadresp(0)");
-    if (checkvis(lungbtns[0]) || val == 0) {
-        clear()
+    if (checkvis(lungbtns[0]) || val == 0 || val == 2) {
+        clear();
         clearbtns();
         clickcond(humanmeshes, lungbtns, 0);
         showbtn(backHuman);
-
+        if (val == 2) {
+            console.log("inside load resp 2")
+            clear();
+            clearbtns();
+            hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
+        
         camera.target = new BABYLON.Vector3(0, -0.75, 0);
         camera.position = new BABYLON.Vector3(0,0,3);
         // importmesh("lung.glb", scaling = new BABYLON.Vector3(.18, 0.18, .18), camera_target = new BABYLON.Vector3(0, -1, 0), camera_position = new BABYLON.Vector3(0, 0, 5))
@@ -1556,8 +1657,19 @@ function loadstomach(val) {
 
 function loadskeletal(val) {
     change(m.getChild(), "loadskeletal(0)");
-    if (val == 0) {
+    if (val == 0 || val == 2) {
         showui();
+        hidebtn(showsystems);
+        hidebtn(backcell);
+        if (val == 2) {
+            console.log("inside load skel 2")
+            clear();
+            clearbtns();
+            hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
         camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
             camera.target = new BABYLON.Vector3(0, -0.25, 0);
             camera.upperRadiusLimit = 100;
@@ -1570,7 +1682,9 @@ function loadskeletal(val) {
             BABYLON.SceneLoader.ImportMesh("", "", "models/skeletal.glb", scene, function (meshes) {
                 hideui();
                 clearbtns();
-                showbtn(backcell);
+                if (val != 2) {
+                   showbtn(backcell); 
+                }
 
                 meshes[0].scaling = new BABYLON.Vector3(0.9, 0.9, 0.9);
                 createSphereBtn(0, 7, -0.51, skeletalmeshes, function(){createBasicPopup("Skull", "Protects the brain and houses sensory organs like the eyes and ears.", skullbtns)}, .5)
