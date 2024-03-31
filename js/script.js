@@ -867,7 +867,7 @@ function loadbrain(val) {
 }
 function loadspine(val) {
     change(m.getChild(), "loadspine(0)");
-    hidebtn(showsystems);
+    // hidebtn(showsystems);
     hidebtn(backcell);
     if (checkvis(spinebtns[0]) || val == 0 || val == 2) {
         showui();
@@ -876,7 +876,7 @@ function loadspine(val) {
             console.log("inside load spine 2")
             clear();
             clearbtns();
-            hidebtn(showsystems);
+            // hidebtn(showsystems);
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
@@ -1032,14 +1032,14 @@ function loadexretory(val) {
     if (checkvis(exretorybtns[0]) || val == 0) {
         clearbtns();
         clear();
-        hidebtn(showsystems);
+        // hidebtn(showsystems);
         hidebtn(backcell);
         showbtn(backHuman);
         if (val == 2) {
             console.log("inside load resp 2")
             clear();
             clearbtns();
-            hidebtn(showsystems);
+            // hidebtn(showsystems);
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
@@ -1059,13 +1059,13 @@ function loaddigestive(val) {
     if (checkvis(digestivebtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, digestivebtns, 0);
-        hidebtn(showsystems);
+        // hidebtn(showsystems);
         hidebtn(backcell);
         if (val == 2) {
             console.log("inside load digest 2")
             clear();
             clearbtns();
-            hidebtn(showsystems);
+            // hidebtn(showsystems);
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
@@ -1097,7 +1097,7 @@ function loaddigestiveinsitu(val) {
     if (checkvis(digestiveinsitubtns[0]) || val == 0) {
         showui();
         showbtn(backHuman);
-        hidebtn(showsystems);
+        // hidebtn(showsystems);
         hidebtn(backcell);
         clickcond(humanmeshes, digestiveinsitubtns, 0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/digestiveinsitu.glb", scene, function (meshes) {
@@ -1249,13 +1249,13 @@ function loadcirculatory(val) {
     if (checkvis(circulatorybtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, circulatorybtns, 0);
-        hidebtn(showsystems);
+        // hidebtn(showsystems);
         hidebtn(backcell);
         if (val == 2) {
             console.log("inside load circ 2")
             clear();
             clearbtns();
-            hidebtn(showsystems);
+            // hidebtn(showsystems);
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
@@ -1354,13 +1354,13 @@ function loadlymphatic(val) {
     if (checkvis(lymphbtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, lymphbtns, 0);
-        hidebtn(showsystems);
+        // hidebtn(showsystems);
         hidebtn(backcell);
         if (val == 2) {
             console.log("inside load lymp 2")
             clear();
             clearbtns();
-            hidebtn(showsystems);
+            // hidebtn(showsystems);
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
@@ -1419,13 +1419,13 @@ function loadendocrine(val) {
     if (checkvis(endocrinebtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, endocrinebtns, 0);
-        hidebtn(showsystems);
+        // hidebtn(showsystems);
         hidebtn(backcell);
         if (val == 2) {
             console.log("inside load endo 2")
             clear();
             clearbtns();
-            hidebtn(showsystems);
+            // hidebtn(showsystems);
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
@@ -1455,13 +1455,13 @@ function loadskin(val) {
     if (checkvis(skinbtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, skinbtns, 0);
-        hidebtn(showsystems);
+        // hidebtn(showsystems);
         hidebtn(backcell);
         if (val == 2) {
             console.log("inside load skin 2")
             clear();
             clearbtns();
-            hidebtn(showsystems);
+            // hidebtn(showsystems);
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
@@ -1491,13 +1491,13 @@ function loadmuscular(val) {
     if (checkvis(muscularbtns[0]) || val == 0 || val == 2) {
         showui();
         clickcond(humanmeshes, muscularbtns, 0);
-        hidebtn(showsystems);
+        // hidebtn(showsystems);
         hidebtn(backcell);
         if (val == 2) {
             console.log("inside load musc 2")
             clear();
             clearbtns();
-            hidebtn(showsystems);
+            // hidebtn(showsystems);
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
@@ -1603,7 +1603,7 @@ function loadresp(val) {
             console.log("inside load resp 2")
             clear();
             clearbtns();
-            hidebtn(showsystems);
+            // hidebtn(showsystems);
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
@@ -1659,13 +1659,13 @@ function loadskeletal(val) {
     change(m.getChild(), "loadskeletal(0)");
     if (val == 0 || val == 2) {
         showui();
-        hidebtn(showsystems);
+        // hidebtn(showsystems);
         hidebtn(backcell);
         if (val == 2) {
             console.log("inside load skel 2")
             clear();
             clearbtns();
-            hidebtn(showsystems);
+            // hidebtn(showsystems);
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
