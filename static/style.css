@@ -103,6 +103,10 @@ left: 5vh;
 left:5vh;
     top: 20vh;
 }
+#tracheabtn{
+    left: 80vh;
+    top: 73vh;
+    }
 #bronchibtn{
 left: 80vh;
     top: 73vh;
@@ -391,7 +395,7 @@ img {
 
 #neuron {
     left: 5vh;
-    top: 13vh;
+    top: 43vh;
 }
 #ETC{
     left: 5vh;
@@ -536,7 +540,7 @@ img {
 }
 #exterior {
     left: 5vh;
-    top: 8vh;
+    top: 38vh;
 }
 #backbtn {
     left: 3vw;
@@ -548,7 +552,7 @@ img {
     z-index: 1080;
 } */
 #eyebtn {
-    left: 87vh;
+    left: 80vh;
     bottom: 10vh;
 }
 
@@ -558,8 +562,8 @@ img {
 }
 
 #systembtn {
-    right: 5vh;
-    top: 10vh;
+    right: 0vh;
+    top: 5vh;
 }
 /* Create a top navigation bar with a black background color  */
 .topnav {
@@ -586,6 +590,6 @@ img {
 }
 .tablinks {
     position: relative;
-    left: 70vh;
+    left: 30vh;
     border-radius: 0px;
 }
