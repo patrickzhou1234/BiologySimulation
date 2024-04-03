@@ -927,6 +927,7 @@ function loadhuman(val) {
 
             showbtn(backcell);
             createSphereBtn(0.2, 10, -0.8, humanmeshes, function(){createBasicPopup("Eye", "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world. ", eyebtns)}) 
+            createSphereBtn(-0.534986287242269,9.902969211872968,-0.04703141752093032, humanmeshes, function(){createBasicPopup("Ear", "desc ")}) 
 
         });
 
@@ -1059,11 +1060,17 @@ function loaddigestive(val) {
             meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
             digestiveref = meshes[0];
             allMeshes.push(digestiveref);
-            createSphereBtn(0, 2, -1.025, digestivemeshes, function(){createBasicPopup("Intestines", "desc", intestinebtns)}, .7)
+            createSphereBtn(0, 2, -1.025, digestivemeshes, function(){createBasicPopup("Small Intestine", "desc", intestinebtns)}, .7)
             createSphereBtn(0, 4, 0.2, digestivemeshes, function(){createBasicPopup("Pancreas", "desc", pancreasbtns)}, .7)
             createSphereBtn(-1, 5, -1.3, digestivemeshes, function(){createBasicPopup("Stomach", "The stomach, a key part of the gastrointestinal (GI) tract, is a muscular organ that digests food using acids and enzymes. It's located in the upper left abdomen and has five sections: cardia, fundus, body, antrum, and pylorus. These sections work together to contract, mix, and process food before passing it to the small intestine. ", stomachbtns)}, .7)
             createSphereBtn(0, 10, 1.025, digestivemeshes, function(){createBasicPopup("Esophagus", "desc ", esophagusbtns)}, .7)
             createSphereBtn(1,6, -1.5, digestivemeshes, function(){createBasicPopup("Liver", "desc ", liverbtns)}, .7)
+            createSphereBtn(1.5151203100242423,4.58159542163129,-0.4886603648770631, digestivemeshes, function(){createBasicPopup("Gallbladder", "desc ")}, .7)
+            createSphereBtn(0.11901681452779656,3.708769356834848,-1.5693504365953839, digestivemeshes, function(){createBasicPopup("Large Intestine (Colon)", "desc ", colonbtns)}, .7)
+            createSphereBtn(1.0278882681632533,-0.4251876960475176,-0.4062908418909057, digestivemeshes, function(){createBasicPopup("Appendix", "desc ")}, .7)
+            createSphereBtn(-0.050918167646385515,-0.8558629123022357,0.717677195142643, digestivemeshes, function(){createBasicPopup("Rectum", "desc ")}, .7)
+            createSphereBtn(0.01719847667590916,-2.0278662518005275,1.3534251692090413, digestivemeshes, function(){createBasicPopup("Anus", "desc ")}, .7)
+
         });
     }
 }
@@ -1114,6 +1121,7 @@ function loadliver(val) {
             liverref = meshes[0];
             allMeshes.push(liverref);
             clearbtns();
+            createSphereBtn(0.26610380962321756,-2.6046785440048934,-0.9232411065429948, livermeshes, function(){createBasicPopup("Gallbladder", "desc")}, .7)
 
         });
     }
@@ -1127,7 +1135,7 @@ function loadintestine(val) {
         BABYLON.SceneLoader.ImportMesh("", "", "models/intestine.glb", scene, function (meshes) {
             clear();
             hideui();
-            camera.position = new BABYLON.Vector3(0,0,0);
+            camera.position = new BABYLON.Vector3(0,0,20);
             camera.target = new BABYLON.Vector3(0, 0, 0);
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
@@ -1139,8 +1147,13 @@ function loadintestine(val) {
             intestineref = meshes[0];
             allMeshes.push(intestineref);
             clearbtns();
-            createSphereBtn(1, 4, 0.025, intestinemeshes, function(){createBasicPopup("Colon", "desc", colonbtns)}, 1.5)
+            createSphereBtn(2.5854595278409125,9.3249430687205,0.26042799839466113, intestinemeshes, function(){createBasicPopup("Duodenum", "desc")}, .7)
+            createSphereBtn(-1.0441230809222448,3.391124509169089,0.7264978034664225, intestinemeshes, function(){createBasicPopup("Jejunum", "desc")}, .7)
+            createSphereBtn(2.861563997450558,1.497042289458376,0.17179412339412536, intestinemeshes, function(){createBasicPopup("Ileum", "desc")}, .7)
+            createSphereBtn(1.148921973367198,10.074631647478405,0.43739938350441676, intestinemeshes, function(){createBasicPopup("Pyloric sphincter", "desc")}, .7)
+            createSphereBtn(4.050481837447435,-0.4583788453890749,0.14286343079463748, intestinemeshes, function(){createBasicPopup("Ileocecal valve", "desc")}, .7)
 
+            
         });
     }
 }
@@ -1454,7 +1467,16 @@ function loadskin(val) {
             meshes[0].scaling = new BABYLON.Vector3(.05, .05, .05);
             skinref = meshes[0];
             allMeshes.push(skinref);
-
+            createSphereBtn(-1.429031476552809,9.20573235888369,-5.859479645096261, skinmeshes, function(){createBasicPopup("Epidermis (Stratum corneum)", "The most superficial layer of skin. Composed of keratinized cells and dead cells, several layers thick.")}, 0.25)
+            createSphereBtn(-1.6835021588256234,7.14752135776231,-5.802487106408545, skinmeshes, function(){createBasicPopup("Epidermis (Stratum spinosum)", "desc")}, 0.25)
+            createSphereBtn(-0.3852876160194004,5.085492373710684,-5.79909174554934, skinmeshes, function(){createBasicPopup("Epidermis (Stratum basale)", "desc")}, 0.25)
+            createSphereBtn(4.641838912032425,5.702284249509858,-5.889503782882748, skinmeshes, function(){createBasicPopup("Dermis (Papillary Layer)", "desc")}, 0.25)
+            createSphereBtn(4.106870472545223,1.9705955450635333,-5.841123706667769, skinmeshes, function(){createBasicPopup("Dermis (Reticular Layer)", "desc")}, 0.25)
+            createSphereBtn(2.4247239531816733,2.031074141443843,-6.46664647299108, skinmeshes, function(){createBasicPopup("Eccrine Sweat Gland", "desc")}, 0.25)
+            createSphereBtn(-7.893215560417568,4.6456544535072455,-5.396551753469076, skinmeshes, function(){createBasicPopup("Hair Follicle", "desc *NOTE: ADD APORCINE GLANDS IN THIS DSEC*")}, 0.25)
+            createSphereBtn(-3.6271103275220824,-0.3045936995585201,-5.852358112119418, skinmeshes, function(){createBasicPopup("Hypodermis", "desc")}, 0.25)
+            createSphereBtn(1.6738174780913555,10.775824622157021,-1.6476496506116582, skinmeshes, function(){createBasicPopup("Surface Hairs", "desc")}, 0.25)
+//NOTE: When writing descriptions, add free nerve endings to their respective buttons please.
         });
         clearbtns();
         showbtn(backHuman);
@@ -1597,7 +1619,8 @@ function loadresp(val) {
         showbtn(backHuman);
         createSphereBtn(0, 0.2, 0.025, lungmeshes, function(){createBasicPopup("Trachea", "The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.", tracheabtns)}, .05)
         createSphereBtn(0, 0, 0.025, lungmeshes, function(){createBasicPopup("Bronchi", "The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.", bronchibtns)}, .05)
-        
+        createSphereBtn(0.36621450755113255,-0.9993902851519447,0.22129484768301144, lungmeshes, function(){createBasicPopup("Diaphgram", "desc", bronchibtns)}, .05)
+
         
     }
 }
