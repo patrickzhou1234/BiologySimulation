@@ -406,16 +406,16 @@ var createScene = function (canvas, engine) {
 
 
 
-    // let vector = { x:'', y:'', z:'' };
-    // scene.onPointerDown = function (event, pickResult){
-    //         //left mouse click
-    //         if(event.button == 0){
-    //             try{
-    //                 vector = pickResult.pickedPoint;
-    //                 console.log('left mouse click: ' + vector.x + ',' + vector.y + ',' + vector.z );
-    //             }catch (err){}
-    //         }
-    // }
+    let vector = { x:'', y:'', z:'' };
+    scene.onPointerDown = function (event, pickResult){
+            //left mouse click
+            if(event.button == 0){
+                try{
+                    vector = pickResult.pickedPoint;
+                    console.log('left mouse click: ' + vector.x + ',' + vector.y + ',' + vector.z );
+                }catch (err){}
+            }
+    }
 
     return scene;
 };
@@ -648,7 +648,7 @@ function showExteriorBrain() {
 
             medullaLobeMat = new BABYLON.StandardMaterial("medullaMat", scene);
             const medulla = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            medulla.position.set(8, -5, 8.5); // (depth,vertical,horizantal)
+            medulla.position.set(9.783295435504865,-10.973468433087497,-0.7949386939274561); // (depth,vertical,horizantal)
             medulla.material = medullaLobeMat;
             lobemeshes.push(medulla); // adds frontalLobe to lobemeshes array
             medulla.actionManager = new BABYLON.ActionManager(scene);
@@ -668,7 +668,7 @@ function showExteriorBrain() {
 
             ponsLobeMat = new BABYLON.StandardMaterial("ponsMat", scene);
             const pons = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            pons.position.set(6, -3, 8.5 ); // (depth,vertical,horizantal)
+            pons.position.set(8.43870385928456,-7.669021724662432,-3.3618906969331945); // (depth,vertical,horizantal)
             pons.material = ponsLobeMat;
             lobemeshes.push(pons);
             pons.actionManager = new BABYLON.ActionManager(scene);
@@ -688,7 +688,7 @@ function showExteriorBrain() {
 
             thalamusLobeMat = new BABYLON.StandardMaterial("thalamusMat", scene);
             const thalamus = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            thalamus.position.set(2, 0, 8.5); // (depth,vertical,horizantal)
+            thalamus.position.set(5.881520530349253,-2.389640943659913,-3.7078067365543674); // (depth,vertical,horizantal)
             thalamus.material = thalamusLobeMat;
             lobemeshes.push(thalamus); // adds frontalLobe to lobemeshes array
             thalamus.actionManager = new BABYLON.ActionManager(scene);
@@ -728,7 +728,7 @@ function showExteriorBrain() {
             // Frontal Lobe
             frontalLobemat = new BABYLON.StandardMaterial("frontalLobe", scene);
             const frontalLobe = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-            frontalLobe.position.set(0, 28, 0);
+            frontalLobe.position.set(-3.5737458068703276,9.243767774489436,-11.965853805506342);
             frontalLobe.material = frontalLobemat;
             lobemeshes.push(frontalLobe); // adds frontalLobe to lobemeshes array
             frontalLobe.actionManager = new BABYLON.ActionManager(scene);
@@ -748,7 +748,7 @@ function showExteriorBrain() {
              // Temporal Lobes
         temporalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
         const temporal1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        temporal1.position.set(10.5, 5, 20.5); // (depth,vertical,horizantal)
+        temporal1.position.set(-3.1009753080826954,-2.0810282693562208,3.43813110274354); // (depth,vertical,horizantal)
         temporal1.material = temporalLobeMat;
         lobemeshes.push(temporal1); // adds frontalLobe to lobemeshes array
         temporal1.actionManager = new BABYLON.ActionManager(scene);
@@ -766,7 +766,7 @@ function showExteriorBrain() {
         );
 
         const temporal2 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        temporal2.position.set(10.5, 5, -4); // (depth,vertical,horizantal)
+        temporal2.position.set(-3.1009753080826954,-2.0810282693562208,3.43813110274354); // (depth,vertical,horizantal)
         temporal2.material = temporalLobeMat;
         lobemeshes.push(temporal2); // adds frontalLobe to lobemeshes array
         temporal2.actionManager = new BABYLON.ActionManager(scene);
@@ -788,7 +788,7 @@ function showExteriorBrain() {
         parietalLobeMat = new BABYLON.StandardMaterial("temperolMat", scene);
 
         const parietal = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        parietal.position.set(15.5, 10, 8); // (depth,vertical,horizantal)
+        parietal.position.set(11.218426505672202,13.035765656995679,-0.6575950891862092); // (depth,vertical,horizantal)
         parietal.material = parietalLobeMat;
         lobemeshes.push(parietal); // adds frontalLobe to lobemeshes array
         parietal.actionManager = new BABYLON.ActionManager(scene);
@@ -810,7 +810,7 @@ function showExteriorBrain() {
         occipitalLobeMat = new BABYLON.StandardMaterial("occipitalLobe", scene);
 
         const occipital = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2.5, segments: 32 }, scene);
-        occipital.position.set(16.5, -3, 8.5); // (depth,vertical,horizantal)
+        occipital.position.set(13.991150944003131,1.2128620511509567,11.584530010406212); // (depth,vertical,horizantal)
         occipital.material = occipitalLobeMat;
         lobemeshes.push(occipital); // adds frontalLobe to lobemeshes array
         occipital.actionManager = new BABYLON.ActionManager(scene);
