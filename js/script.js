@@ -1132,7 +1132,7 @@ function loadintestine(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, intestinebtns, 0);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/intestine.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/itine.glb", scene, function (meshes) {
             clear();
             hideui();
             camera.position = new BABYLON.Vector3(0,0,20);
@@ -1513,6 +1513,25 @@ function loadmuscular(val) {
             meshes[0].scaling = new BABYLON.Vector3(0.3, 0.3, 0.3);
             muscularref = meshes[0];
             allMeshes.push(muscularref);
+
+            createSphereBtn(-0.9595757246715109,-2.4508153315399683,1.7633318747775952, muscularmeshes, function(){createBasicPopup("Gluteus maximus" , "The largest muscle in the buttocks, responsible for hip extension and external rotation.")}, 0.4)
+            createSphereBtn(0.6882254289724681,-5.217013467858925,-0.2827176474055335, muscularmeshes, function(){createBasicPopup("Quadriceps", "A group of four muscles in the front of the thigh that extend the knee joint. ")}, 0.4)
+            createSphereBtn(1.0569583130871347,-4.490435223965783,1.1028404875539088, muscularmeshes, function(){createBasicPopup("Hamstrings ", "A group of three muscles at the back of the thigh that flex the knee joint and extend the hip joint.  ")}, 0.4)
+            createSphereBtn(-0.8992677017875774,-4.318400530692453,1.0402248330083737, muscularmeshes, function(){createBasicPopup("Gastrocnemius ", " The calf muscle, responsible for plantar flexion of the foot.            ")}, 0.4)
+            createSphereBtn(2.7572234229919785,1.3032823272624965,0.31611737245809124, muscularmeshes, function(){createBasicPopup("Biceps brachii  ", " Located in the upper arm, this muscle is involved in elbow flexion and forearm supination.   ")}, 0.4)
+            createSphereBtn(-2.6793534430233543,1.8298286818625975,1.7296695182045667, muscularmeshes, function(){createBasicPopup("Triceps brachii ", "Found on the back of the upper arm, it extends the elbow joint.            ")}, 0.4)
+            createSphereBtn(-0.191356019553929,-0.20163609969102048,-1.1340124778106109, muscularmeshes, function(){createBasicPopup("Rectus abdominis ", "Also known as the abs, it flexes the spine and helps stabilize the core.")}, 0.4)
+            createSphereBtn(1.2986588627082112,-0.14246239629252244,-0.5962617308827127, muscularmeshes, function(){createBasicPopup("Obliques ", " The external and internal obliques assist in rotation and lateral flexion of the spine.            ")}, 0.4)
+            createSphereBtn(-0.7858814124471021,2.594602223677178,-1.0091268162423788, muscularmeshes, function(){createBasicPopup("Pectoralis major ", "The chest muscle, responsible for shoulder flexion, adduction, and internal rotation")}, 0.4)
+            createSphereBtn(-1.2800446733460544,1.4113759110829651,1.7001175571319962, muscularmeshes, function(){createBasicPopup("Latissimus dorsi ", "Located in the back, it performs shoulder extension, adduction, and medial rotation")}, 0.4)
+            createSphereBtn(-2.1179032206981585,3.135423221082636,1.6565915952165646, muscularmeshes, function(){createBasicPopup("Deltiods", "The shoulder muscles responsible for arm abduction, flexion, and extension.")}, 0.4)
+            createSphereBtn(-0.011323480934285701,3.325926619570299,1.6627112678871612, muscularmeshes, function(){createBasicPopup("Trapezius ", "The large muscle in the upper back and neck, responsible for shoulder movement and neck extension.")}, 0.4)
+            createSphereBtn(-1.2551765442635419,-8.686381271946104,1.577246976393095, muscularmeshes, function(){createBasicPopup("Soleus ", "Located beneath the gastrocnemius, it assists in plantar flexion of the foot.")}, 0.4)
+            createSphereBtn(-1.5790522311693351,-8.93094836393881,0.4329394841819061, muscularmeshes, function(){createBasicPopup("Tibialis anterior ", "Found in the front of the lower leg, it dorsiflexes the foot.")}, 0.4)
+            createSphereBtn(-0.8810866857949913,-3.1537589343874246,-0.5608825936760073, muscularmeshes, function(){createBasicPopup("Rectus femoris ", "Part of the quadriceps group, it flexes the hip and extends the knee.")}, 0.4)
+            createSphereBtn(0.8081998349093804,4.08562975702055,0.46671843769535837, muscularmeshes, function(){createBasicPopup("Supraspinatus", "One of the rotator cuff muscles, it assists in shoulder abduction.")}, 0.4)
+            
+
 
         });
         clearbtns();
