@@ -49,6 +49,7 @@ smoothersmlbtns = document.querySelectorAll(".smoothersmlbtns");
 brainbtns = document.querySelectorAll(".brainbtns");
 eyebtns = document.querySelectorAll(".eyebtns");
 heartbtns = document.querySelectorAll(".heartbtns");
+cordbtns = document.querySelectorAll(".cordbtns");
 kidneybtns = document.querySelectorAll(".kidneybtns");
 exretorybtns = document.querySelectorAll(".exretorybtns");
 lungbtns = document.querySelectorAll(".lungbtns");
@@ -58,6 +59,7 @@ digestivebtns = document.querySelectorAll(".digestivebtns");
 circulatorybtns = document.querySelectorAll(".circulatorybtns");
 bronchibtns = document.querySelectorAll(".bronchibtns");
 lymphbtns = document.querySelectorAll(".lymphbtns");
+endocrine1btns = document.querySelectorAll(".endocrine1btns");
 liverbtns = document.querySelectorAll(".liverbtns");
 esophagusbtns = document.querySelectorAll(".esophagusbtns");
 intestinebtns = document.querySelectorAll(".intestinebtns");
@@ -97,7 +99,9 @@ let skinref = 0;
 let intestineref = 0;
 let spleenref = 0;
 let pancreasref = 0;
+let cordref = 0;
 let esophagusref = 0;
+let endocrine1ref = 0;
 let rbcref = 0;
 let vesselref = 0;
 let colonref = 0;
@@ -126,6 +130,7 @@ let digestiveinsitumeshes = [];
 let skeletalmeshes = [];
 let kidneymeshes = [];
 let nephronmeshes = [];
+let endocrine1meshes = [];
 let digestivemeshes = [];
 let skullmeshes = [];
 let skinmeshes = [];
@@ -134,6 +139,7 @@ let bronchimeshes = [];
 let rbcmeshes = [];
 let vesselmeshes = [];
 let lymphmeshes = [];
+let cordmeshes = [];
 let muscularmeshes = [];
 let spinemeshes = [];
 let endocrinemeshes = [];
@@ -147,7 +153,7 @@ let tracheameshes = [];
 let colonmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showvessel, showrbc, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
-let buttonArrays = [tracheabtns, roundbtns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, rbcbtns, vesselbtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns];
+let buttonArrays = [tracheabtns, roundbtns, cordbtns, endocrine1btns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, rbcbtns, vesselbtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, lungbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -881,7 +887,7 @@ function loadspine(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
-        BABYLON.SceneLoader.ImportMesh("", "", "models/spine.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/nervoussystem.glb", scene, function (meshes) {
             clear();
             hideui();
 
@@ -897,6 +903,7 @@ function loadspine(val) {
             spineref = meshes[0];
             allMeshes.push(spineref);
             createSphereBtn(0, 7.5, 2.5, spinemeshes, function(){createBasicPopup("Brain", "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.", brainbtns)}, .5)
+            createSphereBtn(-0.3611071484137547,2.2155669523598203,0.5144020521811177, spinemeshes, function(){createBasicPopup("Spinal Cord", "Desc", cordbtns)}, .5)
 
         });
         clearbtns();
@@ -1132,7 +1139,7 @@ function loadintestine(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, intestinebtns, 0);
-        BABYLON.SceneLoader.ImportMesh("", "", "models/itine.glb", scene, function (meshes) {
+        BABYLON.SceneLoader.ImportMesh("", "", "models/intestine.glb", scene, function (meshes) {
             clear();
             hideui();
             camera.position = new BABYLON.Vector3(0,0,20);
@@ -1335,6 +1342,34 @@ function loadbronchi(val) {
         showbtn(backHuman);
     }
 }
+function loadcord(val) {
+    change(m.getChild(), "loadcord(0)");
+    if (checkvis(cordbtns[0]) || val == 0) {
+        showui();
+        clearbtns();
+        clickcond(humanmeshes, cordbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/spinalcord1.glb", scene, function (meshes) {
+            clear();
+            hideui();
+
+            camera.position = new BABYLON.Vector3(10,1,10);
+            camera.target = new BABYLON.Vector3(0, 5, 0);
+            meshes[0].scaling = new BABYLON.Vector3(.2, .2, .2);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            cordref = meshes[0];
+            allMeshes.push(cordref);
+            createSphereBtn(-0.4898616709510044,-2.6803959776525828,-0.09921364781747144, cordmeshes, function(){createBasicPopup("Coccyx", "desc", )}, .4)
+
+        });
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
 
 function loadlymphatic(val) {
     change(m.getChild(), "loadlymphatic(0)");
@@ -1431,6 +1466,41 @@ function loadendocrine(val) {
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             endocrineref = meshes[0];
             allMeshes.push(endocrineref);
+            createSphereBtn(0.38177421210721185,10.476974486561003,-0.7496007303027916, endocrinemeshes, function(){createBasicPopup("View Endocrine System", "", endocrine1btns)}, .4)
+
+        });
+        clearbtns();
+        showbtn(backHuman);
+    }
+}
+function loadendocrine1(val) {
+    change(m.getChild(), "loadendocrine1(0)");
+    if (checkvis(endocrine1btns[0]) || val == 0 || val == 2) {
+        showui();
+        clickcond(humanmeshes, endocrine1btns, 0);
+        // hidebtn(showsystems);
+        hidebtn(backcell);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/endocrinesystem1.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            camera.position = new BABYLON.Vector3(4.7, 20.25, -127);
+            camera.target = new BABYLON.Vector3(0, 15, 0);
+            camera.upperRadiusLimit = 100;
+            camera.radius = 23;
+            clear();
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            endocrine1ref = meshes[0];
+            allMeshes.push(endocrine1ref);
+            createSphereBtn(0.19422271158972215,15.053095487973781,0.3765937280360596, endocrinemeshes, function(){createBasicPopup("Thyroid Gland", "desc")}, .2)
+            createSphereBtn(-0.052308999432993275,13.980299730520228,0.11839942778949109, endocrinemeshes, function(){createBasicPopup("Thymus", "desc")}, .2)
+            createSphereBtn(0.4548344838084215,12.218283970225333,0.6109802685730505, endocrinemeshes, function(){createBasicPopup("Adrenal Gland", "desc")}, .2)
+            createSphereBtn(-0.13667778030159905,11.812149353633087,0.07705994682174655, endocrinemeshes, function(){createBasicPopup("Pancreas", "desc")}, .2)
+            createSphereBtn(0.19422271158972215,15.053095487973781,0.3765937280360596, endocrinemeshes, function(){createBasicPopup("Thyroid Gland", "desc")}, .2)
+            createSphereBtn(-0.3790778878018308,9.211812257647377,0.5720214617706709, endocrinemeshes, function(){createBasicPopup("Testes/Ovaries", "desc")}, .2)
+            createSphereBtn(-0.14833353391744186,17.198081967825033,-0.1482179000675199, endocrinemeshes, function(){createBasicPopup("Brain Organs: Hypothalamus, Pituitary Gland, Pineal Gland", "desc")}, .2)
 
         });
         clearbtns();
@@ -2254,6 +2324,11 @@ function clear() {
         try {
             bronchimeshes[i].dispose();
         } catch (err) {}
+    } 
+    for (i = 0; i < cordmeshes.length; i++) {
+        try {
+            cordmeshes[i].dispose();
+        } catch (err) {}
     }for (i = 0; i < spleenmeshes.length; i++) {
         try {
             spleenmeshes[i].dispose();
@@ -2285,6 +2360,10 @@ function clear() {
     } for (i = 0; i < skinmeshes.length; i++) {
         try {
             skinmeshes[i].dispose();
+        } catch (err) {}
+    } for (i = 0; i < endocrine1meshes.length; i++) {
+        try {
+            endocrine1meshes[i].dispose();
         } catch (err) {}
     } for (i = 0; i < spinemeshes.length; i++) {
         try {
