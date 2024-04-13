@@ -425,7 +425,32 @@ img {
     transition: opacity 0.2s !important;
     border-radius: 6px;
 }
-
+.cordbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+#cordbtn {
+    left: 80vh;
+    top: 77vh;
+}
+.endocrine1btns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+#endocrine1btn {
+    left: 80vh;
+    top: 77vh;
+}
 #kidneybtn {
     left: 80vh;
     top: 77vh;
