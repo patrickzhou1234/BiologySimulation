@@ -42,20 +42,19 @@
     <button onclick="loadbrain(1)" id="brainbtn" style="display: none;" class="mui-btn mui-btn--primary brainbtns">3d Model</button>
     <button onclick="loadeye()" id="eyebtn" style="display: none;" class="mui-btn mui-btn--primary eyebtns largeBtn">3d Model</button>
     <button onclick="loadgolgi(1)" id="golgismlbtn" style="display: none;" class="mui-btn mui-btn--primary golgismlbtns">3d Model</button>
+    <button onclick="loadcord(1)" id="cordbtn" style="display: none;" class="mui-btn mui-btn--primary cordbtns">3d Model</button>
+    <button onclick="loadendocrine1()" id="endocrine1btn" style="display: none;" class="mui-btn mui-btn--primary endocrine1btns">3d Model</button>
     <button onclick="loadrougher()" id="roughersmlbtn" style="display: none;" class="mui-btn mui-btn--primary roughersmlbtns">RER 3d Model</button>
     <button onclick="loadsmoother()" id="smoothersmlbtn" style="display: none;" class="mui-btn mui-btn--primary smoothersmlbtns">SER 3d Model</button>
     <button onclick = "loadpanel()" style="display: none;" id="panelbtn" class="mui-btn mui-btn--primary largeBtn">Brain Information</button>
     <button onclick = "loadribopanel()" style="display: none;" id="ribopanelbtn" class="mui-btn mui-btn--primary largeBtn">Ribosome Info</button>
     <button onclick = "loadneuron(1)" style="display: none;" id="neuron" class="mui-btn mui-btn--primary largeBtn">Show Neuron</button>
-    <button onclick = "loadrbc(1)" style="display: none;" id="rbc" class="mui-btn mui-btn--primary largeBtn">Show Red Blood Cell</button>
-    <button onclick = "loadvessel(1)" style="display: none;" id="vessel" class="mui-btn mui-btn--primary largeBtn">Show Blood Vessel</button>
     <button onclick = "loadETC(1)" style="display: none;" id="ETC" class="mui-btn mui-btn--primary largeBtn">Show Electron Transport Chain</button>
     <button onclick="loadheart(1)" id="heartbtn" style="display: none;" class="mui-btn mui-btn--primary heartbtns">3d Model</button>
     <button onclick="loadkidney(1)" id="kidneybtn" style="display: none;" class="mui-btn mui-btn--primary kidneybtns">3d Model</button>
     <button onclick="loadnephron(1)" id="nephronbtn" style="display: none;" class="mui-btn mui-btn--primary nephronbtns">Show Nepheron</button>
     <button onclick="loadexretory(1)" id="exretorybtn" style="display: none;" class="mui-btn mui-btn--primary exretorybtns">3d Model</button>
     <button onclick="kidney2dmodel()" id="kidney2dmodelbtn" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Kidney 2d Model</button>
-    <button onclick="loadlung(1)" id="lungbtn" style="display: none;" class="mui-btn mui-btn--primary lungbtns">3d Model</button>
     <button onclick="loadstomach(1)" id="stomachbtn" style="display: none;" class="mui-btn mui-btn--primary stomachbtns">3d Model</button>
     <button onclick="loaddigestive(1)" id="digestivebtn" style="display: none;" class="mui-btn mui-btn--primary digestivebtns">3d Model</button>
     <button onclick="loadcirculatory(1)" id="circulatorybtns" style="display: none;" class="mui-btn mui-btn--primary circulatorybtns">THIS LOADS IN CIRCULATORY SYSTEM VIA SEARCH</button>
@@ -69,7 +68,9 @@
     <button onclick="loadcolon(1)" id="colonbtn" style="display: none;" class="mui-btn mui-btn--primary colonbtns">3d Model</button>
     <button onclick="loadpancreas(1)" id="pancreasbtn" style="display: none;" class="mui-btn mui-btn--primary pancreasbtns">3d Model</button>
     <button onclick="loadspine(1)" id="spinebtn" style="display: none;" class="mui-btn mui-btn--primary spinebtns">THIS LOADS IN NERVOUS SYSTEM VIA SEARCH</button>
+    <button onclick="loadresp(1)" id="respbtn" style="display: none;" class="mui-btn mui-btn--primary respbtns">Show Lungs and Diaphragm</button>
     <button onclick="loadspleen(1)" id="spleenbtn" style="display: none;" class="mui-btn mui-btn--primary spleenbtns">3d Model</button>
+    <button onclick="loadrespinsitu(1)" id="respinsitubtn" style="display: none;" class="mui-btn mui-btn--primary respinsitubtns">LOADS IN RESPIRATORY VIA SEARCH</button>
     <button onclick="loaddigestiveinsitu(1)" id="digestiveinsitubtn" style="display: none;" class="mui-btn mui-btn--primary digestiveinsitubtns">THIS LOADS IN DIGESTIVE SYSTEM VIA SEARCH</button>
     <button onclick="loadskull(1)" id="skullbtn" style="display: none;" class="mui-btn mui-btn--primary skullbtns">3d Model</button>
     <button onclick="loadskin(1)" id="skinbtn" style="display: none;" class="mui-btn mui-btn--primary skinbtns largeBtn">THIS LOADS IN INTEGUMENTARY SYSTEM VIA SERACH</button>
@@ -103,8 +104,8 @@
       <div class="topnav" id = "tabBtn" style="display: none;">
         <button class="tablinks largeBtn" onclick="loadspine(0)">Nervous</button>
         <button class="tablinks largeBtn" onclick="loadskeletal(0)">Skeletal</button>
-        <button class="tablinks largeBtn" onclick="loadexretory(0)">Exretory</button>
-        <button class="tablinks largeBtn" onclick="loadresp(0)">Respiratory</button>
+        <button class="tablinks largeBtn" onclick="loadexretory(0)">Excretory</button>
+        <button class="tablinks largeBtn" onclick="loadrespinsitu(0)">Respiratory</button>
         <button class="tablinks largeBtn" onclick="loaddigestiveinsitu(0)">Digestive</button>
         <button class="tablinks largeBtn" onclick="loadcirculatory(0)">Circulatory</button>
         <button class="tablinks largeBtn" onclick="loadlymphatic(0)">Lymphatic</button>
