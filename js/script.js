@@ -87,6 +87,7 @@ ribopanelbtn = document.getElementById("ribopanelbtn");
 searchbox = document.getElementById("searchbox");
 kidney2dmodelbtn = document.getElementById("kidney2dmodelbtn");
 showsystems = document.getElementById("systembtn");
+skinbtn = document.getElementById("skinbtn");
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
@@ -928,6 +929,9 @@ function loadhuman(val) {
             showbtn(backcell);
             createSphereBtn(0.2, 10, -0.8, humanmeshes, function(){createBasicPopup("Eye", "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world. ", eyebtns)}) 
             createSphereBtn(-0.534986287242269,9.902969211872968,-0.04703141752093032, humanmeshes, function(){createBasicPopup("Ear", "desc ")}) 
+            createSphereBtn(4,8.75,0.25, humanmeshes, function(){
+                createBasicPopup("Skin", "desc ", skinbtns);
+            }) 
 
         });
 
