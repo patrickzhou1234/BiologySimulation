@@ -522,6 +522,10 @@ img {
     width: 190%;
 }
 
+#skinbtn {
+    top: 75%;
+    left: 35%;
+}
 .searchContent {
     z-index: 1;
     position: absolute;
