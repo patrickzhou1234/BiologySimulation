@@ -42,47 +42,8 @@
     opacity: 0;
     transition: opacity 0.2s !important;
     border-radius: 6px;
-}.intestinebtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}.pancreasbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}.spleenbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}.colonbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}.respbtns {
-    z-index: 99999999;
-    font-family: "amazon-ember";
-    font-size: calc(0.65vw + 0.65vh);
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.2s !important;
-    border-radius: 6px;
-}.spleenbtns {
+}
+.intestinebtns {
     z-index: 99999999;
     font-family: "amazon-ember";
     font-size: calc(0.65vw + 0.65vh);
@@ -91,42 +52,86 @@
     transition: opacity 0.2s !important;
     border-radius: 6px;
 }
-#spleenbtn{
-left: 80vh;
+.pancreasbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+.spleenbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+.colonbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+.respbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+.spleenbtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+#spleenbtn {
+    left: 80vh;
     top: 93h;
 }
-#bronchibtn{
-left: 80vh;
-    top: 73vh;
-    
-}#esophagusbtn{
+#bronchibtn {
     left: 80vh;
-        top: 73vh;
-    }
-#liverbtn{
-    left: 80vh;
-        top: 73vh;
-    }
- #respbtn{
-        left: 80vh;
-            top: 73vh;
-            
-        }
-#intestinebtn{
-left: 80vh;
     top: 73vh;
 }
-#pancreasbtn{
+#esophagusbtn {
     left: 80vh;
-        top: 73vh;
-    }
-#spleenbtn{
-    left: 80vh;
-        top: 73vh;
+    top: 73vh;
 }
-#colonbtn{
+#liverbtn {
     left: 80vh;
-        top: 73vh;
+    top: 73vh;
+}
+#respbtn {
+    left: 80vh;
+    top: 73vh;
+}
+#intestinebtn {
+    left: 80vh;
+    top: 73vh;
+}
+#pancreasbtn {
+    left: 80vh;
+    top: 73vh;
+}
+#spleenbtn {
+    left: 80vh;
+    top: 73vh;
+}
+#colonbtn {
+    left: 80vh;
+    top: 73vh;
 }
 #babcanv:hover {
     cursor: move;
@@ -165,7 +170,7 @@ left: 80vh;
     opacity: 1;
 }
 
-#backBrain{
+#backBrain {
     left: 8vh;
     opacity: 1;
 }
@@ -391,7 +396,7 @@ img {
     left: 5vh;
     top: 43vh;
 }
-#ETC{
+#ETC {
     left: 5vh;
     top: 15vh;
 }
@@ -551,7 +556,7 @@ img {
 }
 #backbtn {
     left: 3vw;
-    top: 10vh;   
+    top: 10vh;
 }
 /* #ribopanelbtn {
     left: 65vh;
@@ -565,7 +570,7 @@ img {
 
 #backbtn {
     left: 3vw;
-    top: 10vh;   
+    top: 10vh;
 }
 
 #systembtn {
@@ -577,7 +582,6 @@ img {
     background-color: #333;
     overflow: hidden;
     width: 100%;
-    
 }
 
 /* Style the links inside the navigation bar */
@@ -599,4 +603,21 @@ img {
     position: relative;
     left: 30vh;
     border-radius: 0px;
+}
+
+#home {
+    left: 2vmin;
+}
+
+.iconclass {
+    width: 5vmin;
+    height: 5vmin;
+    position: absolute;
+    top: 94vmin;
+    transition: transform 0.2s;
+}
+
+.iconclass:hover {
+    transform: translateY(-1vmin);
+    cursor: pointer;
 }
