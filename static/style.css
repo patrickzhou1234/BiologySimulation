@@ -558,6 +558,10 @@ img {
     left: 3vw;
     top: 10vh;
 }
+#smokingbtn {
+    left: 65vw;
+    top: 84vh;
+}
 /* #ribopanelbtn {
     left: 65vh;
     top: 84vh;
@@ -625,4 +629,9 @@ img {
 #diaphragmbtn {
     left: 45vw;
     top: 85vh;
+}
+
+#lungcsbtn {
+    left: 3vw;
+    top: 10vh;
 }

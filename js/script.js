@@ -8,17 +8,22 @@ document.querySelectorAll(".statsdom")[0].setAttribute("style", "");
 // declaration
 
 
-panel = document.querySelectorAll(".cd-panel")[0]; // get access to the html code of the brain info panel
-document.querySelector(".js-cd-close").onclick = () => { // when the close button is clicked for the brain info panel, remove the class that makes the panel visible
+panel = document.querySelectorAll(".brainpanel")[0]; // get access to the html code of the brain info panel
+document.querySelector(".brainclose").onclick = () => { // when the close button is clicked for the brain info panel, remove the class that makes the panel visible
     removeClass(panel, "cd-panel--is-visible");
 };
 // same as above but for ribosome information
-ribopanel = document.querySelectorAll(".cd-ribopanel")[0];
-document.querySelector(".js-cd-riboclose").onclick = () => {
+ribopanel = document.querySelectorAll(".ribopanel")[0];
+document.querySelector(".riboclose").onclick = () => {
     removeClass(ribopanel, "cd-panel--is-visible");
     hidebtn(ribopanelbtn); // dont want to see the info button when panel is closed, so hide this btn on click of the close btn
-    showbtn(searchbox); // when the panel openned, we had made the search box disappear, this makes it reappear once panel closes
 };
+
+smokingpanel = document.querySelectorAll(".smokingpanel")[0];
+document.querySelector(".smokingclose").onclick = () => {
+    removeClass(smokingpanel, "cd-panel--is-visible");
+    showbtn(smokingbtn);
+}
 
 // returns boolean on whether or not an element has a class
 function hasClass(el, className) {
@@ -84,11 +89,15 @@ showNeuron = document.getElementById("neuron");
 showETC = document.getElementById("ETC");
 panelbtn = document.getElementById("panelbtn");
 ribopanelbtn = document.getElementById("ribopanelbtn");
-searchbox = document.getElementById("searchbox");
+smokingbtn = document.getElementById("smokingbtn");
+// searchbox = document.getElementById("searchbox");
 kidney2dmodelbtn = document.getElementById("kidney2dmodelbtn");
 showsystems = document.getElementById("systembtn");
 skinbtn = document.getElementById("skinbtn");
 diaphragmbtn = document.getElementById("diaphragmbtn");
+lungcrosssec = document.getElementById("lungcsbtn");
+lungcsbtns = []
+lungcsbtns.push(lungcrosssec)
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
@@ -149,7 +158,7 @@ let pancreasmeshes = [];
 let esophagusmeshes = [];
 let colonmeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
+let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn, smokingbtn];
 let buttonArrays = [roundbtns, respbtns, cordbtns, respinsitubtns, endocrine1btns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns, lungbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
@@ -622,10 +631,15 @@ function loadpanel() {
     addClass(panel, "cd-panel--is-visible");
 }
 function loadribopanel() {
-    hidebtn(searchbox);
     hidebtn(ribopanelbtn)
     Swal.close(); // closes the pop up with info on the ribosome
     addClass(ribopanel, "cd-panel--is-visible");
+}
+
+function loadsmokingpanel() {
+    hidebtn(smokingbtn)
+    hidebtn(showsystems)
+    addClass(smokingpanel, "cd-panel--is-visible");
 }
 
 function showExteriorBrain() {
@@ -1374,11 +1388,10 @@ function loadrespinsitu(val) {
             // createSphereBtn(-0.16773238650178612,10.425574829659665,0.4786251011717475, respinsitumeshes, function(){createBasicPopup("Notrils ", "", )}, .4)
             // createSphereBtn(-0.21591421901896712,8.479358037941617,-0.4453685576808546, respinsitumeshes, function(){createBasicPopup("Epiglottis ", "", )}, .4)
             // createSphereBtn(0.1397080083473481,9.847689668424586,0.022215815897260516, respinsitumeshes, function(){createBasicPopup("Nasal Cavity ", "", )}, .4)
-            createSphereBtn(0.6678516672859187,5.940687969366346,0.49385188816016523, respinsitumeshes, function(){createBasicPopup("Lungs", "The lungs, crucial for breathing, sit symmetrically in the chest. The right lung has three lobes, while the left has two. Their main job is gas exchange, taking in oxygen and releasing carbon dioxide. Air enters through the nose/mouth, travels down the airway, and reaches tiny sacs called alveoli. Here, oxygen enters the blood, and carbon dioxide is removed. Protective features like nasal hairs and mucus ensure smooth airflow. Lungs are buoyant, and one can function with just one. Regular exercise boosts lung capacity, and adults have millions of alveoli. In essence, lungs play a vital role in maintaining our health and sustaining life through efficient gas exchange.", lungbtns)}) 
-
         });
         clearbtns();
         showbtn(backHuman);
+        showbtn(smokingbtn);
     }
 }
 function loadlymphatic(val) {
@@ -1713,16 +1726,36 @@ function loadresp(val) {
         // camera.radius.upperRadiusLimit = 100;
         // camera.radius = 15;
         showbtn(backHuman);
+        showbtn(smokingbtn);
         createSphereBtn(0, 0.2, 0.025, respmeshes, function(){createBasicPopup("Trachea", "The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.")}, .05)
         createSphereBtn(0, 0, 0.025, respmeshes, function(){createBasicPopup("Bronchi", "The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.", bronchibtns)}, .05)
         createSphereBtn(0.36621450755113255,-0.9993902851519447,0.22129484768301144, respmeshes, function(){createBasicPopup("Diaphragm", "The diaphragm is a muscular dome that separates the abdominal and thoracic (chest) chambers. Its ability to contract and relax to aid in breathing is essential to respiration. The diaphragm flattens and contracts during inhalation, expanding the thoracic cavity's volume and producing a vacuum that pulls air into the lungs. It relaxes and takes on the shape of a dome during exhalation, reducing the volume of the thoracic cavity and releasing air from the lungs. In addition to offering structural support, the diaphragm divides the heart and lungs from the abdominal organs. By raising stomach pressure, it also helps with other body processes like sneezing, coughing etc. The diaphragm is coordinated with other breathing muscles by means of the phrenic nerves that regulate its movements.", diabtns)}, .05)
+        createSphereBtn(0.21614443373303704,-0.25441559952179893,0.26041848467991624, respmeshes, function(){createBasicPopup("Lungs", "The lungs, crucial for breathing, sit symmetrically in the chest. The right lung has three lobes, while the left has two. Their main job is gas exchange, taking in oxygen and releasing carbon dioxide. Air enters through the nose/mouth, travels down the airway, and reaches tiny sacs called alveoli. Here, oxygen enters the blood, and carbon dioxide is removed. Protective features like nasal hairs and mucus ensure smooth airflow. Lungs are buoyant, and one can function with just one. Regular exercise boosts lung capacity, and adults have millions of alveoli. In essence, lungs play a vital role in maintaining our health and sustaining life through efficient gas exchange.", lungcsbtns)}, 0.05) 
 
         
     }
 
-function loaddiaphragm() {     
+function loadlungcs(val) {     
+    change(m.getChild(), "loadlungcs(0)");
+    if (checkvis(lungcsbtns[0]) || val == 0) {
+        showui();
+        clickcond(respmeshes, lungcsbtns, 0);
+        clear();
+        BABYLON.SceneLoader.ImportMesh("", "", "models/lungcs.glb", scene, function (meshes) {
+            hideui();
+            camera.target = new BABYLON.Vector3(0, 0, 0)
+            meshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
+            camera.position = new BABYLON.Vector3(0, -4.5,-13);
+            lungcs = meshes[0];
+            muscularmeshes.push(lungcs);
+        });
+    }
+}
+    
+function loaddiaphragm() {    
+     
     BABYLON.SceneLoader.ImportMesh("", "", "models/diaphragm.glb", scene, function (meshes) {
-        meshes[0].scaling = new BABYLON.Vector3(7, 7, -7);
+        meshes[0].scaling = new  BABYLON.Vector3(7, 7, -7);
         meshes[0].position = new BABYLON.Vector3(0,-3.5,0);
         diaphragmref = meshes[0];
         muscularmeshes.push(diaphragmref);
@@ -2374,20 +2407,22 @@ function clear() {
         try {
             digestiveinsitumeshes[i].dispose();
         } catch (err) {}
+    }
     for (i = 0; i < skullmeshes.length; i++) {
             try {
                 skullmeshes[i].dispose();
             } catch (err) {}
     }
-    }for (i = 0; i < exretorymeshes.length; i++) {
+    for (i = 0; i < exretorymeshes.length; i++) {
         try {
             exretorymeshes[i].dispose();
         } catch (err) {}
     } 
-}for (i = 0; i < respinsitumeshes.length; i++) {
-    try {
-        respinsitumeshes[i].dispose();
-    } catch (err) {}
+    for (i = 0; i < respinsitumeshes.length; i++) {
+        try {
+            respinsitumeshes[i].dispose();
+        } catch (err) {}
+    }
     for (i = 0; i < lymphmeshes.length; i++) {
         try {
             lymphmeshes[i].dispose();

@@ -68,6 +68,7 @@
     <button onclick="loadcolon(1)" id="colonbtn" style="display: none;" class="mui-btn mui-btn--primary colonbtns">3d Model</button>
     <button onclick="loadpancreas(1)" id="pancreasbtn" style="display: none;" class="mui-btn mui-btn--primary pancreasbtns">3d Model</button>
     <button onclick="loadlungs(1)" id="lungbtn" style="display: none;" class="mui-btn mui-btn--primary lungbtns">3d Model</button>
+    <button onclick="loadlungcs(0)" id="lungcsbtn" style="display: none;" class="mui-btn mui-btn--primary lungbtns largeBtn">3d Model of Cross Section</button>
     <button onclick="loadspine(1)" id="spinebtn" style="display: none;" class="mui-btn mui-btn--primary spinebtns">THIS LOADS IN NERVOUS SYSTEM VIA SEARCH</button>
     <button onclick="loadresp(1)" id="respbtn" style="display: none;" class="mui-btn mui-btn--primary respbtns">Show Lungs and Diaphragm</button>
     <button onclick="loadspleen(1)" id="spleenbtn" style="display: none;" class="mui-btn mui-btn--primary spleenbtns">3d Model</button>
@@ -78,6 +79,7 @@
     <button onclick="loadtrachea(1)" id="tracheabtn" style="display: none;" class="mui-btn mui-btn--primary tracheabtns">3d Model</button>
     <button onclick="loaddiaphragmonly(0)" id="diaphragmbtn" style="display: none;" class="mui-btn mui-btn--primary diaphragmbtns largeBtn">3d Model</button>
     <button onclick="backPage()" id="backbtn" style="display: block;" class="mui-btn mui-btn--primary largeBtn">Go Back</button>
+    <button onclick="loadsmokingpanel()" id="smokingbtn" style="display: block;" class="mui-btn mui-btn--primary largeBtn">IYTC Collab (Anti Smoking)</button>
 
 
     <!-- <form class="largeBtn" id = "search">
@@ -280,10 +282,10 @@
       </script>
     <canvas id="babcanv"></canvas>
     <!-- Brain Info / Brain Hierarchy-->
-    <div class="cd-panel cd-panel--from-right js-cd-panel-main">
+    <div class="cd-panel brainpanel cd-panel--from-right js-cd-panel-main">
       <header class="cd-panel__header">
       <p class="sTitle">Brain Divisions</p>
-      <a class="cd-panel__close js-cd-close">Close</a>
+      <a class="cd-panel__close js-cd-close brainclose">Close</a>
       </header>
       <div class="cd-panel__container">
         <div class="cd-panel__content">
@@ -292,10 +294,10 @@
       </div> 
     </div> 
     <!-- Ribosome Menu -->
-    <div class="cd-ribopanel cd-panel--from-right js-cd-panel-main">
+    <div class="cd-panel ribopanel cd-panel--from-right js-cd-panel-main">
         <!-- <header class="cd-panel__header"> -->
         <p class="sTitle">Ribosome Functionality</p>
-        <a class="cd-panel__close js-cd-riboclose">Close</a>
+        <a class="cd-panel__close js-cd-close riboclose">Close</a>
         </header>
         <div class="cd-panel__container">
           <div class="cd-panel__content">
@@ -317,6 +319,21 @@
           </div> 
         </div> 
       </div> 
+    <!-- Anti-Smoking Menu -->
+    <div class="cd-panel smokingpanel cd-panel--from-right js-cd-panel-main">
+      <header class="cd-panel__header">
+      <h1 class="sTitle">IYTC Collab (Anti Smoking)</h1>
+      <a class="cd-panel__close js-cd-close smokingclose">Close</a>
+      </header>
+      <div class="cd-panel__container">
+        <div class="cd-panel__content">
+          <p class="sContent">
+                info goes here :D
+
+          </p>
+        </div> 
+      </div> 
+    </div> 
       <script src="js/script.js"></script>
 </body>
 
