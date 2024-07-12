@@ -65,6 +65,7 @@ esophagusbtns = document.querySelectorAll(".esophagusbtns");
 intestinebtns = document.querySelectorAll(".intestinebtns");
 spleenbtns = document.querySelectorAll(".spleenbtns");
 pancreasbtns = document.querySelectorAll(".pancreasbtns");
+lungbtns = document.querySelectorAll(".lungbtns");
 colonbtns = document.querySelectorAll(".colonbtns");
 skinbtns = document.querySelectorAll(".skinbtns");
 endocrinebtns = document.querySelectorAll(".endocrinebtns");
@@ -85,7 +86,6 @@ ribopanelbtn = document.getElementById("ribopanelbtn");
 searchbox = document.getElementById("searchbox");
 kidney2dmodelbtn = document.getElementById("kidney2dmodelbtn");
 showsystems = document.getElementById("systembtn");
-skinbtn = document.getElementById("skinbtn");
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
@@ -147,7 +147,7 @@ let esophagusmeshes = [];
 let colonmeshes = [];
 let allMeshes = [];
 let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn];
-let buttonArrays = [roundbtns, respbtns, cordbtns, respinsitubtns, endocrine1btns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns];
+let buttonArrays = [roundbtns, respbtns, cordbtns, respinsitubtns, endocrine1btns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns, lungbtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -897,7 +897,7 @@ function loadspine(val) {
             spineref = meshes[0];
             allMeshes.push(spineref);
             createSphereBtn(0, 7.5, 2.5, spinemeshes, function(){createBasicPopup("Brain", "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.", brainbtns)}, .5)
-            createSphereBtn(-0.3611071484137547,2.2155669523598203,0.5144020521811177, spinemeshes, function(){createBasicPopup("Spinal Cord", "Desc", cordbtns)}, .5)
+            createSphereBtn(-0.3611071484137547,2.2155669523598203,0.5144020521811177, spinemeshes, function(){createBasicPopup("Spinal Cord", "The pathway for nerve impulses to travel from the brain to the body and vice versa", cordbtns)}, .5)
 
         });
         clearbtns();
@@ -929,9 +929,6 @@ function loadhuman(val) {
             showbtn(backcell);
             createSphereBtn(0.2, 10, -0.8, humanmeshes, function(){createBasicPopup("Eye", "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world. ", eyebtns)}) 
             createSphereBtn(-0.534986287242269,9.902969211872968,-0.04703141752093032, humanmeshes, function(){createBasicPopup("Ear", "desc ")}) 
-            createSphereBtn(4,8.75,0.25, humanmeshes, function(){
-                createBasicPopup("Skin", "desc ", skinbtns);
-            }) 
 
         });
 
@@ -1064,16 +1061,16 @@ function loaddigestive(val) {
             meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
             digestiveref = meshes[0];
             allMeshes.push(digestiveref);
-            createSphereBtn(0, 2, -1.025, digestivemeshes, function(){createBasicPopup("Small Intestine", "desc", intestinebtns)}, .7)
-            createSphereBtn(0, 4, 0.2, digestivemeshes, function(){createBasicPopup("Pancreas", "desc", pancreasbtns)}, .7)
+            createSphereBtn(0, 2, -1.025, digestivemeshes, function(){createBasicPopup("Small Intestine", "The small intestine is a long, coiled tube where most of the digestion and absorption of nutrients occur. It consists of three sections—the duodenum, jejunum, and ileum—each playing a vital role in breaking down food and absorbing vitamins, minerals, and other nutrients into the bloodstream.c", intestinebtns)}, .7)
+            createSphereBtn(0, 4, 0.2, digestivemeshes, function(){createBasicPopup("Pancreas", "The pancreas is a glandular organ located behind the stomach that plays a crucial role in both digestion and blood sugar regulation. It produces digestive enzymes that are released into the small intestine and hormones, such as insulin and glucagon, that help manage blood glucose levels.", pancreasbtns)}, .7)
             createSphereBtn(-1, 5, -1.3, digestivemeshes, function(){createBasicPopup("Stomach", "The stomach, a key part of the gastrointestinal (GI) tract, is a muscular organ that digests food using acids and enzymes. It's located in the upper left abdomen and has five sections: cardia, fundus, body, antrum, and pylorus. These sections work together to contract, mix, and process food before passing it to the small intestine. ", stomachbtns)}, .7)
-            createSphereBtn(0, 10, 1.025, digestivemeshes, function(){createBasicPopup("Esophagus", "desc ", esophagusbtns)}, .7)
-            createSphereBtn(1,6, -1.5, digestivemeshes, function(){createBasicPopup("Liver", "desc ", liverbtns)}, .7)
-            createSphereBtn(1.5151203100242423,4.58159542163129,-0.4886603648770631, digestivemeshes, function(){createBasicPopup("Gallbladder", "desc ")}, .7)
-            createSphereBtn(0.11901681452779656,3.708769356834848,-1.5693504365953839, digestivemeshes, function(){createBasicPopup("Large Intestine (Colon)", "desc ", colonbtns)}, .7)
-            createSphereBtn(1.0278882681632533,-0.4251876960475176,-0.4062908418909057, digestivemeshes, function(){createBasicPopup("Appendix", "desc ")}, .7)
-            createSphereBtn(-0.050918167646385515,-0.8558629123022357,0.717677195142643, digestivemeshes, function(){createBasicPopup("Rectum", "desc ")}, .7)
-            createSphereBtn(0.01719847667590916,-2.0278662518005275,1.3534251692090413, digestivemeshes, function(){createBasicPopup("Anus", "desc ")}, .7)
+            createSphereBtn(0, 10, 1.025, digestivemeshes, function(){createBasicPopup("Esophagus", "The esophagus is a muscular tube that connects the throat to the stomach, allowing the passage of swallowed food and liquids. It uses coordinated muscle contractions, known as peristalsis, to move substances downward. ", esophagusbtns)}, .7)
+            createSphereBtn(1,6, -1.5, digestivemeshes, function(){createBasicPopup("Liver", "The liver carries out numerous essential functions, such as detoxifying harmful substances from the blood, disposing of old red blood cells, producing bile to aid in digestion, metabolizing proteins, carbohydrates, and fats for energy, facilitating blood clotting, regulating blood volume, and storing glycogen and vitamins for later use. This organ is divided into two main parts: the larger right lobe and the smaller left lobe, both containing intricate networks of blood vessels and lobules.", liverbtns)}, .7)
+            createSphereBtn(1.5151203100242423,4.58159542163129,-0.4886603648770631, digestivemeshes, function(){createBasicPopup("Gallbladder", "The gallbladder is a small, pear-shaped organ located beneath the liver, responsible for storing and concentrating bile produced by the liver. This bile is released into the small intestine to aid in the digestion of fats. ")}, .7)
+            createSphereBtn(0.11901681452779656,3.708769356834848,-1.5693504365953839, digestivemeshes, function(){createBasicPopup("Large Intestine (Colon)", "The colon, or large intestine, is the final part of the digestive system, responsible for absorbing water and electrolytes from indigestible food matter. It also compacts waste into feces for elimination from the body. ", colonbtns)}, .7)
+            createSphereBtn(1.0278882681632533,-0.4251876960475176,-0.4062908418909057, digestivemeshes, function(){createBasicPopup("Appendix", "The appendix is a small, tube-shaped pouch attached to the lower end of the large intestine. Although its precise function is unclear, it is believed to play a role in the immune system and maintaining gut flora. ")}, .7)
+            createSphereBtn(-0.050918167646385515,-0.8558629123022357,0.717677195142643, digestivemeshes, function(){createBasicPopup("Rectum", "The rectum is the final section of the large intestine, responsible for storing feces until they are ready to be expelled from the body. It signals the need for a bowel movement and facilitates the passage of waste through the anal canal. ")}, .7)
+            createSphereBtn(0.01719847667590916,-2.0278662518005275,1.3534251692090413, digestivemeshes, function(){createBasicPopup("Anus", "The anus is the external opening at the end of the digestive tract through which feces are expelled from the body. It is surrounded by sphincter muscles that control the passage of stool during defecation.")}, .7)
 
         });
     }
@@ -1100,7 +1097,7 @@ function loaddigestiveinsitu(val) {
             meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
             digestiveinsuturef = meshes[0];
             allMeshes.push(digestiveinsuturef);
-            createSphereBtn(0, 2, -1.025, digestiveinsitumeshes, function(){createBasicPopup("View Digestive System", "desc", digestivebtns)}, .7)
+            createSphereBtn(0, 2, -1.025, digestiveinsitumeshes, function(){createBasicPopup("View Digestive System", "", digestivebtns)}, .7)
 
         });
     }
@@ -1125,7 +1122,7 @@ function loadliver(val) {
             liverref = meshes[0];
             allMeshes.push(liverref);
             clearbtns();
-            createSphereBtn(0.26610380962321756,-2.6046785440048934,-0.9232411065429948, livermeshes, function(){createBasicPopup("Gallbladder", "desc")}, .7)
+            createSphereBtn(0.26610380962321756,-2.6046785440048934,-0.9232411065429948, livermeshes, function(){createBasicPopup("Gallbladder", "The gallbladder is a small, pear-shaped organ located beneath the liver, responsible for storing and concentrating bile produced by the liver. This bile is released into the small intestine to aid in the digestion of fats.")}, .7)
 
         });
     }
@@ -1151,11 +1148,11 @@ function loadintestine(val) {
             intestineref = meshes[0];
             allMeshes.push(intestineref);
             clearbtns();
-            createSphereBtn(2.5854595278409125,9.3249430687205,0.26042799839466113, intestinemeshes, function(){createBasicPopup("Duodenum", "desc")}, .7)
-            createSphereBtn(-1.0441230809222448,3.391124509169089,0.7264978034664225, intestinemeshes, function(){createBasicPopup("Jejunum", "desc")}, .7)
-            createSphereBtn(2.861563997450558,1.497042289458376,0.17179412339412536, intestinemeshes, function(){createBasicPopup("Ileum", "desc")}, .7)
-            createSphereBtn(1.148921973367198,10.074631647478405,0.43739938350441676, intestinemeshes, function(){createBasicPopup("Pyloric sphincter", "desc")}, .7)
-            createSphereBtn(4.050481837447435,-0.4583788453890749,0.14286343079463748, intestinemeshes, function(){createBasicPopup("Ileocecal valve", "desc")}, .7)
+            createSphereBtn(2.5854595278409125,9.3249430687205,0.26042799839466113, intestinemeshes, function(){createBasicPopup("Duodenum", "The duodenum is the first and shortest part of the small intestine, connecting directly to the stomach. It receives partially digested food from the stomach and plays a critical role in further digestion by receiving bile from the liver and pancreatic enzymes from the pancreas.")}, .7)
+            createSphereBtn(-1.0441230809222448,3.391124509169089,0.7264978034664225, intestinemeshes, function(){createBasicPopup("Jejunum", "The jejunum is the middle section of the small intestine, where most of the absorption of nutrients from digested food occurs. It is characterized by its extensive surface area, lined with villi and microvilli that facilitate the uptake of nutrients into the bloodstream.")}, .7)
+            createSphereBtn(2.861563997450558,1.497042289458376,0.17179412339412536, intestinemeshes, function(){createBasicPopup("Ileum", "The ileum is the final section of the small intestine, connecting to the large intestine (colon). It absorbs remaining nutrients and water from digested food, playing a crucial role in completing the digestion and absorption process before waste products move into the colon for elimination.")}, .7)
+            createSphereBtn(1.148921973367198,10.074631647478405,0.43739938350441676, intestinemeshes, function(){createBasicPopup("Pyloric sphincter", "The pyloric sphincter is a muscular valve located between the stomach and the small intestine. It regulates the flow of partially digested food (chyme) from the stomach into the duodenum, ensuring controlled digestion and absorption in the small intestine.")}, .7)
+            createSphereBtn(4.050481837447435,-0.4583788453890749,0.14286343079463748, intestinemeshes, function(){createBasicPopup("Ileocecal valve", "The ileocecal valve is a one-way valve located between the ileum (the last part of the small intestine) and the cecum (the first part of the large intestine or colon). It regulates the flow of digested material from the small intestine into the large intestine, preventing backflow and allowing for controlled digestion and absorption.")}, .7)
 
             
         });
@@ -1233,6 +1230,42 @@ function loadpancreas(val) {
             clearbtns();
 
         });
+    }
+}
+
+function loadlungs(val) {
+    change(m.getChild(), "loadlungs(0)");
+    if (checkvis(lungbtns[0]) || val == 0) {
+        clear();
+        showui();
+        clickcond(humanmeshes, lungbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
+            hideui();  
+            camera.position = BABYLON.Vector3(0, -10, 0);
+            lungsref = meshes[0];
+            allMeshes.push(lungsref);
+            respmeshes.push(lungsref);
+        });
+    }
+}
+
+function loadtrachea(val) {
+    change(m.getChild(), "loaddiaphram(0)");
+    if (checkvis(lungbtns[0]) || val == 0) {
+        clear()
+        showui();
+        clickcond(humanmeshes, lungbtns, 0);
+        importmesh("diaphram.glb")
+    }
+}
+
+function loaddiaphram(val) {
+    change(m.getChild(), "loaddiaphram(0)");
+    if (checkvis(lungbtns[0]) || val == 0) {
+        clear()
+        showui();
+        clickcond(humanmeshes, lungbtns, 0);
+        importmesh("diaphram.glb")
     }
 }
 
@@ -1360,6 +1393,8 @@ function loadrespinsitu(val) {
             // createSphereBtn(-0.16773238650178612,10.425574829659665,0.4786251011717475, respinsitumeshes, function(){createBasicPopup("Notrils ", "", )}, .4)
             // createSphereBtn(-0.21591421901896712,8.479358037941617,-0.4453685576808546, respinsitumeshes, function(){createBasicPopup("Epiglottis ", "", )}, .4)
             // createSphereBtn(0.1397080083473481,9.847689668424586,0.022215815897260516, respinsitumeshes, function(){createBasicPopup("Nasal Cavity ", "", )}, .4)
+            createSphereBtn(0.6678516672859187,5.940687969366346,0.49385188816016523, respinsitumeshes, function(){createBasicPopup("Lungs", "The lungs, crucial for breathing, sit symmetrically in the chest. The right lung has three lobes, while the left has two. Their main job is gas exchange, taking in oxygen and releasing carbon dioxide. Air enters through the nose/mouth, travels down the airway, and reaches tiny sacs called alveoli. Here, oxygen enters the blood, and carbon dioxide is removed. Protective features like nasal hairs and mucus ensure smooth airflow. Lungs are buoyant, and one can function with just one. Regular exercise boosts lung capacity, and adults have millions of alveoli. In essence, lungs play a vital role in maintaining our health and sustaining life through efficient gas exchange.", lungbtns)}) 
+
         });
         clearbtns();
         showbtn(backHuman);
@@ -1488,13 +1523,13 @@ function loadendocrine1(val) {
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             endocrine1ref = meshes[0];
             allMeshes.push(endocrine1ref);
-            createSphereBtn(0.19422271158972215,15.053095487973781,0.3765937280360596, endocrinemeshes, function(){createBasicPopup("Thyroid Gland", "desc")}, .2)
-            createSphereBtn(-0.052308999432993275,13.980299730520228,0.11839942778949109, endocrinemeshes, function(){createBasicPopup("Thymus", "desc")}, .2)
-            createSphereBtn(0.4548344838084215,12.218283970225333,0.6109802685730505, endocrinemeshes, function(){createBasicPopup("Adrenal Gland", "desc")}, .2)
-            createSphereBtn(-0.13667778030159905,11.812149353633087,0.07705994682174655, endocrinemeshes, function(){createBasicPopup("Pancreas", "desc")}, .2)
-            createSphereBtn(0.19422271158972215,15.053095487973781,0.3765937280360596, endocrinemeshes, function(){createBasicPopup("Thyroid Gland", "desc")}, .2)
-            createSphereBtn(-0.3790778878018308,9.211812257647377,0.5720214617706709, endocrinemeshes, function(){createBasicPopup("Testes/Ovaries", "desc")}, .2)
-            createSphereBtn(-0.14833353391744186,17.198081967825033,-0.1482179000675199, endocrinemeshes, function(){createBasicPopup("Brain Organs: Hypothalamus, Pituitary Gland, Pineal Gland", "desc")}, .2)
+            createSphereBtn(0.19422271158972215,15.053095487973781,0.3765937280360596, endocrinemeshes, function(){createBasicPopup("Thyroid Gland", "The thyroid gland is a butterfly-shaped gland located in the front of the neck, just below the Adam's apple. It produces hormones, primarily thyroxine (T4) and triiodothyronine (T3), which regulate metabolism, growth, and development throughout the body. The thyroid gland also plays a role in regulating body temperature, heart rate, and the production of other hormones.")}, .2)
+            createSphereBtn(-0.052308999432993275,13.980299730520228,0.11839942778949109, endocrinemeshes, function(){createBasicPopup("Thymus", "The thymus is a specialized organ located in the upper chest, behind the sternum and between the lungs. It is crucial for the development and maturation of T-lymphocytes (T cells), which are essential for the immune system's function. The thymus is most active during childhood and adolescence, gradually decreasing in size and activity with age.")}, .2)
+            createSphereBtn(0.4548344838084215,12.218283970225333,0.6109802685730505, endocrinemeshes, function(){createBasicPopup("Adrenal Gland", "The adrenal glands, located atop each kidney, produce hormones essential for regulating metabolism, stress response, and body balance.")}, .2)
+            createSphereBtn(-0.13667778030159905,11.812149353633087,0.07705994682174655, endocrinemeshes, function(){createBasicPopup("Pancreas","The pancreas is a vital organ located behind the stomach that produces digestive enzymes and hormones, including insulin and glucagon, crucial for regulating blood sugar levels.                ")}, .2)
+            createSphereBtn(0.19422271158972215,15.053095487973781,0.3765937280360596, endocrinemeshes, function(){createBasicPopup("Thyroid Gland", "The thyroid gland is a butterfly-shaped organ located in the front of the neck, responsible for producing hormones that regulate metabolism, growth, and energy levels throughout the body.")}, .2)
+            createSphereBtn(-0.3790778878018308,9.211812257647377,0.5720214617706709, endocrinemeshes, function(){createBasicPopup("Testes/Ovaries", "The testes are male reproductive organs responsible for producing sperm and testosterone, while ovaries are female reproductive organs that produce eggs and hormones like estrogen and progesterone.")}, .2)
+            createSphereBtn(-0.14833353391744186,17.198081967825033,-0.1482179000675199, endocrinemeshes, function(){createBasicPopup("Brain Organs: Hypothalamus, Pituitary Gland, Pineal Gland", "The hypothalamus is a region in the brain responsible for regulating various bodily functions, including temperature, hunger, thirst, and sleep. It also plays a crucial role in hormone production and secretion by controlling the pituitary gland. The pituitary gland, often referred to as the 'master gland,' is located at the base of the brain. It produces and releases hormones that regulate other endocrine glands and various body functions, such as growth, reproduction, and metabolism. The pineal gland, situated in the brain's center, produces the hormone melatonin, which regulates sleep-wake cycles (circadian rhythms) and has effects on seasonal biological rhythms. ")}, .2)
 
         });
         clearbtns();
@@ -1532,14 +1567,14 @@ function loadskin(val) {
             skinref = meshes[0];
             allMeshes.push(skinref);
             createSphereBtn(-1.429031476552809,9.20573235888369,-5.859479645096261, skinmeshes, function(){createBasicPopup("Epidermis (Stratum corneum)", "The most superficial layer of skin. Composed of keratinized cells and dead cells, several layers thick.")}, 0.25)
-            createSphereBtn(-1.6835021588256234,7.14752135776231,-5.802487106408545, skinmeshes, function(){createBasicPopup("Epidermis (Stratum spinosum)", "desc")}, 0.25)
-            createSphereBtn(-0.3852876160194004,5.085492373710684,-5.79909174554934, skinmeshes, function(){createBasicPopup("Epidermis (Stratum basale)", "desc")}, 0.25)
-            createSphereBtn(4.641838912032425,5.702284249509858,-5.889503782882748, skinmeshes, function(){createBasicPopup("Dermis (Papillary Layer)", "desc")}, 0.25)
-            createSphereBtn(4.106870472545223,1.9705955450635333,-5.841123706667769, skinmeshes, function(){createBasicPopup("Dermis (Reticular Layer)", "desc")}, 0.25)
-            createSphereBtn(2.4247239531816733,2.031074141443843,-6.46664647299108, skinmeshes, function(){createBasicPopup("Eccrine Sweat Gland", "desc")}, 0.25)
-            createSphereBtn(-7.893215560417568,4.6456544535072455,-5.396551753469076, skinmeshes, function(){createBasicPopup("Hair Follicle", "desc *NOTE: ADD APORCINE GLANDS IN THIS DSEC*")}, 0.25)
-            createSphereBtn(-3.6271103275220824,-0.3045936995585201,-5.852358112119418, skinmeshes, function(){createBasicPopup("Hypodermis", "desc")}, 0.25)
-            createSphereBtn(1.6738174780913555,10.775824622157021,-1.6476496506116582, skinmeshes, function(){createBasicPopup("Surface Hairs", "desc")}, 0.25)
+            createSphereBtn(-1.6835021588256234,7.14752135776231,-5.802487106408545, skinmeshes, function(){createBasicPopup("Epidermis (Stratum spinosum)", "The stratum spinosum is a layer within the epidermis, the outermost layer of the skin. It consists of several layers of polygonal cells that provide strength and flexibility to the skin, playing a role in its protective function against external factors.")}, 0.25)
+            createSphereBtn(-0.3852876160194004,5.085492373710684,-5.79909174554934, skinmeshes, function(){createBasicPopup("Epidermis (Stratum basale)", "The stratum basale, also known as the basal layer, is the deepest layer of the epidermis. It consists of columnar or cuboidal cells that continually divide to replenish the upper layers of the epidermis. This layer also contains melanocytes, which produce melanin, the pigment responsible for skin color and UV protection.")}, 0.25)
+            createSphereBtn(4.641838912032425,5.702284249509858,-5.889503782882748, skinmeshes, function(){createBasicPopup("Dermis (Papillary Layer)", "The papillary layer is the upper layer of the dermis, situated just beneath the epidermis. It consists of loose connective tissue containing capillaries, nerve endings, and dermal papillae that interlock with the epidermis. This layer supports the epidermis and contributes to its nourishment and sensitivity to touch.")}, 0.25)
+            createSphereBtn(4.106870472545223,1.9705955450635333,-5.841123706667769, skinmeshes, function(){createBasicPopup("Dermis (Reticular Layer)", "The reticular layer is the deeper and thicker layer of the dermis, located beneath the papillary layer. It consists of dense irregular connective tissue that provides strength and elasticity to the skin. This layer contains collagen and elastic fibers, as well as structures such as sweat glands, hair follicles, and deeper blood vessels, contributing to skin structure and function.")}, 0.25)
+            createSphereBtn(2.4247239531816733,2.031074141443843,-6.46664647299108, skinmeshes, function(){createBasicPopup("Eccrine Sweat Gland", "Eccrine sweat glands are distributed across the body and are particularly abundant on the palms of the hands, soles of the feet, and forehead. They produce a watery sweat that helps regulate body temperature through evaporation, contributing to cooling during physical exertion or in response to heat.")}, 0.25)
+            createSphereBtn(-7.893215560417568,4.6456544535072455,-5.396551753469076, skinmeshes, function(){createBasicPopup("Hair Follicle", "A hair follicle is a structure within the skin that produces hair. It extends from the surface of the skin into the dermis and sometimes into the subcutaneous layer. Surrounding each hair follicle are sebaceous glands, which secrete an oily substance called sebum that lubricates the hair and skin.")}, 0.25)
+            createSphereBtn(-3.6271103275220824,-0.3045936995585201,-5.852358112119418, skinmeshes, function(){createBasicPopup("Hypodermis", "The hypodermis, also known as the subcutaneous layer or superficial fascia, is located beneath the dermis of the skin. It consists primarily of adipose (fat) tissue and loose connective tissue that serves several important functions. These include insulation to regulate body temperature, cushioning and protecting underlying tissues and organs, and storing energy in the form of fat.")}, 0.25)
+            createSphereBtn(1.6738174780913555,10.775824622157021,-1.6476496506116582, skinmeshes, function(){createBasicPopup("Surface Hairs", "Surface hairs, also known as vellus hairs, are fine, short, and lightly pigmented hairs that cover most of the body. They are especially prominent on areas like the face, arms, and back. Vellus hairs play a role in thermal regulation and provide a tactile sense.")}, 0.25)
 //NOTE: When writing descriptions, add free nerve endings to their respective buttons please.
         });
         clearbtns();
@@ -1700,7 +1735,7 @@ function loadresp(val) {
         createSphereBtn(0, 0.2, 0.025, respmeshes, function(){createBasicPopup("Trachea", "The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.")}, .05)
         createSphereBtn(0, 0, 0.025, respmeshes, function(){createBasicPopup("Bronchi", "The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.", bronchibtns)}, .05)
         createSphereBtn(0.36621450755113255,-0.9993902851519447,0.22129484768301144, respmeshes, function(){createBasicPopup("Diaphgram", "desc")}, .05)
-
+        
         
     }
 
