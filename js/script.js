@@ -67,6 +67,7 @@ spleenbtns = document.querySelectorAll(".spleenbtns");
 pancreasbtns = document.querySelectorAll(".pancreasbtns");
 colonbtns = document.querySelectorAll(".colonbtns");
 skinbtns = document.querySelectorAll(".skinbtns");
+diabtns = document.querySelectorAll(".diaphragmbtns")
 endocrinebtns = document.querySelectorAll(".endocrinebtns");
 muscularbtns = document.querySelectorAll(".muscularbtns");
 spinebtns = document.querySelectorAll(".spinebtns");
@@ -86,6 +87,7 @@ searchbox = document.getElementById("searchbox");
 kidney2dmodelbtn = document.getElementById("kidney2dmodelbtn");
 showsystems = document.getElementById("systembtn");
 skinbtn = document.getElementById("skinbtn");
+diaphragmbtn = document.getElementById("diaphragmbtn");
 let cellref = 0;
 let memref = 0;
 let phoref = 0;
@@ -1235,7 +1237,21 @@ function loadpancreas(val) {
         });
     }
 }
-
+function loadlungs(val) {
+    change(m.getChild(), "loadlungs(0)");
+    if (checkvis(lungbtns[0]) || val == 0) {
+        clear();
+        showui();
+        clickcond(humanmeshes, lungbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
+            hideui();  
+            camera.position = BABYLON.Vector3(0, -10, 0);
+            lungsref = meshes[0];
+            allMeshes.push(lungsref);
+            respmeshes.push(lungsref);
+        });
+    }
+}
 function loadcirculatory(val) {
     change(m.getChild(), "loadcirculatory(0)");
     if (checkvis(circulatorybtns[0]) || val == 0 || val == 2) {
@@ -1354,7 +1370,7 @@ function loadrespinsitu(val) {
             });
             respinsituref = meshes[0];
             allMeshes.push(respinsituref);
-            // createSphereBtn(0.8556685562009205,5.889500466127727,0.49144617724636674, respinsitumeshes, function(){createBasicPopup("Lungs & Diaphragm", "", respbtns )}, .4)
+            createSphereBtn(0.8556685562009205,5.889500466127727,0.49144617724636674, respinsitumeshes, function(){createBasicPopup("Lungs & Diaphragm", "", respbtns )}, .4)
             // createSphereBtn(0.06539137074837198,8.320759863924653,-0.3325914103056329, respinsitumeshes, function(){createBasicPopup("Larynx", "",)}, .4)
             // createSphereBtn(0.15748713793142244,8.663781263101397,-0.734095474869271, respinsitumeshes, function(){createBasicPopup("Pharynx", "", )}, .4)
             // createSphereBtn(-0.16773238650178612,10.425574829659665,0.4786251011717475, respinsitumeshes, function(){createBasicPopup("Notrils ", "", )}, .4)
@@ -1699,12 +1715,12 @@ function loadresp(val) {
         showbtn(backHuman);
         createSphereBtn(0, 0.2, 0.025, respmeshes, function(){createBasicPopup("Trachea", "The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.")}, .05)
         createSphereBtn(0, 0, 0.025, respmeshes, function(){createBasicPopup("Bronchi", "The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.", bronchibtns)}, .05)
-        createSphereBtn(0.36621450755113255,-0.9993902851519447,0.22129484768301144, respmeshes, function(){createBasicPopup("Diaphgram", "desc")}, .05)
+        createSphereBtn(0.36621450755113255,-0.9993902851519447,0.22129484768301144, respmeshes, function(){createBasicPopup("Diaphragm", "The diaphragm is a muscular dome that separates the abdominal and thoracic (chest) chambers. Its ability to contract and relax to aid in breathing is essential to respiration. The diaphragm flattens and contracts during inhalation, expanding the thoracic cavity's volume and producing a vacuum that pulls air into the lungs. It relaxes and takes on the shape of a dome during exhalation, reducing the volume of the thoracic cavity and releasing air from the lungs. In addition to offering structural support, the diaphragm divides the heart and lungs from the abdominal organs. By raising stomach pressure, it also helps with other body processes like sneezing, coughing etc. The diaphragm is coordinated with other breathing muscles by means of the phrenic nerves that regulate its movements.", diabtns)}, .05)
 
         
     }
 
-function loaddiaphragm() {
+function loaddiaphragm() {     
     BABYLON.SceneLoader.ImportMesh("", "", "models/diaphragm.glb", scene, function (meshes) {
         meshes[0].scaling = new BABYLON.Vector3(7, 7, -7);
         meshes[0].position = new BABYLON.Vector3(0,-3.5,0);
@@ -1712,6 +1728,23 @@ function loaddiaphragm() {
         muscularmeshes.push(diaphragmref);
     });
 }
+
+function loaddiaphragmonly(val) {
+    change(m.getChild(), "loaddiaphramonly(0)");
+    if (checkvis(diabtns[0]) || val == 0) {
+        showui();
+        clickcond(respinsitumeshes, diabtns, 0);
+        clear();
+        BABYLON.SceneLoader.ImportMesh("", "", "models/diaphragm.glb", scene, function (meshes) {
+            hideui();
+            meshes[0].scaling = new BABYLON.Vector3(7, 7, -7);
+            meshes[0].position = new BABYLON.Vector3(0,-3,0);
+            diaphragmref = meshes[0];
+            muscularmeshes.push(diaphragmref);
+        });
+    }
+}
+
 function loadstomach(val) {
     change(m.getChild(), "loadstomach(0)");
     if (checkvis(stomachbtns[0]) || val == 0) {

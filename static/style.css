@@ -621,3 +621,8 @@ img {
     transform: translateY(-1vmin);
     cursor: pointer;
 }
+
+#diaphragmbtn {
+    left: 45vw;
+    top: 85vh;
+}
