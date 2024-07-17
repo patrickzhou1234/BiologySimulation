@@ -559,14 +559,13 @@ img {
     top: 10vh;
 }
 #smokingbtn {
-    left: 65vw;
+    left: 40vw;
     top: 84vh;
 }
-/* #ribopanelbtn {
-    left: 65vh;
+#ribopanelbtn {
+    left: 80vh;
     top: 84vh;
-    z-index: 1080;
-} */
+}
 #eyebtn {
     left: 80vh;
     bottom: 10vh;

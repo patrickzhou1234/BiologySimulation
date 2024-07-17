@@ -8,18 +8,35 @@ document.querySelectorAll(".statsdom")[0].setAttribute("style", "");
 // declaration
 
 
-panel = document.querySelectorAll(".brainpanel")[0]; // get access to the html code of the brain info panel
+let panel;
+panel = createPanel("brainpanel", "Brain Divisions", "brainclose", "The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other. <br></br> Notable structures seen in this image include: </br><br>- The pituitary gland, also known as the 'master gland', which controls hormonal balances in the body.  <br>- The amygdala, which controls the emotion of fear and influences aggression, reward-based learning, unconscious memory, social understanding, parenting emotions, memory-emotion connections, and addiction behaviors. <br>- The hippocampus, part of the brain's limbic system, is vital for memory, learning, and emotions. It stores short-term memories and facilitates their conversion into long-term memory.  Key functions include storing declarative facts, transferring short-term to long-term memory (assisted by sleep), and aiding spatial navigation and mental mapping. <br>- The hypothalamus, deep within the brain, links the endocrine and nervous systems to maintain body stability (homeostasis). It interprets chemical signals from the brain and peripheral nerves, regulating vital functions like temperature, blood pressure, hunger, thirst, and mood. It also influences sex drive and sleep, controlling these processes through the autonomic nervous system and hormone regulation. </br>"); // get access to the html code of the brain info panel
 document.querySelector(".brainclose").onclick = () => { // when the close button is clicked for the brain info panel, remove the class that makes the panel visible
     removeClass(panel, "cd-panel--is-visible");
 };
 // same as above but for ribosome information
-ribopanel = document.querySelectorAll(".ribopanel")[0];
+let ribopanel;
+let ribotext = ` 
+Structure - Ribosomes are made up of two main components, the large subunit and the small subunit. Ribosomes are made in the nucleolus where four strands of rRNA combine with ribosomal proteins to make the large and small subunit. 
+<br><br>
+Function - The main function of ribosomes is to help build proteins. In the process of building proteins, they are present in the translation. After the transcription happens, where the mRNA is produced as a copy of DNA, The mRNA goes to the ribosome to start the process of translation. In translation, The mRNA is translated by the tRNA to bring the corresponding amino acids and produce a polypeptide chain. The process of producing a polypeptide can be split into three parts. The initiation of translation starts when the tRNA binds to the start codon of the mRNA this happens on the small subunit of the ribosome, then the large subunit of the ribosome covers the small subunit of the ribosome, the elongation of the proteins starts. To accommodate the tRNA, ribosomes have an A site, P site, and an E site. The tRNA first enters through the P site of the ribosome with an amino acid attached to it. There will be another tRNA in the P site of the ribosome with the current chain of amino acids. The chain of polypeptides on the P site will be attached to the amino acid of the tRNA on the A site so the current chain of polypeptides in the tRNA on the A site. Then the tRNA in the P site will exit the ribosome though the E site and the tRNA with the polypeptides will move to the P site. This cycle will continue till the end of the polypeptide when the tRNA reads the end codon. 
+<br><br>
+Position - There are two types of ribosomes, bound and unbound ribosomes. Bound ribosomes are typically present on the nuclear envelope or the endoplasmic reticulum(ER) while unbound ribosomes float around in the cytosol. While the position of the ribosomes have no difference in structure, they both produce different types of proteins. Proteins made from bound ribosomes usually carry materials that are exported from the cell or are inserted into membranes, like lysosomes. The amount of ribosomes present in the cell depends on the cell function and its need for proteins. For example, cells in the pancreas frequently export digestive enzymes, therefore it has a lot of bound ribosomes.
+<br><br>
+mRNA decides if protein is made on ER or cytosol. mRNA has a signal to tell if protein is made on ER or cytosol. Those made on ER need further modification
+<br><br>
+Evolution - Early life forms relied more heavily on RNA for both genetic information storage and catalytic functions. In the context of ribosomes, this suggests that primitive ribosomes might have been composed primarily of RNA, with catalytic roles carried out by ribozymes (RNA molecules with enzymatic activity).
+<br><br>
+Over time, as organisms evolved, there was a transition from an RNA-centric world to one where proteins took on more structural and catalytic roles. This led to the development of the modern ribosome, which is a complex made up of both RNA and proteins. The small and large subunits of the ribosome are composed of ribosomal RNA (rRNA) and proteins, and they work together to facilitate the synthesis of proteins in a highly orchestrated process.
+<br><br><br><br>
+`;
+ribopanel = createPanel("ribopanel", "Ribosome Functionality", "riboclose", ribotext);
 document.querySelector(".riboclose").onclick = () => {
     removeClass(ribopanel, "cd-panel--is-visible");
     hidebtn(ribopanelbtn); // dont want to see the info button when panel is closed, so hide this btn on click of the close btn
 };
 
-smokingpanel = document.querySelectorAll(".smokingpanel")[0];
+let smokingpanel;
+smokingpanel = createPanel("smokingpanel", "IYTC Collab (Anti Smoking)", "smokingclose", "info goes here :D");
 document.querySelector(".smokingclose").onclick = () => {
     removeClass(smokingpanel, "cd-panel--is-visible");
     showbtn(smokingbtn);
@@ -213,6 +230,59 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
     );
     return sphere;
 }
+
+/**
+ * Creates a sphere button on a model which will show a popup upon clicking
+ *
+ * @param className class the panel belongs too (ex. brainpanel, ribopanel)
+ * @param titleText title displayed at top of panel
+ * @param classNameClose class of the button that closes panel (ex. brainclose, riboclose)
+ * @param textInnerHTML text displayed in body of panel
+ */
+function createPanel(className, titleText, classNameClose, textInnerHTML) {
+
+    // Create the main div
+    const panel = document.createElement('div');
+    panel.className = `cd-panel ${className} cd-panel--from-right js-cd-panel-main`;
+
+    // Create the header
+    const header = document.createElement('header');
+    header.className = 'cd-panel__header';
+    panel.appendChild(header);
+
+    // Create the title
+    const title = document.createElement('h1');
+    title.className = 'sTitle';
+    title.textContent = titleText;
+    header.appendChild(title);
+
+    // Create the close link
+    const closeLink = document.createElement('a');
+    closeLink.className = `cd-panel__close js-cd-close ${classNameClose}`;
+    closeLink.textContent = 'Close';
+    header.appendChild(closeLink);
+
+    // Create the container div
+    const container = document.createElement('div');
+    container.className = 'cd-panel__container';
+    panel.appendChild(container);
+
+    // Create the content div
+    const content = document.createElement('div');
+    content.className = 'cd-panel__content';
+    container.appendChild(content);
+
+    // Create the paragraph
+    const paragraph = document.createElement('p');
+    paragraph.className = 'sContent';
+    paragraph.innerHTML = textInnerHTML;
+    content.appendChild(paragraph);
+
+    // Append the entire panel to the body or any other container
+    document.body.appendChild(panel);
+
+    return panel;
+  }
 
 class Memory {
     constructor(parent,child) {
