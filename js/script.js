@@ -620,6 +620,7 @@ function cellSpheres() {
 
 */ 
 function importmesh(filename, scaling = null, position = null, camera_target = null, camera_position = new BABYLON.Vector3(0, 0, 0)) {
+    Swal.close()
     showui();
     BABYLON.SceneLoader.ImportMesh("", "", `models/${filename}`, scene, function (meshes) {
         // imports 3D model
@@ -789,8 +790,7 @@ function showExteriorBrain() {
             exteriorref = meshes[0];
             allMeshes.push(exteriorref);
 
-            camera.position = new BABYLON.Vector3(-1.57, 1.3, -60);
-            camera.target = new BABYLON.Vector3(5, 5, 10);
+            camera.target = new BABYLON.Vector3(4.71217963126949,-0.8773744950316118,-1.0694323161220023)
             camera.upperRadiusLimit = 100;
             camera.radius = 50;
 
@@ -1197,13 +1197,13 @@ function loaddigestive(val) {
         }
         BABYLON.SceneLoader.ImportMesh("", "", "models/digestive_system1.glb", scene, function (meshes) {
             clear();
+            clearbtns();
             hideui();
             camera.position = new BABYLON.Vector3(4.7, 15.25, -127);
             camera.target = new BABYLON.Vector3(0, 9, 0);
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
-            clear();
-            humanmeshes.forEach((el) => {
+                humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
             meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
@@ -1219,7 +1219,7 @@ function loaddigestive(val) {
             createSphereBtn(1.0278882681632533,-0.4251876960475176,-0.4062908418909057, digestivemeshes, function(){createBasicPopup("Appendix", "The appendix is a small, tube-shaped pouch attached to the lower end of the large intestine. Although its precise function is unclear, it is believed to play a role in the immune system and maintaining gut flora. ")}, .7)
             createSphereBtn(-0.050918167646385515,-0.8558629123022357,0.717677195142643, digestivemeshes, function(){createBasicPopup("Rectum", "The rectum is the final section of the large intestine, responsible for storing feces until they are ready to be expelled from the body. It signals the need for a bowel movement and facilitates the passage of waste through the anal canal. ")}, .7)
             createSphereBtn(0.01719847667590916,-2.0278662518005275,1.3534251692090413, digestivemeshes, function(){createBasicPopup("Anus", "The anus is the external opening at the end of the digestive tract through which feces are expelled from the body. It is surrounded by sphincter muscles that control the passage of stool during defecation.")}, .7)
-
+            showbtn(backHuman)
         });
     }
 }
@@ -1227,18 +1227,17 @@ function loaddigestiveinsitu(val) {
     change(m.getChild(), "loaddigestiveinsitu(0)");
     if (checkvis(digestiveinsitubtns[0]) || val == 0) {
         showui();
-        showbtn(backHuman);
         // hidebtn(showsystems);
         hidebtn(backcell);
         clickcond(humanmeshes, digestiveinsitubtns, 0);
         BABYLON.SceneLoader.ImportMesh("", "", "models/digestiveinsitu.glb", scene, function (meshes) {
             clear();
+            clearbtns();
             hideui();
             camera.position = new BABYLON.Vector3(4.7, 10.25, -127);
             camera.target = new BABYLON.Vector3(0, 9, 0);
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
-            clear();
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
@@ -1246,7 +1245,7 @@ function loaddigestiveinsitu(val) {
             digestiveinsuturef = meshes[0];
             allMeshes.push(digestiveinsuturef);
             createSphereBtn(0, 2, -1.025, digestiveinsitumeshes, function(){createBasicPopup("View Digestive System", "", digestivebtns)}, .7)
-
+            showbtn(backHuman);
         });
     }
 }
@@ -1278,6 +1277,7 @@ function loadliver(val) {
 function loadintestine(val) {
     change(m.getChild(), "loadintestine(0)");
     if (checkvis(intestinebtns[0]) || val == 0) {
+        Swal.close()
         showui();
         clearbtns();
         clickcond(humanmeshes, intestinebtns, 0);
@@ -1285,7 +1285,7 @@ function loadintestine(val) {
             clear();
             hideui();
             camera.position = new BABYLON.Vector3(0,0,20);
-            camera.target = new BABYLON.Vector3(0, 0, 0);
+            camera.target = new BABYLON.Vector3(0.007446692495163276,2.7207984888092964,-0.6814251652840753);
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
             clear();
@@ -1295,7 +1295,7 @@ function loadintestine(val) {
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             intestineref = meshes[0];
             allMeshes.push(intestineref);
-            clearbtns();
+            showbtn(backHuman)
             createSphereBtn(2.5854595278409125,9.3249430687205,0.26042799839466113, intestinemeshes, function(){createBasicPopup("Duodenum", "The duodenum is the first and shortest part of the small intestine, connecting directly to the stomach. It receives partially digested food from the stomach and plays a critical role in further digestion by receiving bile from the liver and pancreatic enzymes from the pancreas.")}, .7)
             createSphereBtn(-1.0441230809222448,3.391124509169089,0.7264978034664225, intestinemeshes, function(){createBasicPopup("Jejunum", "The jejunum is the middle section of the small intestine, where most of the absorption of nutrients from digested food occurs. It is characterized by its extensive surface area, lined with villi and microvilli that facilitate the uptake of nutrients into the bloodstream.")}, .7)
             createSphereBtn(2.861563997450558,1.497042289458376,0.17179412339412536, intestinemeshes, function(){createBasicPopup("Ileum", "The ileum is the final section of the small intestine, connecting to the large intestine (colon). It absorbs remaining nutrients and water from digested food, playing a crucial role in completing the digestion and absorption process before waste products move into the colon for elimination.")}, .7)
@@ -1319,15 +1319,13 @@ function loadcolon(val) {
             camera.target = new BABYLON.Vector3(0, 0,0 );
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
-            clear();
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
             meshes[0].scaling = new BABYLON.Vector3(.025, .025, .025);
             colonref = meshes[0];
             allMeshes.push(colonref);
-            clearbtns();
-
+            showbtn(backHuman)
         });
     }
 }
@@ -1341,17 +1339,16 @@ function loadesophagus(val) {
             clear();
             hideui();
             camera.position = new BABYLON.Vector3(190, 0, -200);
-            camera.target = new BABYLON.Vector3(0, 9,0 );
+            camera.target = new BABYLON.Vector3(-1.092117200582102,-0.14979557160125978,1.9156961717874594);
             camera.upperRadiusLimit = 100;
             camera.radius = 23;
-            clear();
             humanmeshes.forEach((el) => {
                 el.visibility = 0;
             });
             meshes[0].scaling = new BABYLON.Vector3(1, 1, 1);
             esophagusref = meshes[0];
             allMeshes.push(esophagusref);
-            clearbtns();
+            showbtn(backHuman)
 
         });
     }
@@ -1834,6 +1831,7 @@ function kidney2dmodel(){
 function loadresp(val) {
     change(m.getChild(), "loadresp(0)");
     if (checkvis(respbtns[0]) || val == 0 || val == 2) {
+        Swal.close()
         clear();
         clearbtns();
         clickcond(humanmeshes, respbtns, 0);
