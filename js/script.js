@@ -9,10 +9,8 @@ document.querySelectorAll(".statsdom")[0].setAttribute("style", "");
 
 
 let panel;
-panel = createPanel("brainpanel", "Brain Divisions", "brainclose", "The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other. <br></br> Notable structures seen in this image include: </br><br>- The pituitary gland, also known as the 'master gland', which controls hormonal balances in the body.  <br>- The amygdala, which controls the emotion of fear and influences aggression, reward-based learning, unconscious memory, social understanding, parenting emotions, memory-emotion connections, and addiction behaviors. <br>- The hippocampus, part of the brain's limbic system, is vital for memory, learning, and emotions. It stores short-term memories and facilitates their conversion into long-term memory.  Key functions include storing declarative facts, transferring short-term to long-term memory (assisted by sleep), and aiding spatial navigation and mental mapping. <br>- The hypothalamus, deep within the brain, links the endocrine and nervous systems to maintain body stability (homeostasis). It interprets chemical signals from the brain and peripheral nerves, regulating vital functions like temperature, blood pressure, hunger, thirst, and mood. It also influences sex drive and sleep, controlling these processes through the autonomic nervous system and hormone regulation. </br>"); // get access to the html code of the brain info panel
-document.querySelector(".brainclose").onclick = () => { // when the close button is clicked for the brain info panel, remove the class that makes the panel visible
-    removeClass(panel, "cd-panel--is-visible");
-};
+panel = createPanel("brainpanel", "Brain Divisions", "brainclose", "The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other. <br></br> Notable structures seen in this image include: </br><br>- The pituitary gland, also known as the 'master gland', which controls hormonal balances in the body.  <br>- The amygdala, which controls the emotion of fear and influences aggression, reward-based learning, unconscious memory, social understanding, parenting emotions, memory-emotion connections, and addiction behaviors. <br>- The hippocampus, part of the brain's limbic system, is vital for memory, learning, and emotions. It stores short-term memories and facilitates their conversion into long-term memory.  Key functions include storing declarative facts, transferring short-term to long-term memory (assisted by sleep), and aiding spatial navigation and mental mapping. <br>- The hypothalamus, deep within the brain, links the endocrine and nervous systems to maintain body stability (homeostasis). It interprets chemical signals from the brain and peripheral nerves, regulating vital functions like temperature, blood pressure, hunger, thirst, and mood. It also influences sex drive and sleep, controlling these processes through the autonomic nervous system and hormone regulation. </br>", panelbtn, true); // get access to the html code of the brain info panel
+
 // same as above but for ribosome information
 let ribopanel;
 let ribotext = ` 
@@ -29,18 +27,11 @@ Evolution - Early life forms relied more heavily on RNA for both genetic informa
 Over time, as organisms evolved, there was a transition from an RNA-centric world to one where proteins took on more structural and catalytic roles. This led to the development of the modern ribosome, which is a complex made up of both RNA and proteins. The small and large subunits of the ribosome are composed of ribosomal RNA (rRNA) and proteins, and they work together to facilitate the synthesis of proteins in a highly orchestrated process.
 <br><br><br><br>
 `;
-ribopanel = createPanel("ribopanel", "Ribosome Functionality", "riboclose", ribotext);
-document.querySelector(".riboclose").onclick = () => {
-    removeClass(ribopanel, "cd-panel--is-visible");
-    hidebtn(ribopanelbtn); // dont want to see the info button when panel is closed, so hide this btn on click of the close btn
-};
+ribopanel = createPanel("ribopanel", "Ribosome Functionality", "riboclose", ribotext, ribopanelbtn, false);
 
 let smokingpanel;
-smokingpanel = createPanel("smokingpanel", "IYTC Collab (Anti Smoking)", "smokingclose", "info goes here :D");
-document.querySelector(".smokingclose").onclick = () => {
-    removeClass(smokingpanel, "cd-panel--is-visible");
-    showbtn(smokingbtn);
-}
+smokingpanel = createPanel("smokingpanel", "IYTC Collab (Anti Smoking)", "smokingclose", "info goes here :D", smokingbtn, true);
+
 
 // returns boolean on whether or not an element has a class
 function hasClass(el, className) {
@@ -93,9 +84,9 @@ skinbtns = document.querySelectorAll(".skinbtns");
 diabtns = document.querySelectorAll(".diaphragmbtns")
 endocrinebtns = document.querySelectorAll(".endocrinebtns");
 muscularbtns = document.querySelectorAll(".muscularbtns");
-spinebtns = document.querySelectorAll(".spinebtns");
+spinebtns = Array.from(document.querySelectorAll(".spinebtns"));
 digestiveinsitubtns = document.querySelectorAll(".digestiveinsitubtns");
-skullbtns = document.querySelectorAll(".skullbtns");
+skullbtns = Array.from(document.querySelectorAll(".skullbtns"));
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 backPageBtn = document.getElementById("backbtn");
@@ -225,7 +216,7 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
     sphere.actionManager.registerAction(
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function(){
             camera.lowerRadiusLimit = 2;
-            onclick()
+            onclick();
         })
     );
     return sphere;
@@ -238,11 +229,13 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
  * @param titleText title displayed at top of panel
  * @param classNameClose class of the button that closes panel (ex. brainclose, riboclose)
  * @param textInnerHTML text displayed in body of panel
+ * @param btn btn that opens the panel -- needed only if btn needs to be hidden upon clicking
  */
-function createPanel(className, titleText, classNameClose, textInnerHTML) {
-
+function createPanel (className, titleText, classNameClose, textInnerHTML, btn=null, show) {
+    // new Promise((resolve) => {
     // Create the main div
     const panel = document.createElement('div');
+    panel.id = className;
     panel.className = `cd-panel ${className} cd-panel--from-right js-cd-panel-main`;
 
     // Create the header
@@ -281,7 +274,20 @@ function createPanel(className, titleText, classNameClose, textInnerHTML) {
     // Append the entire panel to the body or any other container
     document.body.appendChild(panel);
 
-    return panel;
+
+    document.querySelector(`.${classNameClose}`).onclick = () => {
+        removeClass(panel, "cd-panel--is-visible");
+        if (show) {
+            showbtn(btn); // dont want to see the info button when panel is closed, so hide this btn on click of the close btn
+        }
+        else {
+            hidebtn(btn);
+        }
+    };
+    // resolve(panel);
+
+    return panel
+
   }
 
 class Memory {
@@ -304,6 +310,52 @@ class Memory {
 }
 
 const m = new Memory(null, "loadhuman(0)");
+
+/**
+ * Creates a basic popup with a title, description, and 3d model button
+ * 
+ * @param {string} title Title of the popup
+ * @param {string} description k in the popup
+ * @param {*} imageURL image url
+ * @param {*} imageHeight image height
+ * @param {*} imageWidth image width
+ * @param {*} modelBtnRef Class of the model which refers to the 3d model (i.e. mitosmlbtns)
+ */
+function createImagePopUp(title, description, imageURL, imageWidth, imageHeight, modelBtnRef = null){
+    if(modelBtnRef != null){
+        Swal.fire({
+            title: title,
+            text: description,
+            background: "black",
+            color: "white",
+            imageUrl: imageURL,
+            imageWidth: imageWidth,
+            imageHeight: imageHeight,
+            backdrop: false,
+        }).then(function () {
+            modelBtnRef.forEach((el) => {
+                hidebtn(el);
+            });
+        });
+        modelBtnRef.forEach((el) => {
+            showbtn(el);
+        });
+    }
+    else{
+        Swal.fire({
+            title: title,
+            text: description,
+            background: "black",
+            color: "white",
+            imageUrl: imageURL,
+            imageWidth: imageWidth,
+            imageHeight: imageHeight,
+            backdrop: false,
+        }) 
+    }
+}
+
+
 /**
  * Creates a basic popup with a title, description, and 3d model button
  * 
@@ -707,9 +759,18 @@ function loadribopanel() {
 }
 
 function loadsmokingpanel() {
-    hidebtn(smokingbtn)
-    hidebtn(showsystems)
+    hidebtn(smokingbtn);
+    hidebtn(showsystems);
     addClass(smokingpanel, "cd-panel--is-visible");
+}
+
+function loadskevpanel(panelID, btn) {
+    // console.log(btn);
+    // b = document.getElementById(btn);
+    // hidebtn(b);
+    Swal.close();
+    p = document.getElementById(panelID)
+    addClass(p, "cd-panel--is-visible");
 }
 
 function showExteriorBrain() {
@@ -1868,6 +1929,27 @@ function loadstomach(val) {
     }
 }
 
+function createEvolutionBtn(bone, panel) {
+
+    // Create the button element
+    const button = document.createElement('button');
+
+    // Set the button attributes
+    button.id = `${bone}panelbtn`;
+    button.setAttribute('onclick', `loadskevpanel("${panel}", "${button.id}")`);
+    button.style.display = 'none';
+    button.classList.add('mui-btn', 'mui-btn--primary', 'largeBtn', 'evolutionpanel');
+
+    // Set the button text
+    button.textContent =`${bone} Evolution Information`;
+
+    // Append the button to the body or any other container
+    document.body.appendChild(button);
+
+    return button;
+    
+}
+
 function loadskeletal(val) {
     change(m.getChild(), "loadskeletal(0)");
     if (val == 0 || val == 2) {
@@ -1900,284 +1982,87 @@ function loadskeletal(val) {
                 }
 
                 meshes[0].scaling = new BABYLON.Vector3(0.9, 0.9, 0.9);
-                createSphereBtn(0, 7, -0.51, skeletalmeshes, function(){createBasicPopup("Skull", "Protects the brain and houses sensory organs like the eyes and ears.", skullbtns)}, .5)
-
+               
                 skeletalref = meshes[0];
                 allMeshes.push(skeletalref);
             });
 
-            skullmat = new BABYLON.StandardMaterial("skull", scene);
-            skull = BABYLON.MeshBuilder.CreateSphere("skull", { diameter: 0.3, segments: 32 }, scene);
-            skull.position.set(0, 7, -0.51); // (horizontal,vertical,depth)
-            skull.material = skullmat;
-            skull.actionManager = new BABYLON.ActionManager(scene);
-            skull.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Skull",
-                        text: "Protects the brain and houses sensory organs like the eyes and ears. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = skull;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
+            skullpanel = createPanel("skullpanel", "Skull Evolution Information", "skullclose", "INFO GOES HERE");
+            skullevbtn = createEvolutionBtn("Skull", skullpanel.id);
+            skullbtns.push(skullevbtn);
+            skull = createSphereBtn(0, 7, -0.51, skeletalmeshes, function(){createBasicPopup("Skull", "Protects the brain and houses sensory organs like the eyes and ears.", skullbtns)})
+        
+            spinepanel = createPanel("spinepanel", "Spine Evolution Information", "spineclose", "INFO GOES HERE");
+            spineevbtn = createEvolutionBtn("spine", spinepanel.id);
+            spinebtns.push(spineevbtn);
+            spine = createSphereBtn(0, 3, 0.8, skeletalmeshes, function(){createBasicPopup("Spine", "Provides support and protection for the spinal cord and allows for movement.", spinebtns)})
+        
+            femurbtns = []
+            femurpanel = createPanel("femurpanel", "Femur Evolution Information", "femurclose", "INFO GOES HERE");
+            femurevbtn = createEvolutionBtn("femur", femurpanel.id);
+            femurbtns.push(femurevbtn);
+            femur = createSphereBtn(1, -1, -0.2, skeletalmeshes, function(){createImagePopUp("Femur", "The thigh bone, which is the longest and strongest bone in the body, supporting body weight and facilitating walking and running.", "images/femur.png", window.innerWidth * 0.2, window.innerHeight * 0.7, femurbtns)});
+            
+            pelvisbtns = []
+            pelvispanel = createPanel("pelvispanel", "Pelvis Evolution Information", "pelvisclose", "INFO GOES HERE");
+            pelvisevbtn = createEvolutionBtn("pelvis", pelvispanel.id);
+            pelvisbtns.push(pelvisevbtn);
+            pelvis = createSphereBtn(0, 0, -0.5, skeletalmeshes, function(){createImagePopUp("Pelvis", "Forms the base of the spine and supports the body's weight; also protects internal reproductive organs.", "images/pelvis.png", window.innerWidth * 0.4, window.innerHeight * 0.4, pelvisbtns)});
+            
+            ribbtns = [];
+            ribspanel = createPanel("ribspanel", "Rib Cage Evolution Information", "ribclose", "INFO GOES HERE");
+            ribsevbtn = createEvolutionBtn("ribs", ribspanel.id);
+            ribbtns.push(ribsevbtn);
+            ribs = createSphereBtn(-0.5, 3.5, -1, skeletalmeshes, function() {
+                createImagePopUp("Ribs", "Protect the vital organs in the chest, such as the heart and lungs.", "images/ribs.png", window.innerWidth * 0.4, window.innerHeight * 0.4, ribbtns);
+            });
 
-            skeletalmeshes.push(skull);
-            spinemat = new BABYLON.StandardMaterial("spine", scene);
-            spine = BABYLON.MeshBuilder.CreateSphere("spine", { diameter: 0.3, segments: 32 }, scene);
-            spine.position.set(0, 3, 0.8); // (horizontal,vertical,depth)
-            spine.material = spinemat;
-            spine.actionManager = new BABYLON.ActionManager(scene);
-            spine.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Spine",
-                        text: "Provides support and protection for the spinal cord and allows for movement. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = spine;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
+            humerusbtns = [];
+            humeruspanel = createPanel("humeruspanel", "Humerus Evolution Information", "humerusclose", "INFO GOES HERE");
+            humerusevbtn = createEvolutionBtn("humerus", humeruspanel.id);
+            humerusbtns.push(humerusevbtn);
+            humerus = createSphereBtn(-1.8, 3, 0.2, skeletalmeshes, function(){createImagePopUp("Humerus", "The upper arm bone that connects the shoulder to the elbow and allows for arm movement.", "images/humerus.png", window.innerWidth * 0.4, window.innerHeight * 0.6, humerusbtns)});
 
-            skeletalmeshes.push(spine);
-            femurmat = new BABYLON.StandardMaterial("femur", scene);
-            femur = BABYLON.MeshBuilder.CreateSphere("femur", { diameter: 0.3, segments: 32 }, scene);
-            femur.position.set(1, -1, -0.2); // (horizontal,vertical,depth)
-            femur.material = femurmat;
-            femur.actionManager = new BABYLON.ActionManager(scene);
-            femur.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Femur",
-                        text: "The thigh bone, which is the longest and strongest bone in the body, supporting body weight and facilitating walking and running. ",
-                        background: "black",
-                        color: "white",
-                        imageUrl: "images/femur.png",
-                        imageWidth: window.innerWidth * 0.2,
-                        imageHeight: window.innerHeight * 0.7,
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = femur;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
+            tibfibbtns = [];
+            tibfibpanel = createPanel("tibfibpanel", "Tibula and Fibula Evolution Information", "tibfibclose", "INFO GOES HERE");
+            tibfibevolbtn = createEvolutionBtn("tibula and fibula", tibfibpanel.id);
+            tibfibbtns.push(tibfibevolbtn);
+            tibfib = createSphereBtn(0.8, -4, -0.2, skeletalmeshes, function() {
+                createBasicPopup("Tibula and Fibula", "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability.", tibfibbtns);
+            });
 
-            skeletalmeshes.push(femur);
-            pelvismat = new BABYLON.StandardMaterial("pelvis", scene);
-            pelvis = BABYLON.MeshBuilder.CreateSphere("pelvis", { diameter: 0.3, segments: 32 }, scene);
-            pelvis.position.set(0, 0, -0.5); // (horizontal,vertical,depth)
-            pelvis.material = pelvismat;
-            pelvis.actionManager = new BABYLON.ActionManager(scene);
-            pelvis.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Pelvis",
-                        text: "Forms the base of the spine and supports the body's weight; also protects internal reproductive organs. ",
-                        background: "black",
-                        color: "white",
-                        imageUrl: "images/pelvis.png",
-                        imageWidth: window.innerWidth * 0.4,
-                        imageHeight: window.innerHeight * 0.4,
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = pelvis;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
+            radulnbtns = [];
+            radulnpanel = createPanel("radulnpanel", "Radius and Ulna Evolution Information", "radulnclose", "INFO GOES HERE");
+            radulnevbtn = createEvolutionBtn("radius and ulna", radulnpanel.id);
+            radulnbtns.push(radulnevbtn);
+            raduln = createSphereBtn(-2.5, 1, 0.2, skeletalmeshes, function(){createBasicPopup("Radius and Ulna", "The bones of the forearm that allow for forearm rotation and wrist movement.", radulnbtns)});
 
-            skeletalmeshes.push(pelvis);
-            ribsmat = new BABYLON.StandardMaterial("ribs", scene);
-            ribs = BABYLON.MeshBuilder.CreateSphere("ribs", { diameter: 0.3, segments: 32 }, scene);
-            ribs.position.set(-0.5, 3.5, -1); // (horizontal,vertical,depth)
-            ribs.material = ribsmat;
-            ribs.actionManager = new BABYLON.ActionManager(scene);
-            ribs.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Ribs",
-                        text: "Protect the vital organs in the chest, such as the heart and lungs. ",
-                        background: "black",
-                        color: "white",
-                        imageUrl: "images/ribs.png",
-                        imageWidth: window.innerWidth * 0.4,
-                        imageHeight: window.innerHeight * 0.4,
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = ribs;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
+            sternumbtns = [];
+            sternumpanel = createPanel("sternumpanel", "Sternum Evolution Information", "sternumclose", "INFO GOES HERE");
+            sternumevbtn = createEvolutionBtn("sternum", sternumpanel.id);
+            sternumbtns.push(sternumevbtn);
+            sternum = createSphereBtn(0, 3.5, -1, skeletalmeshes, function() {
+                createBasicPopup("Sternum (aka Breastbone)", "Protects the heart and lungs and anchors the ribcage.", sternumbtns);
+            });
 
-            skeletalmeshes.push(ribs);
-            humerusmat = new BABYLON.StandardMaterial("humerus", scene);
-            humerus = BABYLON.MeshBuilder.CreateSphere("humerus", { diameter: 0.3, segments: 32 }, scene);
-            humerus.position.set(-1.8, 3, 0.2); // (horizontal,vertical,depth)
-            humerus.material = humerusmat;
-            humerus.actionManager = new BABYLON.ActionManager(scene);
-            humerus.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Humerus",
-                        text: "The upper arm bone that connects the shoulder to the elbow and allows for arm movement. ",
-                        background: "black",
-                        color: "white",
-                        imageUrl: "images/humerus.png",
-                        imageWidth: window.innerWidth * 0.4,
-                        imageHeight: window.innerHeight * 0.6,
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = humerus;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
+            scapulabtns = [];
+            scapulapanel = createPanel("scapulapanel", "Scapula Evolution Information", "scapulaclose", "INFO GOES HERE");
+            scapulaevbtn = createEvolutionBtn("scapula", scapulapanel.id);
+            scapulabtns.push(scapulaevbtn);
+            scapula = createSphereBtn(-0.82, 4, 0.8, skeletalmeshes, function() {
+                createBasicPopup("Scapula (aka Shoulder Blade)", "Provides attachment for muscles that control shoulder and arm movement.", scapulabtns);
+            });
 
-            skeletalmeshes.push(humerus);
-            tibfibmat = new BABYLON.StandardMaterial("tibfib", scene);
-            tibfib = BABYLON.MeshBuilder.CreateSphere("tibfib", { diameter: 0.3, segments: 32 }, scene);
-            tibfib.position.set(0.8, -4, -0.2); // (horizontal,vertical,depth)
-            tibfib.material = tibfibmat;
-            tibfib.actionManager = new BABYLON.ActionManager(scene);
-            tibfib.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Tibula and Fibula",
-                        text: "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = tibfib;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
-
-            skeletalmeshes.push(tibfib);
-            radulnmat = new BABYLON.StandardMaterial("raduln", scene);
-            raduln = BABYLON.MeshBuilder.CreateSphere("raduln", { diameter: 0.3, segments: 32 }, scene);
-            raduln.position.set(-2.5, 1, 0.2); // (horizontal,vertical,depth)
-            raduln.material = radulnmat;
-            raduln.actionManager = new BABYLON.ActionManager(scene);
-            raduln.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Radius and Ulna",
-                        text: "The bones of the forearm that allow for forearm rotation and wrist movement. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = raduln;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
-
-            skeletalmeshes.push(raduln);
-            sternummat = new BABYLON.StandardMaterial("sternum", scene);
-            sternum = BABYLON.MeshBuilder.CreateSphere("sternum", { diameter: 0.3, segments: 32 }, scene);
-            sternum.position.set(0, 3.5, -1); // (horizontal,vertical,depth)
-            sternum.material = sternummat;
-            sternum.actionManager = new BABYLON.ActionManager(scene);
-            sternum.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Sternum (aka Breastbone)",
-                        text: "Protects the heart and lungs and anchors the ribcage. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = sternum;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
-
-            skeletalmeshes.push(sternum);
-            scapulamat = new BABYLON.StandardMaterial("scapula", scene);
-            scapula = BABYLON.MeshBuilder.CreateSphere("scapula", { diameter: 0.3, segments: 32 }, scene);
-            scapula.position.set(-0.82, 4, 0.8); // (horizontal,vertical,depth)
-            scapula.material = scapulamat;
-            scapula.actionManager = new BABYLON.ActionManager(scene);
-            scapula.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Scapula (aka Shoulder Blade)",
-                        text: "Provides attachment for muscles that control shoulder and arm movement. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = scapula;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
-
-            skeletalmeshes.push(scapula);
-            phalangefmat = new BABYLON.StandardMaterial("phalangef", scene);
-            phalangef = BABYLON.MeshBuilder.CreateSphere("phalangef", { diameter: 0.3, segments: 32 }, scene);
-            phalangef.position.set(0.5, -7, -0.9); // (horizontal,vertical,depth)
-            phalangef.material = phalangefmat;
-            phalangef.actionManager = new BABYLON.ActionManager(scene);
-            phalangef.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Phalange",
-                        text: "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal). ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = phalangef;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
-
-            skeletalmeshes.push(phalangef);
-            phalangehmat = new BABYLON.StandardMaterial("phalangeh", scene);
-            phalangeh = BABYLON.MeshBuilder.CreateSphere("phalangeh", { diameter: 0.3, segments: 32 }, scene);
-            phalangeh.position.set(-2.8, -0.6, -0.5); // (horizontal,vertical,depth)
-            phalangeh.material = phalangehmat;
-            phalangeh.actionManager = new BABYLON.ActionManager(scene);
-            phalangeh.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Phalange",
-                        text: "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal). ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {});
-                    // camera.target = phalangeh;
-                    // camera.inertialRadiusOffset += 4;
-                })
-            );
-
-            skeletalmeshes.push(phalangeh);
+            phalangebtns = [];
+            phalangepanel = createPanel("phalangepanel", "Phalange Evolution Information", "phalangeclose", "INFO GOES HERE");
+            phalangeevbtn = createEvolutionBtn("phalange", phalangepanel.id);
+            phalangebtns.push(phalangeevbtn);
+            phalangeFoot = createSphereBtn(0.5, -7, -0.9, skeletalmeshes, function() {
+                createBasicPopup("Phalange", "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal).", phalangebtns);
+            });
+            phalangeHand = createSphereBtn(-2.8, -0.6, 0.2, skeletalmeshes, function() {
+                createBasicPopup("Phalange", "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal).", phalangebtns);
+            });
 
         } else {
             skeletalref.dispose();
