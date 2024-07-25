@@ -1738,24 +1738,69 @@ function loadmuscular(val) {
             muscularref = meshes[0];
             allMeshes.push(muscularref);
 
-            createSphereBtn(-0.9595757246715109,-2.4508153315399683,1.7633318747775952, muscularmeshes, function(){createBasicPopup("Gluteus maximus" , "The largest muscle in the buttocks, responsible for hip extension and external rotation.")}, 0.4)
-            createSphereBtn(0.6882254289724681,-5.217013467858925,-0.2827176474055335, muscularmeshes, function(){createBasicPopup("Quadriceps", "A group of four muscles in the front of the thigh that extend the knee joint. ")}, 0.4)
-            createSphereBtn(1.0569583130871347,-4.490435223965783,1.1028404875539088, muscularmeshes, function(){createBasicPopup("Hamstrings ", "A group of three muscles at the back of the thigh that flex the knee joint and extend the hip joint.  ")}, 0.4)
-            createSphereBtn(-0.8992677017875774,-4.318400530692453,1.0402248330083737, muscularmeshes, function(){createBasicPopup("Gastrocnemius ", " The calf muscle, responsible for plantar flexion of the foot.            ")}, 0.4)
-            createSphereBtn(2.7572234229919785,1.3032823272624965,0.31611737245809124, muscularmeshes, function(){createBasicPopup("Biceps brachii  ", " Located in the upper arm, this muscle is involved in elbow flexion and forearm supination.   ")}, 0.4)
-            createSphereBtn(-2.6793534430233543,1.8298286818625975,1.7296695182045667, muscularmeshes, function(){createBasicPopup("Triceps brachii ", "Found on the back of the upper arm, it extends the elbow joint.            ")}, 0.4)
-            createSphereBtn(-0.191356019553929,-0.20163609969102048,-1.1340124778106109, muscularmeshes, function(){createBasicPopup("Rectus abdominis ", "Also known as the abs, it flexes the spine and helps stabilize the core.")}, 0.4)
-            createSphereBtn(1.2986588627082112,-0.14246239629252244,-0.5962617308827127, muscularmeshes, function(){createBasicPopup("Obliques ", " The external and internal obliques assist in rotation and lateral flexion of the spine.            ")}, 0.4)
-            createSphereBtn(-0.7858814124471021,2.594602223677178,-1.0091268162423788, muscularmeshes, function(){createBasicPopup("Pectoralis major ", "The chest muscle, responsible for shoulder flexion, adduction, and internal rotation")}, 0.4)
-            createSphereBtn(-1.2800446733460544,1.4113759110829651,1.7001175571319962, muscularmeshes, function(){createBasicPopup("Latissimus dorsi ", "Located in the back, it performs shoulder extension, adduction, and medial rotation")}, 0.4)
-            createSphereBtn(-2.1179032206981585,3.135423221082636,1.6565915952165646, muscularmeshes, function(){createBasicPopup("Deltiods", "The shoulder muscles responsible for arm abduction, flexion, and extension.")}, 0.4)
-            createSphereBtn(-0.011323480934285701,3.325926619570299,1.6627112678871612, muscularmeshes, function(){createBasicPopup("Trapezius ", "The large muscle in the upper back and neck, responsible for shoulder movement and neck extension.")}, 0.4)
-            createSphereBtn(-1.2551765442635419,-8.686381271946104,1.577246976393095, muscularmeshes, function(){createBasicPopup("Soleus ", "Located beneath the gastrocnemius, it assists in plantar flexion of the foot.")}, 0.4)
-            createSphereBtn(-1.5790522311693351,-8.93094836393881,0.4329394841819061, muscularmeshes, function(){createBasicPopup("Tibialis anterior ", "Found in the front of the lower leg, it dorsiflexes the foot.")}, 0.4)
-            createSphereBtn(-0.8810866857949913,-3.1537589343874246,-0.5608825936760073, muscularmeshes, function(){createBasicPopup("Rectus femoris ", "Part of the quadriceps group, it flexes the hip and extends the knee.")}, 0.4)
-            createSphereBtn(0.8081998349093804,4.08562975702055,0.46671843769535837, muscularmeshes, function(){createBasicPopup("Supraspinatus", "One of the rotator cuff muscles, it assists in shoulder abduction.")}, 0.4)
+            glutmaxpanel = createPanel("glutmaxpanel", "Gluteus Maximus Information", "glutmaxclose", "INFO GOES HERE");
+            glutmaxbtn = createEvolutionBtn("Glueteus Maximus", glutmaxpanel.id);
+            glutmax = createSphereBtn(-0.9595757246715109,-2.4508153315399683,1.7633318747775952, muscularmeshes, function(){createBasicPopup("Gluteus maximus" , "The largest muscle in the buttocks, responsible for hip extension and external rotation.", [glutmaxbtn])}, 0.4)
             
+            quadpanel = createPanel("quadpanel", "Quadriceps Information", "quadclose", "INFO GOES HERE");
+            quadbtn = createEvolutionBtn("Quadriceps", quadpanel.id);
+            quad = createSphereBtn(0.6882254289724681, -5.217013467858925, -0.2827176474055335, muscularmeshes, function() { createBasicPopup("Quadriceps", "A group of four muscles in the front of the thigh that extend the knee joint.", [quadbtn]); }, 0.4);
 
+            hampanel = createPanel("hampanel", "Hamstrings Information", "hamclose", "INFO GOES HERE");
+            hambtn = createEvolutionBtn("Hamstrings", hampanel.id);
+            ham = createSphereBtn(1.0569583130871347, -4.490435223965783, 1.1028404875539088, muscularmeshes, function() { createBasicPopup("Hamstrings", "A group of three muscles at the back of the thigh that flex the knee joint and extend the hip joint.", [hambtn]); }, 0.4);
+
+            gastropanel = createPanel("gastropanel", "Gastrocnemius Information", "gastroclose", "INFO GOES HERE");
+            gastrobtn = createEvolutionBtn("Gastrocnemius", gastropanel.id);
+            gastro = createSphereBtn(-0.8992677017875774, -4.318400530692453, 1.0402248330083737, muscularmeshes, function() { createBasicPopup("Gastrocnemius", "The calf muscle, responsible for plantar flexion of the foot.", [gastrobtn]); }, 0.4);
+
+            bicepspanel = createPanel("bicepspanel", "Biceps Brachii Information", "bicepsclose", "INFO GOES HERE");
+            bicepsbtn = createEvolutionBtn("Biceps Brachii", bicepspanel.id);
+            biceps = createSphereBtn(2.7572234229919785, 1.3032823272624965, 0.31611737245809124, muscularmeshes, function() { createBasicPopup("Biceps Brachii", "Located in the upper arm, this muscle is involved in elbow flexion and forearm supination.", [bicepsbtn]); }, 0.4);
+
+            triceppanel = createPanel("triceppanel", "Triceps Brachii Information", "tricepclose", "INFO GOES HERE");
+            tricepbtn = createEvolutionBtn("Triceps Brachii", triceppanel.id);
+            tricep = createSphereBtn(-2.6793534430233543, 1.8298286818625975, 1.7296695182045667, muscularmeshes, function() { createBasicPopup("Triceps Brachii", "Found on the back of the upper arm, it extends the elbow joint.", [tricepbtn]); }, 0.4);
+
+            rectuspanel = createPanel("rectuspanel", "Rectus Abdominis Information", "rectusclose", "INFO GOES HERE");
+            rectusbtn = createEvolutionBtn("Rectus Abdominis", rectuspanel.id);
+            rectus = createSphereBtn(-0.191356019553929, -0.20163609969102048, -1.1340124778106109, muscularmeshes, function() { createBasicPopup("Rectus Abdominis", "Also known as the abs, it flexes the spine and helps stabilize the core.", [rectusbtn]); }, 0.4);
+
+            obliquepanel = createPanel("obliquepanel", "Obliques Information", "obliqueclose", "INFO GOES HERE");
+            obliquebtn = createEvolutionBtn("Obliques", obliquepanel.id);
+            oblique = createSphereBtn(1.2986588627082112, -0.14246239629252244, -0.5962617308827127, muscularmeshes, function() { createBasicPopup("Obliques", "The external and internal obliques assist in rotation and lateral flexion of the spine.", [obliquebtn]); }, 0.4);
+
+            pectoralpanel = createPanel("pectoralpanel", "Pectoralis Major Information", "pectoralclose", "INFO GOES HERE");
+            pectoralbtn = createEvolutionBtn("Pectoralis Major", pectoralpanel.id);
+            pectoral = createSphereBtn(-0.7858814124471021, 2.594602223677178, -1.0091268162423788, muscularmeshes, function() { createBasicPopup("Pectoralis Major", "The chest muscle, responsible for shoulder flexion, adduction, and internal rotation.", [pectoralbtn]); }, 0.4);
+
+            latsdorsipanel = createPanel("latsdorsipanel", "Latissimus Dorsi Information", "latsdorsiclose", "INFO GOES HERE");
+            latsdorsibtn = createEvolutionBtn("Latissimus Dorsi", latsdorsipanel.id);
+            latsdorsi = createSphereBtn(-1.2800446733460544, 1.4113759110829651, 1.7001175571319962, muscularmeshes, function() { createBasicPopup("Latissimus Dorsi", "Located in the back, it performs shoulder extension, adduction, and medial rotation.", [latsdorsibtn]); }, 0.4);
+
+            deltoidpanel = createPanel("deltoidpanel", "Deltoids Information", "deltoidclose", "INFO GOES HERE");
+            deltoidbtn = createEvolutionBtn("Deltoids", deltoidpanel.id);
+            deltoid = createSphereBtn(-2.1179032206981585, 3.135423221082636, 1.6565915952165646, muscularmeshes, function() { createBasicPopup("Deltoids", "The shoulder muscles responsible for arm abduction, flexion, and extension.", [deltoidbtn]); }, 0.4);
+
+            trapzpanel = createPanel("trapzpanel", "Trapezius Information", "trapzclose", "INFO GOES HERE");
+            trapzbtn = createEvolutionBtn("Trapezius", trapzpanel.id);
+            trapz = createSphereBtn(-0.011323480934285701, 3.325926619570299, 1.6627112678871612, muscularmeshes, function() { createBasicPopup("Trapezius", "The large muscle in the upper back and neck, responsible for shoulder movement and neck extension.", [trapzbtn]); }, 0.4);
+
+            soleuspanel = createPanel("soleuspanel", "Soleus Information", "soleusclose", "INFO GOES HERE");
+            soleusbtn = createEvolutionBtn("Soleus", soleuspanel.id);
+            soleus = createSphereBtn(-1.2551765442635419, -8.686381271946104, 1.577246976393095, muscularmeshes, function() { createBasicPopup("Soleus", "Located beneath the gastrocnemius, it assists in plantar flexion of the foot.", [soleusbtn]); }, 0.4);
+
+            tibialispanel = createPanel("tibialispanel", "Tibialis Anterior Information", "tibialisclose", "INFO GOES HERE");
+            tibialisbtn = createEvolutionBtn("Tibialis Anterior", tibialispanel.id);
+            tibialis = createSphereBtn(-1.5790522311693351, -8.93094836393881, 0.4329394841819061, muscularmeshes, function() { createBasicPopup("Tibialis Anterior", "Found in the front of the lower leg, it dorsiflexes the foot.", [tibialisbtn]); }, 0.4);
+
+            rectfempanel = createPanel("rectfempanel", "Rectus Femoris Information", "rectfemclose", "INFO GOES HERE");
+            rectfembtn = createEvolutionBtn("Rectus Femoris", rectfempanel.id);
+            rectfem = createSphereBtn(-0.8810866857949913, -3.1537589343874246, -0.5608825936760073, muscularmeshes, function() { createBasicPopup("Rectus Femoris", "Part of the quadriceps group, it flexes the hip and extends the knee.", [rectfembtn]); }, 0.4);
+
+            suprapanel = createPanel("suprapanel", "Supraspinatus Information", "supraclose", "INFO GOES HERE");
+            suprabtn = createEvolutionBtn("Supraspinatus", suprapanel.id);
+            supra = createSphereBtn(0.8081998349093804, 4.08562975702055, 0.46671843769535837, muscularmeshes, function() { createBasicPopup("Supraspinatus", "One of the rotator cuff muscles, it assists in shoulder abduction.", [suprabtn]); }, 0.4);
 
         });
         clearbtns();
