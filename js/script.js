@@ -1119,9 +1119,32 @@ function loadeye() {
                     })
                 })
             );
+
+            
+            corneamat = new BABYLON.StandardMaterial("vitreousmat", scene);
+            cornea = BABYLON.MeshBuilder.CreateSphere("cornea", { diameter: 0.1, segments: 32 }, scene);
+            eyemeshes.push(cornea);
+            cornea.position.set(8.8, 9.74, -3.2);
+            cornea.material = corneamat;
+            cornea.actionManager = new BABYLON.ActionManager(scene);
+            cornea.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Cornea",
+                        text: "The privileged part of the eye. ",
+                        imageUrl: "images/cornea.png",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    })
+                })
+            );
             
             createSphereBtn(8.55, 9.5, -3.43, eyemeshes, function(){createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ")},0.1) 
             createSphereBtn(8.25, 9.5, -3.47, eyemeshes, function(){createBasicPopup("Pupil", "The pupil is a hole in the eye where light enters from. ")},0.1) 
+            // createSphereBtn(8.8, 9.74, -3.2, eyemeshes, function(){createBasicPopup("Cornea", "The privileged part of the eye. ")},0.1) 
 
             
         });
