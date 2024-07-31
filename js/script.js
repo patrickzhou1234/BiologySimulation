@@ -1100,7 +1100,7 @@ function loadeye() {
             allMeshes.push(eyeref);
 
             vitreousmat = new BABYLON.StandardMaterial("vitreousmat", scene);
-            vitreous = BABYLON.MeshBuilder.CreateSphere("vitreous", { diameter: 0.2, segments: 32 }, scene);
+            vitreous = BABYLON.MeshBuilder.CreateSphere("vitreous", { diameter: 0.1, segments: 32 }, scene);
 
             eyemeshes.push(vitreous);
             vitreous.position.set(8.5,10,-2.1);
@@ -1119,8 +1119,9 @@ function loadeye() {
                     })
                 })
             );
-            createSphereBtn(8.55, 9.5, -3.4, eyemeshes, function(){createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ")}) 
-            createSphereBtn(8.25, 9.5, -3.4, eyemeshes, function(){createBasicPopup("Pupil", "The pupil is a hole in the eye where light enters from. ")}) 
+            
+            createSphereBtn(8.55, 9.5, -3.43, eyemeshes, function(){createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ")},0.1) 
+            createSphereBtn(8.25, 9.5, -3.47, eyemeshes, function(){createBasicPopup("Pupil", "The pupil is a hole in the eye where light enters from. ")},0.1) 
 
             
         });
