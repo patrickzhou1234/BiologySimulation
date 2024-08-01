@@ -101,7 +101,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 #spleenbtn {
     left: 80vh;
-    top: 93h;
+    top: 93vh;
 }
 #bronchibtn {
     left: 80vh;
@@ -190,6 +190,17 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     transition: opacity 0.2s !important;
 }
 
+.corneabtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.25vw + 0.25vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    width: 2vmin !important;
+    height: 2vmin !important;
+}
+
 #memb {
     left: 37vw;
     top: 12vh;
@@ -255,6 +266,31 @@ img {
 #receptorprotein {
     left: 37vw;
     top: 38vh;
+}
+
+#bowman {
+    left: 41.75vw;
+    top: 42.5vh;
+}
+
+#epithelium {
+    left: 54.85vw;
+    top: 39vh;
+}
+
+#stroma {
+    left: 48vw;
+    top: 45vh;
+}
+
+#descement {
+    left: 53.75vw;
+    top: 58vh;
+}
+
+#endothelium {
+    left: 58vw;
+    top: 55vh;
 }
 
 .mitosmlbtns {
@@ -628,6 +664,11 @@ img {
 }
 
 #diaphragmbtn {
+    left: 45vw;
+    top: 85vh;
+}
+
+#eyecsbtn {
     left: 45vw;
     top: 85vh;
 }

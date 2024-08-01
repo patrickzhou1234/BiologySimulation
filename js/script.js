@@ -55,6 +55,7 @@ function removeClass(el, className) {
 cellmeshes = [];
 humanmeshes = [];
 roundbtns = document.querySelectorAll(".smlbtns");
+corneabtns = document.querySelectorAll(".corneabtns");
 mitosmlbtns = document.querySelectorAll(".mitosmlbtns");
 golgismlbtns = document.querySelectorAll(".golgismlbtns");
 roughersmlbtns = document.querySelectorAll(".roughersmlbtns");
@@ -103,6 +104,7 @@ kidney2dmodelbtn = document.getElementById("kidney2dmodelbtn");
 showsystems = document.getElementById("systembtn");
 skinbtn = document.getElementById("skinbtn");
 diaphragmbtn = document.getElementById("diaphragmbtn");
+eyecsbtn = document.getElementById("eyecsbtn");
 lungcrosssec = document.getElementById("lungcsbtn");
 lungcsbtns = []
 lungcsbtns.push(lungcrosssec)
@@ -166,8 +168,8 @@ let pancreasmeshes = [];
 let esophagusmeshes = [];
 let colonmeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn, smokingbtn];
-let buttonArrays = [roundbtns, respbtns, cordbtns, respinsitubtns, endocrine1btns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns, lungbtns];
+let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn, smokingbtn, eyecsbtn];
+let buttonArrays = [roundbtns, respbtns, cordbtns, respinsitubtns, endocrine1btns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns, lungbtns, corneabtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
 function showui() {
@@ -1099,32 +1101,11 @@ function loadeye() {
             eyeref = meshes[0];
             allMeshes.push(eyeref);
 
-            vitreousmat = new BABYLON.StandardMaterial("vitreousmat", scene);
-            vitreous = BABYLON.MeshBuilder.CreateSphere("vitreous", { diameter: 0.1, segments: 32 }, scene);
-
-            eyemeshes.push(vitreous);
-            vitreous.position.set(8.5,10,-2.1);
-            vitreous.material = vitreousmat;
-            vitreous.actionManager = new BABYLON.ActionManager(scene);
-            vitreous.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Sclera",
-                        text: "The sclera is a protective layer that surrounds the eye. It is the 'white' of the eye. ",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    })
-                })
-            );
-
             
             corneamat = new BABYLON.StandardMaterial("vitreousmat", scene);
             cornea = BABYLON.MeshBuilder.CreateSphere("cornea", { diameter: 0.1, segments: 32 }, scene);
             eyemeshes.push(cornea);
-            cornea.position.set(8.8, 9.74, -3.2);
+            cornea.position.set(8.017824654107955,9.483131931536812,-3.3881631831653913);
             cornea.material = corneamat;
             cornea.actionManager = new BABYLON.ActionManager(scene);
             cornea.actionManager.registerAction(
@@ -1132,18 +1113,26 @@ function loadeye() {
                     camera.lowerRadiusLimit = 2;
                     Swal.fire({
                         title: "Cornea",
-                        text: "The privileged part of the eye. ",
+                        text: "The cornea, the eye's transparent outermost layer, plays a crucial role in focusing light onto the retina and also protecting the eye from pathogens and dust.",
                         imageUrl: "images/cornea.png",
                         icon: "question",
                         background: "black",
                         color: "white",
                         backdrop: false,
+                    }).then(function(){
+                        for (i = 0; i < corneabtns.length; i++) {
+                            hidebtn(corneabtns[i]);
+                        }
                     })
+                    for (i = 0; i < corneabtns.length; i++) {
+                        showbtn(corneabtns[i]);
+                    }
                 })
             );
             
             createSphereBtn(8.55, 9.5, -3.43, eyemeshes, function(){createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ")},0.1) 
-            createSphereBtn(8.25, 9.5, -3.47, eyemeshes, function(){createBasicPopup("Pupil", "The pupil is a hole in the eye where light enters from. ")},0.1) 
+            createSphereBtn(8.25, 9.5, -3.47, eyemeshes, function(){createBasicPopup("Pupil", "The pupil is a black circular opening at the center of the iris, this regulates the amount of light entering the eye this is done through dilations and constrictions which is in response to light intensity.  ")},0.1)
+            createSphereBtn(8.894,9.625,-3.15, eyemeshes, function(){createBasicPopup("Sclera", "The sclera, commonly known as the white of the eye, provides protection and maintains the eye's shape; it connects with the cornea at the limbus. Made up of collagen and elastic fibers, allows for strength. The sclera connects with the cornea at the limbus and is continuous with the dura mater of the optic nerve.  ")},0.1) 
             // createSphereBtn(8.8, 9.74, -3.2, eyemeshes, function(){createBasicPopup("Cornea", "The privileged part of the eye. ")},0.1) 
 
             
@@ -1153,6 +1142,7 @@ function loadeye() {
         camera.radius = 4;
         clearbtns();
         showbtn(backHuman);
+        showbtn(eyecsbtn)
     }
 
 }
@@ -1976,6 +1966,15 @@ function loaddiaphragmonly(val) {
     }
 }
 
+function loadeyecs(val){
+    change(m.getChild(), "loadeyecs(0)");
+    if (checkvis(eyecsbtn) || val == 0) {
+        showui();
+        clear();
+        importmesh("eye_crosssection.glb", null, null, BABYLON.Vector3(0, 0, 0), null)
+        camera.position = new BABYLON.Vector3(0,0,0)
+    }}
+
 function loadstomach(val) {
     change(m.getChild(), "loadstomach(0)");
     if (checkvis(stomachbtns[0]) || val == 0) {
@@ -2448,6 +2447,11 @@ function clear() {
     for (i = 0; i < lymphmeshes.length; i++) {
         try {
             lymphmeshes[i].dispose();
+        } catch (err) {}
+    }
+    for (i = 0; i < eyemeshes.length; i++) {
+        try {
+            eyemeshes[i].dispose();
         } catch (err) {}
     }
 }
