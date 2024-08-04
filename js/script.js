@@ -2053,30 +2053,30 @@ function loadskeletal(val) {
                 allMeshes.push(skeletalref);
             });
 
-            skullpanel = createPanel("skullpanel", "Skull Evolution Information", "skullclose", "INFO GOES HERE");
+            skullpanel = createPanel("skullpanel", "Skull Evolution Information", "skullclose", "The skull (cranium) evolved to protect the brain, one of the most critical organs for survival. Early vertebrates had simple skull structures, but as organisms evolved, the skull became more complex to accommodate larger brains, sensory organs, and features necessary for eating. The skull also evolved to support complex speech and facial expressions. This is why prior species in the homo genus often have smaller skulls. ");
             skullevbtn = createEvolutionBtn("Skull", skullpanel.id);
             skullbtns.push(skullevbtn);
             skull = createSphereBtn(0, 7, -0.51, skeletalmeshes, function(){createBasicPopup("Skull", "Protects the brain and houses sensory organs like the eyes and ears.", skullbtns)})
         
-            spinepanel = createPanel("spinepanel", "Spine Evolution Information", "spineclose", "INFO GOES HERE");
+            spinepanel = createPanel("spinepanel", "Spine Evolution Information", "spineclose", "Spine evolution started with simple cartilage in early fish. As life moved to land, amphibians developed stronger backbones. Reptiles, and later mammals and birds, further specialized their spines into regions like the neck, chest, and lower back for better support and movement.");
             spineevbtn = createEvolutionBtn("spine", spinepanel.id);
             spinebtns.push(spineevbtn);
             spine = createSphereBtn(0, 3, 0.8, skeletalmeshes, function(){createBasicPopup("Spine", "Provides support and protection for the spinal cord and allows for movement.", spinebtns)})
         
             femurbtns = []
-            femurpanel = createPanel("femurpanel", "Femur Evolution Information", "femurclose", "INFO GOES HERE");
+            femurpanel = createPanel("femurpanel", "Femur Evolution Information", "femurclose", "The femur, or thigh bone, is the longest and strongest bone in the body. It evolved to support the weight of the body during bipedal locomotion. Its structure allows for efficient movement and stability, crucial for walking and running");
             femurevbtn = createEvolutionBtn("femur", femurpanel.id);
             femurbtns.push(femurevbtn);
             femur = createSphereBtn(1, -1, -0.2, skeletalmeshes, function(){createImagePopUp("Femur", "The thigh bone, which is the longest and strongest bone in the body, supporting body weight and facilitating walking and running.", "images/femur.png", window.innerWidth * 0.2, window.innerHeight * 0.7, femurbtns)});
             
             pelvisbtns = []
-            pelvispanel = createPanel("pelvispanel", "Pelvis Evolution Information", "pelvisclose", "INFO GOES HERE");
+            pelvispanel = createPanel("pelvispanel", "Pelvis Evolution Information", "pelvisclose", "The pelvis evolved to support bipedal locomotion in humans and other primates. It provides attachment points for muscles involved in walking, running, and maintaining upright posture. The shape and structure of the pelvis are also adapted to accommodate childbirth in humans.");
             pelvisevbtn = createEvolutionBtn("pelvis", pelvispanel.id);
             pelvisbtns.push(pelvisevbtn);
             pelvis = createSphereBtn(0, 0, -0.5, skeletalmeshes, function(){createImagePopUp("Pelvis", "Forms the base of the spine and supports the body's weight; also protects internal reproductive organs.", "images/pelvis.png", window.innerWidth * 0.4, window.innerHeight * 0.4, pelvisbtns)});
             
             ribbtns = [];
-            ribspanel = createPanel("ribspanel", "Rib Cage Evolution Information", "ribclose", "INFO GOES HERE");
+            ribspanel = createPanel("ribspanel", "Rib Cage Evolution Information", "ribclose", " The ribs evolved to form a protective cage around the thoracic organs, such as the heart and lungs. This structure also supports respiration by allowing expansion and contraction of the chest cavity. Early vertebrates had simple rib structures, which have become more specialized in mammals to enhance breathing efficiency. A 2020 study suggests that ribs were evolved to assist with locomotion when reptiles first emerged from the water, which were then later adapted for breathing");
             ribsevbtn = createEvolutionBtn("ribs", ribspanel.id);
             ribbtns.push(ribsevbtn);
             ribs = createSphereBtn(-0.5, 3.5, -1, skeletalmeshes, function() {
@@ -2084,13 +2084,13 @@ function loadskeletal(val) {
             });
 
             humerusbtns = [];
-            humeruspanel = createPanel("humeruspanel", "Humerus Evolution Information", "humerusclose", "INFO GOES HERE");
+            humeruspanel = createPanel("humeruspanel", "Humerus Evolution Information", "humerusclose", "INFO The humerus, the long bone of the upper arm, evolved for both strength and flexibility. In early tetrapods, it facilitated movement on land. Over time, the humerus adapted to various functions across species, from flight in birds to manipulation and tool use in primates, including humans.");
             humerusevbtn = createEvolutionBtn("humerus", humeruspanel.id);
             humerusbtns.push(humerusevbtn);
             humerus = createSphereBtn(-1.8, 3, 0.2, skeletalmeshes, function(){createImagePopUp("Humerus", "The upper arm bone that connects the shoulder to the elbow and allows for arm movement.", "images/humerus.png", window.innerWidth * 0.4, window.innerHeight * 0.6, humerusbtns)});
 
             tibfibbtns = [];
-            tibfibpanel = createPanel("tibfibpanel", "Tibula and Fibula Evolution Information", "tibfibclose", "INFO GOES HERE");
+            tibfibpanel = createPanel("tibfibpanel", "Tibula and Fibula Evolution Information", "tibfibclose", "The tibia and fibula are the two bones of the lower leg. The tibia, being the larger bone, evolved to bear most of the body’s weight, while the fibula provides stability and support. Together, they enable complex movements and balance necessary for bipedal locomotion.");
             tibfibevolbtn = createEvolutionBtn("tibula and fibula", tibfibpanel.id);
             tibfibbtns.push(tibfibevolbtn);
             tibfib = createSphereBtn(0.8, -4, -0.2, skeletalmeshes, function() {
@@ -2098,13 +2098,13 @@ function loadskeletal(val) {
             });
 
             radulnbtns = [];
-            radulnpanel = createPanel("radulnpanel", "Radius and Ulna Evolution Information", "radulnclose", "INFO GOES HERE");
+            radulnpanel = createPanel("radulnpanel", "Radius and Ulna Evolution Information", "radulnclose", "The radius and ulna are the two long bones of the forearm, allowing for complex movements of the wrist and hand. This evolutionary development enabled early vertebrates to perform more precise and varied movements, critical for tasks like climbing, grasping, and manipulating objects. The evolution of the radius and ulna assisted with early vertebrates walking on land.");
             radulnevbtn = createEvolutionBtn("radius and ulna", radulnpanel.id);
             radulnbtns.push(radulnevbtn);
             raduln = createSphereBtn(-2.5, 1, 0.2, skeletalmeshes, function(){createBasicPopup("Radius and Ulna", "The bones of the forearm that allow for forearm rotation and wrist movement.", radulnbtns)});
 
             sternumbtns = [];
-            sternumpanel = createPanel("sternumpanel", "Sternum Evolution Information", "sternumclose", "INFO GOES HERE");
+            sternumpanel = createPanel("sternumpanel", "Sternum Evolution Information", "sternumclose", "The sternum (breastbone) evolved as part of the rib cage to protect vital organs like the heart and lungs. It serves as an attachment point for ribs and plays a crucial role in the respiratory system by facilitating breathing movements. The evolution of the sternum is hypothesized to be linked with the changes in movement and posture");
             sternumevbtn = createEvolutionBtn("sternum", sternumpanel.id);
             sternumbtns.push(sternumevbtn);
             sternum = createSphereBtn(0, 3.5, -1, skeletalmeshes, function() {
@@ -2112,7 +2112,7 @@ function loadskeletal(val) {
             });
 
             scapulabtns = [];
-            scapulapanel = createPanel("scapulapanel", "Scapula Evolution Information", "scapulaclose", "INFO GOES HERE");
+            scapulapanel = createPanel("scapulapanel", "Scapula Evolution Information", "scapulaclose", "The scapula started as simple cartilage in early fish to help move fins. In amphibians and reptiles, it became a bone. In mammals and birds, it evolved further to support various limb movements and complex shoulder functions.");
             scapulaevbtn = createEvolutionBtn("scapula", scapulapanel.id);
             scapulabtns.push(scapulaevbtn);
             scapula = createSphereBtn(-0.82, 4, 0.8, skeletalmeshes, function() {
@@ -2120,7 +2120,7 @@ function loadskeletal(val) {
             });
 
             phalangebtns = [];
-            phalangepanel = createPanel("phalangepanel", "Phalange Evolution Information", "phalangeclose", "INFO GOES HERE");
+            phalangepanel = createPanel("phalangepanel", "Phalange Evolution Information", "phalangeclose", "Phalanges are the bones of the fingers and toes, which evolved to provide dexterity and grip. In primates, elongated phalanges allowed for better manipulation of objects and tool use, essential for survival. This development is a key factor in the evolutionary success of humans.");
             phalangeevbtn = createEvolutionBtn("phalange", phalangepanel.id);
             phalangebtns.push(phalangeevbtn);
             phalangeFoot = createSphereBtn(0.5, -7, -0.9, skeletalmeshes, function() {
