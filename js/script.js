@@ -1089,6 +1089,25 @@ function loadhuman(val) {
         });
     }
 }
+function loadeyecs(val){
+    change(m.getChild(), "loadeyecs(0)");
+    if (checkvis(eyecsbtn) || val == 0) {
+        showui();
+        clear();
+        BABYLON.SceneLoader.ImportMesh("", "", "models/eye_crosssection.glb", scene, function (meshes) {
+            hideui();
+            // meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            eyecsref = meshes[0];
+            allMeshes.push(eyecsref);
+            camera.upperRadiusLimit = 1000;
+            camera.position = new BABYLON.Vector3(40,-20,900);
+            camera.target = new BABYLON.Vector3(-690, 340, -450);
+        });    
+        
+        
+        hidebtn(eyecsbtn);
+    }
+}
 function loadeye() {
     change(m.getChild(), "loadeye()");
     if (checkvis(eyebtns[0])) {
@@ -1137,8 +1156,8 @@ function loadeye() {
 
             
         });
-        camera.position = new BABYLON.Vector3(-3, 3, -35);
-        camera.target = new BABYLON.Vector3(8, 9.5, -2.7);
+        camera.position = new BABYLON.Vector3(-3, 0, -35);
+        camera.target = new BABYLON.Vector3(8.3, 9.5, -2.7);
         camera.radius = 4;
         clearbtns();
         showbtn(backHuman);
@@ -1966,14 +1985,7 @@ function loaddiaphragmonly(val) {
     }
 }
 
-function loadeyecs(val){
-    change(m.getChild(), "loadeyecs(0)");
-    if (checkvis(eyecsbtn) || val == 0) {
-        showui();
-        clear();
-        importmesh("eye_crosssection.glb", null, null, BABYLON.Vector3(0, 0, 0), null)
-        camera.position = new BABYLON.Vector3(0,0,0)
-    }}
+
 
 function loadstomach(val) {
     change(m.getChild(), "loadstomach(0)");
