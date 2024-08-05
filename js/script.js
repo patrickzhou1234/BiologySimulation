@@ -109,6 +109,7 @@ eyecsbtn = document.getElementById("eyecsbtn");
 earcsbtn = document.getElementById("earcsbtn");
 earbtn = document.getElementById("earbtn");
 lungcrosssec = document.getElementById("lungcsbtn");
+dnabtns = document.querySelectorAll(".dnabtns");
 lungcsbtns = []
 lungcsbtns.push(lungcrosssec)
 let cellref = 0;
@@ -602,10 +603,10 @@ function cellSpheres() {
             }
         })
     }, 0.15)
-    createSphereBtn(1.8, 0.2, -0.5, cellmeshes, function(){createBasicPopup("Rough Endoplasmic Reticulum", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell.", roughersmlbtns)})
-    createSphereBtn(1.2248904211980474,0.16952203700465684,1.8693672639905412, cellmeshes, function(){createBasicPopup("Smooth Endoplasmic Reticulum", "(add description here)", smoothersmlbtns)})
-    createSphereBtn(0.353150398090031,0.4304624896982965,-0.32896007806854577, cellmeshes, function(){createBasicPopup("Nucleolus", "The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis. ")}) 
-    createSphereBtn(1.1942075977140756,0.15042321941889902,2.4992473761184826, cellmeshes, function(){createBasicPopup("Centrioles", "Centrioles are essential for cell division, aiding in the organization of microtubules during mitosis and meiosis. They also contribute to the formation of cilia and flagella, crucial for cell movement and sensory functions. ")}) 
+    createSphereBtn(1.8, 0.2, -0.5, cellmeshes, function(){createBasicPopup("Rough Endoplasmic Reticulum", "The Rough ER, studded with ribosomes, plays a role in synthesizing and secreting proteins. It also acts as a membrane factory, growing by incorporating proteins and phospholipids and transporting them via vesicles to other parts of the cell.", roughersmlbtns)});
+    createSphereBtn(1.2248904211980474,0.16952203700465684,1.8693672639905412, cellmeshes, function(){createBasicPopup("Smooth Endoplasmic Reticulum", "(add description here)", smoothersmlbtns)});
+    createSphereBtn(0.353150398090031,0.4304624896982965,-0.32896007806854577, cellmeshes, function(){createBasicPopup("Nucleolus", "The nucleolus is a condensed region inside the nucleus, and it is the location of assembly of ribosomes (rRNA), which exit the nucleus for use in protein synthesis. ", dnabtns)});
+    createSphereBtn(1.1942075977140756,0.15042321941889902,2.4992473761184826, cellmeshes, function(){createBasicPopup("Centrioles", "Centrioles are essential for cell division, aiding in the organization of microtubules during mitosis and meiosis. They also contribute to the formation of cilia and flagella, crucial for cell movement and sensory functions. ")});
 
     // tells each item in the cellmeshes array what to do when the mouse cursor hovers over and moves away from the part
 
