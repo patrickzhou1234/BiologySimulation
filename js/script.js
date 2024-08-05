@@ -30,7 +30,7 @@ Over time, as organisms evolved, there was a transition from an RNA-centric worl
 ribopanel = createPanel("ribopanel", "Ribosome Functionality", "riboclose", ribotext, ribopanelbtn, false);
 
 let smokingpanel;
-smokingpanel = createPanel("smokingpanel", "IYTC Collab (Anti Smoking)", "smokingclose", "info goes here :D", smokingbtn, true);
+smokingpanel = createPanel("smokingpanel", "(Anti Smoking)", "smokingclose", "info goes here :D", smokingbtn, true);
 
 
 // returns boolean on whether or not an element has a class
@@ -2084,7 +2084,7 @@ function loadskeletal(val) {
             });
 
             humerusbtns = [];
-            humeruspanel = createPanel("humeruspanel", "Humerus Evolution Information", "humerusclose", "INFO The humerus, the long bone of the upper arm, evolved for both strength and flexibility. In early tetrapods, it facilitated movement on land. Over time, the humerus adapted to various functions across species, from flight in birds to manipulation and tool use in primates, including humans.");
+            humeruspanel = createPanel("humeruspanel", "Humerus Evolution Information", "humerusclose", "The humerus, the long bone of the upper arm, evolved for both strength and flexibility. In early tetrapods, it facilitated movement on land. Over time, the humerus adapted to various functions across species, from flight in birds to manipulation and tool use in primates, including humans.");
             humerusevbtn = createEvolutionBtn("humerus", humeruspanel.id);
             humerusbtns.push(humerusevbtn);
             humerus = createSphereBtn(-1.8, 3, 0.2, skeletalmeshes, function(){createImagePopUp("Humerus", "The upper arm bone that connects the shoulder to the elbow and allows for arm movement.", "images/humerus.png", window.innerWidth * 0.4, window.innerHeight * 0.6, humerusbtns)});
