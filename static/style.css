@@ -673,6 +673,15 @@ img {
     top: 85vh;
 }
 
+#earcsbtn {
+    left: 45vw;
+    top: 85vh;
+}
+#earbtn {
+    left: 45vw;
+    top: 90vh;
+}
+
 #lungcsbtn {
     left: 3vw;
     top: 10vh;
