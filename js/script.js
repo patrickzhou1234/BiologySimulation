@@ -30,7 +30,7 @@ Over time, as organisms evolved, there was a transition from an RNA-centric worl
 ribopanel = createPanel("ribopanel", "Ribosome Functionality", "riboclose", ribotext, ribopanelbtn, false);
 
 let smokingpanel;
-smokingpanel = createPanel("smokingpanel", "IYTC Collab (Anti Smoking)", "smokingclose", "info goes here :D", smokingbtn, true);
+smokingpanel = createPanel("smokingpanel", "(Anti Smoking)", "smokingclose", "info goes here :D", smokingbtn, true);
 
 
 // returns boolean on whether or not an element has a class
@@ -62,6 +62,7 @@ roughersmlbtns = document.querySelectorAll(".roughersmlbtns");
 smoothersmlbtns = document.querySelectorAll(".smoothersmlbtns");
 brainbtns = document.querySelectorAll(".brainbtns");
 eyebtns = document.querySelectorAll(".eyebtns");
+earbtns = document.querySelectorAll(".earbtns");
 heartbtns = document.querySelectorAll(".heartbtns");
 cordbtns = document.querySelectorAll(".cordbtns");
 kidneybtns = document.querySelectorAll(".kidneybtns");
@@ -105,6 +106,8 @@ showsystems = document.getElementById("systembtn");
 skinbtn = document.getElementById("skinbtn");
 diaphragmbtn = document.getElementById("diaphragmbtn");
 eyecsbtn = document.getElementById("eyecsbtn");
+earcsbtn = document.getElementById("earcsbtn");
+earbtn = document.getElementById("earbtn");
 lungcrosssec = document.getElementById("lungcsbtn");
 dnabtns = document.querySelectorAll(".dnabtns");
 lungcsbtns = []
@@ -169,7 +172,7 @@ let pancreasmeshes = [];
 let esophagusmeshes = [];
 let colonmeshes = [];
 let allMeshes = [];
-let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn, smokingbtn, eyecsbtn];
+let buttons = [backcell, backHuman, backExretory, backKidney, showNeuron, showETC, panelbtn, showExterior, kidney2dmodelbtn, nephronbtn, smokingbtn, eyecsbtn, earcsbtn, earbtn];
 let buttonArrays = [roundbtns, respbtns, cordbtns, respinsitubtns, endocrine1btns, mitosmlbtns, golgismlbtns, brainbtns, heartbtns, skinbtns, skullbtns, kidneybtns, spinebtns, endocrinebtns, liverbtns, intestinebtns, colonbtns, pancreasbtns, digestiveinsitubtns, muscularbtns, stomachbtns, digestivebtns, circulatorybtns,lymphbtns, eyemeshes, roughersmlbtns, smoothersmlbtns, exretorybtns, bronchibtns, esophagusbtns, lungbtns, corneabtns];
 const canvas = document.getElementById("babcanv"); // Get the canvas element
 const engine = new BABYLON.Engine(canvas, true);
@@ -1079,7 +1082,7 @@ function loadhuman(val) {
 
             showbtn(backcell);
             createSphereBtn(0.2, 10, -0.8, humanmeshes, function(){createBasicPopup("Eye", "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world. ", eyebtns)}) 
-            createSphereBtn(-0.534986287242269,9.902969211872968,-0.04703141752093032, humanmeshes, function(){createBasicPopup("Ear", "desc ")}) 
+            createSphereBtn(-0.534986287242269,9.902969211872968,-0.04703141752093032, humanmeshes, function(){createBasicPopup("Ear", "desc ",earbtns)}) 
 
         });
 
@@ -1101,14 +1104,132 @@ function loadeyecs(val){
             eyecsref = meshes[0];
             allMeshes.push(eyecsref);
             camera.upperRadiusLimit = 1000;
-            camera.position = new BABYLON.Vector3(40,-20,900);
+            camera.position = new BABYLON.Vector3(-1220.83713583762,468.32129390641774,387.70330910524217);
             camera.target = new BABYLON.Vector3(-690, 340, -450);
+            
+
         });    
         
         
         hidebtn(eyecsbtn);
     }
 }
+
+function loadearcs(val){
+    change(m.getChild(), "loadearcs(0)");
+    if (checkvis(earcsbtn) || val == 0) {
+        showui();
+        clear();
+        BABYLON.SceneLoader.ImportMesh("", "", "models/ear_cs.glb", scene, function (meshes) {
+            hideui();
+            // meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
+            earcsref = meshes[0];
+            allMeshes.push(earcsref);
+            
+
+        });    
+        
+        
+        hidebtn(earcsbtn);
+    }
+}
+
+function loadear() {
+    change(m.getChild(), "loadear()");
+    if (checkvis(earbtns[0])) {
+        showui();
+        clickcondeye(0);
+        /*
+        BABYLON.SceneLoader.ImportMesh("", "", "models/eye.glb", scene, function (meshes) {
+            clear();
+            hideui();
+            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+            eyeref = meshes[0];
+            allMeshes.push(eyeref);
+
+            
+            corneamat = new BABYLON.StandardMaterial("vitreousmat", scene);
+            cornea = BABYLON.MeshBuilder.CreateSphere("cornea", { diameter: 0.1, segments: 32 }, scene);
+            eyemeshes.push(cornea);
+            cornea.position.set(8.017824654107955,9.483131931536812,-3.3881631831653913);
+            cornea.material = corneamat;
+            cornea.actionManager = new BABYLON.ActionManager(scene);
+            cornea.actionManager.registerAction(
+                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                    camera.lowerRadiusLimit = 2;
+                    Swal.fire({
+                        title: "Cornea",
+                        text: "The cornea, the eye's transparent outermost layer, plays a crucial role in focusing light onto the retina and also protecting the eye from pathogens and dust.",
+                        imageUrl: "images/cornea.png",
+                        icon: "question",
+                        background: "black",
+                        color: "white",
+                        backdrop: false,
+                    }).then(function(){
+                        for (i = 0; i < corneabtns.length; i++) {
+                            hidebtn(corneabtns[i]);
+                        }
+                    })
+                    for (i = 0; i < corneabtns.length; i++) {
+                        showbtn(corneabtns[i]);
+                    }
+                })
+            );
+            
+            createSphereBtn(8.55, 9.5, -3.43, eyemeshes, function(){createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ")},0.1) 
+            createSphereBtn(8.25, 9.5, -3.47, eyemeshes, function(){createBasicPopup("Pupil", "The pupil is a black circular opening at the center of the iris, this regulates the amount of light entering the eye this is done through dilations and constrictions which is in response to light intensity.  ")},0.1)
+            createSphereBtn(8.894,9.625,-3.15, eyemeshes, function(){createBasicPopup("Sclera", "The sclera, commonly known as the white of the eye, provides protection and maintains the eye's shape; it connects with the cornea at the limbus. Made up of collagen and elastic fibers, allows for strength. The sclera connects with the cornea at the limbus and is continuous with the dura mater of the optic nerve.  ")},0.1) 
+            // createSphereBtn(8.8, 9.74, -3.2, eyemeshes, function(){createBasicPopup("Cornea", "The privileged part of the eye. ")},0.1) 
+
+            
+        });
+        camera.position = new BABYLON.Vector3(-3, 0, -35);
+        camera.target = new BABYLON.Vector3(8.3, 9.5, -2.7);
+        camera.radius = 4;
+        clearbtns();
+        showbtn(backHuman);
+        showbtn(eyecsbtn)
+        */
+
+        //ADD FOR EAR STUFF
+    }
+
+}
+
+
+
+function bowmanclicked(){
+    for (i = 0; i < corneabtns.length; i++) {
+        hidebtn(corneabtns[i]);
+    }
+    createBasicPopup("Bowman's layer", "The Bowman is the second layer in the cornea. It is made of randomly arranged collagen fibers that provide structural support and protection to the cornea. The bowman layer plays a critical role in maintaining the cornea shape. Once this layer is damaged it does not regenerate. ");
+}
+function epitheliumclicked(){
+    for (i = 0; i < corneabtns.length; i++) {
+        hidebtn(corneabtns[i]);
+    }
+    createBasicPopup("Epithelium", "The epithelium is the outermost layer of the cornea, acting as a protective barrier against dust, debris, and microorganisms. It also plays a crucial role in wound healing, quickly regenerating after injury to maintain clear vision.");
+}
+function stromaclicked(){
+    for (i = 0; i < corneabtns.length; i++) {
+        hidebtn(corneabtns[i]);
+    }
+    createBasicPopup("stroma", "The stroma of the eye is a vital part of the cornea and iris, filled with collagen fibers and cells that help maintain its structure. It keeps the cornea clear and supports its shape, essential for good vision.");
+}
+function descementclicked(){
+    for (i = 0; i < corneabtns.length; i++) {
+        hidebtn(corneabtns[i]);
+    }
+    createBasicPopup("Descemet's membrane", "The descemet's membrane is a thin transparent layer of connective tissue that is located in the cornea. It's between the corneal stroma and the middle layer of the cornea. It is mainly built of collagen or protein and provides structural support to the cornea. It's important for anchoring the endothelial cells and helping regulate fluid balance in the cornea. ");
+}
+function endotheliumclicked(){
+    for (i = 0; i < corneabtns.length; i++) {
+        hidebtn(corneabtns[i]);
+    }
+    createBasicPopup("Endothelium ", "The endothelium is the 4th layer of the cornea and is specialized with flat cells located on the innermost surface. Its main function is to maintain the transparency of the cornea by regulating fluid and solute transport between the cornea and aqueous humor. They pump excess fluid out of the stroma preventing the cornea from swelling and painting its clarity. Unlike other cell layers in the cornea, this section has limited capacity for regeneration. ");
+}
+
+
 function loadeye() {
     change(m.getChild(), "loadeye()");
     if (checkvis(eyebtns[0])) {
@@ -2097,7 +2218,7 @@ function loadskeletal(val) {
             });
 
             humerusbtns = [];
-            humeruspanel = createPanel("humeruspanel", "Humerus Evolution Information", "humerusclose", "INFO The humerus, the long bone of the upper arm, evolved for both strength and flexibility. In early tetrapods, it facilitated movement on land. Over time, the humerus adapted to various functions across species, from flight in birds to manipulation and tool use in primates, including humans.");
+            humeruspanel = createPanel("humeruspanel", "Humerus Evolution Information", "humerusclose", "The humerus, the long bone of the upper arm, evolved for both strength and flexibility. In early tetrapods, it facilitated movement on land. Over time, the humerus adapted to various functions across species, from flight in birds to manipulation and tool use in primates, including humans.");
             humerusevbtn = createEvolutionBtn("humerus", humeruspanel.id);
             humerusbtns.push(humerusevbtn);
             humerus = createSphereBtn(-1.8, 3, 0.2, skeletalmeshes, function(){createImagePopUp("Humerus", "The upper arm bone that connects the shoulder to the elbow and allows for arm movement.", "images/humerus.png", window.innerWidth * 0.4, window.innerHeight * 0.6, humerusbtns)});
