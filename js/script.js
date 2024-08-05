@@ -2027,7 +2027,25 @@ function kidney2dmodel(){
         imageUrl: "images/kidney.png"
     });
 }
+function loaddna(val) {
+    change(m.getChild(), "loaddna(0)");
+    if (checkvis(dnabtns[0]) || val == 0) {
+        showui();
+        clearbtns();
+        clear();
+        BABYLON.SceneLoader.ImportMesh("", "", "models/dna.glb", scene, function(meshes) {
+            hideui();
+            meshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+            dnaref = meshes[0];
+            allMeshes.push(dnaref);
+            // camera.target = new BABYLON.Vector3(33.98301885954024,236.14133640561624,-22.866524279775604);
+            camera.target = new BABYLON.Vector3(36,236.14133640561624,-22.866524279775604);
+            camera.upperRadiusLimit = 500;
+            camera.position = new BABYLON.Vector3(2.4089047395701412,-3,250);
+        });
 
+    }
+}
 function loadresp(val) {
     change(m.getChild(), "loadresp(0)");
     if (checkvis(respbtns[0]) || val == 0 || val == 2) {
