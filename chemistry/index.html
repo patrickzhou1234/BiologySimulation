@@ -280,7 +280,7 @@
   currentAtom = atomGroup;
 }
 
-// REMOVE if no animation
+// REMOVE if no electron animations
 function animateElectrons() {
   if (!currentAtom) return;
 
@@ -495,7 +495,7 @@ function getElectronConfiguration(element) {
     TWEEN.update();
     controls.update();
 
-    // REMOVE if no animation
+    // REMOVE if no electron animations
     animateElectrons();
 
     renderer.render(scene, camera);
