@@ -44,11 +44,11 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.15);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 1);
-    pointLight.position.set(10, 10, 10);
+    const pointLight = new THREE.PointLight(0xffffff, 0.35);
+    pointLight.position.set(0, 0, 10);
     scene.add(pointLight);
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -231,47 +231,69 @@
   }
 
   function createAtomModel(element) {
-  if (currentAtom) {
-    scene.remove(currentAtom);
-  }
-
-  const atomGroup = new THREE.Group();
-
-  // Nucleus
-  const nucleusGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-  const nucleusMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
-  const nucleus = new THREE.Mesh(nucleusGeometry, nucleusMaterial);
-  atomGroup.add(nucleus);
-
-  // Electron shells following standard electron configuration
-  const electronConfiguration = getElectronConfiguration(element);
-
-  for (let i = 0; i < electronConfiguration.length; i++) {
-    const shellRadius = (i + 1) * 1.5;
-    const shellGeometry = new THREE.TorusGeometry(shellRadius, 0.02, 16, 100);
-    const shellMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const shell = new THREE.Mesh(shellGeometry, shellMaterial);
-    shell.rotation.x = Math.PI / 2;
-    atomGroup.add(shell);
-
-    const electronsInShell = electronConfiguration[i];
-    for (let j = 0; j < electronsInShell; j++) {
-      const electronGeometry = new THREE.SphereGeometry(0.1, 16, 16);
-      const electronMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
-      const electron = new THREE.Mesh(electronGeometry, electronMaterial);
-      const angle = (j / electronsInShell) * Math.PI * 2;
-      electron.position.set(
-        shellRadius * Math.cos(angle),
-        0,
-        shellRadius * Math.sin(angle)
-      );
-      atomGroup.add(electron);
+    if (currentAtom) {
+      scene.remove(currentAtom);
     }
-  }
 
-  atomGroup.position.set(0, 0, 5*electronConfiguration.length);
+    const atomGroup = new THREE.Group();
+
+    // Nucleus
+    const nucleusGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+    const nucleusMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+    const nucleus = new THREE.Mesh(nucleusGeometry, nucleusMaterial);
+    atomGroup.add(nucleus);
+
+    // Electron shells following standard electron configuration
+    const electronConfiguration = getElectronConfiguration(element);
+
+    electronConfiguration.forEach((electronsInShell, i) => {
+      const shellRadius = (i + 1) * 1.5;
+      const shellGeometry = new THREE.TorusGeometry(shellRadius, 0.02, 16, 100);
+      const shellMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const shell = new THREE.Mesh(shellGeometry, shellMaterial);
+      shell.rotation.x = Math.PI / 2;
+      atomGroup.add(shell);
+
+      for (let j = 0; j < electronsInShell; j++) {
+        const electronGeometry = new THREE.SphereGeometry(0.1, 16, 16);
+        const electronMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+        const electron = new THREE.Mesh(electronGeometry, electronMaterial);
+        const angle = (j / electronsInShell) * Math.PI * 2;
+        electron.position.set(
+          shellRadius * Math.cos(angle),
+          0,
+          shellRadius * Math.sin(angle)
+        );
+        electron.userData = {
+          angle,
+          radius: shellRadius,
+          // REMOVE speed or CHANGE speed to set speed or random speed
+          // speed: Math.random() * 0.02 + 0.01
+          speed: 0.02
+        };
+        atomGroup.add(electron);
+      }
+    });
+
+  atomGroup.position.set(0, 0, 5 * electronConfiguration.length);
   scene.add(atomGroup);
   currentAtom = atomGroup;
+}
+
+// REMOVE if no animation
+function animateElectrons() {
+  if (!currentAtom) return;
+
+  currentAtom.children.forEach(child => {
+    if (child.userData && child.userData.speed) {
+      child.userData.angle += child.userData.speed;
+      child.position.set(
+        child.userData.radius * Math.cos(child.userData.angle),
+        0,
+        child.userData.radius * Math.sin(child.userData.angle)
+      );
+    }
+  });
 }
 
 function getElectronConfiguration(element) {
@@ -369,20 +391,79 @@ function getElectronConfiguration(element) {
       document.getElementById('elementInfo').innerText = '';
     }
   }
+  
   function resetCam() {
-    
-  camera.position.set(0, 0, 20);
+    const duration = 1000;
 
-  camera.rotation.set(0, 0, 0);
-camera.zoom = 1;
-  controls.target.set(0, 0, 0);
-  controls.update();
-  if (currentAtom) {
-    scene.remove(currentAtom);
+    const initialPosition = {
+        x: camera.position.x,
+        y: camera.position.y,
+        z: camera.position.z
+    };
+    const targetPosition = {
+        x: 0,
+        y: 0,
+        z: 20
+    };
+
+    const initialRotation = {
+        x: camera.rotation.x,
+        y: camera.rotation.y,
+        z: camera.rotation.z
+    };
+    const targetRotation = {
+        x: 0,
+        y: 0,
+        z: 0
+    };
+
+    const initialZoom = { zoom: camera.zoom };
+    const targetZoom = { zoom: 1 };
+
+    new TWEEN.Tween(initialPosition)
+        .to(targetPosition, duration)
+        .onUpdate(() => {
+            camera.position.set(initialPosition.x, initialPosition.y, initialPosition.z);
+        })
+        .start();
+
+    new TWEEN.Tween(initialRotation)
+        .to(targetRotation, duration)
+        .onUpdate(() => {
+            camera.rotation.set(initialRotation.x, initialRotation.y, initialRotation.z);
+        })
+        .start();
+
+    new TWEEN.Tween(initialZoom)
+        .to(targetZoom, duration)
+        .onUpdate(() => {
+            camera.zoom = initialZoom.zoom;
+            camera.updateProjectionMatrix();
+        })
+        .start();
+
+    const initialTarget = controls.target.clone();
+    const targetTarget = new THREE.Vector3(0, 0, 0);
+
+    new TWEEN.Tween(initialTarget)
+        .to(targetTarget, duration)
+        .onUpdate(() => {
+            controls.target.set(initialTarget.x, initialTarget.y, initialTarget.z);
+        })
+        .onComplete(() => {
+            controls.target.set(targetTarget.x, targetTarget.y, targetTarget.z);
+            controls.update();
+        })
+        .start();
+
+    if (currentAtom) {
+        scene.remove(currentAtom);
+        currentAtom = null;
+    }
   }
-}
 
   function onDocumentMouseClick(event) {
+
     event.preventDefault();
     const mouse = new THREE.Vector2(
       (event.clientX / window.innerWidth) * 2 - 1,
@@ -413,6 +494,10 @@ camera.zoom = 1;
     requestAnimationFrame(animate);
     TWEEN.update();
     controls.update();
+
+    // REMOVE if no animation
+    animateElectrons();
+
     renderer.render(scene, camera);
   }
 
