@@ -72,6 +72,7 @@ exretorybtns = document.querySelectorAll(".exretorybtns");
 respinsitubtns = document.querySelectorAll(".respinsitubtns");
 stomachbtns = document.querySelectorAll(".stomachbtns");
 respbtns = document.querySelectorAll(".respbtns");
+NSbtns = document.querySelectorAll(".NSbtns");
 digestivebtns = document.querySelectorAll(".digestivebtns");
 circulatorybtns = document.querySelectorAll(".circulatorybtns");
 bronchibtns = document.querySelectorAll(".bronchibtns");
@@ -124,6 +125,7 @@ let intestineref = 0;
 let spleenref = 0;
 let pancreasref = 0;
 let cordref = 0;
+let NSref = 0;
 let esophagusref = 0;
 let endocrine1ref = 0;
 let respref = 0;
@@ -156,6 +158,7 @@ let endocrine1meshes = [];
 let digestivemeshes = [];
 let skullmeshes = [];
 let skinmeshes = [];
+let NSmeshes = [];
 let circulatorymeshes = [];
 let bronchimeshes = [];
 let respmeshes = [];
@@ -1105,8 +1108,8 @@ function loadhuman(val) {
             camera.radius = 20;
 
             showbtn(backcell);
-            createSphereBtn(0.2, 10, -0.8, humanmeshes, function () {
-                createBasicPopup("Eye", "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals, initiating the process of visual perception that shapes our understanding of the external world. ", eyebtns);
+            eye = createSphereBtn(0.2, 10, -0.8, humanmeshes, function () {
+                createImagePopUp("Eye", "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals. ", "images/eyepicture.jpg", window.innerWidth * 0.5, window.innerHeight * 0.5, eyebtns);
             });
             createSphereBtn(-0.534986287242269, 9.902969211872968, -0.04703141752093032, humanmeshes, function () {
                 createBasicPopup("Ear", "desc ", earbtns);
@@ -1704,6 +1707,31 @@ function loadesophagus(val) {
         });
     }
 }
+function loadNS(val) {
+    change(m.getChild(), "loadNS(0)");
+        showui();
+        clearbtns();
+        clickcond(humanmeshes, NSbtns, 0);
+        BABYLON.SceneLoader.ImportMesh("", "", "models/nervous_system.glb", scene, function (meshes) {
+            clear();
+            hideui();
+           camera.target = new BABYLON.Vector3(0.05740795922190678,7.15830432454763,0.9948979818070001);
+            humanmeshes.forEach((el) => {
+                el.visibility = 0;
+            });
+            meshes[0].scaling = new BABYLON.Vector3(8, 8, 8);
+            createSphereBtn(-0.0847792182819817,13.727592170977577,-0.13707866476222108, NSmeshes, function () {
+               createBasicPopup("Central Nervous System (CNS)", "The central nervous system (CNS) comprises the brain and spinal cord, serving as the primary control center for processing sensory information, generating thoughts, emotions, and memories, and coordinating voluntary and involuntary actions throughout the body. It interprets incoming data and sends out commands to the peripheral nervous system to execute responses. ", spinebtns);
+            });
+            createSphereBtn(-2.117950967884778,9.656626590025594,0.807392259406166, NSmeshes, function () {
+                createBasicPopup("Peripheral Nervous System (PNS)", "The peripheral nervous system (PNS) consists of all the nerves outside the brain and spinal cord, including cranial and spinal nerves, and is responsible for transmitting sensory information to the CNS and carrying out its motor commands. It connects the CNS to muscles, glands, and sensory receptors, facilitating communication between the brain and the body's extremities and organs.");
+             });
+            NSref = meshes[0];
+            allMeshes.push(NSref);
+            showbtn(backHuman);
+        });
+    }
+//}
 function loadpancreas(val) {
     change(m.getChild(), "loadpancreas(0)");
     if (checkvis(pancreasbtns[0]) || val == 0) {
@@ -1983,7 +2011,7 @@ function loadlymphatic(val) {
             meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
             lymphref = meshes[0];
             allMeshes.push(lymphref);
-            //  createSphereBtn(1, 3, -7, lymphmeshes, function(){createBasicPopup("Spleen", "desc", spleenmeshes)}, 0.4)
+              createSphereBtn(0.7830194453121005,3.544277965793885,-7.439955816834036, lymphmeshes, function(){createBasicPopup("Spleen", "Lymphatic vessels (shown in green here) are a crucial component of the lymphatic system, responsible for transporting lymph, a clear fluid containing white blood cells, throughout the body. They play a vital role in maintaining fluid balance, filtering out harmful substances, and supporting the immune system by facilitating the movement of immune cells to sites of infection and inflammation. The lymph nodes, which are the rounded structures, serve as filtration hubs for lymph fluid.  They trap and destroy harmful pathogens, foreign particles, and cancer cells, while also housing immune cells such as lymphocytes and macrophages, which coordinate the body's immune response to infections and diseases. ",)}, 0.4)
         });
         camera.position = new BABYLON.Vector3(0, 0.5, 80);
         clearbtns();
@@ -2866,14 +2894,14 @@ function loadskeletal(val) {
         skullevbtn = createEvolutionBtn("Skull", skullpanel.id);
         skullbtns.push(skullevbtn);
         skull = createSphereBtn(0, 7, -0.51, skeletalmeshes, function () {
-            createBasicPopup("Skull", "Protects the brain and houses sensory organs like the eyes and ears.", skullbtns);
+            createImagePopUp("Skull", "Protects the brain and houses sensory organs like the eyes and ears.","images/skullpicture.jpg", window.innerWidth * 0.6, window.innerHeight * 0.4);
         });
 
         spinepanel = createPanel("spinepanel", "Spine Evolution Information", "spineclose", "Spine evolution started with simple cartilage in early fish. As life moved to land, amphibians developed stronger backbones. Reptiles, and later mammals and birds, further specialized their spines into regions like the neck, chest, and lower back for better support and movement.");
         spineevbtn = createEvolutionBtn("spine", spinepanel.id);
         spinebtns.push(spineevbtn);
         spine = createSphereBtn(0, 3, 0.8, skeletalmeshes, function () {
-            createBasicPopup("Spine", "Provides support and protection for the spinal cord and allows for movement.", spinebtns);
+            createImagePopUp("Spine", "Provides support and protection for the spinal cord and allows for movement.", "images/spinepicture.png", window.innerWidth * 0.3, window.innerHeight * 0.7);
         });
 
         femurbtns = [];
@@ -2913,7 +2941,7 @@ function loadskeletal(val) {
         tibfibevolbtn = createEvolutionBtn("tibula and fibula", tibfibpanel.id);
         tibfibbtns.push(tibfibevolbtn);
         tibfib = createSphereBtn(0.8, -4, -0.2, skeletalmeshes, function () {
-            createBasicPopup("Tibula and Fibula", "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability.", tibfibbtns);
+            createImagePopUp("Tibula and Fibula", "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability.",  "images/tibfibpicture.webp", window.innerWidth * 0.5, window.innerHeight * 0.5);
         });
 
         radulnbtns = [];
@@ -2921,7 +2949,7 @@ function loadskeletal(val) {
         radulnevbtn = createEvolutionBtn("radius and ulna", radulnpanel.id);
         radulnbtns.push(radulnevbtn);
         raduln = createSphereBtn(-2.5, 1, 0.2, skeletalmeshes, function () {
-            createBasicPopup("Radius and Ulna", "The bones of the forearm that allow for forearm rotation and wrist movement.", radulnbtns);
+            createImagePopUp("Radius and Ulna", "The bones of the forearm that allow for forearm rotation and wrist movement.",  "images/radiusulnapicture.jpg", window.innerWidth * 0.5, window.innerHeight * 0.5);
         });
 
         sternumbtns = [];
@@ -2929,7 +2957,7 @@ function loadskeletal(val) {
         sternumevbtn = createEvolutionBtn("sternum", sternumpanel.id);
         sternumbtns.push(sternumevbtn);
         sternum = createSphereBtn(0, 3.5, -1, skeletalmeshes, function () {
-            createBasicPopup("Sternum (aka Breastbone)", "Protects the heart and lungs and anchors the ribcage.", sternumbtns);
+            createImagePopUp("Sternum (aka Breastbone)", "Protects the heart and lungs and anchors the ribcage.",  "images/sternumpicture.jpg", window.innerWidth * 0.4, window.innerHeight * 0.6);
         });
 
         scapulabtns = [];
@@ -2937,7 +2965,7 @@ function loadskeletal(val) {
         scapulaevbtn = createEvolutionBtn("scapula", scapulapanel.id);
         scapulabtns.push(scapulaevbtn);
         scapula = createSphereBtn(-0.82, 4, 0.8, skeletalmeshes, function () {
-            createBasicPopup("Scapula (aka Shoulder Blade)", "Provides attachment for muscles that control shoulder and arm movement.", scapulabtns);
+            createImagePopUp("Scapula (aka Shoulder Blade)", "Provides attachment for muscles that control shoulder and arm movement.",  "images/scapulapicture.jpg", window.innerWidth * 0.4, window.innerHeight * 0.6);
         });
 
         phalangebtns = [];
@@ -2945,10 +2973,10 @@ function loadskeletal(val) {
         phalangeevbtn = createEvolutionBtn("phalange", phalangepanel.id);
         phalangebtns.push(phalangeevbtn);
         phalangeFoot = createSphereBtn(0.5, -7, -0.9, skeletalmeshes, function () {
-            createBasicPopup("Phalange", "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal).", phalangebtns);
+            createImagePopUp("Phalange", "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal).", "images/handpicture.svg", window.innerWidth * 0.5, window.innerHeight * 0.5);
         });
         phalangeHand = createSphereBtn(-2.8, -0.6, 0.2, skeletalmeshes, function () {
-            createBasicPopup("Phalange", "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal).", phalangebtns);
+            createImagePopUp("Phalange", "Phalanges are the smaller bones that make up the fingers and toes, with each digit typically consisting of three phalanges (proximal, middle, and distal).", "images/handpicture.svg", window.innerWidth * 0.5, window.innerHeight * 0.5);
         });
     } else {
         skeletalref.dispose();
@@ -3226,6 +3254,11 @@ function clear() {
     for (i = 0; i < colonmeshes.length; i++) {
         try {
             colonmeshes[i].dispose();
+        } catch (err) {}
+    }
+    for (i = 0; i < NSmeshes.length; i++) {
+        try {
+            NSmeshes[i].dispose();
         } catch (err) {}
     }
     for (i = 0; i < livermeshes.length; i++) {
