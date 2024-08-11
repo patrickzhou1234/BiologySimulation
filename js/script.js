@@ -153,6 +153,7 @@ let neuronmeshes = [];
 let digestiveinsitumeshes = [];
 let skeletalmeshes = [];
 let kidneymeshes = [];
+let heartmeshes =[];
 let nephronmeshes = [];
 let endocrine1meshes = [];
 let digestivemeshes = [];
@@ -1136,6 +1137,8 @@ function loadeyecs(val) {
             camera.upperRadiusLimit = 1000;
             camera.position = new BABYLON.Vector3(-1220.83713583762, 468.32129390641774, 387.70330910524217);
             camera.target = new BABYLON.Vector3(-690, 340, -450);
+
+            
         });
 
         hidebtn(eyecsbtn);
@@ -1300,11 +1303,7 @@ function loadeye() {
                 },
                 0.1
             );
-            createSphereBtn(
-                8.25,
-                9.5,
-                -3.47,
-                eyemeshes,
+            createSphereBtn(8.25,9.5,-3.47,eyemeshes,
                 function () {
                     createBasicPopup("Pupil", "The pupil is a black circular opening at the center of the iris, this regulates the amount of light entering the eye this is done through dilations and constrictions which is in response to light intensity.  ");
                 },
@@ -1320,7 +1319,7 @@ function loadeye() {
                 },
                 0.1
             );
-            // createSphereBtn(8.8, 9.74, -3.2, eyemeshes, function(){createBasicPopup("Cornea", "The privileged part of the eye. ")},0.1)
+           
         });
         camera.position = new BABYLON.Vector3(-3, 0, -35);
         camera.target = new BABYLON.Vector3(8.3, 9.5, -2.7);
@@ -1341,6 +1340,35 @@ function loadheart(val) {
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             heartref = meshes[0];
+            createSphereBtn(2.5576482066001773,1.6891541136989279,3.9493668163700306,
+                heartmeshes,
+                function () {
+                    createBasicPopup("Right Atrium", "The right atrium is responsible for receiving oxygen-poor blood from the body through the superior and inferior vena cava. It serves as a holding chamber that allows blood to accumulate before it is transferred to the right ventricle for further circulation.");
+                },
+                1.5
+            );
+            createSphereBtn(1.4725795491646574,-3.9373089418681637,2.998604554954426,
+                heartmeshes,
+                function () {
+                    createBasicPopup("Right Ventricle", "The right ventricle pumps oxygen-poor blood to the lungs via the pulmonary artery, where it undergoes oxygenation. The wall of the right ventricle is relatively thinner compared to the left ventricle, as it only needs to pump blood a short distance to the lungs.");
+                },
+                1.5
+            );
+            createSphereBtn(-1.6441591690348405,-2.8816322575918836,3.310198635298761,
+                heartmeshes,
+                function () {
+                    createBasicPopup("Left Ventricle", "The left ventricle is responsible for pumping oxygen-rich blood to the entire body through the aorta. It has the thickest wall among the heart chambers, as it needs to generate substantial force to push blood through the extensive systemic circulation.");
+                },
+                1.5
+            );
+            createSphereBtn(-2.096941361673263,2.4779635891449114,3.931771727770112,
+                heartmeshes,
+                function () {
+                    createBasicPopup("Left Atrium","The left atrium receives oxygen-rich blood from the lungs through the pulmonary veins. This chamber acts as a conduit, passing the oxygenated blood into the left ventricle, which will then pump it to the rest of the body.");
+                },
+                1.5
+            );
+
 
             allMeshes.push(heartref);
         });
@@ -1420,7 +1448,7 @@ function loaddigestive(val) {
                 -1.025,
                 digestivemeshes,
                 function () {
-                    createBasicPopup("Small Intestine", "The small intestine is a long, coiled tube where most of the digestion and absorption of nutrients occur. It consists of three sections—the duodenum, jejunum, and ileum—each playing a vital role in breaking down food and absorbing vitamins, minerals, and other nutrients into the bloodstream.c", intestinebtns);
+                    createBasicPopup("Small Intestine", "The small intestine is a long, coiled tube where most of the digestion and absorption of nutrients occur. It consists of three sections—the duodenum, jejunum, and ileum—each playing a vital role in breaking down food and absorbing vitamins, minerals, and other nutrients into the bloodstream.", intestinebtns);
                 },
                 0.7
             );
@@ -3274,6 +3302,11 @@ function clear() {
     for (i = 0; i < skinmeshes.length; i++) {
         try {
             skinmeshes[i].dispose();
+        } catch (err) {}
+    }
+    for (i = 0; i < heartmeshes.length; i++) {
+        try {
+            heartmeshes[i].dispose();
         } catch (err) {}
     }
     for (i = 0; i < endocrine1meshes.length; i++) {
