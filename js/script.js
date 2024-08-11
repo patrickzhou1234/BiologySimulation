@@ -1061,27 +1061,9 @@ function loadspine(val) {
             meshes[0].scaling = new BABYLON.Vector3(0.13, 0.13, 0.13);
             spineref = meshes[0];
             allMeshes.push(spineref);
-            createSphereBtn(
-                0,
-                7.5,
-                2.5,
-                spinemeshes,
-                function () {
-                    createBasicPopup("Brain", "The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.", brainbtns);
-                },
-                0.5
-            );
-            createSphereBtn(
-                -0.3611071484137547,
-                2.2155669523598203,
-                0.5144020521811177,
-                spinemeshes,
-                function () {
-                    createBasicPopup("Spinal Cord", "The pathway for nerve impulses to travel from the brain to the body and vice versa", cordbtns);
-                },
-                0.5
-            );
-        });
+            createSphereBtn(0,7.5,2.5,spinemeshes,function(){createBasicPopup("Brain","The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.", brainbtns);},0.5);
+            createSphereBtn(-0.3611071484137547,2.2155669523598203,0.5144020521811177,spinemeshes,function(){createBasicPopup("Spinal Cord","The pathway for nerve impulses to travel from the brain to the body and vice versa.", spinebtns);},0.5);
+         });
         clearbtns();
         showbtn(backHuman);
     }
@@ -1113,7 +1095,7 @@ function loadhuman(val) {
                 createImagePopUp("Eye", "The eye, a complex sensory apparatus, transforms incoming light through refraction by the cornea and lens, creating precise images on the retina. Photoreceptor cells in the retina convert light into neural signals. ", "images/eyepicture.jpg", window.innerWidth * 0.5, window.innerHeight * 0.5, eyebtns);
             });
             createSphereBtn(-0.534986287242269, 9.902969211872968, -0.04703141752093032, humanmeshes, function () {
-                createBasicPopup("Ear", "desc ", earbtns);
+                createBasicPopup("Ear", "The ear is a complex organ responsible for hearing and balance, consisting of three main parts: the outer ear, middle ear, and inner ear. The outer ear captures sound waves and funnels them through the ear canal to the eardrum, which vibrates in response. These vibrations are transmitted through the middle ear, where three tiny bones (the malleus, incus, and stapes) amplify the sound and pass it to the inner ear. The inner ear, containing the cochlea and the vestibular system, converts sound waves into electrical signals that are sent to the brain for interpretation and helps maintain equilibrium and spatial orientation.", earbtns);
             });
         });
 
@@ -1166,59 +1148,6 @@ function loadear() {
     if (checkvis(earbtns[0])) {
         showui();
         clickcondeye(0);
-        /*
-        BABYLON.SceneLoader.ImportMesh("", "", "models/eye.glb", scene, function (meshes) {
-            clear();
-            hideui();
-            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
-            eyeref = meshes[0];
-            allMeshes.push(eyeref);
-
-            
-            corneamat = new BABYLON.StandardMaterial("vitreousmat", scene);
-            cornea = BABYLON.MeshBuilder.CreateSphere("cornea", { diameter: 0.1, segments: 32 }, scene);
-            eyemeshes.push(cornea);
-            cornea.position.set(8.017824654107955,9.483131931536812,-3.3881631831653913);
-            cornea.material = corneamat;
-            cornea.actionManager = new BABYLON.ActionManager(scene);
-            cornea.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Cornea",
-                        text: "The cornea, the eye's transparent outermost layer, plays a crucial role in focusing light onto the retina and also protecting the eye from pathogens and dust.",
-                        imageUrl: "images/cornea.png",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function(){
-                        for (i = 0; i < corneabtns.length; i++) {
-                            hidebtn(corneabtns[i]);
-                        }
-                    })
-                    for (i = 0; i < corneabtns.length; i++) {
-                        showbtn(corneabtns[i]);
-                    }
-                })
-            );
-            
-            createSphereBtn(8.55, 9.5, -3.43, eyemeshes, function(){createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ")},0.1) 
-            createSphereBtn(8.25, 9.5, -3.47, eyemeshes, function(){createBasicPopup("Pupil", "The pupil is a black circular opening at the center of the iris, this regulates the amount of light entering the eye this is done through dilations and constrictions which is in response to light intensity.  ")},0.1)
-            createSphereBtn(8.894,9.625,-3.15, eyemeshes, function(){createBasicPopup("Sclera", "The sclera, commonly known as the white of the eye, provides protection and maintains the eye's shape; it connects with the cornea at the limbus. Made up of collagen and elastic fibers, allows for strength. The sclera connects with the cornea at the limbus and is continuous with the dura mater of the optic nerve.  ")},0.1) 
-            // createSphereBtn(8.8, 9.74, -3.2, eyemeshes, function(){createBasicPopup("Cornea", "The privileged part of the eye. ")},0.1) 
-
-            
-        });
-        camera.position = new BABYLON.Vector3(-3, 0, -35);
-        camera.target = new BABYLON.Vector3(8.3, 9.5, -2.7);
-        camera.radius = 4;
-        clearbtns();
-        showbtn(backHuman);
-        showbtn(eyecsbtn)
-        */
-
-        //ADD FOR EAR STUFF
     }
 }
 
@@ -1293,32 +1222,9 @@ function loadeye() {
                 })
             );
 
-            createSphereBtn(
-                8.55,
-                9.5,
-                -3.43,
-                eyemeshes,
-                function () {
-                    createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ");
-                },
-                0.1
-            );
-            createSphereBtn(8.25,9.5,-3.47,eyemeshes,
-                function () {
-                    createBasicPopup("Pupil", "The pupil is a black circular opening at the center of the iris, this regulates the amount of light entering the eye this is done through dilations and constrictions which is in response to light intensity.  ");
-                },
-                0.1
-            );
-            createSphereBtn(
-                8.894,
-                9.625,
-                -3.15,
-                eyemeshes,
-                function () {
-                    createBasicPopup("Sclera", "The sclera, commonly known as the white of the eye, provides protection and maintains the eye's shape; it connects with the cornea at the limbus. Made up of collagen and elastic fibers, allows for strength. The sclera connects with the cornea at the limbus and is continuous with the dura mater of the optic nerve.  ");
-                },
-                0.1
-            );
+            createSphereBtn(8.55, 9.5, -3.43,eyemeshes,function () { createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ");},0.1);
+            createSphereBtn(8.25,9.5,-3.47,eyemeshes,function () {createBasicPopup("Pupil", "The pupil is a black circular opening at the center of the iris, this regulates the amount of light entering the eye this is done through dilations and constrictions which is in response to light intensity.  "); }, 0.1);
+            createSphereBtn(8.894,9.625,-3.15,eyemeshes,function () { createBasicPopup("Sclera", "The sclera, commonly known as the white of the eye, provides protection and maintains the eye's shape; it connects with the cornea at the limbus. Made up of collagen and elastic fibers, allows for strength. The sclera connects with the cornea at the limbus and is continuous with the dura mater of the optic nerve.  ");},0.1);
            
         });
         camera.position = new BABYLON.Vector3(-3, 0, -35);
@@ -1340,36 +1246,10 @@ function loadheart(val) {
             camera.target = meshes[0];
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             heartref = meshes[0];
-            createSphereBtn(2.5576482066001773,1.6891541136989279,3.9493668163700306,
-                heartmeshes,
-                function () {
-                    createBasicPopup("Right Atrium", "The right atrium is responsible for receiving oxygen-poor blood from the body through the superior and inferior vena cava. It serves as a holding chamber that allows blood to accumulate before it is transferred to the right ventricle for further circulation.");
-                },
-                1.5
-            );
-            createSphereBtn(1.4725795491646574,-3.9373089418681637,2.998604554954426,
-                heartmeshes,
-                function () {
-                    createBasicPopup("Right Ventricle", "The right ventricle pumps oxygen-poor blood to the lungs via the pulmonary artery, where it undergoes oxygenation. The wall of the right ventricle is relatively thinner compared to the left ventricle, as it only needs to pump blood a short distance to the lungs.");
-                },
-                1.5
-            );
-            createSphereBtn(-1.6441591690348405,-2.8816322575918836,3.310198635298761,
-                heartmeshes,
-                function () {
-                    createBasicPopup("Left Ventricle", "The left ventricle is responsible for pumping oxygen-rich blood to the entire body through the aorta. It has the thickest wall among the heart chambers, as it needs to generate substantial force to push blood through the extensive systemic circulation.");
-                },
-                1.5
-            );
-            createSphereBtn(-2.096941361673263,2.4779635891449114,3.931771727770112,
-                heartmeshes,
-                function () {
-                    createBasicPopup("Left Atrium","The left atrium receives oxygen-rich blood from the lungs through the pulmonary veins. This chamber acts as a conduit, passing the oxygenated blood into the left ventricle, which will then pump it to the rest of the body.");
-                },
-                1.5
-            );
-
-
+            createSphereBtn(2.5576482066001773,1.6891541136989279,3.9493668163700306,heartmeshes,function(){createBasicPopup("Right Atrium","The right atrium is responsible for receiving oxygen-poor blood from the body through the superior and inferior vena cava. It serves as a holding chamber that allows blood to accumulate before it is transferred to the right ventricle for further circulation.");},1.5);
+            createSphereBtn(1.4725795491646574,-3.9373089418681637,2.998604554954426,heartmeshes,function(){createBasicPopup("Right Ventricle","The right ventricle pumps oxygen-poor blood to the lungs via the pulmonary artery, where it undergoes oxygenation. The wall of the right ventricle is relatively thinner compared to the left ventricle, as it only needs to pump blood a short distance to the lungs.");},1.5);
+            createSphereBtn(-1.6441591690348405,-2.8816322575918836,3.310198635298761,heartmeshes,function(){createBasicPopup("Left Ventricle","The left ventricle is responsible for pumping oxygen-rich blood to the entire body through the aorta. It has the thickest wall among the heart chambers, as it needs to generate substantial force to push blood through the extensive systemic circulation.");},1.5);
+            createSphereBtn(-2.096941361673263,2.4779635891449114,3.931771727770112,heartmeshes,function(){createBasicPopup("Left Atrium","The left atrium receives oxygen-rich blood from the lungs through the pulmonary veins. This chamber acts as a conduit, passing the oxygenated blood into the left ventricle, which will then pump it to the rest of the body.");},1.5);            
             allMeshes.push(heartref);
         });
         camera.position = new BABYLON.Vector3(80, 1.5, 50);
@@ -1397,18 +1277,10 @@ function loadexretory(val) {
         }
         importmesh("exretory_system.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -15));
 
-        createSphereBtn(1.3, 5, -0.6, exretorymeshes, function () {
-            createBasicPopup("Kidney", "The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, regulating electrolyte balance, blood pressure, and producing urine for waste elimination.", kidneybtns);
-        });
-        createSphereBtn(0.98, 0, -0.25, exretorymeshes, function () {
-            createBasicPopup("Ureter", "The channels through which the urine formed in the kidney enters the urinary bladder.");
-        });
-        createSphereBtn(-0.04, -4.42, -1.29, exretorymeshes, function () {
-            createBasicPopup("Urinary Bladder", "The urinary bladder is made up of several layers of tissues and lined with transitional eptilhelium, which can relax and contract to accomodate urine. There are sphincter muscles between the bladder and the urethra that control urination.");
-        });
-        createSphereBtn(0.07, -5.27, -0.43, exretorymeshes, function () {
-            createBasicPopup("Urethra", "The tube through which urine leaves the body.");
-        });
+        createSphereBtn(1.3,5,-0.6,exretorymeshes,function(){createBasicPopup("Kidney","The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, regulating electrolyte balance, blood pressure, and producing urine for waste elimination.",kidneybtns);});
+        createSphereBtn(0.98,0,-0.25,exretorymeshes,function(){createBasicPopup("Ureter","The channels through which the urine formed in the kidney enters the urinary bladder.");});
+        createSphereBtn(-0.04,-4.42,-1.29,exretorymeshes,function(){createBasicPopup("Urinary Bladder","The urinary bladder is made up of several layers of tissues and lined with transitional epithelium, which can relax and contract to accommodate urine. There are sphincter muscles between the bladder and the urethra that control urination.");});
+        createSphereBtn(0.07,-5.27,-0.43,exretorymeshes,function(){createBasicPopup("Urethra","The tube through which urine leaves the body.");});        
     }
 }
 
@@ -1442,106 +1314,16 @@ function loaddigestive(val) {
             meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
             digestiveref = meshes[0];
             allMeshes.push(digestiveref);
-            createSphereBtn(
-                0,
-                2,
-                -1.025,
-                digestivemeshes,
-                function () {
-                    createBasicPopup("Small Intestine", "The small intestine is a long, coiled tube where most of the digestion and absorption of nutrients occur. It consists of three sections—the duodenum, jejunum, and ileum—each playing a vital role in breaking down food and absorbing vitamins, minerals, and other nutrients into the bloodstream.", intestinebtns);
-                },
-                0.7
-            );
-            createSphereBtn(
-                0,
-                4,
-                0.2,
-                digestivemeshes,
-                function () {
-                    createBasicPopup("Pancreas", "The pancreas is a glandular organ located behind the stomach that plays a crucial role in both digestion and blood sugar regulation. It produces digestive enzymes that are released into the small intestine and hormones, such as insulin and glucagon, that help manage blood glucose levels.", pancreasbtns);
-                },
-                0.7
-            );
-            createSphereBtn(
-                -1,
-                5,
-                -1.3,
-                digestivemeshes,
-                function () {
-                    createBasicPopup("Stomach", "The stomach, a key part of the gastrointestinal (GI) tract, is a muscular organ that digests food using acids and enzymes. It's located in the upper left abdomen and has five sections: cardia, fundus, body, antrum, and pylorus. These sections work together to contract, mix, and process food before passing it to the small intestine. ", stomachbtns);
-                },
-                0.7
-            );
-            createSphereBtn(
-                0,
-                10,
-                1.025,
-                digestivemeshes,
-                function () {
-                    createBasicPopup("Esophagus", "The esophagus is a muscular tube that connects the throat to the stomach, allowing the passage of swallowed food and liquids. It uses coordinated muscle contractions, known as peristalsis, to move substances downward. ", esophagusbtns);
-                },
-                0.7
-            );
-            createSphereBtn(
-                1,
-                6,
-                -1.5,
-                digestivemeshes,
-                function () {
-                    createBasicPopup("Liver", "The liver carries out numerous essential functions, such as detoxifying harmful substances from the blood, disposing of old red blood cells, producing bile to aid in digestion, metabolizing proteins, carbohydrates, and fats for energy, facilitating blood clotting, regulating blood volume, and storing glycogen and vitamins for later use. This organ is divided into two main parts: the larger right lobe and the smaller left lobe, both containing intricate networks of blood vessels and lobules.", liverbtns);
-                },
-                0.7
-            );
-            createSphereBtn(
-                1.5151203100242423,
-                4.58159542163129,
-                -0.4886603648770631,
-                digestivemeshes,
-                function () {
-                    createBasicPopup("Gallbladder", "The gallbladder is a small, pear-shaped organ located beneath the liver, responsible for storing and concentrating bile produced by the liver. This bile is released into the small intestine to aid in the digestion of fats. ");
-                },
-                0.7
-            );
-            createSphereBtn(
-                0.11901681452779656,
-                3.708769356834848,
-                -1.5693504365953839,
-                digestivemeshes,
-                function () {
-                    createBasicPopup("Large Intestine (Colon)", "The colon, or large intestine, is the final part of the digestive system, responsible for absorbing water and electrolytes from indigestible food matter. It also compacts waste into feces for elimination from the body. ", colonbtns);
-                },
-                0.7
-            );
-            createSphereBtn(
-                1.0278882681632533,
-                -0.4251876960475176,
-                -0.4062908418909057,
-                digestivemeshes,
-                function () {
-                    createBasicPopup("Appendix", "The appendix is a small, tube-shaped pouch attached to the lower end of the large intestine. Although its precise function is unclear, it is believed to play a role in the immune system and maintaining gut flora. ");
-                },
-                0.7
-            );
-            createSphereBtn(
-                -0.050918167646385515,
-                -0.8558629123022357,
-                0.717677195142643,
-                digestivemeshes,
-                function () {
-                    createBasicPopup("Rectum", "The rectum is the final section of the large intestine, responsible for storing feces until they are ready to be expelled from the body. It signals the need for a bowel movement and facilitates the passage of waste through the anal canal. ");
-                },
-                0.7
-            );
-            createSphereBtn(
-                0.01719847667590916,
-                -2.0278662518005275,
-                1.3534251692090413,
-                digestivemeshes,
-                function () {
-                    createBasicPopup("Anus", "The anus is the external opening at the end of the digestive tract through which feces are expelled from the body. It is surrounded by sphincter muscles that control the passage of stool during defecation.");
-                },
-                0.7
-            );
+            createSphereBtn(0,2,-1.025,digestivemeshes,function(){createBasicPopup("Small Intestine","The small intestine is a long, coiled tube where most of the digestion and absorption of nutrients occur. It consists of three sections—the duodenum, jejunum, and ileum—each playing a vital role in breaking down food and absorbing vitamins, minerals, and other nutrients into the bloodstream.",intestinebtns);},0.7);
+createSphereBtn(0,4,0.2,digestivemeshes,function(){createBasicPopup("Pancreas","The pancreas is a glandular organ located behind the stomach that plays a crucial role in both digestion and blood sugar regulation. It produces digestive enzymes that are released into the small intestine and hormones, such as insulin and glucagon, that help manage blood glucose levels.",pancreasbtns);},0.7);
+createSphereBtn(-1,5,-1.3,digestivemeshes,function(){createBasicPopup("Stomach","The stomach, a key part of the gastrointestinal (GI) tract, is a muscular organ that digests food using acids and enzymes. It's located in the upper left abdomen and has five sections: cardia, fundus, body, antrum, and pylorus. These sections work together to contract, mix, and process food before passing it to the small intestine.",stomachbtns);},0.7);
+createSphereBtn(0,10,1.025,digestivemeshes,function(){createBasicPopup("Esophagus","The esophagus is a muscular tube that connects the throat to the stomach, allowing the passage of swallowed food and liquids. It uses coordinated muscle contractions, known as peristalsis, to move substances downward.",esophagusbtns);},0.7);
+createSphereBtn(1,6,-1.5,digestivemeshes,function(){createBasicPopup("Liver","The liver carries out numerous essential functions, such as detoxifying harmful substances from the blood, disposing of old red blood cells, producing bile to aid in digestion, metabolizing proteins, carbohydrates, and fats for energy, facilitating blood clotting, regulating blood volume, and storing glycogen and vitamins for later use. This organ is divided into two main parts: the larger right lobe and the smaller left lobe, both containing intricate networks of blood vessels and lobules.",liverbtns);},0.7);
+createSphereBtn(1.5151203100242423,4.58159542163129,-0.4886603648770631,digestivemeshes,function(){createBasicPopup("Gallbladder","The gallbladder is a small, pear-shaped organ located beneath the liver, responsible for storing and concentrating bile produced by the liver. This bile is released into the small intestine to aid in the digestion of fats.");},0.7);
+createSphereBtn(0.11901681452779656,3.708769356834848,-1.5693504365953839,digestivemeshes,function(){createBasicPopup("Large Intestine (Colon)","The colon, or large intestine, is the final part of the digestive system, responsible for absorbing water and electrolytes from indigestible food matter. It also compacts waste into feces for elimination from the body.",colonbtns);},0.7);
+createSphereBtn(1.0278882681632533,-0.4251876960475176,-0.4062908418909057,digestivemeshes,function(){createBasicPopup("Appendix","The appendix is a small, tube-shaped pouch attached to the lower end of the large intestine. Although its precise function is unclear, it is believed to play a role in the immune system and maintaining gut flora.");},0.7);
+createSphereBtn(-0.050918167646385515,-0.8558629123022357,0.717677195142643,digestivemeshes,function(){createBasicPopup("Rectum","The rectum is the final section of the large intestine, responsible for storing feces until they are ready to be expelled from the body. It signals the need for a bowel movement and facilitates the passage of waste through the anal canal.");},0.7);
+createSphereBtn(0.01719847667590916,-2.0278662518005275,1.3534251692090413,digestivemeshes,function(){createBasicPopup("Anus","The anus is the external opening at the end of the digestive tract through which feces are expelled from the body. It is surrounded by sphincter muscles that control the passage of stool during defecation.");},0.7);
             showbtn(backHuman);
         });
     }
@@ -1636,56 +1418,11 @@ function loadintestine(val) {
             intestineref = meshes[0];
             allMeshes.push(intestineref);
             showbtn(backHuman);
-            createSphereBtn(
-                2.5854595278409125,
-                9.3249430687205,
-                0.26042799839466113,
-                intestinemeshes,
-                function () {
-                    createBasicPopup("Duodenum", "The duodenum is the first and shortest part of the small intestine, connecting directly to the stomach. It receives partially digested food from the stomach and plays a critical role in further digestion by receiving bile from the liver and pancreatic enzymes from the pancreas.");
-                },
-                0.7
-            );
-            createSphereBtn(
-                -1.0441230809222448,
-                3.391124509169089,
-                0.7264978034664225,
-                intestinemeshes,
-                function () {
-                    createBasicPopup("Jejunum", "The jejunum is the middle section of the small intestine, where most of the absorption of nutrients from digested food occurs. It is characterized by its extensive surface area, lined with villi and microvilli that facilitate the uptake of nutrients into the bloodstream.");
-                },
-                0.7
-            );
-            createSphereBtn(
-                2.861563997450558,
-                1.497042289458376,
-                0.17179412339412536,
-                intestinemeshes,
-                function () {
-                    createBasicPopup("Ileum", "The ileum is the final section of the small intestine, connecting to the large intestine (colon). It absorbs remaining nutrients and water from digested food, playing a crucial role in completing the digestion and absorption process before waste products move into the colon for elimination.");
-                },
-                0.7
-            );
-            createSphereBtn(
-                1.148921973367198,
-                10.074631647478405,
-                0.43739938350441676,
-                intestinemeshes,
-                function () {
-                    createBasicPopup("Pyloric sphincter", "The pyloric sphincter is a muscular valve located between the stomach and the small intestine. It regulates the flow of partially digested food (chyme) from the stomach into the duodenum, ensuring controlled digestion and absorption in the small intestine.");
-                },
-                0.7
-            );
-            createSphereBtn(
-                4.050481837447435,
-                -0.4583788453890749,
-                0.14286343079463748,
-                intestinemeshes,
-                function () {
-                    createBasicPopup("Ileocecal valve", "The ileocecal valve is a one-way valve located between the ileum (the last part of the small intestine) and the cecum (the first part of the large intestine or colon). It regulates the flow of digested material from the small intestine into the large intestine, preventing backflow and allowing for controlled digestion and absorption.");
-                },
-                0.7
-            );
+            createSphereBtn(2.5854595278409125,9.3249430687205,0.26042799839466113,intestinemeshes,function(){createBasicPopup("Duodenum","The duodenum is the first and shortest part of the small intestine, connecting directly to the stomach. It receives partially digested food from the stomach and plays a critical role in further digestion by receiving bile from the liver and pancreatic enzymes from the pancreas.");},0.7);
+            createSphereBtn(-1.0441230809222448,3.391124509169089,0.7264978034664225,intestinemeshes,function(){createBasicPopup("Jejunum","The jejunum is the middle section of the small intestine, where most of the absorption of nutrients from digested food occurs. It is characterized by its extensive surface area, lined with villi and microvilli that facilitate the uptake of nutrients into the bloodstream.");},0.7);
+            createSphereBtn(2.861563997450558,1.497042289458376,0.17179412339412536,intestinemeshes,function(){createBasicPopup("Ileum","The ileum is the final section of the small intestine, connecting to the large intestine (colon). It absorbs remaining nutrients and water from digested food, playing a crucial role in completing the digestion and absorption process before waste products move into the colon for elimination.");},0.7);
+            createSphereBtn(1.148921973367198,10.074631647478405,0.43739938350441676,intestinemeshes,function(){createBasicPopup("Pyloric sphincter","The pyloric sphincter is a muscular valve located between the stomach and the small intestine. It regulates the flow of partially digested food (chyme) from the stomach into the duodenum, ensuring controlled digestion and absorption in the small intestine.");},0.7);
+            createSphereBtn(4.050481837447435,-0.4583788453890749,0.14286343079463748,intestinemeshes,function () {createBasicPopup("Ileocecal valve", "The ileocecal valve is a one-way valve located between the ileum (the last part of the small intestine) and the cecum (the first part of the large intestine or colon). It regulates the flow of digested material from the small intestine into the large intestine, preventing backflow and allowing for controlled digestion and absorption.");},0.7);
         });
     }
 }
@@ -1829,80 +1566,13 @@ function loadcirculatory(val) {
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             circulatoryref = meshes[0];
             allMeshes.push(circulatoryref);
-            createSphereBtn(
-                0,
-                12.8,
-                -0.6,
-                circulatorymeshes,
-                function () {
-                    createBasicPopup(
-                        "Heart",
-                        "The heart is the central organ of the circulatory, or cardiovascular, system. Its main function is to pump blood to deliver oxygen and nutrients to all the cells and tissues in the body. The heart maintains homeostasis and plays a critical role in oxygenating blood. In addition, it regulates blood pressure and supports the entire circulatory system. The heart is divided into four chambers: two atria and two ventricles, with one atrium and one ventricle on the left side and one atrium and one ventricle on the right side. The right atrium receives deoxygenated blood from the body and pumps it into the right ventricle, which then sends the blood to the lungs through the pulmonary artery for oxygenation. The left atrium receives freshly oxygenated blood from the lungs and pushes it into the left ventricle, which pumps the oxygen-rich blood out to the rest of the body. To ensure a one-way circulation of blood, valves are located between the atria and ventricles, preventing backflow.",
-                        heartbtns
-                    );
-                },
-                0.5
-            );
-            createSphereBtn(
-                -0.55,
-                5.8,
-                -0.3,
-                circulatorymeshes,
-                function () {
-                    createBasicPopup("Artery", "Arteries (colored red) are thick blood vessels that bring blood away from the heart. Blood in arteries is always oxygenated, with the exception of the pulmonary artery, which brings deoxygenated blood away from the heart to the lungs to become oxygenated.");
-                },
-                0.4
-            );
-            createSphereBtn(
-                -0.8,
-                6.8,
-                0,
-                circulatorymeshes,
-                function () {
-                    createBasicPopup("Arteriole", "Smaller arteries");
-                },
-                0.4
-            );
-            createSphereBtn(
-                2,
-                12.8,
-                0,
-                circulatorymeshes,
-                function () {
-                    createBasicPopup("Veins", "Veins (colored blue) are thick blood vessels that bring blood toward from the heart. Blood in veins is always deoxygenated, with the exception of the pulmonary veins, which bring oxygenated blood away toward the heart from the lungs.");
-                },
-                0.4
-            );
-            createSphereBtn(
-                0.5,
-                6.8,
-                0.2,
-                circulatorymeshes,
-                function () {
-                    createBasicPopup("Venules", "Smaller veins");
-                },
-                0.4
-            );
-            createSphereBtn(
-                0,
-                13.7,
-                -0.3,
-                circulatorymeshes,
-                function () {
-                    createBasicPopup("Aorta", "The main artery that brings oxygenated blood directly from the heart. All other arteries branch off of this one.");
-                },
-                0.4
-            );
-            createSphereBtn(
-                0.2,
-                11.8,
-                -0.2,
-                circulatorymeshes,
-                function () {
-                    createBasicPopup("Vena Cava", "The main vein that brings all deoxygenated blood from the body into the heart. All other veins converge into this one");
-                },
-                0.4
-            );
+            createSphereBtn(0,12.8,-0.6,circulatorymeshes,function(){createBasicPopup("Heart","The heart is the central organ of the circulatory, or cardiovascular, system. Its main function is to pump blood to deliver oxygen and nutrients to all the cells and tissues in the body. The heart maintains homeostasis and plays a critical role in oxygenating blood. In addition, it regulates blood pressure and supports the entire circulatory system. The heart is divided into four chambers: two atria and two ventricles, with one atrium and one ventricle on the left side and one atrium and one ventricle on the right side. The right atrium receives deoxygenated blood from the body and pumps it into the right ventricle, which then sends the blood to the lungs through the pulmonary artery for oxygenation. The left atrium receives freshly oxygenated blood from the lungs and pushes it into the left ventricle, which pumps the oxygen-rich blood out to the rest of the body. To ensure a one-way circulation of blood, valves are located between the atria and ventricles, preventing backflow.",heartbtns);},0.5);
+            createSphereBtn(-0.55,5.8,-0.3,circulatorymeshes,function(){createBasicPopup("Artery","Arteries (colored red) are thick blood vessels that bring blood away from the heart. Blood in arteries is always oxygenated, with the exception of the pulmonary artery, which brings deoxygenated blood away from the heart to the lungs to become oxygenated.");},0.4);
+            createSphereBtn(-0.8,6.8,0,circulatorymeshes,function(){createBasicPopup("Arteriole","Smaller arteries");},0.4);
+            createSphereBtn(2,12.8,0,circulatorymeshes,function(){createBasicPopup("Veins","Veins (colored blue) are thick blood vessels that bring blood toward from the heart. Blood in veins is always deoxygenated, with the exception of the pulmonary veins, which bring oxygenated blood away toward the heart from the lungs.");},0.4);
+            createSphereBtn(0.5,6.8,0.2,circulatorymeshes,function(){createBasicPopup("Venules","Smaller veins");},0.4);
+            createSphereBtn(0,13.7,-0.3,circulatorymeshes,function(){createBasicPopup("Aorta","The main artery that brings oxygenated blood directly from the heart. All other arteries branch off of this one.");},0.4);
+            createSphereBtn(0.2,11.8,-0.2,circulatorymeshes,function(){createBasicPopup("Vena Cava","The main vein that brings all deoxygenated blood from the body into the heart. All other veins converge into this one");},0.4);            
         });
         camera.position = new BABYLON.Vector3(80, 0.5, 80);
         showbtn(backHuman);
@@ -1961,7 +1631,7 @@ function loadcord(val) {
                 -0.09921364781747144,
                 cordmeshes,
                 function () {
-                    createBasicPopup("Coccyx", "desc");
+                    createBasicPopup("Coccyx", "The coccyx, often referred to as the tailbone, is a small, triangular bony structure at the very base of the vertebral column. Composed of three to five fused vertebrae, the coccyx provides attachment points for various ligaments, tendons, and muscles that support the pelvic floor. Despite its small size, the coccyx plays a critical role in maintaining balance and stability when sitting, as well as during movements involving the lower body.");
                 },
                 0.4
             );
@@ -2138,76 +1808,12 @@ function loadendocrine1(val) {
             meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
             endocrine1ref = meshes[0];
             allMeshes.push(endocrine1ref);
-            createSphereBtn(
-                0.19422271158972215,
-                15.053095487973781,
-                0.3765937280360596,
-                endocrinemeshes,
-                function () {
-                    createBasicPopup("Thyroid Gland", "The thyroid gland is a butterfly-shaped gland located in the front of the neck, just below the Adam's apple. It produces hormones, primarily thyroxine (T4) and triiodothyronine (T3), which regulate metabolism, growth, and development throughout the body. The thyroid gland also plays a role in regulating body temperature, heart rate, and the production of other hormones.");
-                },
-                0.2
-            );
-            createSphereBtn(
-                -0.052308999432993275,
-                13.980299730520228,
-                0.11839942778949109,
-                endocrinemeshes,
-                function () {
-                    createBasicPopup("Thymus", "The thymus is a specialized organ located in the upper chest, behind the sternum and between the lungs. It is crucial for the development and maturation of T-lymphocytes (T cells), which are essential for the immune system's function. The thymus is most active during childhood and adolescence, gradually decreasing in size and activity with age.");
-                },
-                0.2
-            );
-            createSphereBtn(
-                0.4548344838084215,
-                12.218283970225333,
-                0.6109802685730505,
-                endocrinemeshes,
-                function () {
-                    createBasicPopup("Adrenal Gland", "The adrenal glands, located atop each kidney, produce hormones essential for regulating metabolism, stress response, and body balance.");
-                },
-                0.2
-            );
-            createSphereBtn(
-                -0.13667778030159905,
-                11.812149353633087,
-                0.07705994682174655,
-                endocrinemeshes,
-                function () {
-                    createBasicPopup("Pancreas", "The pancreas is a vital organ located behind the stomach that produces digestive enzymes and hormones, including insulin and glucagon, crucial for regulating blood sugar levels.                ");
-                },
-                0.2
-            );
-            createSphereBtn(
-                0.19422271158972215,
-                15.053095487973781,
-                0.3765937280360596,
-                endocrinemeshes,
-                function () {
-                    createBasicPopup("Thyroid Gland", "The thyroid gland is a butterfly-shaped organ located in the front of the neck, responsible for producing hormones that regulate metabolism, growth, and energy levels throughout the body.");
-                },
-                0.2
-            );
-            createSphereBtn(
-                -0.3790778878018308,
-                9.211812257647377,
-                0.5720214617706709,
-                endocrinemeshes,
-                function () {
-                    createBasicPopup("Testes/Ovaries", "The testes are male reproductive organs responsible for producing sperm and testosterone, while ovaries are female reproductive organs that produce eggs and hormones like estrogen and progesterone.");
-                },
-                0.2
-            );
-            createSphereBtn(
-                -0.14833353391744186,
-                17.198081967825033,
-                -0.1482179000675199,
-                endocrinemeshes,
-                function () {
-                    createBasicPopup("Brain Organs: Hypothalamus, Pituitary Gland, Pineal Gland", "The hypothalamus is a region in the brain responsible for regulating various bodily functions, including temperature, hunger, thirst, and sleep. It also plays a crucial role in hormone production and secretion by controlling the pituitary gland. The pituitary gland, often referred to as the 'master gland,' is located at the base of the brain. It produces and releases hormones that regulate other endocrine glands and various body functions, such as growth, reproduction, and metabolism. The pineal gland, situated in the brain's center, produces the hormone melatonin, which regulates sleep-wake cycles (circadian rhythms) and has effects on seasonal biological rhythms. ");
-                },
-                0.2
-            );
+            createSphereBtn(0.19422271158972215,15.053095487973781,0.3765937280360596,endocrinemeshes,function(){createBasicPopup("Thyroid Gland","The thyroid gland is a butterfly-shaped gland located in the front of the neck, just below the Adam's apple. It produces hormones, primarily thyroxine (T4) and triiodothyronine (T3), which regulate metabolism, growth, and development throughout the body. The thyroid gland also plays a role in regulating body temperature, heart rate, and the production of other hormones.");},0.2);
+            createSphereBtn(-0.052308999432993275,13.980299730520228,0.11839942778949109,endocrinemeshes,function(){createBasicPopup("Thymus","The thymus is a specialized organ located in the upper chest, behind the sternum and between the lungs. It is crucial for the development and maturation of T-lymphocytes (T cells), which are essential for the immune system's function. The thymus is most active during childhood and adolescence, gradually decreasing in size and activity with age.");},0.2);
+            createSphereBtn(0.4548344838084215,12.218283970225333,0.6109802685730505,endocrinemeshes,function(){createBasicPopup("Adrenal Gland","The adrenal glands, located atop each kidney, produce hormones essential for regulating metabolism, stress response, and body balance.");},0.2);
+            createSphereBtn(-0.13667778030159905,11.812149353633087,0.07705994682174655,endocrinemeshes,function(){createBasicPopup("Pancreas","The pancreas is a vital organ located behind the stomach that produces digestive enzymes and hormones, including insulin and glucagon, crucial for regulating blood sugar levels.");},0.2);
+            createSphereBtn(-0.3790778878018308,9.211812257647377,0.5720214617706709,endocrinemeshes,function(){createBasicPopup("Testes/Ovaries","The testes are male reproductive organs responsible for producing sperm and testosterone, while ovaries are female reproductive organs that produce eggs and hormones like estrogen and progesterone.");},0.2);
+            createSphereBtn(-0.14833353391744186,17.198081967825033,-0.1482179000675199,endocrinemeshes,function(){createBasicPopup("Brain Organs: Hypothalamus, Pituitary Gland, Pineal Gland","The hypothalamus is a region in the brain responsible for regulating various bodily functions, including temperature, hunger, thirst, and sleep. It also plays a crucial role in hormone production and secretion by controlling the pituitary gland. The pituitary gland, often referred to as the 'master gland,' is located at the base of the brain. It produces and releases hormones that regulate other endocrine glands and various body functions, such as growth, reproduction, and metabolism. The pineal gland, situated in the brain's center, produces the hormone melatonin, which regulates sleep-wake cycles (circadian rhythms) and has effects on seasonal biological rhythms.");},0.2);            
         });
         clearbtns();
         showbtn(backHuman);
@@ -2243,96 +1849,15 @@ function loadskin(val) {
             meshes[0].scaling = new BABYLON.Vector3(0.05, 0.05, 0.05);
             skinref = meshes[0];
             allMeshes.push(skinref);
-            createSphereBtn(
-                -1.429031476552809,
-                9.20573235888369,
-                -5.859479645096261,
-                skinmeshes,
-                function () {
-                    createBasicPopup("Epidermis (Stratum corneum)", "The most superficial layer of skin. Composed of keratinized cells and dead cells, several layers thick.");
-                },
-                0.25
-            );
-            createSphereBtn(
-                -1.6835021588256234,
-                7.14752135776231,
-                -5.802487106408545,
-                skinmeshes,
-                function () {
-                    createBasicPopup("Epidermis (Stratum spinosum)", "The stratum spinosum is a layer within the epidermis, the outermost layer of the skin. It consists of several layers of polygonal cells that provide strength and flexibility to the skin, playing a role in its protective function against external factors.");
-                },
-                0.25
-            );
-            createSphereBtn(
-                -0.3852876160194004,
-                5.085492373710684,
-                -5.79909174554934,
-                skinmeshes,
-                function () {
-                    createBasicPopup("Epidermis (Stratum basale)", "The stratum basale, also known as the basal layer, is the deepest layer of the epidermis. It consists of columnar or cuboidal cells that continually divide to replenish the upper layers of the epidermis. This layer also contains melanocytes, which produce melanin, the pigment responsible for skin color and UV protection.");
-                },
-                0.25
-            );
-            createSphereBtn(
-                4.641838912032425,
-                5.702284249509858,
-                -5.889503782882748,
-                skinmeshes,
-                function () {
-                    createBasicPopup("Dermis (Papillary Layer)", "The papillary layer is the upper layer of the dermis, situated just beneath the epidermis. It consists of loose connective tissue containing capillaries, nerve endings, and dermal papillae that interlock with the epidermis. This layer supports the epidermis and contributes to its nourishment and sensitivity to touch.");
-                },
-                0.25
-            );
-            createSphereBtn(
-                4.106870472545223,
-                1.9705955450635333,
-                -5.841123706667769,
-                skinmeshes,
-                function () {
-                    createBasicPopup("Dermis (Reticular Layer)", "The reticular layer is the deeper and thicker layer of the dermis, located beneath the papillary layer. It consists of dense irregular connective tissue that provides strength and elasticity to the skin. This layer contains collagen and elastic fibers, as well as structures such as sweat glands, hair follicles, and deeper blood vessels, contributing to skin structure and function.");
-                },
-                0.25
-            );
-            createSphereBtn(
-                2.4247239531816733,
-                2.031074141443843,
-                -6.46664647299108,
-                skinmeshes,
-                function () {
-                    createBasicPopup("Eccrine Sweat Gland", "Eccrine sweat glands are distributed across the body and are particularly abundant on the palms of the hands, soles of the feet, and forehead. They produce a watery sweat that helps regulate body temperature through evaporation, contributing to cooling during physical exertion or in response to heat.");
-                },
-                0.25
-            );
-            createSphereBtn(
-                -7.893215560417568,
-                4.6456544535072455,
-                -5.396551753469076,
-                skinmeshes,
-                function () {
-                    createBasicPopup("Hair Follicle", "A hair follicle is a structure within the skin that produces hair. It extends from the surface of the skin into the dermis and sometimes into the subcutaneous layer. Surrounding each hair follicle are sebaceous glands, which secrete an oily substance called sebum that lubricates the hair and skin.");
-                },
-                0.25
-            );
-            createSphereBtn(
-                -3.6271103275220824,
-                -0.3045936995585201,
-                -5.852358112119418,
-                skinmeshes,
-                function () {
-                    createBasicPopup("Hypodermis", "The hypodermis, also known as the subcutaneous layer or superficial fascia, is located beneath the dermis of the skin. It consists primarily of adipose (fat) tissue and loose connective tissue that serves several important functions. These include insulation to regulate body temperature, cushioning and protecting underlying tissues and organs, and storing energy in the form of fat.");
-                },
-                0.25
-            );
-            createSphereBtn(
-                1.6738174780913555,
-                10.775824622157021,
-                -1.6476496506116582,
-                skinmeshes,
-                function () {
-                    createBasicPopup("Surface Hairs", "Surface hairs, also known as vellus hairs, are fine, short, and lightly pigmented hairs that cover most of the body. They are especially prominent on areas like the face, arms, and back. Vellus hairs play a role in thermal regulation and provide a tactile sense.");
-                },
-                0.25
-            );
+            createSphereBtn(-1.429031476552809,9.20573235888369,-5.859479645096261,skinmeshes,function(){createBasicPopup("Epidermis (Stratum corneum)","The most superficial layer of skin. Composed of keratinized cells and dead cells, several layers thick.");},0.25);
+createSphereBtn(-1.6835021588256234,7.14752135776231,-5.802487106408545,skinmeshes,function(){createBasicPopup("Epidermis (Stratum spinosum)","The stratum spinosum is a layer within the epidermis, the outermost layer of the skin. It consists of several layers of polygonal cells that provide strength and flexibility to the skin, playing a role in its protective function against external factors.");},0.25);
+createSphereBtn(-0.3852876160194004,5.085492373710684,-5.79909174554934,skinmeshes,function(){createBasicPopup("Epidermis (Stratum basale)","The stratum basale, also known as the basal layer, is the deepest layer of the epidermis. It consists of columnar or cuboidal cells that continually divide to replenish the upper layers of the epidermis. This layer also contains melanocytes, which produce melanin, the pigment responsible for skin color and UV protection.");},0.25);
+createSphereBtn(4.641838912032425,5.702284249509858,-5.889503782882748,skinmeshes,function(){createBasicPopup("Dermis (Papillary Layer)","The papillary layer is the upper layer of the dermis, situated just beneath the epidermis. It consists of loose connective tissue containing capillaries, nerve endings, and dermal papillae that interlock with the epidermis. This layer supports the epidermis and contributes to its nourishment and sensitivity to touch.");},0.25);
+createSphereBtn(4.106870472545223,1.9705955450635333,-5.841123706667769,skinmeshes,function(){createBasicPopup("Dermis (Reticular Layer)","The reticular layer is the deeper and thicker layer of the dermis, located beneath the papillary layer. It consists of dense irregular connective tissue that provides strength and elasticity to the skin. This layer contains collagen and elastic fibers, as well as structures such as sweat glands, hair follicles, and deeper blood vessels, contributing to skin structure and function.");},0.25);
+createSphereBtn(2.4247239531816733,2.031074141443843,-6.46664647299108,skinmeshes,function(){createBasicPopup("Eccrine Sweat Gland","Eccrine sweat glands are distributed across the body and are particularly abundant on the palms of the hands, soles of the feet, and forehead. They produce a watery sweat that helps regulate body temperature through evaporation, contributing to cooling during physical exertion or in response to heat.");},0.25);
+createSphereBtn(-7.893215560417568,4.6456544535072455,-5.396551753469076,skinmeshes,function(){createBasicPopup("Hair Follicle","A hair follicle is a structure within the skin that produces hair. It extends from the surface of the skin into the dermis and sometimes into the subcutaneous layer. Surrounding each hair follicle are sebaceous glands, which secrete an oily substance called sebum that lubricates the hair and skin.");},0.25);
+createSphereBtn(-3.6271103275220824,-0.3045936995585201,-5.852358112119418,skinmeshes,function(){createBasicPopup("Hypodermis","The hypodermis, also known as the subcutaneous layer or superficial fascia, is located beneath the dermis of the skin. It consists primarily of adipose (fat) tissue and loose connective tissue that serves several important functions. These include insulation to regulate body temperature, cushioning and protecting underlying tissues and organs, and storing energy in the form of fat.");},0.25);
+createSphereBtn(1.6738174780913555,10.775824622157021,-1.6476496506116582,skinmeshes,function(){createBasicPopup("Surface Hairs","Surface hairs, also known as vellus hairs, are fine, short, and lightly pigmented hairs that cover most of the body. They are especially prominent on areas like the face, arms, and back. Vellus hairs play a role in thermal regulation and provide a tactile sense.");},0.25);
             //NOTE: When writing descriptions, add free nerve endings to their respective buttons please.
         });
         clearbtns();
@@ -2477,10 +2002,7 @@ function loadmuscular(val) {
 
             pectoralpanel = createPanel("pectoralpanel", "Pectoralis Major Information", "pectoralclose", "INFO GOES HERE");
             pectoralbtn = createEvolutionBtn("Pectoralis Major", pectoralpanel.id);
-            pectoral = createSphereBtn(
-                -0.7858814124471021,
-                2.594602223677178,
-                -1.0091268162423788,
+            pectoral = createSphereBtn(-0.7858814124471021,2.594602223677178,-1.0091268162423788,
                 muscularmeshes,
                 function () {
                     createBasicPopup("Pectoralis Major", "The chest muscle, responsible for shoulder flexion, adduction, and internal rotation.", [pectoralbtn]);
@@ -2491,7 +2013,7 @@ function loadmuscular(val) {
             latsdorsipanel = createPanel("latsdorsipanel", "Latissimus Dorsi Information", "latsdorsiclose", "INFO GOES HERE");
             latsdorsibtn = createEvolutionBtn("Latissimus Dorsi", latsdorsipanel.id);
             latsdorsi = createSphereBtn(
-                -1.2800446733460544,
+-1.2800446733460544,
                 1.4113759110829651,
                 1.7001175571319962,
                 muscularmeshes,
@@ -2530,9 +2052,7 @@ function loadmuscular(val) {
             soleuspanel = createPanel("soleuspanel", "Soleus Information", "soleusclose", "INFO GOES HERE");
             soleusbtn = createEvolutionBtn("Soleus", soleuspanel.id);
             soleus = createSphereBtn(
-                -1.2551765442635419,
-                -8.686381271946104,
-                1.577246976393095,
+                -1.2551765442635419,-8.686381271946104,1.577246976393095,
                 muscularmeshes,
                 function () {
                     createBasicPopup("Soleus", "Located beneath the gastrocnemius, it assists in plantar flexion of the foot.", [soleusbtn]);
@@ -2543,9 +2063,7 @@ function loadmuscular(val) {
             tibialispanel = createPanel("tibialispanel", "Tibialis Anterior Information", "tibialisclose", "INFO GOES HERE");
             tibialisbtn = createEvolutionBtn("Tibialis Anterior", tibialispanel.id);
             tibialis = createSphereBtn(
-                -1.5790522311693351,
-                -8.93094836393881,
-                0.4329394841819061,
+                -1.5790522311693351,-8.93094836393881,0.4329394841819061,
                 muscularmeshes,
                 function () {
                     createBasicPopup("Tibialis Anterior", "Found in the front of the lower leg, it dorsiflexes the foot.", [tibialisbtn]);
@@ -2556,9 +2074,7 @@ function loadmuscular(val) {
             rectfempanel = createPanel("rectfempanel", "Rectus Femoris Information", "rectfemclose", "INFO GOES HERE");
             rectfembtn = createEvolutionBtn("Rectus Femoris", rectfempanel.id);
             rectfem = createSphereBtn(
-                -0.8810866857949913,
-                -3.1537589343874246,
-                -0.5608825936760073,
+                -0.8810866857949913,-3.1537589343874246,-0.5608825936760073,
                 muscularmeshes,
                 function () {
                     createBasicPopup("Rectus Femoris", "Part of the quadriceps group, it flexes the hip and extends the knee.", [rectfembtn]);
@@ -2569,9 +2085,7 @@ function loadmuscular(val) {
             suprapanel = createPanel("suprapanel", "Supraspinatus Information", "supraclose", "INFO GOES HERE");
             suprabtn = createEvolutionBtn("Supraspinatus", suprapanel.id);
             supra = createSphereBtn(
-                0.8081998349093804,
-                4.08562975702055,
-                0.46671843769535837,
+                0.8081998349093804, 4.08562975702055, 0.46671843769535837,
                 muscularmeshes,
                 function () {
                     createBasicPopup("Supraspinatus", "One of the rotator cuff muscles, it assists in shoulder abduction.", [suprabtn]);
@@ -2617,46 +2131,10 @@ function loadnephron(val) {
         showbtn(backHuman);
         showbtn(backKidney);
 
-        createSphereBtn(
-            3.375595141346529,
-            2.4682702873351188,
-            0.6946576585017357,
-            nephronmeshes,
-            function () {
-                createBasicPopup("Glomerulus", "A network of tiny capillaries that filters blood plasma");
-            },
-            0.25
-        );
-        createSphereBtn(
-            3.1098293040773948,
-            1.8883451424945672,
-            -0.05928368389477079,
-            nephronmeshes,
-            function () {
-                createBasicPopup("Bowman's Capsule", "A double-walled sac that surrounds the glomerulus and collects the filtered fluid, called filtrate. ");
-            },
-            0.25
-        );
-        createSphereBtn(
-            5.089893115931107,
-            2.713369118639208,
-            1.0275498790554836,
-            nephronmeshes,
-            function () {
-                createBasicPopup("Afferent Arteriole", "The afferent ateriole brings in blood to the glomerulus, and it is much larger than the efferent arteriole. This produces a huge amount of pressure on the blood in the glomerulus. This pressure is what allows fluid (water, urea, etc.), small molecules (glucose, vitamins, etc), and ions (Na+, etc.) to pass through the pores in the walls of the glomerular capillaries and into the Bowman's capsule.");
-            },
-            0.25
-        );
-        createSphereBtn(
-            4.579063780991133,
-            1.662565291025302,
-            0.5811871632474528,
-            nephronmeshes,
-            function () {
-                createBasicPopup("Efferent Arteriole", "The efferent arteriole brings blood out of the glomerulus. Because blood cells and proteins are too big to be able to pass through the tiny pores of the capillaries, they remain in the blood and leave through the efferent arteriole.");
-            },
-            0.25
-        );
+        createSphereBtn(3.375595141346529,2.4682702873351188,0.6946576585017357,nephronmeshes,function(){createBasicPopup("Glomerulus","A network of tiny capillaries that filters blood plasma.");},0.25);
+        createSphereBtn(3.1098293040773948,1.8883451424945672,-0.05928368389477079,nephronmeshes,function(){createBasicPopup("Bowman's Capsule","A double-walled sac that surrounds the glomerulus and collects the filtered fluid, called filtrate.");},0.25);
+        createSphereBtn(5.089893115931107,2.713369118639208,1.0275498790554836,nephronmeshes,function(){createBasicPopup("Afferent Arteriole","The afferent arteriole brings in blood to the glomerulus, and it is much larger than the efferent arteriole. This produces a huge amount of pressure on the blood in the glomerulus. This pressure is what allows fluid (water, urea, etc.), small molecules (glucose, vitamins, etc.), and ions (Na+, etc.) to pass through the pores in the walls of the glomerular capillaries and into the Bowman's capsule.");},0.25);
+        createSphereBtn(4.579063780991133,1.662565291025302,0.5811871632474528,nephronmeshes,function(){createBasicPopup("Efferent Arteriole","The efferent arteriole brings blood out of the glomerulus. Because blood cells and proteins are too big to be able to pass through the tiny pores of the capillaries, they remain in the blood and leave through the efferent arteriole.");},0.25);        
     }
 }
 
@@ -2672,56 +2150,11 @@ function loadkidney(val) {
         showbtn(kidney2dmodelbtn);
         showbtn(nephronbtn);
 
-        createSphereBtn(
-            -0.35,
-            -0.15,
-            0,
-            kidneymeshes,
-            function () {
-                createBasicPopup("Uretur", "The channel through which the urine formed in the kidney enters the urinary bladder.");
-            },
-            0.1
-        );
-        createSphereBtn(
-            0,
-            0,
-            0.225,
-            kidneymeshes,
-            function () {
-                createBasicPopup("Renal Capsule", "The outermost layer of the kidney. It is a tough, fibrous membrane that protects the kidney. The renal capsule is surrounded by adipose tissues. ");
-            },
-            0.1
-        );
-        createSphereBtn(
-            0.26,
-            0,
-            -0.025,
-            kidneymeshes,
-            function () {
-                createBasicPopup("Renal Cortex", "The outer region of the kidney that houses the glomerulus and convoluted tubules of the nephrons. Nephorons are units of cells that filter the blood. ");
-            },
-            0.1
-        );
-        createSphereBtn(
-            0.19,
-            -0.15,
-            -0.025,
-            kidneymeshes,
-            function () {
-                createBasicPopup("Renal Medulla", "Filters waste materials and eliminates fluid from the body. It also houses the loops of Henle, which are units that reabsorb water into the bloodstream");
-            },
-            0.1
-        );
-        createSphereBtn(
-            -0.15,
-            -0.175,
-            -0.025,
-            kidneymeshes,
-            function () {
-                createBasicPopup("Renal Pelvis", "The inner region of the kidney that collects urine as it is produced, and sends it through the ureturs to the bladder.");
-            },
-            0.1
-        );
+        createSphereBtn(-0.35,-0.15,0,kidneymeshes,function(){createBasicPopup("Uretur","The channel through which the urine formed in the kidney enters the urinary bladder.");},0.1);
+        createSphereBtn(0,0,0.225,kidneymeshes,function(){createBasicPopup("Renal Capsule","The outermost layer of the kidney. It is a tough, fibrous membrane that protects the kidney. The renal capsule is surrounded by adipose tissues.");},0.1);
+        createSphereBtn(0.26,0,-0.025,kidneymeshes,function(){createBasicPopup("Renal Cortex","The outer region of the kidney that houses the glomerulus and convoluted tubules of the nephrons. Nephorons are units of cells that filter the blood.");},0.1);
+        createSphereBtn(0.19,-0.15,-0.025,kidneymeshes,function(){createBasicPopup("Renal Medulla","Filters waste materials and eliminates fluid from the body. It also houses the loops of Henle, which are units that reabsorb water into the bloodstream.");},0.1);
+        createSphereBtn(-0.15,-0.175,-0.025,kidneymeshes,function(){createBasicPopup("Renal Pelvis","The inner region of the kidney that collects urine as it is produced, and sends it through the ureturs to the bladder.");},0.1);        
     }
 }
 
@@ -2758,46 +2191,10 @@ function loadresp(val) {
     // camera.radius.upperRadiusLimit = 100;
     // camera.radius = 15;
     showbtn(backHuman);
-    createSphereBtn(
-        0,
-        0.2,
-        0.025,
-        respmeshes,
-        function () {
-            createBasicPopup("Trachea", "The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.");
-        },
-        0.05
-    );
-    createSphereBtn(
-        0,
-        0,
-        0.025,
-        respmeshes,
-        function () {
-            createBasicPopup("Bronchi", "The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.", bronchibtns);
-        },
-        0.05
-    );
-    createSphereBtn(
-        0.36621450755113255,
-        -0.9993902851519447,
-        0.22129484768301144,
-        respmeshes,
-        function () {
-            createBasicPopup("Diaphragm", "The diaphragm is a muscular dome that separates the abdominal and thoracic (chest) chambers. Its ability to contract and relax to aid in breathing is essential to respiration. The diaphragm flattens and contracts during inhalation, expanding the thoracic cavity's volume and producing a vacuum that pulls air into the lungs. It relaxes and takes on the shape of a dome during exhalation, reducing the volume of the thoracic cavity and releasing air from the lungs. In addition to offering structural support, the diaphragm divides the heart and lungs from the abdominal organs. By raising stomach pressure, it also helps with other body processes like sneezing, coughing etc. The diaphragm is coordinated with other breathing muscles by means of the phrenic nerves that regulate its movements.", diabtns);
-        },
-        0.05
-    );
-    createSphereBtn(
-        0.21614443373303704,
-        -0.25441559952179893,
-        0.26041848467991624,
-        respmeshes,
-        function () {
-            createBasicPopup("Lungs", "The lungs, crucial for breathing, sit symmetrically in the chest. The right lung has three lobes, while the left has two. Their main job is gas exchange, taking in oxygen and releasing carbon dioxide. Air enters through the nose/mouth, travels down the airway, and reaches tiny sacs called alveoli. Here, oxygen enters the blood, and carbon dioxide is removed. Protective features like nasal hairs and mucus ensure smooth airflow. Lungs are buoyant, and one can function with just one. Regular exercise boosts lung capacity, and adults have millions of alveoli. In essence, lungs play a vital role in maintaining our health and sustaining life through efficient gas exchange.", lungcsbtns);
-        },
-        0.05
-    );
+    createSphereBtn(0,0.2,0.025,respmeshes,function(){createBasicPopup("Trachea","The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.");},0.05);
+    createSphereBtn(0,0,0.025,respmeshes,function(){createBasicPopup("Bronchi","The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.",bronchibtns);},0.05);
+    createSphereBtn(0.36621450755113255,-0.9993902851519447,0.22129484768301144,respmeshes,function(){createBasicPopup("Diaphragm","The diaphragm is a muscular dome that separates the abdominal and thoracic (chest) chambers. Its ability to contract and relax to aid in breathing is essential to respiration. The diaphragm flattens and contracts during inhalation, expanding the thoracic cavity's volume and producing a vacuum that pulls air into the lungs. It relaxes and takes on the shape of a dome during exhalation, reducing the volume of the thoracic cavity and releasing air from the lungs. In addition to offering structural support, the diaphragm divides the heart and lungs from the abdominal organs. By raising stomach pressure, it also helps with other body processes like sneezing, coughing etc. The diaphragm is coordinated with other breathing muscles by means of the phrenic nerves that regulate its movements.",diabtns);},0.05);
+    createSphereBtn(0.21614443373303704,-0.25441559952179893,0.26041848467991624,respmeshes,function(){createBasicPopup("Lungs","The lungs, crucial for breathing, sit symmetrically in the chest. The right lung has three lobes, while the left has two. Their main job is gas exchange, taking in oxygen and releasing carbon dioxide. Air enters through the nose/mouth, travels down the airway, and reaches tiny sacs called alveoli. Here, oxygen enters the blood, and carbon dioxide is removed. Protective features like nasal hairs and mucus ensure smooth airflow. Lungs are buoyant, and one can function with just one. Regular exercise boosts lung capacity, and adults have millions of alveoli. In essence, lungs play a vital role in maintaining our health and sustaining life through efficient gas exchange.",lungcsbtns);},0.05);    
 }
 
 function loadlungcs(val) {
