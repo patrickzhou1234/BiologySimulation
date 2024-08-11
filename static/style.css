@@ -72,6 +72,19 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     transition: opacity 0.2s !important;
     border-radius: 6px;
 }
+.spinebtns {
+    z-index: 99999999;
+    font-family: "amazon-ember";
+    font-size: calc(0.65vw + 0.65vh);
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s !important;
+    border-radius: 6px;
+}
+#spinebtn {
+    left: 80vh;
+    top: 80vh;
+}
 .colonbtns {
     z-index: 99999999;
     font-family: "amazon-ember";
@@ -606,7 +619,7 @@ img {
 }
 #eyebtn {
     left: 80vh;
-    bottom: 10vh;
+    bottom: 0vh;
 }
 
 #backbtn {
@@ -665,7 +678,7 @@ img {
 
 #diaphragmbtn {
     left: 45vw;
-    top: 85vh;
+    top: 90vh;
 }
 
 #eyecsbtn {
