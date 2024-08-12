@@ -655,7 +655,7 @@ img {
 }
 .tablinks {
     position: relative;
-    left: 30vh;
+    left: 23%;    
     border-radius: 0px;
 }
 
@@ -693,6 +693,10 @@ img {
 #earbtn {
     left: 45vw;
     top: 90vh;
+}
+#dna {
+    left: 45vw;
+    top: 75vh;
 }
 
 #lungcsbtn {

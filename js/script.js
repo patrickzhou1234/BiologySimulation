@@ -194,7 +194,9 @@ function hideui() {
 // function to hide button
 function hidebtn(psbtn) {
     psbtn.setAttribute("style", ""); // resets inline styling
-    psbtn.classList.remove("animbtn"); // removes class
+    if (psbtn.classList.contains("animbtn")) {
+        psbtn.classList.remove("animbtn"); // removes class based on if the button has that class
+    }
     psbtn.classList.add("animobtn"); // adds class
 }
 
@@ -318,6 +320,18 @@ class Memory {
 }
 
 const m = new Memory(null, "loadhuman(0)");
+
+function btncheck(mem) {
+    if ((mem.getChild() === "loadhuman(0)") && (backcell.classList.add("animobtn"))) {
+        backcell.classList.add("animbtn");
+    }
+    else if ((mem.getChild() === "loadcell()") && (backhuman.classList.add("animobtn"))) {
+        backHuman.classList.add("animbtn");
+    }
+    else {
+        backHuman.classList.add("animbtn");
+    }
+}
 
 /**
  * Creates a basic popup with a title, description, and 3d model button
@@ -1104,6 +1118,7 @@ function loadhuman(val) {
         humanmeshes.forEach((el) => {
             orgsettings(el);
         });
+        // btncheck(m);
     }
 }
 function loadeyecs(val) {
@@ -1140,6 +1155,8 @@ function loadearcs(val) {
         });
 
         hidebtn(earcsbtn);
+        hidebtn(backcell);
+        showbtn(backHuman);
     }
 }
 
@@ -1184,9 +1201,14 @@ function endotheliumclicked() {
 
 function loadeye() {
     change(m.getChild(), "loadeye()");
-    if (checkvis(eyebtns[0])) {
+    console.log(eyebtns);
+    // if (checkvis(eyebtns[0])) {
         showui();
         clickcondeye(0);
+        clearbtns();
+        showbtn(backHuman);
+        showbtn(eyecsbtn);
+        
         BABYLON.SceneLoader.ImportMesh("", "", "models/eye.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1221,6 +1243,7 @@ function loadeye() {
                     }
                 })
             );
+          
 
             createSphereBtn(8.55, 9.5, -3.43,eyemeshes,function () { createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ");},0.1);
             createSphereBtn(8.25,9.5,-3.47,eyemeshes,function () {createBasicPopup("Pupil", "The pupil is a black circular opening at the center of the iris, this regulates the amount of light entering the eye this is done through dilations and constrictions which is in response to light intensity.  "); }, 0.1);
@@ -1230,10 +1253,13 @@ function loadeye() {
         camera.position = new BABYLON.Vector3(-3, 0, -35);
         camera.target = new BABYLON.Vector3(8.3, 9.5, -2.7);
         camera.radius = 4;
-        clearbtns();
-        showbtn(backHuman);
-        showbtn(eyecsbtn);
-    }
+        eyepanel = createPanel("eyepanel", "Eye Information", "eyeclose", "info");
+        eyeevbtn = createEvolutionBtn("Eye", eyepanel.id);
+        showbtn(eyeevbtn);
+        buttons.push(eyeevbtn);
+        
+        
+    // }
 }
 function loadheart(val) {
     change(m.getChild(), "loadheart(0)");
@@ -1315,15 +1341,15 @@ function loaddigestive(val) {
             digestiveref = meshes[0];
             allMeshes.push(digestiveref);
             createSphereBtn(0,2,-1.025,digestivemeshes,function(){createBasicPopup("Small Intestine","The small intestine is a long, coiled tube where most of the digestion and absorption of nutrients occur. It consists of three sections—the duodenum, jejunum, and ileum—each playing a vital role in breaking down food and absorbing vitamins, minerals, and other nutrients into the bloodstream.",intestinebtns);},0.7);
-createSphereBtn(0,4,0.2,digestivemeshes,function(){createBasicPopup("Pancreas","The pancreas is a glandular organ located behind the stomach that plays a crucial role in both digestion and blood sugar regulation. It produces digestive enzymes that are released into the small intestine and hormones, such as insulin and glucagon, that help manage blood glucose levels.",pancreasbtns);},0.7);
-createSphereBtn(-1,5,-1.3,digestivemeshes,function(){createBasicPopup("Stomach","The stomach, a key part of the gastrointestinal (GI) tract, is a muscular organ that digests food using acids and enzymes. It's located in the upper left abdomen and has five sections: cardia, fundus, body, antrum, and pylorus. These sections work together to contract, mix, and process food before passing it to the small intestine.",stomachbtns);},0.7);
-createSphereBtn(0,10,1.025,digestivemeshes,function(){createBasicPopup("Esophagus","The esophagus is a muscular tube that connects the throat to the stomach, allowing the passage of swallowed food and liquids. It uses coordinated muscle contractions, known as peristalsis, to move substances downward.",esophagusbtns);},0.7);
-createSphereBtn(1,6,-1.5,digestivemeshes,function(){createBasicPopup("Liver","The liver carries out numerous essential functions, such as detoxifying harmful substances from the blood, disposing of old red blood cells, producing bile to aid in digestion, metabolizing proteins, carbohydrates, and fats for energy, facilitating blood clotting, regulating blood volume, and storing glycogen and vitamins for later use. This organ is divided into two main parts: the larger right lobe and the smaller left lobe, both containing intricate networks of blood vessels and lobules.",liverbtns);},0.7);
-createSphereBtn(1.5151203100242423,4.58159542163129,-0.4886603648770631,digestivemeshes,function(){createBasicPopup("Gallbladder","The gallbladder is a small, pear-shaped organ located beneath the liver, responsible for storing and concentrating bile produced by the liver. This bile is released into the small intestine to aid in the digestion of fats.");},0.7);
-createSphereBtn(0.11901681452779656,3.708769356834848,-1.5693504365953839,digestivemeshes,function(){createBasicPopup("Large Intestine (Colon)","The colon, or large intestine, is the final part of the digestive system, responsible for absorbing water and electrolytes from indigestible food matter. It also compacts waste into feces for elimination from the body.",colonbtns);},0.7);
-createSphereBtn(1.0278882681632533,-0.4251876960475176,-0.4062908418909057,digestivemeshes,function(){createBasicPopup("Appendix","The appendix is a small, tube-shaped pouch attached to the lower end of the large intestine. Although its precise function is unclear, it is believed to play a role in the immune system and maintaining gut flora.");},0.7);
-createSphereBtn(-0.050918167646385515,-0.8558629123022357,0.717677195142643,digestivemeshes,function(){createBasicPopup("Rectum","The rectum is the final section of the large intestine, responsible for storing feces until they are ready to be expelled from the body. It signals the need for a bowel movement and facilitates the passage of waste through the anal canal.");},0.7);
-createSphereBtn(0.01719847667590916,-2.0278662518005275,1.3534251692090413,digestivemeshes,function(){createBasicPopup("Anus","The anus is the external opening at the end of the digestive tract through which feces are expelled from the body. It is surrounded by sphincter muscles that control the passage of stool during defecation.");},0.7);
+            createSphereBtn(0,4,0.2,digestivemeshes,function(){createBasicPopup("Pancreas","The pancreas is a glandular organ located behind the stomach that plays a crucial role in both digestion and blood sugar regulation. It produces digestive enzymes that are released into the small intestine and hormones, such as insulin and glucagon, that help manage blood glucose levels.",pancreasbtns);},0.7);
+            createSphereBtn(-1,5,-1.3,digestivemeshes,function(){createBasicPopup("Stomach","The stomach, a key part of the gastrointestinal (GI) tract, is a muscular organ that digests food using acids and enzymes. It's located in the upper left abdomen and has five sections: cardia, fundus, body, antrum, and pylorus. These sections work together to contract, mix, and process food before passing it to the small intestine.",stomachbtns);},0.7);
+            createSphereBtn(0,10,1.025,digestivemeshes,function(){createBasicPopup("Esophagus","The esophagus is a muscular tube that connects the throat to the stomach, allowing the passage of swallowed food and liquids. It uses coordinated muscle contractions, known as peristalsis, to move substances downward.",esophagusbtns);},0.7);
+            createSphereBtn(1,6,-1.5,digestivemeshes,function(){createBasicPopup("Liver","The liver carries out numerous essential functions, such as detoxifying harmful substances from the blood, disposing of old red blood cells, producing bile to aid in digestion, metabolizing proteins, carbohydrates, and fats for energy, facilitating blood clotting, regulating blood volume, and storing glycogen and vitamins for later use. This organ is divided into two main parts: the larger right lobe and the smaller left lobe, both containing intricate networks of blood vessels and lobules.",liverbtns);},0.7);
+            createSphereBtn(1.5151203100242423,4.58159542163129,-0.4886603648770631,digestivemeshes,function(){createBasicPopup("Gallbladder","The gallbladder is a small, pear-shaped organ located beneath the liver, responsible for storing and concentrating bile produced by the liver. This bile is released into the small intestine to aid in the digestion of fats.");},0.7);
+            createSphereBtn(0.11901681452779656,3.708769356834848,-1.5693504365953839,digestivemeshes,function(){createBasicPopup("Large Intestine (Colon)","The colon, or large intestine, is the final part of the digestive system, responsible for absorbing water and electrolytes from indigestible food matter. It also compacts waste into feces for elimination from the body.",colonbtns);},0.7);
+            createSphereBtn(1.0278882681632533,-0.4251876960475176,-0.4062908418909057,digestivemeshes,function(){createBasicPopup("Appendix","The appendix is a small, tube-shaped pouch attached to the lower end of the large intestine. Although its precise function is unclear, it is believed to play a role in the immune system and maintaining gut flora.");},0.7);
+            createSphereBtn(-0.050918167646385515,-0.8558629123022357,0.717677195142643,digestivemeshes,function(){createBasicPopup("Rectum","The rectum is the final section of the large intestine, responsible for storing feces until they are ready to be expelled from the body. It signals the need for a bowel movement and facilitates the passage of waste through the anal canal.");},0.7);
+            createSphereBtn(0.01719847667590916,-2.0278662518005275,1.3534251692090413,digestivemeshes,function(){createBasicPopup("Anus","The anus is the external opening at the end of the digestive tract through which feces are expelled from the body. It is surrounded by sphincter muscles that control the passage of stool during defecation.");},0.7);
             showbtn(backHuman);
         });
     }
@@ -2163,7 +2189,25 @@ function kidney2dmodel() {
         imageUrl: "images/kidney.png",
     });
 }
+function loaddna(val) {
+    change(m.getChild(), "loaddna(0)");
+    if (checkvis(dnabtns[0]) || val == 0) {
+        showui();
+        clearbtns();
+        clear();
+        BABYLON.SceneLoader.ImportMesh("", "", "models/dna.glb", scene, function(meshes) {
+            hideui();
+            meshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+            dnaref = meshes[0];
+            allMeshes.push(dnaref);
+            // camera.target = new BABYLON.Vector3(33.98301885954024,236.14133640561624,-22.866524279775604);
+            camera.target = new BABYLON.Vector3(36,236.14133640561624,-22.866524279775604);
+            camera.upperRadiusLimit = 500;
+            camera.position = new BABYLON.Vector3(2.4089047395701412,-3,250);
+        });
 
+    }
+}
 function loadresp(val) {
     change(m.getChild(), "loadresp(0)");
     if (checkvis(respbtns[0]) || val == 0 || val == 2) {
