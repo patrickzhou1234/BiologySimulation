@@ -235,6 +235,19 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
     return sphere;
 }
 
+function createTabHTML(arr) {
+    var tabHTML = '<div class="tabset">';
+    for (var i=0;i<arr.length;i++) {
+        tabHTML+='<input type="radio" name="tabset" id="tab'+i+'" checked><label for="tab'+i+'">'+arr[i][0]+'</label>';
+    }
+    tabHTML+='<div class="tab-panels">';
+    for (var i=0;i<arr.length;i++) {
+        tabHTML+='<section class="tab-panel"><h2>'+arr[i][0]+'</h2><p>'+arr[i][1]+'</p></section>';
+    }
+    tabHTML+='</div></div>';
+    return tabHTML;
+}
+
 /**
  * Creates a sphere button on a model which will show a popup upon clicking
  *
@@ -1253,7 +1266,8 @@ function loadeye() {
         camera.position = new BABYLON.Vector3(-3, 0, -35);
         camera.target = new BABYLON.Vector3(8.3, 9.5, -2.7);
         camera.radius = 4;
-        eyepanel = createPanel("eyepanel", "Eye Information", "eyeclose", "info");
+        eyeTabsInfoArr = [["Example Disease", "Info"], ["Other Disease", "Info"]];
+        eyepanel = createPanel("eyepanel", "Eye Information", "eyeclose", createTabHTML(eyeTabsInfoArr));
         eyeevbtn = createEvolutionBtn("Eye", eyepanel.id);
         showbtn(eyeevbtn);
         buttons.push(eyeevbtn);
