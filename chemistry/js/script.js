@@ -1,16 +1,20 @@
 /// <reference path="../../js/babylon.d.ts" />
 
-const canvas = document.getElementById("babcanv"); // Get the canvas element
+const canvas = document.getElementById("babcanv"); 
 const engine = new BABYLON.Engine(canvas, true);
+let currentCamera; 
+
+const arcRotateCamera = new BABYLON.ArcRotateCamera("arcCam", -Math.PI / 2, Math.PI / 2, 10, BABYLON.Vector3.Zero());
+const freeCamera = new BABYLON.FreeCamera("freeCam", new BABYLON.Vector3(0, 5, -10));
+
 var createScene = function () {
     var scene = new BABYLON.Scene(engine);
-    var camera = new BABYLON.ArcRotateCamera("cam", -Math.PI / 2, Math.PI / 2, 10, BABYLON.Vector3.Zero());
+    
+    currentCamera = arcRotateCamera;
+    currentCamera.attachControl(canvas, true); 
+
     var anchor = new BABYLON.TransformNode("");
 
-    camera.wheelDeltaPercentage = 0.01;
-    camera.attachControl(canvas, true);
-
-    // Create the 3D UI manager
     var manager = new BABYLON.GUI.GUI3DManager(scene);
 
     var panel = new BABYLON.GUI.CylinderPanel();
@@ -20,7 +24,7 @@ var createScene = function () {
     panel.linkToTransformNode(anchor);
     panel.position.z = -1.5;
 
-    // Let's add some buttons!
+
     var addButton = function (i) {
         var button = new BABYLON.GUI.HolographicButton("orientation");
         panel.addControl(button);
@@ -28,7 +32,7 @@ var createScene = function () {
         fetch("./data/data.json")
             .then((response) => response.json())
             .then((data) => {
-                button.text = i + " " + data.elements[i].name;
+                button.text = i + " " + data.elements[i].number;
             });
     };
 
@@ -45,6 +49,28 @@ const scene = createScene();
 
 engine.runRenderLoop(function () {
     scene.render();
+});
+
+
+window.addEventListener("keydown", function (event) {
+    if (event.key === "Shift") {
+        
+        if (currentCamera !== freeCamera) {
+            currentCamera.detachControl(canvas); 
+            currentCamera = freeCamera; 
+            freeCamera.attachControl(canvas, true);
+        }
+    }
+});
+
+window.addEventListener("keyup", function (event) {
+    if (event.key === "Shift") {
+        if (currentCamera !== arcRotateCamera) {
+            currentCamera.detachControl(canvas);
+            currentCamera = arcRotateCamera; 
+            arcRotateCamera.attachControl(canvas, true); 
+        }
+    }
 });
 
 window.addEventListener("resize", function () {
