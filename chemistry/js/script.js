@@ -7,7 +7,6 @@ let currentCamera;
 const arcRotateCamera = new BABYLON.ArcRotateCamera("arcCam", -Math.PI / 2, Math.PI / 2, 10, BABYLON.Vector3.Zero());
 const freeCamera = new BABYLON.FreeCamera("freeCam", new BABYLON.Vector3(0, 5, -10));
 
-
 var createScene = function () {
     var scene = new BABYLON.Scene(engine);
     
