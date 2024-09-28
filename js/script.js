@@ -193,12 +193,15 @@ function hideui() {
 
 // function to hide button
 function hidebtn(psbtn) {
-    psbtn.setAttribute("style", ""); // resets inline styling
-    if (psbtn.classList.contains("animbtn")) {
-        psbtn.classList.remove("animbtn"); // removes class based on if the button has that class
-    }
-    psbtn.classList.add("animobtn"); // adds class
+    try{
+        psbtn.setAttribute("style", ""); // resets inline styling
+        if (psbtn.classList.contains("animbtn")) {
+            psbtn.classList.remove("animbtn"); // removes class based on if the button has that class
+        }
+        psbtn.classList.add("animobtn"); // adds class
+    } catch(e){console.log(e)}
 }
+
 
 // function to show button
 function showbtn(psbtn) {
@@ -492,6 +495,7 @@ function checkvis(btn) {
 
 // loads the cell you see on openning of website
 function loadcell() {
+    console.log("e")
     // if (!backcell.classList.contains("animobtn")) {
     clearbtns(); // function that hides all btns
     showbtn(backHuman);
@@ -507,12 +511,17 @@ function loadcell() {
     showui();
     camera.lowerRadiusLimit = 2; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
     clear();
-    importmesh("ribosoma.glb", new BABYLON.Vector3(0.5, 0.5, 0.5), new BABYLON.Vector3(0.4855579893367401, -0.19247690443455667, 2.106724807070549));
+    Swal.close();
+    BABYLON.SceneLoader.ImportMesh("", "", `models/ribosoma.glb`, scene, function (meshes) {
+        meshes[0].scaling = new BABYLON.Vector3(0.4855579893367401, -0.19247690443455667, 2.106724807070549);
+        allMeshes.push(meshes[0]);
+    });
+    
     BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
         // imports 3D mesh
 
-        hideui();
-
+    
+        hideui()
         camera.position = new BABYLON.Vector3(-10, 100, 5);
         camera.target = new BABYLON.Vector3(0, 0, 0);
         camera.radius = 5;
@@ -782,8 +791,8 @@ function loadgolgi(val) {
         clickcond(cellmeshes, golgismlbtns, 0);
         clear();
         scaling = new BABYLON.Vector3(5, 5, 5);
-        importmesh("golgi.glb", scaling);
-    }
+        importmesh("golgi.glb", scaling, null, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 50, 0));
+    }   
 }
 
 function loadrougher(val) {
@@ -1148,7 +1157,8 @@ function loadeyecs(val) {
             camera.position = new BABYLON.Vector3(-1220.83713583762, 468.32129390641774, 387.70330910524217);
             camera.target = new BABYLON.Vector3(-690, 340, -450);
 
-            
+            createSphereBtn(-747.7206686288839, 255.380098839613288, -737.3180460121363, humanmeshes, function () {createBasicPopup("Optic Nerve", "The optic nerve is a bundle of nerve fibers that transmits visual information from the retina to the brain, enabling the perception and interpretation of visual stimuli. This area is considered the “blind spot” and does not contain any photoreceptors");}, 50);
+            createSphereBtn(-729.6513677863035,107.19844131225364,-510.8989235245537, humanmeshes, function () {createBasicPopup("Medial rectus muscle", "The medial rectus muscle is one of the six muscles that help control eye movement. It’s responsible for moving the eye inward, toward the nose, which is essential for focusing and working with the other eye muscles for smooth, coordinated vision.");}, 50);
         });
 
         hidebtn(eyecsbtn);
@@ -1160,13 +1170,7 @@ function loadearcs(val) {
     if (checkvis(earcsbtn) || val == 0) {
         showui();
         clear();
-        BABYLON.SceneLoader.ImportMesh("", "", "models/ear_cs.glb", scene, function (meshes) {
-            hideui();
-            // meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
-            earcsref = meshes[0];
-            allMeshes.push(earcsref);
-        });
-
+        importmesh("ear_cs.glb", new BABYLON.Vector3(6, 6, 6), new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0.75, 0), new BABYLON.Vector3(1, 0.8, -1))
         hidebtn(earcsbtn);
         hidebtn(backcell);
         showbtn(backHuman);
@@ -1177,7 +1181,11 @@ function loadear() {
     change(m.getChild(), "loadear()");
     if (checkvis(earbtns[0])) {
         showui();
-        clickcondeye(0);
+        clear()
+        importmesh("ear.glb", new BABYLON.Vector3(0.4, 0.4, 0.4), new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0.8, 0), new BABYLON.Vector3(1, 0, -1.2))
+        hidebtn(earcsbtn);
+        hidebtn(backcell);
+        showbtn(backHuman);
     }
 }
 
@@ -2840,6 +2848,8 @@ engine.runRenderLoop(function () {
     scene.render();
     stats.update();
 });
+
+scene.clearColor = new BABYLON.Color3(18/255, 63/255, 109/255);
 
 window.addEventListener("resize", function () {
     engine.resize();
