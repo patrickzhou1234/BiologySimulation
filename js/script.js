@@ -235,13 +235,37 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
     sphere.material = sphereMaterial;
     meshesarray.push(sphere);
 
-    // Add action manager for click events
+    // Add action manager if not already present
     sphere.actionManager = new BABYLON.ActionManager(scene);
+
+    // Add action manager for click events
     sphere.actionManager.registerAction(
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
             camera.lowerRadiusLimit = 2;
             onclick();
         })
+    );
+
+    // On hover, gradually increase the size
+    sphere.actionManager.registerAction(
+        new BABYLON.InterpolateValueAction(
+            BABYLON.ActionManager.OnPointerOverTrigger,
+            sphere,
+            "scaling",
+            new BABYLON.Vector3(1.2, 1.2, 1.2), // Slightly larger size (adjust as needed)
+            150 // Duration in milliseconds for a smooth transition
+        )
+    );
+
+    // On hover out, smoothly return to original size
+    sphere.actionManager.registerAction(
+        new BABYLON.InterpolateValueAction(
+            BABYLON.ActionManager.OnPointerOutTrigger,
+            sphere,
+            "scaling",
+            new BABYLON.Vector3(1, 1, 1), // Original size
+            150 // Duration in milliseconds for a smooth transition
+        )
     );
 
     // Add a glow layer to make the sphere glow
@@ -260,6 +284,7 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
 
     return sphere;
 }
+
 
 
 function createTabHTML(arr) {
