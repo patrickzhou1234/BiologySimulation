@@ -250,10 +250,11 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
 
     // Add animation to create a pulsating glow effect
     scene.registerBeforeRender(function () {
+        const pulse = 0.5 + 0.5 * Math.sin(scene.getEngine().getDeltaTime() * 0.001);
         sphereMaterial.emissiveColor = new BABYLON.Color3(
-            0.53 * (Math.sin(scene.getAnimationRatio() * 0.3) * 0.5 + 0.5),
-            0.81 * (Math.sin(scene.getAnimationRatio() * 0.3) * 0.5 + 0.5),
-            0.98 * (Math.sin(scene.getAnimationRatio() * 0.3) * 0.5 + 0.5)
+            0.53 * pulse,
+            0.81 * pulse,
+            0.98 * pulse
         );
     });
 
