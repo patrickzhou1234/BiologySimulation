@@ -1679,6 +1679,11 @@ h4, h5, h6 {
   color: rgba(0, 0, 0, 0.26);
 }
 .mui-select > label {
+  /**
+   * Positions an element absolutely within its parent container.
+   * This is typically used to position a dropdown menu or other UI element
+   * that needs to be positioned relative to another element on the page.
+   */
   position: absolute;
   top: 0;
   display: block;

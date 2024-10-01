@@ -1,7 +1,10 @@
 <center><h1>Biology Simulation</h1></center>
 <p>Biology Simulation is a biology simulation platform that offers interactive 3D models of cellular structures and processes. Users can explore detailed visualizations of cell components and biological systems. The site serves as an educational tool, bridging the gap between traditional learning and modern visualization techniques.</p>
 <center><h2>Demo Image</h2></center>
+
+<center><h3>Note: Make sure to use VS Code, and install the Live Server extension.</h3></center>
 <img style="width:100%;height:100%;" id="dispimg" src="https://r2.e-z.host/0a585a51-c22e-4d3e-804a-efc077a2d38c/tvxkofed.png"></img>
+
 <center><a href="https://bio-sim.us//">Visit the website</a></center>
 <table style="width:100%">
   <tr>
