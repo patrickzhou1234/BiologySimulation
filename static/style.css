@@ -20,6 +20,17 @@ html, body {margin: 0; height: 100%; overflow: hidden,}
 .swal2-container::-webkit-scrollbar {
     display: none;
 }
+#bottom-right-image {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 200px;
+    height: 200px;
+    background-image: url('../images/biosim-transparent.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 9999;
+}
 
 .bronchibtns {
     z-index: 99999999;
