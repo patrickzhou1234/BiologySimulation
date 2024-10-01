@@ -3,9 +3,12 @@
     src: URL("Amazon-Ember-Medium.ttf") format("truetype");
 }
 
-html, body {margin: 0; height: 100%; overflow: hidden}
+html, body {margin: 0; height: 100%; overflow: hidden,}
+
+
 
 #babcanv {
+
     position: absolute;
     top: 0px;
     left: 0px;

@@ -223,11 +223,19 @@ function showbtn(psbtn) {
  * @param onclick Function to call once the sphere is clicked (Swal.fire function to show a popup)
  */
 function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick, diameter = 0.25) {
-    mat = new BABYLON.StandardMaterial("Material", scene);
+    // Create a standard material with emissive properties
+    const sphereMaterial = new BABYLON.StandardMaterial("sphereMaterial", scene);
+    sphereMaterial.emissiveColor = new BABYLON.Color3(0.53, 0.81, 0.98); // Light blue color (adjust RGB values if needed)
+    sphereMaterial.specularColor = new BABYLON.Color3(0.7, 0.8, 0.9);    // Adjust specular color to suit light blue
+    sphereMaterial.ambientColor = new BABYLON.Color3(0.53, 0.81, 0.98);  // Ambient color for light blue effect
+
+    // Create the sphere
     const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: diameter, segments: 32 }, scene);
-    sphere.position.set(depth, verticalpos, horizontalpos); // (depth,vertical,horizantal)
-    sphere.material = mat;
+    sphere.position.set(depth, verticalpos, horizontalpos); // (depth, vertical, horizontal)
+    sphere.material = sphereMaterial;
     meshesarray.push(sphere);
+
+    // Add action manager for click events
     sphere.actionManager = new BABYLON.ActionManager(scene);
     sphere.actionManager.registerAction(
         new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
@@ -235,8 +243,23 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
             onclick();
         })
     );
+
+    // Add a glow layer to make the sphere glow
+    const gl = new BABYLON.GlowLayer("glow", scene);
+    gl.intensity = 0.5; // Adjust intensity as needed
+
+    // Add animation to create a pulsating glow effect
+    scene.registerBeforeRender(function () {
+        sphereMaterial.emissiveColor = new BABYLON.Color3(
+            0.53 * (Math.sin(scene.getAnimationRatio() * 0.3) * 0.5 + 0.5),
+            0.81 * (Math.sin(scene.getAnimationRatio() * 0.3) * 0.5 + 0.5),
+            0.98 * (Math.sin(scene.getAnimationRatio() * 0.3) * 0.5 + 0.5)
+        );
+    });
+
     return sphere;
 }
+
 
 function createTabHTML(arr) {
     var tabHTML = '<div class="tabset">';
@@ -2849,7 +2872,7 @@ engine.runRenderLoop(function () {
     stats.update();
 });
 
-scene.clearColor = new BABYLON.Color3(18/255, 63/255, 109/255);
+scene.clearColor = new BABYLON.Color3(0, 0, 0);
 
 window.addEventListener("resize", function () {
     engine.resize();
