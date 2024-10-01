@@ -784,7 +784,7 @@ function receptorproteinclicked() {
     showbtn(backcell);
 }
 
-function loadmito(val) {
+function loadmitochondria(val) {
     if (checkvis(mitosmlbtns[0]) || val == 0) {
         clickcond(cellmeshes, mitosmlbtns, 0);
         clear();
@@ -1544,8 +1544,8 @@ function loadesophagus(val) {
         });
     }
 }
-function loadNS(val) {
-    change(m.getChild(), "loadNS(0)");
+function loadnervous(val) {
+    change(m.getChild(), "loadnervous(0)");
         showui();
         clearbtns();
         clickcond(humanmeshes, NSbtns, 0);
@@ -1676,8 +1676,8 @@ function loadbronchi(val) {
         showbtn(backHuman);
     }
 }
-function loadcord(val) {
-    change(m.getChild(), "loadcord(0)");
+function loadspinalcord(val) {
+    change(m.getChild(), "loadspinalcord(0)");
     if (checkvis(cordbtns[0]) || val == 0) {
         showui();
         clearbtns();
@@ -2254,8 +2254,8 @@ function loaddna(val) {
 
     }
 }
-function loadresp(val) {
-    change(m.getChild(), "loadresp(0)");
+function loadrespiratory(val) {
+    change(m.getChild(), "loadrespiratory(0)");
     if (checkvis(respbtns[0]) || val == 0 || val == 2) {
         Swal.close();
         clear();

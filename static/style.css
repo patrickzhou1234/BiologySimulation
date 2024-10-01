@@ -778,3 +778,61 @@ img {
   .tabset {
     max-width: 65em;
   }
+
+  #chatbox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: none;
+    flex-direction: column;
+}
+#messages {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+.message {
+    margin: 5px 0;
+}
+#input-box {
+    display: flex;
+}
+#input-box input {
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+#input-box button {
+    border: none;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+}
+
+.chatbotbutton {
+    margin-top: 5px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#toggle-chatbox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
