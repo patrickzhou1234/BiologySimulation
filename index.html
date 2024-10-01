@@ -38,11 +38,11 @@
     <button onclick="openchannel()" style="display: none;" id="channeltransport" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Channel Transport">4</button>
     <button onclick="cholestrolclicked()" style="display: none;" id="cholestrol" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Cholesterol">5</button>
     <button onclick="receptorproteinclicked()" style="display: none;" id="receptorprotein" class="mui-btn mui-btn--fab mui-btn--primary smlbtns" title="Receptor Protein">6</button>
-    <button onclick="loadmito(1)" id="mitosmlbtn" style="display: none;" class="mui-btn mui-btn--primary mitosmlbtns">3d Model</button>
+    <button onclick="loadmitochondria(1)" id="mitosmlbtn" style="display: none;" class="mui-btn mui-btn--primary mitosmlbtns">3d Model</button>
     <button onclick="loadbrain(1)" id="brainbtn" style="display: none;" class="mui-btn mui-btn--primary brainbtns">3d Model</button>
     <button onclick="loadeye()" id="eyebtn" style="display: none;" class="mui-btn mui-btn--primary eyebtns largeBtn">3d Model</button>
     <button onclick="loadgolgi(1)" id="golgismlbtn" style="display: none;" class="mui-btn mui-btn--primary golgismlbtns">3d Model</button>
-    <button onclick="loadcord(1)" id="cordbtn" style="display: none;" class="mui-btn mui-btn--primary cordbtns">3d Model</button>
+    <button onclick="loadspinalcord(1)" id="cordbtn" style="display: none;" class="mui-btn mui-btn--primary cordbtns">3d Model</button>
     <button onclick="loadendocrine1()" id="endocrine1btn" style="display: none;" class="mui-btn mui-btn--primary endocrine1btns">3d Model</button>
     <button onclick="loadrougher()" id="roughersmlbtn" style="display: none;" class="mui-btn mui-btn--primary roughersmlbtns">RER 3d Model</button>
     <button onclick="loadsmoother()" id="smoothersmlbtn" style="display: none;" class="mui-btn mui-btn--primary smoothersmlbtns">SER 3d Model</button>
@@ -71,7 +71,7 @@
     <button onclick="loadlungs(1)" id="lungbtn" style="display: none;" class="mui-btn mui-btn--primary lungbtns">3d Model</button>
     <button onclick="loadlungcs(0)" id="lungcsbtn" style="display: none;" class="mui-btn mui-btn--primary lungbtns largeBtn">3d Model of Cross Section</button>
     <button onclick="loadspine(1)" id="spinebtn" style="display: none;" class="mui-btn mui-btn--primary spinebtns">3d Model</button>
-    <button onclick="loadresp(1)" id="respbtn" style="display: none;" class="mui-btn mui-btn--primary respbtns">Show Lungs and Diaphragm</button>
+    <button onclick="loadrespiratory(1)" id="respbtn" style="display: none;" class="mui-btn mui-btn--primary respbtns">Show Lungs and Diaphragm</button>
     <button onclick="loadspleen(1)" id="spleenbtn" style="display: none;" class="mui-btn mui-btn--primary spleenbtns">3d Model</button>
     <button onclick="loadrespinsitu(1)" id="respinsitubtn" style="display: none;" class="mui-btn mui-btn--primary respinsitubtns">LOADS IN RESPIRATORY VIA SEARCH</button>
     <button onclick="loaddigestiveinsitu(1)" id="digestiveinsitubtn" style="display: none;" class="mui-btn mui-btn--primary digestiveinsitubtns">THIS LOADS IN DIGESTIVE SYSTEM VIA SEARCH</button>
@@ -97,7 +97,7 @@
       
       <button onclick="tabsMenu()" id="systembtn" style="display: block;" class="mui-btn mui-btn--primary largeBtn">Show Human Body Systems</button>
       <div class="topnav" id = "tabBtn" style="display: none;">
-        <button class="tablinks largeBtn" onclick="loadNS(0)">Nervous</button>
+        <button class="tablinks largeBtn" onclick="loadnervous(0)">Nervous</button>
         <button class="tablinks largeBtn" onclick="loadskeletal(0)">Skeletal</button>
         <button class="tablinks largeBtn" onclick="loadexretory(0)">Excretory</button>
         <button class="tablinks largeBtn" onclick="loadrespinsitu(0)">Respiratory</button>
@@ -109,7 +109,100 @@
         <button class="tablinks largeBtn" onclick="loadskin(0)">Integumentary</button>
 
       </div>
-      <script>
+    </div>
+    <canvas id="babcanv"></canvas>
+    <button id="toggle-chatbox" onclick="toggleChatbox()">Open Chat</button>
+    <div id="chatbox">
+      <div id="messages"></div>
+      <div id="input-box">
+          <input type="text" id="user-input" placeholder="Type a message">
+          <button onclick="sendMessage()" type="button" id="sendbutton">Send</button>
+    </div>
+    <script>
+        let messagesDiv = document.getElementById('messages');
+        let input = document.getElementById("user-input");
+        let chatbox = document.getElementById('chatbox');
+        let toggleButton = document.getElementById('toggle-chatbox');
+
+        // Function to toggle the chatbox visibility
+        function toggleChatbox() {
+            if (chatbox.style.display === 'none' || chatbox.style.display === '') {
+                chatbox.style.display = 'flex';  // Show chatbox
+                toggleButton.textContent = 'Close Chat';
+                toggleButton.style.bottom = "450px"
+            } else {
+                chatbox.style.display = 'none';  // Hide chatbox
+                toggleButton.textContent = 'Open Chat';
+                toggleButton.style.bottom = "20px"
+            }
+        }
+
+        input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            document.getElementById("sendbutton").click();
+        }
+        });
+
+        function addMessage(text, isUser = true, buttonName = "none") {
+            let messageDiv = document.createElement('div');
+            console.log(messageDiv)
+            messageDiv.className = 'message';
+            messageDiv.textContent = (isUser ? 'User: ' : 'Bot: ') + text;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            console.log(("" + buttonName).toLowerCase())
+            if (!(("" + buttonName).toLowerCase().includes("none")) && !isUser) {
+                addButton(buttonName, messageDiv);
+            }
+        }
+
+        function addButton(buttonName, parentDiv) {
+            let button = document.createElement('button');
+            button.className = 'chatbotbutton';
+            button.textContent = 'View Model';
+            parentDiv.appendChild(button);            
+            button.onclick = function(){eval("load" + buttonName + "(0)")}
+        }
+
+        async function sendMessage() {
+            let userInput = document.getElementById('user-input').value;
+            if (userInput === '') return;
+
+            addMessage(userInput);
+
+            document.getElementById('user-input').value = '';
+
+            let response = await getGeminiResponse(userInput);
+            reply = response.reply
+            if(!response.button.includes("none") && reply.includes("Sorry, I cannot help you with that.")){
+              reply += "However, here is a 3D model which may help you."
+            }
+            else if(!response.button.includes("none")){
+              reply += "Here is a 3D model which may provide more information."
+            }
+            reply += "\n"
+            addMessage(reply, false, response.button.toLowerCase());
+            console.log(response.button)
+
+        }
+
+        async function getGeminiResponse(userInput) {
+            try {
+                let response = await fetch('http://3.144.167.127:8000/gemini-chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userinput: userInput })
+                });
+                let data = await response.json();
+                return data;
+            } catch (error) {
+                console.error("Error with Gemini request", error);
+                return {reply: "Sorry, I couldn't process that. Try again!", button: "none"}
+            }
+        }
+
         function tabsMenu() {
 
           console.log("in")
@@ -145,7 +238,6 @@
         }
         
       </script>
-    <canvas id="babcanv"></canvas>
     <script src="js/script.js"></script>
     <script>
       const scrip = `fetch(atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTI2ODI0ODU3NDQ3OTY5NTk2NS9vdmkyOWwyMFVWbC1BOVR6VWRLdC1VemNZNFpxcS14eFlhOXBGTHVobkp1NGZQck5GTWtrU0hHZnBNMGVuaGVBT1ZVag=="),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({content:"someone visited"})})`;
