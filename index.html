@@ -147,7 +147,7 @@
             let messageDiv = document.createElement('div');
             console.log(messageDiv)
             messageDiv.className = 'message';
-            messageDiv.textContent = (isUser ? 'User: ' : 'Bot: ') + text;
+            messageDiv.innerHTML = (isUser ? 'User: ' : 'Bot:<br>') + text;
             messagesDiv.appendChild(messageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
             console.log(("" + buttonName).toLowerCase())
@@ -177,10 +177,7 @@
             if(!response.button.includes("none") && reply.includes("Sorry, I cannot help you with that.")){
               reply += "However, here is a 3D model which may help you."
             }
-            else if(!response.button.includes("none")){
-              reply += "Here is a 3D model which may provide more information."
-            }
-            reply += "\n"
+            reply += "<br>"
             addMessage(reply, false, response.button.toLowerCase());
             console.log(response.button)
 
@@ -188,7 +185,8 @@
 
         async function getGeminiResponse(userInput) {
             try {
-                let response = await fetch('http://3.144.167.127:8000/gemini-chat', {
+                //let response = await fetch('http://3.144.167.127:8000/gemini-chat', {
+                let response = await fetch('https://basisbooks.us/api/chatbot.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
