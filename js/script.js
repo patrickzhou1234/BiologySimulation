@@ -212,27 +212,24 @@ function showbtn(psbtn) {
     psbtn.classList.add("animbtn"); // adds a class
 }
 
-/**
- * Creates a sphere button on a model which will show a popup upon clicking
- *
- * @param diameter Diameter of the sphere (default is 0.25)
- * @param depth Depth of the sphere into the 3d model
- * @param verticalpos Vertical position of the sphere
- * @param horizontalpos Horizontal position of the sphere
- * @param meshesarray The array to push the sphere object into (i.e. cellmeshes/humanmeshes)
- * @param onclick Function to call once the sphere is clicked (Swal.fire function to show a popup)
- */
+// Global shared material for all spheres
+let sharedSphereMaterial;
+
 function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick, diameter = 0.25) {
-    // Create a standard material with emissive properties
-    const sphereMaterial = new BABYLON.StandardMaterial("sphereMaterial", scene);
-    sphereMaterial.emissiveColor = new BABYLON.Color3(0.53, 0.81, 0.98); // Light blue color (adjust RGB values if needed)
-    sphereMaterial.specularColor = new BABYLON.Color3(0.7, 0.8, 0.9);    // Adjust specular color to suit light blue
-    sphereMaterial.ambientColor = new BABYLON.Color3(0.53, 0.81, 0.98);  // Ambient color for light blue effect
+    // Create a standard material with emissive properties if it doesn't exist
+    if (!sharedSphereMaterial) {
+        sharedSphereMaterial = new BABYLON.StandardMaterial("sphereMaterial", scene);
+    }
+
+    // Reset the material properties
+    sharedSphereMaterial.emissiveColor = new BABYLON.Color3(0.53, 0.81, 0.98);
+    sharedSphereMaterial.specularColor = new BABYLON.Color3(0.7, 0.8, 0.9);
+    sharedSphereMaterial.ambientColor = new BABYLON.Color3(0.53, 0.81, 0.98);
 
     // Create the sphere
     const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: diameter, segments: 32 }, scene);
-    sphere.position.set(depth, verticalpos, horizontalpos); // (depth, vertical, horizontal)
-    sphere.material = sphereMaterial;
+    sphere.position.set(depth, verticalpos, horizontalpos);
+    sphere.material = sharedSphereMaterial;
     meshesarray.push(sphere);
 
     // Add action manager if not already present
@@ -252,8 +249,8 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
             BABYLON.ActionManager.OnPointerOverTrigger,
             sphere,
             "scaling",
-            new BABYLON.Vector3(1.2, 1.2, 1.2), // Slightly larger size (adjust as needed)
-            150 // Duration in milliseconds for a smooth transition
+            new BABYLON.Vector3(1.2, 1.2, 1.2),
+            150
         )
     );
 
@@ -263,24 +260,15 @@ function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick
             BABYLON.ActionManager.OnPointerOutTrigger,
             sphere,
             "scaling",
-            new BABYLON.Vector3(1, 1, 1), // Original size
-            150 // Duration in milliseconds for a smooth transition
+            new BABYLON.Vector3(1, 1, 1),
+            150
         )
     );
 
-    // Add a glow layer to make the sphere glow
-    const gl = new BABYLON.GlowLayer("glow", scene);
-    gl.intensity = 0.5; // Adjust intensity as needed
-
-    // Add animation to create a pulsating glow effect
-    scene.registerBeforeRender(function () {
-        const pulse = 0.5 + 0.5 * Math.sin(scene.getEngine().getDeltaTime() * 0.001);
-        sphereMaterial.emissiveColor = new BABYLON.Color3(
-            0.53 * pulse,
-            0.81 * pulse,
-            0.98 * pulse
-        );
-    });
+    // Add a glow layer specific to this sphere
+    const gl = new BABYLON.GlowLayer("glow_" + sphere.uniqueId, scene);
+    gl.addIncludedOnlyMesh(sphere);
+    gl.intensity = 0.5;
 
     return sphere;
 }
@@ -1206,8 +1194,8 @@ function loadeyecs(val) {
             camera.position = new BABYLON.Vector3(-1220.83713583762, 468.32129390641774, 387.70330910524217);
             camera.target = new BABYLON.Vector3(-690, 340, -450);
 
-            createSphereBtn(-747.7206686288839, 255.380098839613288, -737.3180460121363, humanmeshes, function () {createBasicPopup("Optic Nerve", "The optic nerve is a bundle of nerve fibers that transmits visual information from the retina to the brain, enabling the perception and interpretation of visual stimuli. This area is considered the “blind spot” and does not contain any photoreceptors");}, 50);
-            createSphereBtn(-729.6513677863035,107.19844131225364,-510.8989235245537, humanmeshes, function () {createBasicPopup("Medial rectus muscle", "The medial rectus muscle is one of the six muscles that help control eye movement. It’s responsible for moving the eye inward, toward the nose, which is essential for focusing and working with the other eye muscles for smooth, coordinated vision.");}, 50);
+            createSphereBtn(-747.7206686288839, 255.380098839613288, -737.3180460121363, humanmeshes, function () {createBasicPopup("Optic Nerve", "The optic nerve is a bundle of nerve fibers that transmits visual information from the retina to the brain, enabling the perception and interpretation of visual stimuli. This area is considered the 'blind spot' and does not contain any photoreceptors");}, 50);
+            createSphereBtn(-729.6513677863035,107.19844131225364,-510.8989235245537, humanmeshes, function () {createBasicPopup("Medial rectus muscle", "The medial rectus muscle is one of the six muscles that help control eye movement. It's responsible for moving the eye inward, toward the nose, which is essential for focusing and working with the other eye muscles for smooth, coordinated vision.");}, 50);
         });
 
         hidebtn(eyecsbtn);
@@ -1444,8 +1432,8 @@ function loaddigestiveinsitu(val) {
                 el.visibility = 0;
             });
             meshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
-            digestiveinsuturef = meshes[0];
-            allMeshes.push(digestiveinsuturef);
+            digestiveinsituref = meshes[0];
+            allMeshes.push(digestiveinsituref);
             createSphereBtn(
                 0,
                 2,
@@ -2477,7 +2465,7 @@ function loadskeletal(val) {
         });
 
         tibfibbtns = [];
-        tibfibpanel = createPanel("tibfibpanel", "Tibula and Fibula Evolution Information", "tibfibclose", "The tibia and fibula are the two bones of the lower leg. The tibia, being the larger bone, evolved to bear most of the body’s weight, while the fibula provides stability and support. Together, they enable complex movements and balance necessary for bipedal locomotion.");
+        tibfibpanel = createPanel("tibfibpanel", "Tibula and Fibula Evolution Information", "tibfibclose", "The tibia and fibula are the two bones of the lower leg. The tibia, being the larger bone, evolved to bear most of the body's weight, while the fibula provides stability and support. Together, they enable complex movements and balance necessary for bipedal locomotion.");
         tibfibevolbtn = createEvolutionBtn("tibula and fibula", tibfibpanel.id);
         tibfibbtns.push(tibfibevolbtn);
         tibfib = createSphereBtn(0.8, -4, -0.2, skeletalmeshes, function () {
