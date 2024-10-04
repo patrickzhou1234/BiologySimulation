@@ -975,9 +975,9 @@ img {
 /* Hover Effect for Buttons */
 .menu li a:hover {
     color: #fff;
-    background: linear-gradient(135deg, #ffffff, #ece9e6); /* Change to white gradient on hover */
+    background: linear-gradient(135deg, #ffffff, #ece9e6);
     transform: scale(1.2) rotate(calc(360deg / -10 * var(--i)));
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Toggle Button */
@@ -985,7 +985,7 @@ img {
     position: absolute;
     width: 90px;
     height: 90px;
-    background: linear-gradient(135deg, #49a0ae, #00d4ff); /* Gradient for toggle button */
+    background: linear-gradient(135deg, #49a0ae, #00d4ff);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -996,10 +996,46 @@ img {
     font-size: 2em;
     color: #fff;
     transition: transform 1.25s ease;
+    overflow: hidden; /* Added to contain the ripple effect */
 }
 
 .menu.active .toggle {
     transform: rotate(360deg);
+}
+
+/* Hollow Circle Animation */
+.toggle::before,
+.toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: expandCircle 2s infinite ease-in-out;
+}
+
+.toggle::after {
+    animation-delay: 0.5s;
+}
+
+@keyframes expandCircle {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
 }
 
 
