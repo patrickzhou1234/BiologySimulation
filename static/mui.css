@@ -621,7 +621,15 @@ h4, h5, h6 {
 
 .mui-btn--primary {
   color: #FFF;
-  background-color: #49a0ae;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Smooth gradient from orange-pink to light peach */
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adds depth with a shadow */
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.mui-btn--primary:hover {
+  background: linear-gradient(135deg, #ff6a3d, #fd9644); /* Slightly more intense colors on hover */
+  transform: scale(1.05); /* Slight enlargement on hover */
 }
 .mui-btn--primary:hover, .mui-btn--primary:focus, .mui-btn--primary:active {
   color: #FFF;

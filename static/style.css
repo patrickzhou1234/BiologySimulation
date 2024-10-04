@@ -806,7 +806,8 @@ img {
   .tabset {
     max-width: 65em;
   }
-  .menu {
+  /* Menu Container */
+.menu {
     position: fixed;
     top: 40%;
     right: 5vw;
@@ -818,106 +819,117 @@ img {
     align-items: center;
     z-index: 1000;
     padding-right: 30px;
-  }
+}
 
+/* List Item Styles */
 .menu li {
-  position: absolute;
-  left: 0;
-  list-style: none;
-  transform-origin: 100px;
-  transition: 0.5s;
-  transition-delay: calc(0.1s * var(--i));
-  transform: rotate(0deg) translateX(80px);
+    position: absolute;
+    left: 0;
+    list-style: none;
+    transform-origin: 100px;
+    transition: 0.5s ease;
+    transition-delay: calc(0.1s * var(--i));
+    transform: rotate(0deg) translateX(80px);
 }
 
 .menu.active li {
-  transform: rotate(calc(360deg / 10 * var(--i))) translateX(200px);
+    transform: rotate(calc(360deg / 10 * var(--i))) translateX(200px);
 }
 
+/* Button Styles */
 .menu li a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  transform: rotate(calc(360deg / -10 * var(--i)));
-  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
-  color: #fff;
-  transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transform: rotate(calc(360deg / -10 * var(--i)));
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.4s ease;
+    text-align: center;
+    line-height: 1.2;
 }
 
-/* Color styles for each button */
+/* Noticeable Gradients for Each Button */
 .menu li:nth-child(1) a { 
-    background: #1e88e5; /* Nervous system - blue */
-  }
-  
-  .menu li:nth-child(2) a { 
-    background: #43a047; /* Skeletal system - green */
-  }
-  
-  .menu li:nth-child(3) a { 
-    background: #f4511e; /* Excretory system - orange */
-  }
-  
-  .menu li:nth-child(4) a { 
-    background: #c12f2c; /* Respiratory system - red */
-  }
-  
-  .menu li:nth-child(5) a { 
-    background: #8e24aa; /* Digestive system - purple */
-  }
-  
-  .menu li:nth-child(6) a { 
-    background: #fb8c00; /* Circulatory system - amber */
-  }
-  
-  .menu li:nth-child(7) a { 
-    background: #ff0000; /* Lymphatic system - indigo */
-  }
-  
-  .menu li:nth-child(8) a { 
-    background: #00acc1; /* Muscular system - teal */
-  }
-  
-  .menu li:nth-child(9) a { 
-    background: #ffeb3b; /* Endocrine system - yellow */
-  }
-  
-  .menu li:nth-child(10) a { 
-    background: #ff5722; /* Integumentary system - deep orange */
-  }
-  .menu li:nth-child(11) a { 
-    background: #ffcf81; /* Integumentary system - deep orange */
-  }
-/* Repeat similar color styles for all the menu items */
-
-.menu li a:hover {
-  color: #2355a0;
-  background: #fff;
-  transform: scale(1.2) rotate(calc(360deg / -10 * var(--i)));
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Nervous system - deep purple to bright blue */
 }
 
+.menu li:nth-child(2) a { 
+    background: linear-gradient(135deg, #00b09b, #96c93d); /* Skeletal system - turquoise to lime green */
+}
+
+.menu li:nth-child(3) a { 
+    background: linear-gradient(135deg, #ff512f, #f09819); /* Excretory system - fiery red to orange */
+}
+
+.menu li:nth-child(4) a { 
+    background: linear-gradient(135deg, #d31027, #ea384d); /* Respiratory system - deep red to vivid pink */
+}
+
+.menu li:nth-child(5) a { 
+    background: linear-gradient(135deg, #8e2de2, #4a00e0); /* Digestive system - rich purple to deep indigo */
+}
+
+.menu li:nth-child(6) a { 
+    background: linear-gradient(135deg, #ff8008, #ffc837); /* Circulatory system - bright orange to golden yellow */
+}
+
+.menu li:nth-child(7) a { 
+    background: linear-gradient(135deg, #801a1a, #d02626); /* Lymphatic system - dark blue to cyan */
+}
+
+.menu li:nth-child(8) a { 
+    background: linear-gradient(135deg, #0bb6ff, #2c5364); /* Muscular system - deep teal to dark gray */
+}
+
+.menu li:nth-child(9) a { 
+    background: linear-gradient(135deg, #f7971e, #ffd200); /* Endocrine system - golden yellow to bright amber */
+}
+
+.menu li:nth-child(10) a { 
+    background: linear-gradient(135deg, #ff416c, #ff4b2b); /* Integumentary system - vivid pink to bright red */
+}
+
+.menu li:nth-child(11) a { 
+    background: linear-gradient(135deg, #f12711, #f5af19); /* Extra button - rich red to golden orange */
+}
+
+
+/* Hover Effect for Buttons */
+.menu li a:hover {
+    color: #fff;
+    background: linear-gradient(135deg, #ffffff, #ece9e6); /* Change to white gradient on hover */
+    transform: scale(1.2) rotate(calc(360deg / -10 * var(--i)));
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+/* Toggle Button */
 .toggle {
-  position: absolute;
-  width: 90px;
-  height: 90px;
-  background: #49a0ae;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
-  font-size: 2em;
-  color: #fff;
-  transition: transform 1.25s;
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, #49a0ae, #00d4ff); /* Gradient for toggle button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    font-size: 2em;
+    color: #fff;
+    transition: transform 1.25s ease;
 }
 
 .menu.active .toggle {
-  transform: rotate(315deg);
+    transform: rotate(360deg);
 }
+
 /* Enhanced Chatbox Styles with Gradients */
 #chatbox {
     position: fixed;
