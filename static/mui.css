@@ -621,11 +621,11 @@ h4, h5, h6 {
 
 .mui-btn--primary {
   color: #FFF;
-  background-color: #2196F3;
+  background-color: #49a0ae;
 }
 .mui-btn--primary:hover, .mui-btn--primary:focus, .mui-btn--primary:active {
   color: #FFF;
-  background-color: #39a1f4;
+  background-color: #b2e6ee;
 }
 .mui-btn--primary[disabled]:hover, .mui-btn--primary[disabled]:focus, .mui-btn--primary[disabled]:active {
   color: #FFF;
