@@ -806,7 +806,81 @@ img {
   .tabset {
     max-width: 65em;
   }
-  /* Menu Container */
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    z-index: 10000;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 10; /* Ensure tooltip has a higher z-index than the button */
+    bottom: 125%; /* Adjusts position so the tooltip appears above the button */
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* Custom rotation for each tooltip */
+  .menu li:nth-child(1) .tooltiptext {
+    transform: rotate(300deg); /* No rotation for first tooltip */
+  }
+  .menu li:nth-child(0) .tooltiptext {
+    transform: rotate(300deg); /* No rotation for first tooltip */
+  }
+  
+  .menu li:nth-child(2) .tooltiptext {
+    transform: rotate(0deg); /* Rotate second tooltip by 10 degrees */
+    transform: translateY(30px);
+  }
+  
+  .menu li:nth-child(3) .tooltiptext {
+    transform: rotate(-35deg); /* Rotate third tooltip by 20 degrees */
+  }
+  
+  .menu li:nth-child(4) .tooltiptext {
+    transform: rotate(-70deg); /* Rotate fourth tooltip by -10 degrees */
+  }
+  
+  .menu li:nth-child(5) .tooltiptext {
+    transform: rotate(-110deg); /* Rotate fifth tooltip by -20 degrees */
+  }
+  .menu li:nth-child(6) .tooltiptext {
+    transform: rotate(-145deg); /* Rotate fifth tooltip by -20 degrees */
+  }
+  .menu li:nth-child(7) .tooltiptext {
+    transform: rotate(-180deg); /* Rotate fifth tooltip by -20 degrees */
+  }
+  .menu li:nth-child(8) .tooltiptext {
+    transform: rotate(-215deg); /* Rotate fifth tooltip by -20 degrees */
+  }
+
+  .menu li:nth-child(9) .tooltiptext {
+    transform: rotate(-252deg); /* Rotate fifth tooltip by -20 degrees */
+  }
+  .menu li:nth-child(10) .tooltiptext {
+    transform: rotate(-290deg); /* Rotate fifth tooltip by -20 degrees */
+  }
+  
+  .menu li:nth-child(11) .tooltiptext {
+    transform: rotate(35deg); /* No rotation for first tooltip */
+  }
+
+/* Menu Container */
 .menu {
     position: fixed;
     top: 40%;
@@ -817,7 +891,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1000000;
     padding-right: 30px;
 }
 
@@ -880,7 +954,7 @@ img {
 }
 
 .menu li:nth-child(7) a { 
-    background: linear-gradient(135deg, #801a1a, #d02626); /* Lphatic system - dark blue to cyan */
+    background: linear-gradient(135deg, #801a1a, #d02626); /* Lymphatic system - dark blue to cyan */
 }
 
 .menu li:nth-child(8) a { 
@@ -898,7 +972,6 @@ img {
 .menu li:nth-child(11) a { 
     background: linear-gradient(135deg, #f12711, #f5af19); /* Extra button - rich red to golden orange */
 }
-
 
 /* Hover Effect for Buttons */
 .menu li a:hover {
@@ -929,6 +1002,7 @@ img {
 .menu.active .toggle {
     transform: rotate(360deg);
 }
+
 
 /* Enhanced Chatbox Styles with Gradients */
 #chatbox {
