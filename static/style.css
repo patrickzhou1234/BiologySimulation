@@ -821,8 +821,7 @@ img {
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
-    z-index: 10; /* Ensure tooltip has a higher z-index than the button */
-    bottom: 125%; /* Adjusts position so the tooltip appears above the button */
+
     bottom: 125%;
     left: 50%;
     margin-left: -60px;
@@ -891,7 +890,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000000;
+    z-index: 1;
     padding-right: 30px;
 }
 
