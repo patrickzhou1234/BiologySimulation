@@ -817,6 +817,7 @@ function loadETC(val) {
         clear();
         BABYLON.SceneLoader.ImportMesh("", "", "models/etc.glb", scene, function (meshes) {
             etcref = meshes[0];
+            camera.target = new BABYLON.Vector3(2.2716116774026744,2.9540898105264355,-15.497743901108434);
             allMeshes.push(etcref);
             showbtn(backcell);
         });
