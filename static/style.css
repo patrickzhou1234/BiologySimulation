@@ -806,20 +806,19 @@ img {
   .tabset {
     max-width: 65em;
   }
-
-.menu {
-  position: fixed;
-  top: 40%;
-  right: 5vw;
-  transform: translateY(-50%);
-  width: 200px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding-right: 30px;
-}
+  .menu {
+    position: fixed;
+    top: 40%;
+    right: 5vw;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding-right: 30px;
+  }
 
 .menu li {
   position: absolute;
@@ -849,8 +848,48 @@ img {
 }
 
 /* Color styles for each button */
-.menu li:nth-child(1) a { background: #1e88e5; }
-.menu li:nth-child(2) a { background: #43a047; }
+.menu li:nth-child(1) a { 
+    background: #1e88e5; /* Nervous system - blue */
+  }
+  
+  .menu li:nth-child(2) a { 
+    background: #43a047; /* Skeletal system - green */
+  }
+  
+  .menu li:nth-child(3) a { 
+    background: #f4511e; /* Excretory system - orange */
+  }
+  
+  .menu li:nth-child(4) a { 
+    background: #c12f2c; /* Respiratory system - red */
+  }
+  
+  .menu li:nth-child(5) a { 
+    background: #8e24aa; /* Digestive system - purple */
+  }
+  
+  .menu li:nth-child(6) a { 
+    background: #fb8c00; /* Circulatory system - amber */
+  }
+  
+  .menu li:nth-child(7) a { 
+    background: #ff0000; /* Lymphatic system - indigo */
+  }
+  
+  .menu li:nth-child(8) a { 
+    background: #00acc1; /* Muscular system - teal */
+  }
+  
+  .menu li:nth-child(9) a { 
+    background: #ffeb3b; /* Endocrine system - yellow */
+  }
+  
+  .menu li:nth-child(10) a { 
+    background: #ff5722; /* Integumentary system - deep orange */
+  }
+  .menu li:nth-child(11) a { 
+    background: #ffcf81; /* Integumentary system - deep orange */
+  }
 /* Repeat similar color styles for all the menu items */
 
 .menu li a:hover {
@@ -882,16 +921,17 @@ img {
 
 /* Chatbox styles */
 #chatbox {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 300px;
-  height: 400px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  display: none;
-  flex-direction: column;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: none;
+    flex-direction: column;
+    z-index: 10001; /* Ensure it's above other elements */
 }
 
 #messages {
@@ -922,16 +962,6 @@ img {
   padding: 10px 15px;
 }
 
-.chatbotbutton {
-  margin-top: 5px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 #toggle-chatbox {
   position: fixed;
   bottom: 20px;
@@ -942,4 +972,5 @@ img {
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  z-index: 10002; /* Ensure it's above the chatbox */
 }

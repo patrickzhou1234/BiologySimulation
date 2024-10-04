@@ -104,7 +104,9 @@
         <button class="tablinks largeBtn" onclick="loadskeletal(0)">Skeletal</button>
         <button class="tablinks largeBtn" onclick="loadexretory(0)">Excretory</button>
         <button class="tablinks largeBtn" onclick="loadrespinsitu(0)">Respiratory</button>
-        <button class="tablinks largeBtn" onclick="loaddigestiveinsitu(0)">Digestive</button>
+        <button class
+        
+        ="tablinks largeBtn" onclick="loaddigestiveinsitu(0)">Digestive</button>
         <button class="tablinks largeBtn" onclick="loadcirculatory(0)">Circulatory</button>
         <button class="tablinks largeBtn" onclick="loadlymphatic(0)">Lymphatic</button>
         <button class="tablinks largeBtn" onclick="loadmuscular(0)">Muscular</button>
@@ -115,12 +117,13 @@
     </div>
     <canvas id="babcanv"></canvas>
     <button id="toggle-chatbox" onclick="toggleChatbox()">Open Chat</button>
-    <div id="chatbox">
-      <div id="messages"></div>
-      <div id="input-box">
-          <input type="text" id="user-input" placeholder="Type a message">
-          <button onclick="sendMessage()" type="button" id="sendbutton">Send</button>
-    </div>
+<div id="chatbox">
+  <div id="messages"></div>
+  <div id="input-box">
+    <input type="text" id="user-input" placeholder="Type a message">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
     <script>
         let messagesDiv = document.getElementById('messages');
         let input = document.getElementById("user-input");
@@ -130,13 +133,13 @@
         // Function to toggle the chatbox visibility
         function toggleChatbox() {
             if (chatbox.style.display === 'none' || chatbox.style.display === '') {
-                chatbox.style.display = 'flex';  // Show chatbox
+                chatbox.style.display = 'flex';
                 toggleButton.textContent = 'Close Chat';
-                toggleButton.style.bottom = "450px"
+                toggleButton.style.bottom = '420px'; // Adjust this value as needed
             } else {
-                chatbox.style.display = 'none';  // Hide chatbox
+                chatbox.style.display = 'none';
                 toggleButton.textContent = 'Open Chat';
-                toggleButton.style.bottom = "20px"
+                toggleButton.style.bottom = '20px';
             }
         }
 
@@ -284,14 +287,14 @@
       </li>
     </div>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script>
-      let toggle = document.querySelector('.toggle');
-      let menu = document.querySelector('.menu');
-      toggle.onclick = function(){
-        menu.classList.toggle('active')
-      }
-    </script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+  let toggle = document.querySelector('.toggle');
+  let menu = document.querySelector('.menu');
+  toggle.onclick = function(){
+    menu.classList.toggle('active')
+  }
+</script>
 </body>
 
 </html>
