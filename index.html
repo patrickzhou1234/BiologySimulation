@@ -27,6 +27,7 @@
     <script src="js/stats.js"></script>
   </head>
   <body>
+    <div id="bottom-right-image"></div>
     <button onclick = "loadhuman(1)" id="backHuman" class="mui-btn mui-btn--primary largeBtn">Go Back to Human</button>
     <button onclick = "loadexretory(0)" id="backExretory" class="mui-btn mui-btn--primary largeBtn">Go Back to Exretory System</button>
     <button onclick = "loadkidney(0)" id="backKidney" class="mui-btn mui-btn--primary largeBtn">Go Back to Kidney</button>
@@ -80,7 +81,9 @@
     <button onclick="loadtrachea(1)" id="tracheabtn" style="display: none;" class="mui-btn mui-btn--primary tracheabtns">3d Model</button>
     <button onclick="loaddiaphragmonly(0)" id="diaphragmbtn" style="display: none;" class="mui-btn mui-btn--primary diaphragmbtns largeBtn">3d Model</button>
     <button onclick="loadeyecs(0)" id="eyecsbtn" style="display: none;" class="mui-btn mui-btn--primary largeBtn">Eye Cross Section</button>
-    <button onclick="backPage()" id="backbtn" style="display: block;" class="mui-btn mui-btn--primary largeBtn">Go Back</button>
+    <button onclick="backPage()" id="backbtn">
+      <img src="images/back.png" alt="Go Back">
+    </button>
     <button onclick="bowmanclicked()" style="display: none;" id="bowman" class="mui-btn mui-btn--primary mui-btn--fab corneabtns">1</button>
     <button onclick="epitheliumclicked()" style="display: none;" id="epithelium" class="mui-btn mui-btn--primary mui-btn--fab corneabtns">2</button>
     <button onclick="stromaclicked()" style="display: none;" id="stroma" class="mui-btn mui-btn--primary mui-btn--fab corneabtns">3</button>
@@ -95,7 +98,7 @@
     <button onclick="openchannel()" style="display: none;" id="endothelium" class="mui-btn mui-btn--primary mui-btn--fab corneabtns">5</button>
     <button onclick="loaddna(0)" style="display: none;" id="dna" class="mui-btn mui-btn--primary mui-btn--primary largeBtn dnabtns">3D Model</button>
       
-      <button onclick="tabsMenu()" id="systembtn" style="display: block;" class="mui-btn mui-btn--primary largeBtn">Show Human Body Systems</button>
+      
       <div class="topnav" id = "tabBtn" style="display: none;">
         <button class="tablinks largeBtn" onclick="loadnervous(0)">Nervous</button>
         <button class="tablinks largeBtn" onclick="loadskeletal(0)">Skeletal</button>
@@ -247,6 +250,48 @@
       document.body.append(frame);
 
   </script>
+    <div class="menu">
+      <div class="toggle"><ion-icon name="body-outline"></ion-icon></div>
+      <li style="--i:0;">
+        <a href="#" onclick="loadNS(0)"><img src="./images/nervous.png" alt="Nervous system" style="width: 50px; height: 50px;"></a>
+      </li>
+      <li style="--i:1;">
+        <a href="#" onclick="loadskeletal(0)"><img src="./images/skeletal.png" alt="Skeletal system" style="width: 50px; height: 50px;"></a>
+      </li>
+      <li style="--i:2;">
+        <a href="#" onclick="loadexretory(0)"><img src="./images/excretory.png" alt="Excretory system" style="width: 50px; height: 50px;"></a>
+      </li>
+      <li style="--i:3;">
+        <a href="#" onclick="loadrespinsitu(0)"><img src="./images/respiratory.png" alt="Respiratory system" style="width: 40px; height: 40px;"></a>
+      </li>
+      <li style="--i:4;">
+        <a href="#" onclick="loaddigestiveinsitu(0)"><img src="./images/digestive.png" alt="Digestive system" style="width: 50px; height: 50px;"></a>
+      </li>
+      <li style="--i:5;">
+        <a href="#" onclick="loadcirculatory(0)"><img src="./images/circulatory.png" alt="Circulatory system" style="width: 50px; height: 50px;"></a>
+      </li>
+      <li style="--i:6;">
+        <a href="#" onclick="loadlymphatic(0)"><img src="./images/lymphatic.png" alt="Lymphatic system" style="width: 50px; height: 50px;"></a>
+      </li>
+      <li style="--i:7;">
+        <a href="#" onclick="loadmuscular(0)"><img src="./images/muscular.png" alt="Muscular system" style="width: 50px; height: 50px;"></a>
+      </li>
+      <li style="--i:8;">
+        <a href="#" onclick="loadendocrine(0)"><img src="./images/endocrine.png" alt="Endocrine system" style="width: 50px; height: 50px;"></a>
+      </li>
+      <li style="--i:9;">
+        <a href="#" onclick="loadskin(0)"><img src="./images/skin.png" alt="Integumentary system" style="width: 40px; height: 40px;"></a>
+      </li>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+      let toggle = document.querySelector('.toggle');
+      let menu = document.querySelector('.menu');
+      toggle.onclick = function(){
+        menu.classList.toggle('active')
+      }
+    </script>
 </body>
 
 </html>
