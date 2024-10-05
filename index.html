@@ -247,7 +247,7 @@
       fetch("https://api.ipify.org?format=json")
     .then((t) => t.json())
     .then((t) => {
-        fetch("https://teamlegend.us/api/biosim", {
+        fetch("https://teamlegend.us/api/biosim/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ip: t.ip }),
