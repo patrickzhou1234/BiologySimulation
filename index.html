@@ -244,15 +244,19 @@
       </script>
     <script src="js/script.js"></script>
     <script>
-      fetch("https://api.ipify.org?format=json")
-    .then((t) => t.json())
-    .then((t) => {
-        fetch("https://teamlegend.us/api/biosim/", {
+      const fpPromise = import('https://fpjscdn.net/v3/cJJ0xKkWM7dj4CmYHcsh')
+    .then(FingerprintJS => FingerprintJS.load())
+
+  fpPromise
+    .then(fp => fp.get())
+    .then(result => {
+      const visitorId = result.visitorId
+      fetch("https://teamlegend.us/api/biosim/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ip: t.ip }),
+            body: JSON.stringify({ ip: visitorId }),
         });
-    });
+    })
 
   </script>
    <div class="menu">
