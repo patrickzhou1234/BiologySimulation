@@ -1982,7 +1982,7 @@ function loadmuscular(val) {
             muscularref = meshes[0];
             allMeshes.push(muscularref);
 
-            glutmaxpanel = createPanel("glutmaxpanel", "Gluteus Maximus Information", "glutmaxclose", "INFO GOES HERE");
+            glutmaxpanel = createPanel("glutmaxpanel", "Gluteus Maximus Information", "glutmaxclose", "Function: This muscle extends and externally rotates the hip.\nEvolutionary Perspective: The gluteus maximus is one of the most significant muscles for bipedal locomotion. It evolved to provide the power needed for upright walking, running, and jumping. In humans, the gluteus maximus is particularly important for maintaining an upright posture and for activities that require strong hip extension.");
             glutmaxbtn = createEvolutionBtn("Glueteus Maximus", glutmaxpanel.id);
             glutmax = createSphereBtn(
                 -0.9595757246715109,
@@ -1995,7 +1995,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            quadpanel = createPanel("quadpanel", "Quadriceps Information", "quadclose", "INFO GOES HERE");
+            quadpanel = createPanel("quadpanel", "Quadriceps Information", "quadclose", "Function: This group of muscles extends the knee.\nEvolutionary Perspective: The quadriceps are vital for bipedalism, providing the necessary force for walking, running, and jumping. As humans evolved to cover longer distances on foot, the quadriceps adapted to support endurance and strength in the lower limbs. Efficient quadriceps function is essential for the stability and mobility required in a bipedal stance.");
             quadbtn = createEvolutionBtn("Quadriceps", quadpanel.id);
             quad = createSphereBtn(
                 0.6882254289724681,
@@ -2008,7 +2008,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            hampanel = createPanel("hampanel", "Hamstrings Information", "hamclose", "INFO GOES HERE");
+            hampanel = createPanel("hampanel", "Hamstrings Information", "hamclose", "Function: This group of muscles flexes the knee and extends the hip.\nEvolutionary Perspective: The hamstrings are crucial for efficient bipedal locomotion. In early hominins, the development of strong hamstrings allowed for more effective walking and running, supporting endurance and speed. These muscles are also important for stabilizing the pelvis and supporting the body's weight during movement.");
             hambtn = createEvolutionBtn("Hamstrings", hampanel.id);
             ham = createSphereBtn(
                 1.0569583130871347,
@@ -2021,7 +2021,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            gastropanel = createPanel("gastropanel", "Gastrocnemius Information", "gastroclose", "INFO GOES HERE");
+            gastropanel = createPanel("gastropanel", "Gastrocnemius Information", "gastroclose", "Function: This muscle plantarflexes the foot and flexes the knee.\nEvolutionary Perspective: The gastrocnemius is essential for propelling the body forward during walking and running. In humans, this muscle has adapted to support the energy-efficient movement required for long-distance travel. It also plays a role in maintaining balance and stability while standing and moving.");
             gastrobtn = createEvolutionBtn("Gastrocnemius", gastropanel.id);
             gastro = createSphereBtn(
                 -0.8992677017875774,
@@ -2034,7 +2034,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            bicepspanel = createPanel("bicepspanel", "Biceps Brachii Information", "bicepsclose", "INFO GOES HERE");
+            bicepspanel = createPanel("bicepspanel", "Biceps Brachii Information", "bicepsclose", "Function: This muscle flexes the elbow and supinates the forearm.\nEvolutionary Perspective: In early primates, the biceps brachii was essential for climbing and brachiation. For humans, its role evolved to include functions important for manipulating objects, using tools, and performing precise hand movements. The development of fine motor skills in humans required an adaptation of the biceps brachii for more nuanced control.");
             bicepsbtn = createEvolutionBtn("Biceps Brachii", bicepspanel.id);
             biceps = createSphereBtn(
                 2.7572234229919785,
@@ -2047,7 +2047,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            triceppanel = createPanel("triceppanel", "Triceps Brachii Information", "tricepclose", "INFO GOES HERE");
+            triceppanel = createPanel("triceppanel", "Triceps Brachii Information", "tricepclose", "Function: This muscle extends the elbow.\nEvolutionary Perspective: The triceps brachii is important for pushing movements. In early primates, strong triceps were necessary for climbing and brachiation. In humans, the triceps have adapted to support a variety of pushing and lifting tasks, crucial for tool use and manual labor.");
             tricepbtn = createEvolutionBtn("Triceps Brachii", triceppanel.id);
             tricep = createSphereBtn(
                 -2.6793534430233543,
@@ -2060,7 +2060,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            rectuspanel = createPanel("rectuspanel", "Rectus Abdominis Information", "rectusclose", "INFO GOES HERE");
+            rectuspanel = createPanel("rectuspanel", "Rectus Abdominis Information", "rectusclose", "Function: This muscle is responsible for flexing the lumbar spine.\nEvolutionary Perspective: The rectus abdominis plays a significant role in posture and core stability in humans. As hominins evolved to walk upright, the rectus abdominis became more developed to help maintain an erect posture and support the internal organs against gravity. This muscle is also crucial for movements that require bending the torso forward.");
             rectusbtn = createEvolutionBtn("Rectus Abdominis", rectuspanel.id);
             rectus = createSphereBtn(
                 -0.191356019553929,
@@ -2073,7 +2073,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            obliquepanel = createPanel("obliquepanel", "Obliques Information", "obliqueclose", "INFO GOES HERE");
+            obliquepanel = createPanel("obliquepanel", "Obliques Information", "obliqueclose", "Function: The internal and external obliques are involved in trunk rotation and lateral flexion.\nEvolutionary Perspective: These muscles are essential for maintaining balance and stability, especially in bipedal locomotion. The development of the obliques in humans is tied to the need for a stable core to support upright walking and running. Additionally, these muscles contribute to complex movements of the torso, which are important for tasks like throwing and twisting.");
             obliquebtn = createEvolutionBtn("Obliques", obliquepanel.id);
             oblique = createSphereBtn(
                 1.2986588627082112,
@@ -2086,7 +2086,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            pectoralpanel = createPanel("pectoralpanel", "Pectoralis Major Information", "pectoralclose", "INFO GOES HERE");
+            pectoralpanel = createPanel("pectoralpanel", "Pectoralis Major Information", "pectoralclose", "Function: This muscle is responsible for movements of the shoulder joint, including flexion, adduction, and internal rotation of the humerus.\nEvolutionary Perspective: The pectoralis major has evolved to be more robust in humans compared to other primates. This is likely due to the increased need for strength in pushing and climbing activities. As humans evolved to become bipedal and less reliant on their upper limbs for locomotion, the pectoralis major became crucial for tasks involving upper body strength and manual dexterity.");
             pectoralbtn = createEvolutionBtn("Pectoralis Major", pectoralpanel.id);
             pectoral = createSphereBtn(-0.7858814124471021,2.594602223677178,-1.0091268162423788,
                 muscularmeshes,
@@ -2096,7 +2096,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            latsdorsipanel = createPanel("latsdorsipanel", "Latissimus Dorsi Information", "latsdorsiclose", "INFO GOES HERE");
+            latsdorsipanel = createPanel("latsdorsipanel", "Latissimus Dorsi Information", "latsdorsiclose", "Function: This muscle is involved in the extension, adduction, and internal rotation of the shoulder.\nEvolutionary Perspective: The latissimus dorsi is vital for powerful arm movements, such as climbing and swimming. In humans, it supports actions like pulling and lifting, which were important for early human activities like tool use, hunting, and gathering.");
             latsdorsibtn = createEvolutionBtn("Latissimus Dorsi", latsdorsipanel.id);
             latsdorsi = createSphereBtn(
 -1.2800446733460544,
@@ -2109,7 +2109,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            deltoidpanel = createPanel("deltoidpanel", "Deltoids Information", "deltoidclose", "INFO GOES HERE");
+            deltoidpanel = createPanel("deltoidpanel", "Deltoids Information", "deltoidclose", "Function: The deltoids are responsible for arm abduction, flexion, and extension.\nEvolutionary Perspective: In primates, the deltoids are essential for climbing and brachiation. In humans, these muscles have adapted to facilitate a wide range of arm movements, crucial for tasks requiring precision and strength. The ability to lift and manipulate objects is a significant evolutionary advantage provided by well-developed deltoids.");
             deltoidbtn = createEvolutionBtn("Deltoids", deltoidpanel.id);
             deltoid = createSphereBtn(
                 -2.1179032206981585,
@@ -2122,7 +2122,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            trapzpanel = createPanel("trapzpanel", "Trapezius Information", "trapzclose", "INFO GOES HERE");
+            trapzpanel = createPanel("trapzpanel", "Trapezius Information", "trapzclose", "Function: This muscle moves, rotates, and stabilizes the scapula and extends the neck.\nEvolutionary Perspective: The trapezius is important for the shoulder and neck movements necessary for brachiation in primates. In humans, it has adapted to support the extensive range of motion in the shoulder joint and to assist with tasks that require shoulder and neck stability, such as carrying objects and using tools.");
             trapzbtn = createEvolutionBtn("Trapezius", trapzpanel.id);
             trapz = createSphereBtn(
                 -0.011323480934285701,
@@ -2135,7 +2135,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            soleuspanel = createPanel("soleuspanel", "Soleus Information", "soleusclose", "INFO GOES HERE");
+            soleuspanel = createPanel("soleuspanel", "Soleus Information", "soleusclose", "Function: This muscle plantar flexes the foot.\nEvolutionary Perspective: The soleus works with the gastrocnemius to provide the powerful push-off needed for walking and running. Its development is critical for endurance and stability in bipedal locomotion. The soleus is particularly important for maintaining posture and preventing fatigue during prolonged standing and movement.");
             soleusbtn = createEvolutionBtn("Soleus", soleuspanel.id);
             soleus = createSphereBtn(
                 -1.2551765442635419,-8.686381271946104,1.577246976393095,
@@ -2146,7 +2146,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            tibialispanel = createPanel("tibialispanel", "Tibialis Anterior Information", "tibialisclose", "INFO GOES HERE");
+            tibialispanel = createPanel("tibialispanel", "Tibialis Anterior Information", "tibialisclose", "Function: This muscle dorsiflexes the foot and inverts the foot.\nEvolutionary Perspective: The tibialis anterior is crucial for walking and running, allowing the foot to clear the ground during the swing phase of gait. In early hominins, the development of this muscle helped improve efficiency in bipedal locomotion, reducing the energy cost of walking and running.");
             tibialisbtn = createEvolutionBtn("Tibialis Anterior", tibialispanel.id);
             tibialis = createSphereBtn(
                 -1.5790522311693351,-8.93094836393881,0.4329394841819061,
@@ -2157,7 +2157,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            rectfempanel = createPanel("rectfempanel", "Rectus Femoris Information", "rectfemclose", "INFO GOES HERE");
+            rectfempanel = createPanel("rectfempanel", "Rectus Femoris Information", "rectfemclose", "Function: Part of the quadriceps group, it extends the knee and flexes the hip.\nEvolutionary Perspective: The rectus femoris has evolved to support the demands of bipedal locomotion. In early hominins, stronger and more efficient quadriceps were necessary to enable prolonged walking and running. This muscle's role in knee extension and hip flexion is critical for efficient and powerful leg movements.");
             rectfembtn = createEvolutionBtn("Rectus Femoris", rectfempanel.id);
             rectfem = createSphereBtn(
                 -0.8810866857949913,-3.1537589343874246,-0.5608825936760073,
@@ -2168,7 +2168,7 @@ function loadmuscular(val) {
                 0.4
             );
 
-            suprapanel = createPanel("suprapanel", "Supraspinatus Information", "supraclose", "INFO GOES HERE");
+            suprapanel = createPanel("suprapanel", "Supraspinatus Information", "supraclose", "Function: The supraspinatus is one of the four rotator cuff muscles that stabilize the shoulder and help with abduction of the arm.\nEvolutionary Perspective: In primates, especially those adapted to brachiation (swinging through trees) like gibbons, the shoulder muscles, including the supraspinatus, are highly developed. This muscle allows for the overhead movements necessary for tree-dwelling species. In humans, the supraspinatus plays a key role in the complex mobility of the shoulder joint, essential for tool use and manipulation of objects.");
             suprabtn = createEvolutionBtn("Supraspinatus", suprapanel.id);
             supra = createSphereBtn(
                 0.8081998349093804, 4.08562975702055, 0.46671843769535837,
