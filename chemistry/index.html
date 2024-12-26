@@ -15,6 +15,9 @@
 <body>
 <div id="info">Interactive 3D Periodic Table<br>Click on an element to view its atomic structure<br><br><div>Hold Shift for Free Cam</div><div>Hold Shift for Free Cam</div><div onclick="resetCam();">Click Here to Reset Camera</div></div>
 <div id="elementInfo"></div>
+<div id="controls" style="position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);">
+  <button id="electronSpeedButton" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #333; color: white; border: none; border-radius: 5px;" onclick="toggleElectronMovement()">Dynamic Electron Movement: Off</button>
+</div>
 
 
 
@@ -23,6 +26,7 @@
   let scene, camera, renderer, controls;
   let periodicTable = {};
   let currentAtom = null;
+  let currentElement = null;
 
   const elementColors = {
     'Alkali Metal': 0xFF6666,
@@ -233,7 +237,9 @@
     return elementColors[categories[element]] || 0xCCCCCC;
   }
 
-  function createAtomModel(element) {
+  function createAtomModel(element, speed = 0.02) {
+    console.log(element)
+    console.log(currentAtom)
     if (currentAtom) {
       scene.remove(currentAtom);
     }
@@ -267,13 +273,24 @@
           0,
           shellRadius * Math.sin(angle)
         );
-        electron.userData = {
-          angle,
-          radius: shellRadius,
-          // REMOVE speed or CHANGE speed to set speed or random speed
-          speed: Math.random() * 0.02 + 0.01
-          //speed: 0.02
-        };
+        if(speed == null){
+          electron.userData = {
+            angle,
+            radius: shellRadius,
+            // REMOVE speed or CHANGE speed to set speed or random speed
+            speed: Math.random() * 0.02 + 0.01
+            //speed: 0.02
+          };
+        }
+        else{
+          electron.userData = {
+            angle,
+            radius: shellRadius,
+            // REMOVE speed or CHANGE speed to set speed or random speed
+            speed: speed
+            //speed: 0.02
+          };
+        }
         atomGroup.add(electron);
       }
     });
@@ -483,6 +500,7 @@ function getElectronConfiguration(element) {
       for (const element in periodicTable) {
         if (periodicTable[element].mesh === object) {
           createAtomModel(element);
+          currentElement = element
           new TWEEN.Tween(camera.position)
             .to({ x: periodicTable[element].position.x, y: periodicTable[element].position.y, z: 10*getElectronConfiguration(element).length }, 1000)
             .easing(TWEEN.Easing.Quadratic.Out)
@@ -490,6 +508,17 @@ function getElectronConfiguration(element) {
           break;
         }
       }
+    }
+  }
+
+  function toggleElectronMovement() {
+    var button = document.getElementById('electronSpeedButton');
+    if (button.innerHTML === 'Dynamic Electron Movement: Off') {
+      button.innerHTML = 'Dynamic Electron Movement: On';
+      createAtomModel(currentElement, null)
+    } else {
+      button.innerHTML = 'Dynamic Electron Movement: Off';
+      createAtomModel(currentElement, 0.02)
     }
   }
 
