@@ -3,12 +3,14 @@
     src: URL("Amazon-Ember-Medium.ttf") format("truetype");
 }
 
-html, body {margin: 0; height: 100%; overflow: hidden,}
-
-
+html,
+body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
 
 #babcanv {
-
     position: absolute;
     top: 0px;
     left: 0px;
@@ -20,13 +22,21 @@ html, body {margin: 0; height: 100%; overflow: hidden,}
 .swal2-container::-webkit-scrollbar {
     display: none;
 }
+
+.swal2-popup {
+    border: 2px solid #dadada;
+    border-radius: 7px;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+
 #bottom-right-image {
     position: fixed;
     bottom: 20px;
     right: 20px;
     width: 200px;
     height: 200px;
-    background-image: url('../images/biosim-transparent.png');
+    background-image: url("../images/biosim-transparent.png");
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 9999;
@@ -182,6 +192,7 @@ html, body {margin: 0; height: 100%; overflow: hidden,}
     border-radius: 6px;
     font-family: "amazon-ember";
     font-size: calc(0.65vw + 0.65vh);
+    /* animation: largePulse 1.3s ease infinite; */
 }
 
 #backcell {
@@ -195,6 +206,7 @@ html, body {margin: 0; height: 100%; overflow: hidden,}
 }
 
 #backHuman {
+    /* animation: animbtn 1.3s ease forwards !important; */
     left: 6vh;
     opacity: 1;
 }
@@ -243,6 +255,16 @@ html, body {margin: 0; height: 100%; overflow: hidden,}
     top: 38vh;
 }
 
+.receptorgifs {
+    width: 30vmin;
+    height: 30vmin;
+    margin: 10px;
+}
+
+.animbtn.pulse {
+    animation: animbtn 1.3s ease forwards, largePulse 1.3s ease infinite !important;
+}
+
 .animbtn {
     animation: animbtn 1.3s ease forwards;
 }
@@ -250,6 +272,18 @@ html, body {margin: 0; height: 100%; overflow: hidden,}
 .animobtn {
     cursor: default !important;
     animation: animobtn 1.3s ease forwards;
+}
+
+@keyframes largePulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 @keyframes animbtn {
@@ -649,8 +683,8 @@ img {
     top: 84vh;
 }
 #eyebtn {
-    left: 80vh;
-    bottom: 0vh;
+    left: 45vw;
+    bottom: 3vh;
 }
 
 #backbtn {
@@ -686,8 +720,12 @@ img {
 }
 .tablinks {
     position: relative;
-    left: 23%;    
+    left: 23%;
     border-radius: 0px;
+}
+
+#instructionicon {
+    left: 12vmin;
 }
 
 #home {
@@ -695,10 +733,10 @@ img {
 }
 
 .iconclass {
-    width: 5vmin;
-    height: 5vmin;
+    width: 7vmin;
+    height: 7vmin;
     position: absolute;
-    top: 94vmin;
+    top: 90vmin;
     transition: transform 0.2s;
 }
 
@@ -743,22 +781,22 @@ img {
 .tabset > input[type="radio"] {
     position: absolute;
     left: -200vw;
-  }
-  
-  .tabset .tab-panel {
+}
+
+.tabset .tab-panel {
     display: none;
-  }
-  
-  .tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
-  .tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
-  .tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
-  .tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
-  .tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
-  .tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
+}
+
+.tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
+.tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
+.tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
+.tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
+.tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
+.tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
     display: block;
-  }
-  
-  .tabset > label {
+}
+
+.tabset > label {
     position: relative;
     display: inline-block;
     padding: 15px 15px 25px;
@@ -766,9 +804,9 @@ img {
     border-bottom: 0;
     cursor: pointer;
     font-weight: 600;
-  }
-  
-  .tabset > label::after {
+}
+
+.tabset > label::after {
     content: "";
     position: absolute;
     left: 15px;
@@ -776,37 +814,35 @@ img {
     width: 22px;
     height: 4px;
     background: #8d8d8d;
-  }
-  
-  
-  
-  .tabset > label:hover,
-  .tabset > input:focus + label,
-  .tabset > input:checked + label {
+}
+
+.tabset > label:hover,
+.tabset > input:focus + label,
+.tabset > input:checked + label {
     color: #06c;
-  }
-  
-  .tabset > label:hover::after,
-  .tabset > input:focus + label::after,
-  .tabset > input:checked + label::after {
+}
+
+.tabset > label:hover::after,
+.tabset > input:focus + label::after,
+.tabset > input:checked + label::after {
     background: #06c;
-  }
-  
-  .tabset > input:checked + label {
+}
+
+.tabset > input:checked + label {
     border-color: #ccc;
     border-bottom: 1px solid #fff;
     margin-bottom: -1px;
-  }
-  
-  .tab-panel {
+}
+
+.tab-panel {
     padding: 30px 0;
     border-top: 1px solid #ccc;
-  }
-  
-  .tabset {
+}
+
+.tabset {
     max-width: 65em;
-  }
-  .tooltip {
+}
+.tooltip {
     position: relative;
     display: inline-block;
     z-index: 10000;
@@ -827,57 +863,57 @@ img {
     margin-left: -60px;
     opacity: 0;
     transition: opacity 0.3s;
-  }
-  
-  .tooltip:hover .tooltiptext {
+}
+
+.tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-  }
-  
-  /* Custom rotation for each tooltip */
-  .menu li:nth-child(1) .tooltiptext {
+}
+
+/* Custom rotation for each tooltip */
+.menu li:nth-child(1) .tooltiptext {
     transform: rotate(300deg); /* No rotation for first tooltip */
-  }
-  .menu li:nth-child(0) .tooltiptext {
+}
+.menu li:nth-child(0) .tooltiptext {
     transform: rotate(300deg); /* No rotation for first tooltip */
-  }
-  
-  .menu li:nth-child(2) .tooltiptext {
+}
+
+.menu li:nth-child(2) .tooltiptext {
     transform: rotate(0deg); /* Rotate second tooltip by 10 degrees */
     transform: translateY(30px);
-  }
-  
-  .menu li:nth-child(3) .tooltiptext {
-    transform: rotate(-35deg); /* Rotate third tooltip by 20 degrees */
-  }
-  
-  .menu li:nth-child(4) .tooltiptext {
-    transform: rotate(-70deg); /* Rotate fourth tooltip by -10 degrees */
-  }
-  
-  .menu li:nth-child(5) .tooltiptext {
-    transform: rotate(-110deg); /* Rotate fifth tooltip by -20 degrees */
-  }
-  .menu li:nth-child(6) .tooltiptext {
-    transform: rotate(-145deg); /* Rotate fifth tooltip by -20 degrees */
-  }
-  .menu li:nth-child(7) .tooltiptext {
-    transform: rotate(-180deg); /* Rotate fifth tooltip by -20 degrees */
-  }
-  .menu li:nth-child(8) .tooltiptext {
-    transform: rotate(-215deg); /* Rotate fifth tooltip by -20 degrees */
-  }
+}
 
-  .menu li:nth-child(9) .tooltiptext {
+.menu li:nth-child(3) .tooltiptext {
+    transform: rotate(-35deg); /* Rotate third tooltip by 20 degrees */
+}
+
+.menu li:nth-child(4) .tooltiptext {
+    transform: rotate(-70deg); /* Rotate fourth tooltip by -10 degrees */
+}
+
+.menu li:nth-child(5) .tooltiptext {
+    transform: rotate(-110deg); /* Rotate fifth tooltip by -20 degrees */
+}
+.menu li:nth-child(6) .tooltiptext {
+    transform: rotate(-145deg); /* Rotate fifth tooltip by -20 degrees */
+}
+.menu li:nth-child(7) .tooltiptext {
+    transform: rotate(-180deg); /* Rotate fifth tooltip by -20 degrees */
+}
+.menu li:nth-child(8) .tooltiptext {
+    transform: rotate(-215deg); /* Rotate fifth tooltip by -20 degrees */
+}
+
+.menu li:nth-child(9) .tooltiptext {
     transform: rotate(-252deg); /* Rotate fifth tooltip by -20 degrees */
-  }
-  .menu li:nth-child(10) .tooltiptext {
+}
+.menu li:nth-child(10) .tooltiptext {
     transform: rotate(-290deg); /* Rotate fifth tooltip by -20 degrees */
-  }
-  
-  .menu li:nth-child(11) .tooltiptext {
+}
+
+.menu li:nth-child(11) .tooltiptext {
     transform: rotate(35deg); /* No rotation for first tooltip */
-  }
+}
 
 /* Menu Container */
 .menu {
@@ -928,47 +964,47 @@ img {
 }
 
 /* Noticeable Gradients for Each Button */
-.menu li:nth-child(1) a { 
+.menu li:nth-child(1) a {
     background: linear-gradient(135deg, #6a11cb, #2575fc); /* Nervous system - deep purple to bright blue */
 }
 
-.menu li:nth-child(2) a { 
+.menu li:nth-child(2) a {
     background: linear-gradient(135deg, #00b09b, #96c93d); /* Skeletal system - turquoise to lime green */
 }
 
-.menu li:nth-child(3) a { 
+.menu li:nth-child(3) a {
     background: linear-gradient(135deg, #ff512f, #f09819); /* Excretory system - fiery red to orange */
 }
 
-.menu li:nth-child(4) a { 
+.menu li:nth-child(4) a {
     background: linear-gradient(135deg, #d31027, #ea384d); /* Respiratory system - deep red to vivid pink */
 }
 
-.menu li:nth-child(5) a { 
+.menu li:nth-child(5) a {
     background: linear-gradient(135deg, #8e2de2, #4a00e0); /* Digestive system - rich purple to deep indigo */
 }
 
-.menu li:nth-child(6) a { 
+.menu li:nth-child(6) a {
     background: linear-gradient(135deg, #ff8008, #ffc837); /* Circulatory system - bright orange to golden yellow */
 }
 
-.menu li:nth-child(7) a { 
+.menu li:nth-child(7) a {
     background: linear-gradient(135deg, #801a1a, #d02626); /* Lymphatic system - dark blue to cyan */
 }
 
-.menu li:nth-child(8) a { 
+.menu li:nth-child(8) a {
     background: linear-gradient(135deg, #0bb6ff, #2c5364); /* Muscular system - deep teal to dark gray */
 }
 
-.menu li:nth-child(9) a { 
+.menu li:nth-child(9) a {
     background: linear-gradient(135deg, #f7971e, #ffd200); /* Endocrine system - golden yellow to bright amber */
 }
 
-.menu li:nth-child(10) a { 
+.menu li:nth-child(10) a {
     background: linear-gradient(135deg, #ff416c, #ff4b2b); /* Integumentary system - vivid pink to bright red */
 }
 
-.menu li:nth-child(11) a { 
+.menu li:nth-child(11) a {
     background: linear-gradient(135deg, #f12711, #f5af19); /* Extra button - rich red to golden orange */
 }
 
@@ -1006,7 +1042,7 @@ img {
 /* Hollow Circle Animation */
 .toggle::before,
 .toggle::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1037,7 +1073,6 @@ img {
         opacity: 0;
     }
 }
-
 
 /* Enhanced Chatbox Styles with Gradients */
 #chatbox {

@@ -762,7 +762,7 @@ function phosphoclicked2() {
         document.getElementById("swal2-html-container").innerHTML = "<ul>Selective permeability</ul><ul>Passive transport</ul><ul>Active transport</ul><ul>Facilitated transport</ul>";
         clickcond(cellmeshes, roundbtns, 2);
         clear();
-        importmesh("phospholipid.glb");
+        importmesh("phospholipid.glb", new BABYLON.Vector3(0.01, 0.01, 0.01));
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -789,12 +789,18 @@ function cholestrolclicked() {
 }
 
 function receptorproteinclicked() {
-    showui();
-    clickcond(cellmeshes, roundbtns, 4);
-    clear();
-    hideui();
-    hidebtn(backHuman);
-    showbtn(backcell);
+    if (checkvis(roundbtns[5])) {
+        clickcond([], roundbtns, 6);
+        Swal.fire({
+            html: '<img class="receptorgifs" src="images/ReceptorProteins/antiporter.gif"></img><img class="receptorgifs" src="images/ReceptorProteins/gated_channel.gif"></img><img class="receptorgifs" src="images/ReceptorProteins/open_channel.gif"></img><br><img class="receptorgifs" src="images/ReceptorProteins/symporter.gif"></img><img class="receptorgifs" src="images/ReceptorProteins/transport_rhodopsin.gif"></img><img class="receptorgifs" src="images/ReceptorProteins/uniporter.gif"></img><p style="text-align:left;">Antiporter: An antiporter is a protein that helps move two different substances across a cell membrane in opposite directions. It is crucial for maintaining things like ion balance and pH levels inside cells. <br><br> Gated Channel: A gated channel is a protein in the cell membrane that can open or close in response to certain signals, like voltage changes or molecule binding. This controls the flow of ions in and out of cells. <br><br> Symporter: A symporter is a protein that transports two molecules or ions across the membrane in the same direction. One substance often moves with its concentration gradient, helping to push the other across. <br><br> Transport Rhodopsin: Transport rhodopsin is a special light-sensitive protein found in some bacteria. When it absorbs light, it helps move ions like protons across the membrane, playing a role similar to ion pumps but activated by light. <br><br> Uniporter: A uniporter is a protein that allows one molecule or ion to passively move across the cell membrane. It only works with one type of substance at a time, usually flowing down its concentration gradient without using energy.</p>',
+            backdrop: false,
+            background: "black",
+            color: "white",
+            title: "Receptor Proteins",
+            width: window.innerWidth * 0.8,
+        });
+    }
+
 }
 
 function loadmitochondria(val) {
@@ -2371,7 +2377,7 @@ function createEvolutionBtn(bone, panel) {
     button.id = `${bone}panelbtn`;
     button.setAttribute("onclick", `loadskevpanel("${panel}", "${button.id}")`);
     button.style.display = "none";
-    button.classList.add("mui-btn", "mui-btn--primary", "largeBtn", "evolutionpanel");
+    button.classList.add("mui-btn", "mui-btn--primary", "largeBtn", "evolutionpanel", "pulse");
 
     // Set the button text
     button.textContent = `${bone} Evolution Information`;
@@ -2466,11 +2472,11 @@ function loadskeletal(val) {
         });
 
         tibfibbtns = [];
-        tibfibpanel = createPanel("tibfibpanel", "Tibula and Fibula Evolution Information", "tibfibclose", "The tibia and fibula are the two bones of the lower leg. The tibia, being the larger bone, evolved to bear most of the body's weight, while the fibula provides stability and support. Together, they enable complex movements and balance necessary for bipedal locomotion.");
-        tibfibevolbtn = createEvolutionBtn("tibula and fibula", tibfibpanel.id);
+        tibfibpanel = createPanel("tibfibpanel", "Tibia and Fibula Evolution Information", "tibfibclose", "The tibia and fibula are the two bones of the lower leg. The tibia, being the larger bone, evolved to bear most of the body's weight, while the fibula provides stability and support. Together, they enable complex movements and balance necessary for bipedal locomotion.");
+        tibfibevolbtn = createEvolutionBtn("tibia and fibula", tibfibpanel.id);
         tibfibbtns.push(tibfibevolbtn);
         tibfib = createSphereBtn(0.8, -4, -0.2, skeletalmeshes, function () {
-            createImagePopUp("Tibula and Fibula", "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability.",  "images/tibfibpicture.webp", window.innerWidth * 0.5, window.innerHeight * 0.5);
+            createImagePopUp("Tibia and Fibula", "The two bones in the lower leg, with the tibia bearing most of the body's weight and the fibula providing stability.",  "images/tibfibpicture.webp", window.innerWidth * 0.5, window.innerHeight * 0.5);
         });
 
         radulnbtns = [];
