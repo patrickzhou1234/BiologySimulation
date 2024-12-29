@@ -42,6 +42,19 @@ body {
     z-index: 9999;
 }
 
+#title {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 3px 3px 0 #ff6b6b, 6px 6px 0 #556270;
+    text-align: center;
+    margin: 20px 0;
+    z-index: 99999999;
+  }
+
 .bronchibtns {
     z-index: 99999999;
     font-family: "amazon-ember";
