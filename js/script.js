@@ -92,6 +92,7 @@ muscularbtns = document.querySelectorAll(".muscularbtns");
 spinebtns = Array.from(document.querySelectorAll(".spinebtns"));
 digestiveinsitubtns = document.querySelectorAll(".digestiveinsitubtns");
 skullbtns = Array.from(document.querySelectorAll(".skullbtns"));
+title = document.getElementById("title")
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 backPageBtn = document.getElementById("backbtn");
@@ -553,7 +554,7 @@ function loadcell() {
         meshes[0].scaling = new BABYLON.Vector3(0.4855579893367401, -0.19247690443455667, 2.106724807070549);
         allMeshes.push(meshes[0]);
     });
-    
+    title.innerHTML = "Cell"
     BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
         // imports 3D mesh
 
@@ -742,6 +743,7 @@ function membraneclicked() {
         clickcond(cellmeshes, roundbtns, 0);
         clear();
         importmesh("cell_membrane.glb");
+        title.innerHTML = "Cell Membrane"
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -752,6 +754,7 @@ function phosphoclicked() {
         clickcond(cellmeshes, roundbtns, 1);
         clear();
         importmesh("phospho_sama.glb");
+        title.innerHTML = "Phospholipid"
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -763,6 +766,7 @@ function phosphoclicked2() {
         clickcond(cellmeshes, roundbtns, 2);
         clear();
         importmesh("phospholipid.glb", new BABYLON.Vector3(0.01, 0.01, 0.01));
+        title.innerHTML = "2 Phospholipids"
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -773,6 +777,7 @@ function openchannel() {
         clickcond(cellmeshes, roundbtns, 3);
         clear();
         importmesh("openchannel.glb");
+        title.innerHTML = "Open Channel"
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -783,6 +788,7 @@ function cholestrolclicked() {
         clickcond(cellmeshes, roundbtns, 4);
         clear();
         importmesh("Cholestoral.glb");
+        title.innerHTML = "Cholesterol"
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -809,6 +815,7 @@ function loadmitochondria(val) {
         clear();
         scaling = new BABYLON.Vector3(5, 5, 5);
         importmesh("mitocondrias.glb", scaling);
+        title.innerHTML = "Mitochondria"
         showbtn(backcell);
         showbtn(showETC);
         showETC.textContent = "Show Electron Transport Chain";
@@ -827,6 +834,7 @@ function loadETC(val) {
             allMeshes.push(etcref);
             showbtn(backcell);
         });
+        title.innerHTML = "Electron Transport Chain"
     }
 }
 
@@ -836,6 +844,7 @@ function loadgolgi(val) {
         clear();
         scaling = new BABYLON.Vector3(5, 5, 5);
         importmesh("golgi.glb", scaling, null, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 50, 0));
+        title.innerHTML = "Golgi"
     }   
 }
 
@@ -843,12 +852,14 @@ function loadrougher(val) {
     clickcond(cellmeshes, roughersmlbtns, 0);
     clear();
     importmesh("rough_er.glb", new BABYLON.Vector3(20, 20, 20));
+    title.innerHTML = "Rough Endoplasmic Reticulum"
 }
 
 function loadsmoother(val) {
     clickcond(cellmeshes, smoothersmlbtns, 1);
     clear();
     importmesh("smooth_er.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), new BABYLON.Vector3(0, 0, 0.5), new BABYLON.Vector3(0, 0, 0));
+    title.innerHTML = "Smooth Endoplasmic Reticulum"
 }
 
 function loadpanel() {
@@ -881,6 +892,7 @@ function showExteriorBrain() {
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.textContent = "Show Neuron";
+        title.innerHTML = "Brain (Exterior)"
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             clear();
 
@@ -1088,6 +1100,7 @@ function loadbrain(val) {
         showui();
         clickcond(humanmeshes, brainbtns, 0);
         showNeuron.textContent = "Show Neuron";
+        title.innerHTML = "Brain"
         BABYLON.SceneLoader.ImportMesh("", "", "models/limbic_system.glb", scene, function (meshes) {
             clear();
 
@@ -1126,6 +1139,7 @@ function loadspine(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
+        title.innerHTML = "Nervous System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/nervoussystem.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1153,6 +1167,7 @@ function loadhuman(val) {
     if (checkvis(backHuman) || val == 0) {
         showui();
         clickcond(cellmeshes, backHuman);
+        title.innerHTML = "Human"
         BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1192,6 +1207,7 @@ function loadeyecs(val) {
     if (checkvis(eyecsbtn) || val == 0) {
         showui();
         clear();
+        title.innerHTML = "Eye (Cross Section)"
         BABYLON.SceneLoader.ImportMesh("", "", "models/eye_crosssection.glb", scene, function (meshes) {
             hideui();
             // meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
@@ -1231,6 +1247,7 @@ function loadearcs(val) {
     if (checkvis(earcsbtn) || val == 0) {
         showui();
         clear();
+        title.innerHTML = "Ear (Cross Section)"
         importmesh("ear_cs.glb", new BABYLON.Vector3(6, 6, 6), new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0.75, 0), new BABYLON.Vector3(1, 0.8, -1))
         hidebtn(earcsbtn);
         hidebtn(backcell);
@@ -1243,6 +1260,7 @@ function loadear() {
     if (checkvis(earbtns[0])) {
         showui();
         clear()
+        title.innerHTML = "Ear"
         importmesh("ear.glb", new BABYLON.Vector3(0.4, 0.4, 0.4), new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0.8, 0), new BABYLON.Vector3(1, 0, -1.2))
         hidebtn(earcsbtn);
         hidebtn(backcell);
@@ -1290,7 +1308,7 @@ function loadeye() {
         clearbtns();
         showbtn(backHuman);
         showbtn(eyecsbtn);
-        
+        title.innerHTML = "Eye"
         BABYLON.SceneLoader.ImportMesh("", "", "models/eye.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1349,6 +1367,7 @@ function loadheart(val) {
     if (checkvis(heartbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, heartbtns, 0);
+        title.innerHTML = "Heart"
         BABYLON.SceneLoader.ImportMesh("", "", "models/heart.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1384,6 +1403,7 @@ function loadexretory(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
+        title.innerHTML = "Excretory System"
         importmesh("exretory_system.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -15));
 
         createSphereBtn(1.3,5,-0.6,exretorymeshes,function(){createBasicPopup("Kidney","The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, regulating electrolyte balance, blood pressure, and producing urine for waste elimination.",kidneybtns);});
@@ -1409,6 +1429,7 @@ function loaddigestive(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
+        title.innerHTML = "Digestive System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/digestive_system1.glb", scene, function (meshes) {
             clear();
             clearbtns();
@@ -1444,6 +1465,7 @@ function loaddigestiveinsitu(val) {
         // hidebtn(showsystems);
         hidebtn(backcell);
         clickcond(humanmeshes, digestiveinsitubtns, 0);
+        title.innerHTML = "Digestive System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/digestiveinsitu.glb", scene, function (meshes) {
             clear();
             clearbtns();
@@ -1477,6 +1499,7 @@ function loadliver(val) {
     if (checkvis(liverbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, liverbtns, 0);
+        title.innerHTML = "Liver"
         BABYLON.SceneLoader.ImportMesh("", "", "models/livergallbladder.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1512,6 +1535,7 @@ function loadintestine(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, intestinebtns, 0);
+        title.innerHTML = "Small Intestine"
         BABYLON.SceneLoader.ImportMesh("", "", "models/intestine.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1541,6 +1565,7 @@ function loadcolon(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, colonbtns, 0);
+        title.innerHTML = "Colon (Large Intestine)"
         BABYLON.SceneLoader.ImportMesh("", "", "models/colon.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1564,6 +1589,7 @@ function loadesophagus(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, esophagusbtns, 0);
+        title.innerHTML = "Esophagus"
         BABYLON.SceneLoader.ImportMesh("", "", "models/esophagus.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1586,6 +1612,7 @@ function loadnervous(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, NSbtns, 0);
+        title.innerHTML = "Nervous System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/nervous_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1611,6 +1638,7 @@ function loadpancreas(val) {
     if (checkvis(pancreasbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, pancreasbtns, 0);
+        title.innerHTML = "Pancreas"
         BABYLON.SceneLoader.ImportMesh("", "", "models/pancreas.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1635,6 +1663,7 @@ function loadlungs(val) {
         clear();
         showui();
         clickcond(humanmeshes, lungbtns, 0);
+        title.innerHTML = "Lungs"
         BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
             hideui();
             camera.position = BABYLON.Vector3(0, -10, 0);
@@ -1660,6 +1689,7 @@ function loadcirculatory(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
+        title.innerHTML = "Circulatory System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/circulatory_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1693,6 +1723,7 @@ function loadbronchi(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, bronchibtns, 0);
+        title.innerHTML = "Bronchi"
         BABYLON.SceneLoader.ImportMesh("", "", "models/bronchi.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1719,6 +1750,7 @@ function loadspinalcord(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, cordbtns, 0);
+        title.innerHTML = "Spinal Cord"
         BABYLON.SceneLoader.ImportMesh("", "", "models/spinalcord1.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1754,6 +1786,7 @@ function loadrespinsitu(val) {
     if (checkvis(respinsitubtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, respinsitubtns, 0);
+        title.innerHTML = "Respiratory System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/respiratorysysteminsitu1.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1804,6 +1837,7 @@ function loadlymphatic(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
+        title.innerHTML = "Lymphatic System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/lymphatic_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1830,6 +1864,7 @@ function loadspleen(val) {
     if (checkvis(spleenbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, spleenbtns, 0);
+        title.innerHTML = "Spleen"
         BABYLON.SceneLoader.ImportMesh("", "", "models/spleen.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1867,6 +1902,7 @@ function loadendocrine(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
+        title.innerHTML = "Endocrine System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/endocrine_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1903,6 +1939,7 @@ function loadendocrine1(val) {
         clickcond(humanmeshes, endocrine1btns, 0);
         // hidebtn(showsystems);
         hidebtn(backcell);
+        title.innerHTML = "Endocrine System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/endocrinesystem1.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1944,6 +1981,7 @@ function loadskin(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
+        title.innerHTML = "Integumentary System (Skin)"
         BABYLON.SceneLoader.ImportMesh("", "", "models/skin.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1989,6 +2027,7 @@ function loadmuscular(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
+        title.innerHTML = "Muscular System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/muscular_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -2211,6 +2250,7 @@ function loadskull(val) {
     if (checkvis(skullbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, skullbtns, 0);
+        title.innerHTML = "Skull"
         BABYLON.SceneLoader.ImportMesh("", "", "models/skull.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -2236,6 +2276,7 @@ function loadnephron(val) {
     if (checkvis(nephronbtn) || val == 0) {
         clearbtns();
         clear();
+        title.innerHTML = "Nephron"
         importmesh("nephron.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -10));
         showbtn(backHuman);
         showbtn(backKidney);
@@ -2252,6 +2293,7 @@ function loadkidney(val) {
     if (checkvis(kidneybtns[0]) || val == 0) {
         clearbtns();
         clear();
+        title.innerHTML = "Kidney"
         importmesh("kidney.glb", new BABYLON.Vector3(0.005, 0.005, 0.005), null, null, new BABYLON.Vector3(0, 0, -0.1));
         clickcond(kidneymeshes, kidneybtns, 0);
         showbtn(backHuman);
@@ -2278,6 +2320,7 @@ function loaddna(val) {
         showui();
         clearbtns();
         clear();
+        title.innerHTML = "DNA"
         BABYLON.SceneLoader.ImportMesh("", "", "models/dna.glb", scene, function(meshes) {
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
@@ -2318,6 +2361,7 @@ function loadrespiratory(val) {
     // camera.radius.upperRadiusLimit = 100;
     // camera.radius = 15;
     showbtn(backHuman);
+    title.innerHTML = "Respiratory System"
     createSphereBtn(0,0.2,0.025,respmeshes,function(){createBasicPopup("Trachea","The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.");},0.05);
     createSphereBtn(0,0,0.025,respmeshes,function(){createBasicPopup("Bronchi","The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.",bronchibtns);},0.05);
     createSphereBtn(0.36621450755113255,-0.9993902851519447,0.22129484768301144,respmeshes,function(){createBasicPopup("Diaphragm","The diaphragm is a muscular dome that separates the abdominal and thoracic (chest) chambers. Its ability to contract and relax to aid in breathing is essential to respiration. The diaphragm flattens and contracts during inhalation, expanding the thoracic cavity's volume and producing a vacuum that pulls air into the lungs. It relaxes and takes on the shape of a dome during exhalation, reducing the volume of the thoracic cavity and releasing air from the lungs. In addition to offering structural support, the diaphragm divides the heart and lungs from the abdominal organs. By raising stomach pressure, it also helps with other body processes like sneezing, coughing etc. The diaphragm is coordinated with other breathing muscles by means of the phrenic nerves that regulate its movements.",diabtns);},0.05);
@@ -2330,6 +2374,7 @@ function loadlungcs(val) {
         showui();
         clickcond(respmeshes, lungcsbtns, 0);
         clear();
+        title.innerHTML = "Lungs (Cross Section)"
         BABYLON.SceneLoader.ImportMesh("", "", "models/lungcs.glb", scene, function (meshes) {
             hideui();
             camera.target = new BABYLON.Vector3(0, 0, 0);
@@ -2342,6 +2387,7 @@ function loadlungcs(val) {
 }
 
 function loaddiaphragm() {
+    title.innerHTML = "Diaphragm"
     BABYLON.SceneLoader.ImportMesh("", "", "models/diaphragm.glb", scene, function (meshes) {
         meshes[0].scaling = new BABYLON.Vector3(7, 7, -7);
         meshes[0].position = new BABYLON.Vector3(0, -3.5, 0);
@@ -2356,6 +2402,7 @@ function loaddiaphragmonly(val) {
         showui();
         clickcond(respinsitumeshes, diabtns, 0);
         clear();
+        title.innerHTML = "Diaphragm"
         BABYLON.SceneLoader.ImportMesh("", "", "models/diaphragm.glb", scene, function (meshes) {
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(7, 7, -7);
@@ -2371,6 +2418,7 @@ function loadstomach(val) {
     if (checkvis(stomachbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, stomachbtns, 0);
+        title.innerHTML = "Stomach"
         BABYLON.SceneLoader.ImportMesh("", "", "models/stomach.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -2429,6 +2477,7 @@ function loadskeletal(val) {
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
+        title.innerHTML = "Skeletal System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/skeletal.glb", scene, function (meshes) {
             hideui();
             clearbtns();
@@ -2554,7 +2603,7 @@ function loadneuron(val) {
             clearbtns();
             clear();
             showbtn(showNeuron);
-
+            title.innerHTML = "Neuron"
             BABYLON.SceneLoader.ImportMesh("", "", "models/neuron.glb", scene, function (meshes) {
                 meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
 
