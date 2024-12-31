@@ -92,7 +92,6 @@ muscularbtns = document.querySelectorAll(".muscularbtns");
 spinebtns = Array.from(document.querySelectorAll(".spinebtns"));
 digestiveinsitubtns = document.querySelectorAll(".digestiveinsitubtns");
 skullbtns = Array.from(document.querySelectorAll(".skullbtns"));
-title = document.getElementById("title")
 backcell = document.getElementById("backcell");
 backHuman = document.getElementById("backHuman");
 backPageBtn = document.getElementById("backbtn");
@@ -554,7 +553,7 @@ function loadcell() {
         meshes[0].scaling = new BABYLON.Vector3(0.4855579893367401, -0.19247690443455667, 2.106724807070549);
         allMeshes.push(meshes[0]);
     });
-    title.innerHTML = "Cell"
+    
     BABYLON.SceneLoader.ImportMesh("", "", "models/animal_cell.glb", scene, function (meshes) {
         // imports 3D mesh
 
@@ -743,7 +742,6 @@ function membraneclicked() {
         clickcond(cellmeshes, roundbtns, 0);
         clear();
         importmesh("cell_membrane.glb");
-        title.innerHTML = "Cell Membrane"
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -754,7 +752,6 @@ function phosphoclicked() {
         clickcond(cellmeshes, roundbtns, 1);
         clear();
         importmesh("phospho_sama.glb");
-        title.innerHTML = "Phospholipid"
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -766,7 +763,6 @@ function phosphoclicked2() {
         clickcond(cellmeshes, roundbtns, 2);
         clear();
         importmesh("phospholipid.glb", new BABYLON.Vector3(0.01, 0.01, 0.01));
-        title.innerHTML = "2 Phospholipids"
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -777,7 +773,6 @@ function openchannel() {
         clickcond(cellmeshes, roundbtns, 3);
         clear();
         importmesh("openchannel.glb");
-        title.innerHTML = "Open Channel"
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -788,7 +783,6 @@ function cholestrolclicked() {
         clickcond(cellmeshes, roundbtns, 4);
         clear();
         importmesh("Cholestoral.glb");
-        title.innerHTML = "Cholesterol"
         hidebtn(backHuman);
         showbtn(backcell);
     }
@@ -815,7 +809,6 @@ function loadmitochondria(val) {
         clear();
         scaling = new BABYLON.Vector3(5, 5, 5);
         importmesh("mitocondrias.glb", scaling);
-        title.innerHTML = "Mitochondria"
         showbtn(backcell);
         showbtn(showETC);
         showETC.textContent = "Show Electron Transport Chain";
@@ -834,7 +827,6 @@ function loadETC(val) {
             allMeshes.push(etcref);
             showbtn(backcell);
         });
-        title.innerHTML = "Electron Transport Chain"
     }
 }
 
@@ -844,7 +836,6 @@ function loadgolgi(val) {
         clear();
         scaling = new BABYLON.Vector3(5, 5, 5);
         importmesh("golgi.glb", scaling, null, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 50, 0));
-        title.innerHTML = "Golgi"
     }   
 }
 
@@ -852,14 +843,12 @@ function loadrougher(val) {
     clickcond(cellmeshes, roughersmlbtns, 0);
     clear();
     importmesh("rough_er.glb", new BABYLON.Vector3(20, 20, 20));
-    title.innerHTML = "Rough Endoplasmic Reticulum"
 }
 
 function loadsmoother(val) {
     clickcond(cellmeshes, smoothersmlbtns, 1);
     clear();
     importmesh("smooth_er.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), new BABYLON.Vector3(0, 0, 0.5), new BABYLON.Vector3(0, 0, 0));
-    title.innerHTML = "Smooth Endoplasmic Reticulum"
 }
 
 function loadpanel() {
@@ -892,7 +881,6 @@ function showExteriorBrain() {
         backHuman.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.textContent = "Show Neuron";
-        title.innerHTML = "Brain (Exterior)"
         BABYLON.SceneLoader.ImportMesh("", "", "models/brain.glb", scene, function (meshes) {
             clear();
 
@@ -1100,7 +1088,6 @@ function loadbrain(val) {
         showui();
         clickcond(humanmeshes, brainbtns, 0);
         showNeuron.textContent = "Show Neuron";
-        title.innerHTML = "Brain"
         BABYLON.SceneLoader.ImportMesh("", "", "models/limbic_system.glb", scene, function (meshes) {
             clear();
 
@@ -1139,7 +1126,6 @@ function loadspine(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
-        title.innerHTML = "Nervous System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/nervoussystem.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1167,7 +1153,6 @@ function loadhuman(val) {
     if (checkvis(backHuman) || val == 0) {
         showui();
         clickcond(cellmeshes, backHuman);
-        title.innerHTML = "Human"
         BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1207,7 +1192,6 @@ function loadeyecs(val) {
     if (checkvis(eyecsbtn) || val == 0) {
         showui();
         clear();
-        title.innerHTML = "Eye (Cross Section)"
         BABYLON.SceneLoader.ImportMesh("", "", "models/eye_crosssection.glb", scene, function (meshes) {
             hideui();
             // meshes[0].scaling = new BABYLON.Vector3(5, 5, 5);
@@ -1223,8 +1207,8 @@ function loadeyecs(val) {
             createSphereBtn( -694.1135974638247,349.5566710608301,-651.6255895494334  , humanmeshes, function () {createBasicPopup("Macula","The macula, the central region of the retina, is specialized for clear vision. Has a bunch of cones which are located in the center also known as the fovea.");}, 10);
             createSphereBtn(-698.8431101115226,350.75978079063424,-657.7620308707393  , humanmeshes, function () {createBasicPopup("Fovea","The fovea is an area in the retina responsible for sharp, detailed central vision. It contains a high concentration of cone cells and is completely rod-free.");}, 10);
             createSphereBtn(-720.9811592044188,490.6650857507254,-649.8206340299346  , humanmeshes, function () {createBasicPopup("Choroid","The choroid, a vascular layer between the retina and sclera, provides oxygen and nutrients to the retina. It contains melanin to absorb excess light, enhancing visual clarity.");}, 10);
-            createSphereBtn(-637.7485274452949,453.9846266362982,-585.1741745049378  , humanmeshes, function () {createBasicPopup("Vitreous humor","The vitreous humor allows light to pass through the retina. Made up of a clear gel that is made with water mostly but contains collagen fibers and hyaluronic acid.");}, 10);
-            createSphereBtn( -625.6433343080319,364.35601067959186,-283.16241966889675  , humanmeshes, function () {createBasicPopup("Aqueous humor","Aqueous humor is the clear liquid inside the front part of the eye. It nourishes the eye and keeps it inflated. If an imbalance were to occur, vision loss would be prominent.");}, 10);
+            createSphereBtn(-637.7485274452949,453.9846266362982,-585.1741745049378  , humanmeshes, function () {createBasicPopup("Vitreous humor","The vitreous humor is a transparent, jelly-like substance that fills the back of the eye between the lens and the retina. It allows light to pass through the retina. It is composed mostly of water as well as  collagen fibers and hyaluronic acid.");}, 10);
+            createSphereBtn( -625.6433343080319,364.35601067959186,-283.16241966889675  , humanmeshes, function () {createBasicPopup("Aqueous humor","Aqueous humor is clear liquid inside the front part of the eye. It nourishes the eye and keeps it inflated. If an imbalance were to occur, vision loss would be prominent.");}, 10);
             createSphereBtn(-740.0228294908184,488.24530020957155,-341.8409119240107  , humanmeshes, function () {createBasicPopup("Ciliary body & Ciliary Muscle","The ciliary body is a ring-shaped structure located behind the iris, responsible for producing the aqueous humor and controlling the lens's shape for focusing.");}, 10);
             createSphereBtn(-739.723580681802,426.98009065092253,-348.53649781844973  , humanmeshes, function () {createBasicPopup("Zonules (Suspensory ligaments)","Zonules, or suspensory ligaments, are fine fibers that connect the lens to the ciliary body, holding it in place and enabling the lens to change shape for accommodation.");}, 10);
             createSphereBtn(-709.9650297477576,213.07623791517148,-320.4780180239134  , humanmeshes, function () {createBasicPopup("Conjunctiva","The conjunctiva, a thin, transparent membrane covering the sclera and lining the inside of the eyelids, produces mucus and tears to lubricate the eye.");}, 10);
@@ -1247,7 +1231,6 @@ function loadearcs(val) {
     if (checkvis(earcsbtn) || val == 0) {
         showui();
         clear();
-        title.innerHTML = "Ear (Cross Section)"
         importmesh("ear_cs.glb", new BABYLON.Vector3(6, 6, 6), new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0.75, 0), new BABYLON.Vector3(1, 0.8, -1))
         hidebtn(earcsbtn);
         hidebtn(backcell);
@@ -1260,7 +1243,6 @@ function loadear() {
     if (checkvis(earbtns[0])) {
         showui();
         clear()
-        title.innerHTML = "Ear"
         importmesh("ear.glb", new BABYLON.Vector3(0.4, 0.4, 0.4), new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0.8, 0), new BABYLON.Vector3(1, 0, -1.2))
         hidebtn(earcsbtn);
         hidebtn(backcell);
@@ -1308,7 +1290,7 @@ function loadeye() {
         clearbtns();
         showbtn(backHuman);
         showbtn(eyecsbtn);
-        title.innerHTML = "Eye"
+        
         BABYLON.SceneLoader.ImportMesh("", "", "models/eye.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1353,7 +1335,7 @@ function loadeye() {
         camera.position = new BABYLON.Vector3(-3, 0, -35);
         camera.target = new BABYLON.Vector3(8.3, 9.5, -2.7);
         camera.radius = 4;
-        eyeTabsInfoArr = [["Example Disease", "Info"], ["Other Disease", "Info"]];
+        eyeTabsInfoArr = [["Evolution Information", " The evolution of the eye started with simple light-sensitive patches of cells on early organisms, which helped them sense light and darkness—a big advantage for avoiding predators or finding better environments. Over time, these patches evolved into small, cup-like shapes that could sense the direction of light, giving these organisms an even greater edge. Eventually, lenses formed, allowing these early eyes to focus light and see sharper images, leading to the camera-like eyes we see in many animals today. Something interesting to note is that eyes evolved in different ways across species—like the compound eyes of insects and the single-lens eyes of humans."], ["Gluacoma", "Glaucoma is a group of eye conditions that damage the optic nerve, often due to abnormally high pressure inside the eye (intraocular pressure). This damage can lead to irreversible vision loss if left untreated. The most common types are open-angle glaucoma, which develops slowly over time, and angle-closure glaucoma, which can occur suddenly. Risk factors include age, family history, high intraocular pressure, and certain medical conditions like diabetes. Symptoms can be subtle in early stages, especially for open-angle glaucoma, but may include gradual loss of peripheral vision, eye pain, headaches, and blurred vision. The progression of glaucoma is typically described in stages: early, moderate, advanced, and severe. In the early stage, there may be minimal vision loss, while moderate stage shows noticeable peripheral vision loss. Advanced stage glaucoma presents significant vision loss, and in the severe stage, there is extreme tunnel vision or near-total blindness. Treatment options vary depending on the type and stage but may include eye drops, oral medications, laser therapy, or surgery, all aimed at reducing intraocular pressure and preventing further optic nerve damage."]];
         eyepanel = createPanel("eyepanel", "Eye Information", "eyeclose", createTabHTML(eyeTabsInfoArr));
         eyeevbtn = createEvolutionBtn("Eye", eyepanel.id);
         showbtn(eyeevbtn);
@@ -1367,7 +1349,6 @@ function loadheart(val) {
     if (checkvis(heartbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, heartbtns, 0);
-        title.innerHTML = "Heart"
         BABYLON.SceneLoader.ImportMesh("", "", "models/heart.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1403,7 +1384,6 @@ function loadexretory(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
-        title.innerHTML = "Excretory System"
         importmesh("exretory_system.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -15));
 
         createSphereBtn(1.3,5,-0.6,exretorymeshes,function(){createBasicPopup("Kidney","The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, regulating electrolyte balance, blood pressure, and producing urine for waste elimination.",kidneybtns);});
@@ -1429,7 +1409,6 @@ function loaddigestive(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
-        title.innerHTML = "Digestive System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/digestive_system1.glb", scene, function (meshes) {
             clear();
             clearbtns();
@@ -1465,7 +1444,6 @@ function loaddigestiveinsitu(val) {
         // hidebtn(showsystems);
         hidebtn(backcell);
         clickcond(humanmeshes, digestiveinsitubtns, 0);
-        title.innerHTML = "Digestive System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/digestiveinsitu.glb", scene, function (meshes) {
             clear();
             clearbtns();
@@ -1499,7 +1477,6 @@ function loadliver(val) {
     if (checkvis(liverbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, liverbtns, 0);
-        title.innerHTML = "Liver"
         BABYLON.SceneLoader.ImportMesh("", "", "models/livergallbladder.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1535,7 +1512,6 @@ function loadintestine(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, intestinebtns, 0);
-        title.innerHTML = "Small Intestine"
         BABYLON.SceneLoader.ImportMesh("", "", "models/intestine.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1565,7 +1541,6 @@ function loadcolon(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, colonbtns, 0);
-        title.innerHTML = "Colon (Large Intestine)"
         BABYLON.SceneLoader.ImportMesh("", "", "models/colon.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1589,7 +1564,6 @@ function loadesophagus(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, esophagusbtns, 0);
-        title.innerHTML = "Esophagus"
         BABYLON.SceneLoader.ImportMesh("", "", "models/esophagus.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1612,7 +1586,6 @@ function loadnervous(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, NSbtns, 0);
-        title.innerHTML = "Nervous System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/nervous_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1638,7 +1611,6 @@ function loadpancreas(val) {
     if (checkvis(pancreasbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, pancreasbtns, 0);
-        title.innerHTML = "Pancreas"
         BABYLON.SceneLoader.ImportMesh("", "", "models/pancreas.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1663,7 +1635,6 @@ function loadlungs(val) {
         clear();
         showui();
         clickcond(humanmeshes, lungbtns, 0);
-        title.innerHTML = "Lungs"
         BABYLON.SceneLoader.ImportMesh("", "", "models/lung.glb", scene, function (meshes) {
             hideui();
             camera.position = BABYLON.Vector3(0, -10, 0);
@@ -1689,7 +1660,6 @@ function loadcirculatory(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
-        title.innerHTML = "Circulatory System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/circulatory_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1723,7 +1693,6 @@ function loadbronchi(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, bronchibtns, 0);
-        title.innerHTML = "Bronchi"
         BABYLON.SceneLoader.ImportMesh("", "", "models/bronchi.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1750,7 +1719,6 @@ function loadspinalcord(val) {
         showui();
         clearbtns();
         clickcond(humanmeshes, cordbtns, 0);
-        title.innerHTML = "Spinal Cord"
         BABYLON.SceneLoader.ImportMesh("", "", "models/spinalcord1.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1786,7 +1754,6 @@ function loadrespinsitu(val) {
     if (checkvis(respinsitubtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, respinsitubtns, 0);
-        title.innerHTML = "Respiratory System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/respiratorysysteminsitu1.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1837,7 +1804,6 @@ function loadlymphatic(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
-        title.innerHTML = "Lymphatic System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/lymphatic_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1853,6 +1819,12 @@ function loadlymphatic(val) {
             lymphref = meshes[0];
             allMeshes.push(lymphref);
               createSphereBtn(0.7830194453121005,3.544277965793885,-7.439955816834036, lymphmeshes, function(){createBasicPopup("Spleen", "Lymphatic vessels (shown in green here) are a crucial component of the lymphatic system, responsible for transporting lymph, a clear fluid containing white blood cells, throughout the body. They play a vital role in maintaining fluid balance, filtering out harmful substances, and supporting the immune system by facilitating the movement of immune cells to sites of infection and inflammation. The lymph nodes, which are the rounded structures, serve as filtration hubs for lymph fluid.  They trap and destroy harmful pathogens, foreign particles, and cancer cells, while also housing immune cells such as lymphocytes and macrophages, which coordinate the body's immune response to infections and diseases. ",)}, 0.4)
+              createSphereBtn(0.2521704550731494,4.918606436122572,-6.90876421115608, lymphmeshes, function(){createBasicPopup("Lymph Node", "Lymph nodes are small, bean-shaped structures that are part of the lymphatic system, playing a crucial role in the immune response. They filter lymph fluid to trap and destroy harmful substances like bacteria, viruses, and cellular debris, while housing immune cells like lymphocytes that fight infection. Strategically located throughout the body, lymph nodes swell during infection as they work to combat pathogens. ",)}, 0.4)
+              createSphereBtn(-0.006699910640601381,5.330263803744348,-6.248526009523893, lymphmeshes, function(){createBasicPopup("Thymus", "The thymus is a primary lymphoid organ located in the chest that plays a critical role in the development and maturation of T-cells, a type of immune cell essential for adaptive immunity. It is most active during childhood and gradually shrinks with age, as the immune system becomes established. The thymus ensures that T-cells can distinguish between the body’s own cells and foreign invaders. ",)}, 0.4)
+              createSphereBtn(-0.41456337485081596,6.449239069241051,-6.215651524259993, lymphmeshes, function(){createBasicPopup("Tonsils", "The tonsils are lymphoid tissues located in the throat that act as the first line of defense in the immune system. They trap and analyze pathogens entering through the mouth or nose, initiating immune responses by activating lymphocytes. Tonsils contribute to protecting the respiratory and digestive tracts from infections. ",)}, 0.4)
+              createSphereBtn(-0.5266987655277928,0.3880124283341502,-6.520158817166713, lymphmeshes, function(){createBasicPopup("Peyer's Patches", "Peyer’s patches are specialized clusters of lymphoid tissue located in the walls of the small intestine. They monitor gut contents for harmful microorganisms and activate immune responses to maintain intestinal health. These patches play an important role in distinguishing between beneficial and harmful microbes in the gastrointestinal tract.",)}, 0.4)
+              createSphereBtn(-2.363506068828399,1.9300334174393425,-6.519252118903179, lymphmeshes, function(){createBasicPopup("Bone Marrow", "Bone marrow is a spongy tissue found within certain bones that serves as the primary site for the production of blood cells, including immune cells like B-cells and T-cell precursors. It plays a foundational role in the lymphatic system by generating cells critical for both innate and adaptive immunity. B-cells mature in the bone marrow before entering circulation to fight infections. ",)}, 0.4)
+
         });
         camera.position = new BABYLON.Vector3(0, 0.5, 80);
         clearbtns();
@@ -1864,7 +1836,6 @@ function loadspleen(val) {
     if (checkvis(spleenbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, spleenbtns, 0);
-        title.innerHTML = "Spleen"
         BABYLON.SceneLoader.ImportMesh("", "", "models/spleen.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1902,7 +1873,6 @@ function loadendocrine(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
-        title.innerHTML = "Endocrine System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/endocrine_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1939,7 +1909,6 @@ function loadendocrine1(val) {
         clickcond(humanmeshes, endocrine1btns, 0);
         // hidebtn(showsystems);
         hidebtn(backcell);
-        title.innerHTML = "Endocrine System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/endocrinesystem1.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -1981,7 +1950,6 @@ function loadskin(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
-        title.innerHTML = "Integumentary System (Skin)"
         BABYLON.SceneLoader.ImportMesh("", "", "models/skin.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -2027,7 +1995,6 @@ function loadmuscular(val) {
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
-        title.innerHTML = "Muscular System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/muscular_system.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -2250,7 +2217,6 @@ function loadskull(val) {
     if (checkvis(skullbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, skullbtns, 0);
-        title.innerHTML = "Skull"
         BABYLON.SceneLoader.ImportMesh("", "", "models/skull.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -2276,7 +2242,6 @@ function loadnephron(val) {
     if (checkvis(nephronbtn) || val == 0) {
         clearbtns();
         clear();
-        title.innerHTML = "Nephron"
         importmesh("nephron.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -10));
         showbtn(backHuman);
         showbtn(backKidney);
@@ -2293,7 +2258,6 @@ function loadkidney(val) {
     if (checkvis(kidneybtns[0]) || val == 0) {
         clearbtns();
         clear();
-        title.innerHTML = "Kidney"
         importmesh("kidney.glb", new BABYLON.Vector3(0.005, 0.005, 0.005), null, null, new BABYLON.Vector3(0, 0, -0.1));
         clickcond(kidneymeshes, kidneybtns, 0);
         showbtn(backHuman);
@@ -2320,7 +2284,6 @@ function loaddna(val) {
         showui();
         clearbtns();
         clear();
-        title.innerHTML = "DNA"
         BABYLON.SceneLoader.ImportMesh("", "", "models/dna.glb", scene, function(meshes) {
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
@@ -2361,7 +2324,6 @@ function loadrespiratory(val) {
     // camera.radius.upperRadiusLimit = 100;
     // camera.radius = 15;
     showbtn(backHuman);
-    title.innerHTML = "Respiratory System"
     createSphereBtn(0,0.2,0.025,respmeshes,function(){createBasicPopup("Trachea","The trachea is the long tube that connects your larynx (voice box) to your bronchi. Your bronchi send air to your lungs.");},0.05);
     createSphereBtn(0,0,0.025,respmeshes,function(){createBasicPopup("Bronchi","The bronchi are the two large tubes that carry air from the windpipe (trachea) into the lungs and back out again.",bronchibtns);},0.05);
     createSphereBtn(0.36621450755113255,-0.9993902851519447,0.22129484768301144,respmeshes,function(){createBasicPopup("Diaphragm","The diaphragm is a muscular dome that separates the abdominal and thoracic (chest) chambers. Its ability to contract and relax to aid in breathing is essential to respiration. The diaphragm flattens and contracts during inhalation, expanding the thoracic cavity's volume and producing a vacuum that pulls air into the lungs. It relaxes and takes on the shape of a dome during exhalation, reducing the volume of the thoracic cavity and releasing air from the lungs. In addition to offering structural support, the diaphragm divides the heart and lungs from the abdominal organs. By raising stomach pressure, it also helps with other body processes like sneezing, coughing etc. The diaphragm is coordinated with other breathing muscles by means of the phrenic nerves that regulate its movements.",diabtns);},0.05);
@@ -2374,7 +2336,6 @@ function loadlungcs(val) {
         showui();
         clickcond(respmeshes, lungcsbtns, 0);
         clear();
-        title.innerHTML = "Lungs (Cross Section)"
         BABYLON.SceneLoader.ImportMesh("", "", "models/lungcs.glb", scene, function (meshes) {
             hideui();
             camera.target = new BABYLON.Vector3(0, 0, 0);
@@ -2387,7 +2348,6 @@ function loadlungcs(val) {
 }
 
 function loaddiaphragm() {
-    title.innerHTML = "Diaphragm"
     BABYLON.SceneLoader.ImportMesh("", "", "models/diaphragm.glb", scene, function (meshes) {
         meshes[0].scaling = new BABYLON.Vector3(7, 7, -7);
         meshes[0].position = new BABYLON.Vector3(0, -3.5, 0);
@@ -2402,7 +2362,6 @@ function loaddiaphragmonly(val) {
         showui();
         clickcond(respinsitumeshes, diabtns, 0);
         clear();
-        title.innerHTML = "Diaphragm"
         BABYLON.SceneLoader.ImportMesh("", "", "models/diaphragm.glb", scene, function (meshes) {
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(7, 7, -7);
@@ -2418,7 +2377,6 @@ function loadstomach(val) {
     if (checkvis(stomachbtns[0]) || val == 0) {
         showui();
         clickcond(humanmeshes, stomachbtns, 0);
-        title.innerHTML = "Stomach"
         BABYLON.SceneLoader.ImportMesh("", "", "models/stomach.glb", scene, function (meshes) {
             clear();
             hideui();
@@ -2477,7 +2435,6 @@ function loadskeletal(val) {
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
-        title.innerHTML = "Skeletal System"
         BABYLON.SceneLoader.ImportMesh("", "", "models/skeletal.glb", scene, function (meshes) {
             hideui();
             clearbtns();
@@ -2603,7 +2560,7 @@ function loadneuron(val) {
             clearbtns();
             clear();
             showbtn(showNeuron);
-            title.innerHTML = "Neuron"
+
             BABYLON.SceneLoader.ImportMesh("", "", "models/neuron.glb", scene, function (meshes) {
                 meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
 
