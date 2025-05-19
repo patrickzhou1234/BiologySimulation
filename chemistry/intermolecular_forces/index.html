@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js VSEPR Structures (Molecular Geometries)</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body { 
+            margin: 0; 
+            font-family: 'Roboto', 'Segoe UI', Arial, sans-serif; 
+            overflow: hidden;
+            background-color: #f5f7fa;
+            color: #37474f;
+            line-height: 1.5;
+        }
+        canvas { display: block; }
+
+        /* --- Updated #controls styles --- */
+        #controls {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 100;
+            background: rgba(255,255,255,0.98);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+            width: clamp(320px, 25vw, 450px);
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            border: 1px solid rgba(0,0,0,0.08);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        #controls:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.16), 0 3px 12px rgba(0,0,0,0.1);
+        }
+
+        #title-bar {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e0e4e7;
+        }
+
+        #title-bar h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #1565c0;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        #title-bar h1::before {
+            content: "science";
+            font-family: 'Material Icons';
+            margin-right: 12px;
+            font-size: 28px;
+            color: #1565c0;
+        }
+
+        #title-bar p {
+            margin: 10px 0 0 0;
+            color: #546e7a;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        #controls h3 {
+            margin: 16px 0 12px 0;
+            font-size: 16px;
+            color: #0d47a1;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.3px;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        #controls h3::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 4px;
+            height: 18px;
+            background-color: #1565c0;
+            border-radius: 4px;
+        }
+
+        /* --- New styles for button groups --- */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-left: 16px;
+            margin-bottom: 8px;
+        }
+
+        .button-group button {
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #1565c0;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            min-width: 110px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .button-group button:hover {
+            background-color: #bbdefb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .button-group button:active {
+            background-color: #90caf9;
+            transform: translateY(0);
+        }
+
+        .button-group button::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .button-group button:active::after {
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        #footer {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #78909c;
+            text-align: center;
+            padding-top: 16px;
+            border-top: 1px solid #e0e4e7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        #footer .material-icons {
+            font-size: 16px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #controls {
+                width: calc(100% - 60px);
+                max-width: none;
+                top: 12px;
+                left: 12px;
+                right: 12px;
+                max-height: 60vh;
+                padding: 20px;
+            }
+
+            .button-group button {
+                padding: 10px 14px;
+                font-size: 15px;
+                flex-grow: 1;
+                text-align: center;
+            }
+        }
+
+        /* Scrollbar styling */
+        #controls::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #controls::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        #controls::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        #controls::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 200;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: #f5f5f5;
+            transform: scale(1.05);
+        }
+
+        /* Loading indicator */
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #1565c0;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 9999;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Status indicator */
+        #status {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #1565c0;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #status.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader" id="loader"></div>
+    <button class="theme-toggle" id="theme-toggle">
+        <span class="material-icons">light_mode</span>
+    </button>
+    <div id="status">
+        <span class="material-icons">info</span>
+        <span id="status-text">Tetrahedral (AX₄) loaded</span>
+    </div>
+    <div id="controls">
+        <div id="title-bar">
+            <h1>VSEPR Molecular Structures</h1>
+            <p>Interactive 3D models of molecular geometries based on Valence Shell Electron Pair Repulsion theory</p>
+        </div>
+        <!-- Controls content will be added by the script -->
+        <div id="footer">
+            <span class="material-icons">touch_app</span> Click and drag to rotate
+            <span class="material-icons">mouse</span> Scroll to zoom
+        </div>
+    </div>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        let scene, camera, renderer, controls;
+        let moleculeGroup;
+
+        const atomRadius = 0.45;
+        const bondRadius = 0.08;
+        const bondLength = 2.0;
+        const lonePairRadius = atomRadius * 0.9;
+
+        const centralAtomMaterial = new THREE.MeshStandardMaterial({ color: 0xcc0000, metalness: 0.3, roughness: 0.5 });
+        const surroundingAtomMaterial = new THREE.MeshStandardMaterial({ color: 0x0000cc, metalness: 0.3, roughness: 0.5 });
+        const lonePairMaterial = new THREE.MeshStandardMaterial({ color: 0x00cc00, transparent: true, opacity: 0.6, metalness: 0.1, roughness: 0.7 });
+        const bondMaterial = new THREE.MeshStandardMaterial({ color: 0x777777, metalness: 0.2, roughness: 0.6 });
+
+        function getElectronDomainPositions(geometryName, length) {
+            const L = length;
+            const L_sqrt3 = L / Math.sqrt(3);
+            const cos = Math.cos;
+            const sin = Math.sin;
+            const PI = Math.PI;
+
+            switch (geometryName) {
+                case 'linear':
+                    return [ new THREE.Vector3(L, 0, 0), new THREE.Vector3(-L, 0, 0) ];
+                case 'trigonal_planar':
+                    return [
+                        new THREE.Vector3(L, 0, 0),
+                        new THREE.Vector3(L * cos(2 * PI / 3), L * sin(2 * PI / 3), 0),
+                        new THREE.Vector3(L * cos(4 * PI / 3), L * sin(4 * PI / 3), 0)
+                    ];
+                case 'tetrahedral':
+                    return [
+                        new THREE.Vector3(L_sqrt3, L_sqrt3, L_sqrt3),
+                        new THREE.Vector3(L_sqrt3, -L_sqrt3, -L_sqrt3),
+                        new THREE.Vector3(-L_sqrt3, L_sqrt3, -L_sqrt3),
+                        new THREE.Vector3(-L_sqrt3, -L_sqrt3, L_sqrt3)
+                    ];
+                case 'trigonal_bipyramidal':
+                    const L_ax = L; const L_eq = L;
+                    return [
+                        new THREE.Vector3(0, L_ax, 0), new THREE.Vector3(0, -L_ax, 0),
+                        new THREE.Vector3(L_eq, 0, 0),
+                        new THREE.Vector3(L_eq * cos(2*PI/3), 0, L_eq * sin(2*PI/3)),
+                        new THREE.Vector3(L_eq * cos(4*PI/3), 0, L_eq * sin(4*PI/3))
+                    ];
+                case 'octahedral':
+                    return [
+                        new THREE.Vector3(L, 0, 0), new THREE.Vector3(-L, 0, 0),
+                        new THREE.Vector3(0, L, 0), new THREE.Vector3(0, -L, 0),
+                        new THREE.Vector3(0, 0, L), new THREE.Vector3(0, 0, -L)
+                    ];
+                default: console.error("Unknown electron domain geometry:", geometryName); return [];
+            }
+        }
+
+        const VSEPR_GEOMETRIES = {
+            'SN2_LP0': { name: 'Linear (AX₂)', electronDomain: 'linear', atomIndices: [0, 1], lonePairIndices: [] },
+            'SN3_LP0': { name: 'Trigonal Planar (AX₃)', electronDomain: 'trigonal_planar', atomIndices: [0, 1, 2], lonePairIndices: [] },
+            'SN3_LP1': { name: 'Bent/Angular (AX₂E)', electronDomain: 'trigonal_planar', atomIndices: [0, 1], lonePairIndices: [2] },
+            'SN4_LP0': { name: 'Tetrahedral (AX₄)', electronDomain: 'tetrahedral', atomIndices: [0, 1, 2, 3], lonePairIndices: [] },
+            'SN4_LP1': { name: 'Trigonal Pyramidal (AX₃E)', electronDomain: 'tetrahedral', atomIndices: [0, 1, 2], lonePairIndices: [3] },
+            'SN4_LP2': { name: 'Bent/Angular (AX₂E₂)', electronDomain: 'tetrahedral', atomIndices: [0, 1], lonePairIndices: [2, 3] },
+            'SN5_LP0': { name: 'Trigonal Bipyramidal (AX₅)', electronDomain: 'trigonal_bipyramidal', atomIndices: [0, 1, 2, 3, 4], lonePairIndices: [] },
+            'SN5_LP1': { name: 'Sawhorse/Seesaw (AX₄E)', electronDomain: 'trigonal_bipyramidal', atomIndices: [0, 1, 3, 4], lonePairIndices: [2] },
+            'SN5_LP2': { name: 'T-shape (AX₃E₂)', electronDomain: 'trigonal_bipyramidal', atomIndices: [0, 1, 4], lonePairIndices: [2, 3] },
+            'SN5_LP3': { name: 'Linear (AX₂E₃)', electronDomain: 'trigonal_bipyramidal', atomIndices: [0, 1], lonePairIndices: [2, 3, 4] },
+            'SN6_LP0': { name: 'Octahedral (AX₆)', electronDomain: 'octahedral', atomIndices: [0, 1, 2, 3, 4, 5], lonePairIndices: [] },
+            'SN6_LP1': { name: 'Square Pyramidal (AX₅E)', electronDomain: 'octahedral', atomIndices: [0, 1, 2, 3, 4], lonePairIndices: [5] },
+            'SN6_LP2': { name: 'Square Planar (AX₄E₂)', electronDomain: 'octahedral', atomIndices: [0, 1, 2, 3], lonePairIndices: [4, 5] },
+            'SN6_LP3': { name: 'T-shape (AX₃E₃)', electronDomain: 'octahedral', atomIndices: [0, 1, 2], lonePairIndices: [3, 4, 5] },
+            'SN6_LP4': { name: 'Linear (AX₂E₄)', electronDomain: 'octahedral', atomIndices: [4, 5], lonePairIndices: [0, 1, 2, 3] }
+        };
+
+        function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf5f7fa);
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, bondLength * 0.8, bondLength * 3.5);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            document.body.appendChild(renderer.domElement);
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+            const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.2);
+            directionalLight1.position.set(5, 10, 7.5);
+            directionalLight1.castShadow = true;
+            scene.add(directionalLight1);
+            const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
+            directionalLight2.position.set(-5, -3, -5);
+            scene.add(directionalLight2);
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = bondLength * 1;
+            controls.maxDistance = bondLength * 10;
+            moleculeGroup = new THREE.Group();
+            scene.add(moleculeGroup);
+            setupUI();
+            window.addEventListener('resize', onWindowResize, false);
+            animate();
+            
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+            }, 1000);
+            
+            
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', toggleTheme);
+        }
+
+        function toggleTheme() {
+            const isDark = scene.background.equals(new THREE.Color(0x121212));
+            if (isDark) {
+                
+                scene.background = new THREE.Color(0xf5f7fa);
+                document.body.style.backgroundColor = '#f5f7fa';
+                document.getElementById('theme-toggle').innerHTML = '<span class="material-icons">light_mode</span>';
+            } else {
+                
+                scene.background = new THREE.Color(0x121212);
+                document.body.style.backgroundColor = '#121212';
+                document.getElementById('theme-toggle').innerHTML = '<span class="material-icons">dark_mode</span>';
+            }
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function createAtom(position, material, radius = atomRadius) {
+            const geometry = new THREE.SphereGeometry(radius, 32, 32);
+            const atom = new THREE.Mesh(geometry, material);
+            atom.position.copy(position);
+            atom.castShadow = true;
+            atom.receiveShadow = true;
+            moleculeGroup.add(atom);
+            return atom;
+        }
+
+        function createBond(startPoint, endPoint, material = bondMaterial, radius = bondRadius) {
+            const direction = new THREE.Vector3().subVectors(endPoint, startPoint);
+            const length = direction.length();
+            const cylinderGeometry = new THREE.CylinderGeometry(radius, radius, length, 16);
+            cylinderGeometry.translate(0, length / 2, 0);
+            const bond = new THREE.Mesh(cylinderGeometry, material);
+            bond.position.copy(startPoint);
+            const up = new THREE.Vector3(0, 1, 0);
+            bond.quaternion.setFromUnitVectors(up, direction.clone().normalize());
+            bond.castShadow = true;
+            bond.receiveShadow = true;
+            moleculeGroup.add(bond);
+            return bond;
+        }
+
+        function clearMolecule() {
+            while (moleculeGroup.children.length > 0) {
+                const child = moleculeGroup.children[0];
+                moleculeGroup.remove(child);
+                if (child.geometry) child.geometry.dispose();
+            }
+        }
+
+        window.drawMolecule = function(vseprKey) {
+            clearMolecule();
+            const geometryInfo = VSEPR_GEOMETRIES[vseprKey];
+            if (!geometryInfo) { console.error("VSEPR key not found:", vseprKey); return; }
+            const centralAtomPos = new THREE.Vector3(0, 0, 0);
+            createAtom(centralAtomPos, centralAtomMaterial, atomRadius * 1.15);
+            const domainPositions = getElectronDomainPositions(geometryInfo.electronDomain, bondLength);
+            geometryInfo.atomIndices.forEach(index => {
+                if (index < domainPositions.length) {
+                    const pos = domainPositions[index];
+                    createAtom(pos, surroundingAtomMaterial);
+                    createBond(centralAtomPos, pos);
+                } else { console.warn(`Atom index ${index} out of bounds for ${geometryInfo.electronDomain}`); }
+            });
+            geometryInfo.lonePairIndices.forEach(index => {
+                 if (index < domainPositions.length) {
+                    const pos = domainPositions[index];
+                    createAtom(pos, lonePairMaterial, lonePairRadius);
+                } else { console.warn(`Lone pair index ${index} out of bounds for ${geometryInfo.electronDomain}`); }
+            });
+            controls.target.copy(centralAtomPos);
+            controls.update();
+            
+            
+            const statusText = document.getElementById('status-text');
+            statusText.textContent = geometryInfo.name + ' loaded';
+            const status = document.getElementById('status');
+            status.classList.add('active');
+            setTimeout(() => {
+                status.classList.remove('active');
+            }, 2000);
+        }
+
+        function setupUI() {
+            const controlsDiv = document.getElementById('controls');
+            let currentStericNumber = 0;
+            let snGroupDiv;
+
+            Object.keys(VSEPR_GEOMETRIES).forEach(key => {
+                const sn = parseInt(key.substring(2, key.indexOf('_')));
+                if (sn !== currentStericNumber) {
+                    currentStericNumber = sn;
+
+                    const title = document.createElement('h3');
+                    title.textContent = `Steric No. ${sn} (Electron Domains: ${sn})`;
+                    controlsDiv.appendChild(title);
+
+                    
+                    snGroupDiv = document.createElement('div');
+                    snGroupDiv.className = 'button-group';
+                    controlsDiv.appendChild(snGroupDiv);
+                }
+
+                const geometry = VSEPR_GEOMETRIES[key];
+                const button = document.createElement('button');
+                button.textContent = geometry.name;
+                button.onclick = () => drawMolecule(key);
+
+                if (snGroupDiv) {
+                    snGroupDiv.appendChild(button);
+                } else {
+                    console.warn("snGroupDiv not initialized, appending button directly to controls.");
+                    controlsDiv.appendChild(button);
+                }
+            });
+        }
+
+        init();
+        drawMolecule('SN4_LP0');
+    </script>
+</body>
+</html>
