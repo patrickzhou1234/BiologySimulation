@@ -83,7 +83,7 @@ function openTab(evt, tabName) {
     ];
 
     const loader = new THREE.FontLoader();
-    loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font) {
+    loader.load('js/typeface.json', function(font) {
       for (let i = 0; i < table.length; i++) {
         for (let j = 0; j < table[i].length; j++) {
           if (table[i][j] !== '') {
@@ -240,56 +240,60 @@ function openTab(evt, tabName) {
   }
 
   function createAtomModel(element, speed = 0.02) {
-    console.log(element)
-    console.log(currentAtom)
-    if (currentAtom) {
-      scene.remove(currentAtom);
-    }
+  console.log(element)
+  console.log(currentAtom)
+  if (currentAtom) {
+    scene.remove(currentAtom);
+  }
 
-    const atomGroup = new THREE.Group();
+  const atomGroup = new THREE.Group();
 
-    const nucleusGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-    const nucleusMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
-    const nucleus = new THREE.Mesh(nucleusGeometry, nucleusMaterial);
-    atomGroup.add(nucleus);
+  const nucleusGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+  const nucleusMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+  const nucleus = new THREE.Mesh(nucleusGeometry, nucleusMaterial);
+  atomGroup.add(nucleus);
 
-    const electronConfiguration = getElectronConfiguration(element);
+  const electronConfiguration = getElectronConfiguration(element);
 
-    electronConfiguration.forEach((electronsInShell, i) => {
-      const shellRadius = (i + 1) * 1.5;
-      const shellGeometry = new THREE.TorusGeometry(shellRadius, 0.02, 16, 100);
-      const shellMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-      const shell = new THREE.Mesh(shellGeometry, shellMaterial);
-      shell.rotation.x = Math.PI / 2;
-      atomGroup.add(shell);
+  electronConfiguration.forEach((electronsInShell, i) => {
+    const shellRadius = (i + 1) * 1.5;
+    const shellGeometry = new THREE.TorusGeometry(shellRadius, 0.02, 16, 100);
+    const shellMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const shell = new THREE.Mesh(shellGeometry, shellMaterial);
+    shell.rotation.x = 0;
+    atomGroup.add(shell);
 
-      for (let j = 0; j < electronsInShell; j++) {
-        const electronGeometry = new THREE.SphereGeometry(0.1, 16, 16);
-        const electronMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
-        const electron = new THREE.Mesh(electronGeometry, electronMaterial);
-        const angle = (j / electronsInShell) * Math.PI * 2;
-        electron.position.set(
-          shellRadius * Math.cos(angle),
-          0,
-          shellRadius * Math.sin(angle)
-        );
-        if(speed == null){
-          electron.userData = {
-            angle,
-            radius: shellRadius,
-            speed: Math.random() * 0.02 + 0.01
-          };
-        }
-        else{
-          electron.userData = {
-            angle,
-            radius: shellRadius,
-            speed: speed
-          };
-        }
-        atomGroup.add(electron);
+    for (let j = 0; j < electronsInShell; j++) {
+      const electronGeometry = new THREE.SphereGeometry(0.1, 16, 16);
+      const electronMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0x00ff00,
+        emissive: 0x003300,
+        shininess: 100
+      });
+      const electron = new THREE.Mesh(electronGeometry, electronMaterial);
+      const angle = (j / electronsInShell) * Math.PI * 2;
+      electron.position.set(
+        shellRadius * Math.cos(angle),
+        shellRadius * Math.sin(angle),
+        0
+      );
+      if(speed == null){
+        electron.userData = {
+          angle,
+          radius: shellRadius,
+          speed: Math.random() * 0.02 + 0.01
+        };
       }
-    });
+      else{
+        electron.userData = {
+          angle,
+          radius: shellRadius,
+          speed: speed
+        };
+      }
+      atomGroup.add(electron);
+    }
+  });
 
   atomGroup.position.set(0, 0, 5 * electronConfiguration.length);
   scene.add(atomGroup);
@@ -304,8 +308,8 @@ function animateElectrons() {
       child.userData.angle += child.userData.speed;
       child.position.set(
         child.userData.radius * Math.cos(child.userData.angle),
-        0,
-        child.userData.radius * Math.sin(child.userData.angle)
+        child.userData.radius * Math.sin(child.userData.angle),
+        0
       );
     }
   });
