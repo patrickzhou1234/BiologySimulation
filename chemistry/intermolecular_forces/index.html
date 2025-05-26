@@ -3,306 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js VSEPR Structures (Molecular Geometries)</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Intermolecular Forces Visualization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        body { 
-            margin: 0; 
-            font-family: 'Roboto', 'Segoe UI', Arial, sans-serif; 
-            overflow: hidden;
-            background-color: #f5f7fa;
-            color: #37474f;
-            line-height: 1.5;
-        }
-        canvas { display: block; }
-
-        /* --- Updated #controls styles --- */
-        #controls {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            z-index: 100;
-            background: rgba(255,255,255,0.98);
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
-            width: clamp(320px, 25vw, 450px);
-            max-height: calc(100vh - 48px);
-            overflow-y: auto;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            border: 1px solid rgba(0,0,0,0.08);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        #controls:hover {
-            box-shadow: 0 8px 32px rgba(0,0,0,0.16), 0 3px 12px rgba(0,0,0,0.1);
-        }
-
-        #title-bar {
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #e0e4e7;
-        }
-
-        #title-bar h1 {
+        * {
             margin: 0;
-            font-size: 24px;
-            color: #1565c0;
-            font-weight: 500;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        #title-bar h1::before {
-            content: "science";
-            font-family: 'Material Icons';
-            margin-right: 12px;
-            font-size: 28px;
-            color: #1565c0;
-        }
-
-        #title-bar p {
-            margin: 10px 0 0 0;
-            color: #546e7a;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.5;
-        }
-
-        #controls h3 {
-            margin: 16px 0 12px 0;
-            font-size: 16px;
-            color: #0d47a1;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            letter-spacing: 0.3px;
-            position: relative;
-            padding-left: 16px;
-        }
-
-        #controls h3::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            width: 4px;
-            height: 18px;
-            background-color: #1565c0;
-            border-radius: 4px;
-        }
-
-        /* --- New styles for button groups --- */
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            padding-left: 16px;
-            margin-bottom: 8px;
-        }
-
-        .button-group button {
-            padding: 8px 12px;
-            font-size: 14px;
-            border: none;
-            background-color: #e3f2fd;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: #1565c0;
-            font-weight: 500;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            min-width: 110px;
-            position: relative;
+        body {
+            margin: 0;
             overflow: hidden;
-        }
-        
-        .button-group button:hover {
-            background-color: #bbdefb;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .button-group button:active {
-            background-color: #90caf9;
-            transform: translateY(0);
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            background-color: #f5f5f5;
         }
 
-        .button-group button::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
+        #container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
         }
 
-        .button-group button:active::after {
-            animation: ripple 0.6s ease-out;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(20, 20);
-                opacity: 0;
-            }
-        }
-
-        #footer {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #78909c;
-            text-align: center;
-            padding-top: 16px;
-            border-top: 1px solid #e0e4e7;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        #footer .material-icons {
-            font-size: 16px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            #controls {
-                width: calc(100% - 60px);
-                max-width: none;
-                top: 12px;
-                left: 12px;
-                right: 12px;
-                max-height: 60vh;
-                padding: 20px;
-            }
-
-            .button-group button {
-                padding: 10px 14px;
-                font-size: 15px;
-                flex-grow: 1;
-                text-align: center;
-            }
-        }
-
-        /* Scrollbar styling */
-        #controls::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        #controls::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 10px;
-        }
-
-        #controls::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-
-        #controls::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        /* Theme toggle */
-        .theme-toggle {
+        #info-panel {
             position: absolute;
             top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 360px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        #info-panel h2 {
+            margin: 0 0 12px 0;
+            font-weight: 500;
+            color: #1976d2;
+            font-size: 1.5rem;
+        }
+
+        #description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        #controls-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
             right: 20px;
-            z-index: 200;
-            background: white;
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        #controls {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .material-button {
+            min-width: 150px;
+            padding: 10px 16px;
             border: none;
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .theme-toggle:hover {
-            background: #f5f5f5;
-            transform: scale(1.05);
+        .material-button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
         }
 
-        /* Loading indicator */
-        .loader {
-            position: fixed;
+        .material-button:active {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            transform: translateY(1px);
+        }
+
+        .material-button i {
+            margin-right: 8px;
+        }
+
+        .primary {
+            background-color: #1976d2;
+            color: white;
+        }
+
+        .primary:hover {
+            background-color: #1565c0;
+        }
+
+        .secondary {
+            background-color: #f50057;
+            color: white;
+        }
+
+        .secondary:hover {
+            background-color: #c51162;
+        }
+
+        .tertiary {
+            background-color: #00bcd4;
+            color: white;
+        }
+
+        .tertiary:hover {
+            background-color: #00acc1;
+        }
+
+        .neutral {
+            background-color: #616161;
+            color: white;
+        }
+
+        .neutral:hover {
+            background-color: #424242;
+        }
+
+        #loading {
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #1565c0;
+            background: rgba(255, 255, 255, 0.9);
+            color: #1976d2;
+            font-size: 20px;
+            padding: 24px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            z-index: 100;
+        }
+
+        #loading .spinner {
+            border: 4px solid rgba(25, 118, 210, 0.3);
             border-radius: 50%;
+            border-top: 4px solid #1976d2;
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
             animation: spin 1s linear infinite;
-            z-index: 9999;
         }
 
         @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* Status indicator */
-        #status {
+        @media (max-width: 768px) {
+            #info-panel {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                max-width: none;
+            }
+
+            #controls {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+            }
+
+            .material-button {
+                width: 100%;
+            }
+        }
+
+        .active-button {
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #1565c0;
-            z-index: 100;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s;
+            font-weight: normal;
+            text-transform: none;
+            letter-spacing: normal;
+            font-size: 0.8rem;
         }
 
-        #status.active {
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
             opacity: 1;
         }
     </style>
 </head>
 <body>
-    <div class="loader" id="loader"></div>
-    <button class="theme-toggle" id="theme-toggle">
-        <span class="material-icons">light_mode</span>
-    </button>
-    <div id="status">
-        <span class="material-icons">info</span>
-        <span id="status-text">Tetrahedral (AX₄) loaded</span>
-    </div>
-    <div id="controls">
-        <div id="title-bar">
-            <h1>VSEPR Molecular Structures</h1>
-            <p>Interactive 3D models of molecular geometries based on Valence Shell Electron Pair Repulsion theory</p>
+    <div id="container">
+        <div id="info-panel">
+            <h2>Intermolecular Forces Visualization</h2>
+            <p id="description">Select a type of intermolecular force to visualize.</p>
         </div>
-        <!-- Controls content will be added by the script -->
-        <div id="footer">
-            <span class="material-icons">touch_app</span> Click and drag to rotate
-            <span class="material-icons">mouse</span> Scroll to zoom
+        <div id="controls-container">
+            <div id="controls">
+                <button id="hBond" class="material-button primary tooltip">
+                    <i class="material-icons">water_drop</i>
+                    Hydrogen Bonding
+                    <span class="tooltip-text">Visualize hydrogen bonding between water molecules</span>
+                </button>
+                <button id="dipole" class="material-button secondary tooltip">
+                    <i class="material-icons">electric_bolt</i>
+                    Dipole-Dipole
+                    <span class="tooltip-text">Visualize dipole-dipole interactions between polar molecules</span>
+                </button>
+                <button id="polarizability" class="material-button tertiary tooltip">
+                    <i class="material-icons">bubble_chart</i>
+                    Polarizability
+                    <span class="tooltip-text">Visualize London dispersion forces and electron cloud distortion</span>
+                </button>
+                <button id="reset" class="material-button neutral tooltip">
+                    <i class="material-icons">restart_alt</i>
+                    Reset View
+                    <span class="tooltip-text">Reset the camera to the initial position</span>
+                </button>
+            </div>
+        </div>
+        <div id="loading">
+            <div class="spinner"></div>
+            <span>Loading visualization...</span>
         </div>
     </div>
     <script type="importmap">
@@ -314,248 +276,689 @@
         }
     </script>
     <script type="module">
-        import * as THREE from 'three';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-        let scene, camera, renderer, controls;
-        let moleculeGroup;
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js';
+        import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/controls/OrbitControls.js';
+        import { TextGeometry } from 'https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/geometries/TextGeometry.js';
+        import { FontLoader } from 'https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/loaders/FontLoader.js';
 
-        const atomRadius = 0.45;
-        const bondRadius = 0.08;
-        const bondLength = 2.0;
-        const lonePairRadius = atomRadius * 0.9;
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x111122);
 
-        const centralAtomMaterial = new THREE.MeshStandardMaterial({ color: 0xcc0000, metalness: 0.3, roughness: 0.5 });
-        const surroundingAtomMaterial = new THREE.MeshStandardMaterial({ color: 0x0000cc, metalness: 0.3, roughness: 0.5 });
-        const lonePairMaterial = new THREE.MeshStandardMaterial({ color: 0x00cc00, transparent: true, opacity: 0.6, metalness: 0.1, roughness: 0.7 });
-        const bondMaterial = new THREE.MeshStandardMaterial({ color: 0x777777, metalness: 0.2, roughness: 0.6 });
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 20;
 
-        function getElectronDomainPositions(geometryName, length) {
-            const L = length;
-            const L_sqrt3 = L / Math.sqrt(3);
-            const cos = Math.cos;
-            const sin = Math.sin;
-            const PI = Math.PI;
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.getElementById('container').appendChild(renderer.domElement);
 
-            switch (geometryName) {
-                case 'linear':
-                    return [ new THREE.Vector3(L, 0, 0), new THREE.Vector3(-L, 0, 0) ];
-                case 'trigonal_planar':
-                    return [
-                        new THREE.Vector3(L, 0, 0),
-                        new THREE.Vector3(L * cos(2 * PI / 3), L * sin(2 * PI / 3), 0),
-                        new THREE.Vector3(L * cos(4 * PI / 3), L * sin(4 * PI / 3), 0)
-                    ];
-                case 'tetrahedral':
-                    return [
-                        new THREE.Vector3(L_sqrt3, L_sqrt3, L_sqrt3),
-                        new THREE.Vector3(L_sqrt3, -L_sqrt3, -L_sqrt3),
-                        new THREE.Vector3(-L_sqrt3, L_sqrt3, -L_sqrt3),
-                        new THREE.Vector3(-L_sqrt3, -L_sqrt3, L_sqrt3)
-                    ];
-                case 'trigonal_bipyramidal':
-                    const L_ax = L; const L_eq = L;
-                    return [
-                        new THREE.Vector3(0, L_ax, 0), new THREE.Vector3(0, -L_ax, 0),
-                        new THREE.Vector3(L_eq, 0, 0),
-                        new THREE.Vector3(L_eq * cos(2*PI/3), 0, L_eq * sin(2*PI/3)),
-                        new THREE.Vector3(L_eq * cos(4*PI/3), 0, L_eq * sin(4*PI/3))
-                    ];
-                case 'octahedral':
-                    return [
-                        new THREE.Vector3(L, 0, 0), new THREE.Vector3(-L, 0, 0),
-                        new THREE.Vector3(0, L, 0), new THREE.Vector3(0, -L, 0),
-                        new THREE.Vector3(0, 0, L), new THREE.Vector3(0, 0, -L)
-                    ];
-                default: console.error("Unknown electron domain geometry:", geometryName); return [];
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
+
+        const moleculeGroup = new THREE.Group();
+        scene.add(moleculeGroup);
+
+        const textGroup = new THREE.Group();
+        scene.add(textGroup);
+
+        const hydrogenMaterial = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, metalness: 0.3, roughness: 0.4 });
+        const oxygenMaterial = new THREE.MeshStandardMaterial({ color: 0xFF0000, metalness: 0.3, roughness: 0.4 });
+        const nitrogenMaterial = new THREE.MeshStandardMaterial({ color: 0x3050FF, metalness: 0.3, roughness: 0.4 });
+        const carbonMaterial = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.3, roughness: 0.4 });
+        const bondMaterial = new THREE.MeshStandardMaterial({ color: 0xCCCCCC, metalness: 0.3, roughness: 0.7 });
+
+        const positiveChargeMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0xFF5555, 
+            transparent: true, 
+            opacity: 0.7,
+            metalness: 0.3, 
+            roughness: 0.4 
+        });
+
+        const negativeChargeMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0x5555FF, 
+            transparent: true, 
+            opacity: 0.7,
+            metalness: 0.3, 
+            roughness: 0.4 
+        });
+
+        const textMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0xffffff,
+            emissive: 0x222222,
+            specular: 0xffffff,
+            shininess: 100
+        });
+
+        const hydrogenGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+        const oxygenGeometry = new THREE.SphereGeometry(0.8, 32, 32);
+        const nitrogenGeometry = new THREE.SphereGeometry(0.7, 32, 32);
+        const carbonGeometry = new THREE.SphereGeometry(0.7, 32, 32);
+
+        const arrowHelper = new THREE.Group();
+        scene.add(arrowHelper);
+
+        const electronCloudGroup = new THREE.Group();
+        scene.add(electronCloudGroup);
+
+        let currentMode = '';
+        let animationFrameId = null;
+        let animationTime = 0;
+        let font = null;
+
+        const fontLoader = new FontLoader();
+        fontLoader.load('https://cdn.jsdelivr.net/npm/three@0.157.0/examples/fonts/helvetiker_bold.typeface.json', function(loadedFont) {
+            font = loadedFont;
+
+            visualizeHydrogenBonding();
+
+            document.getElementById('loading').style.display = 'none';
+        });
+
+        function clearScene() {
+            while(moleculeGroup.children.length > 0) { 
+                moleculeGroup.remove(moleculeGroup.children[0]); 
             }
+
+            while(arrowHelper.children.length > 0) {
+                arrowHelper.remove(arrowHelper.children[0]);
+            }
+
+            while(electronCloudGroup.children.length > 0) {
+                electronCloudGroup.remove(electronCloudGroup.children[0]);
+            }
+
+            while(textGroup.children.length > 0) {
+                textGroup.remove(textGroup.children[0]);
+            }
+
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+
+            animationTime = 0;
         }
 
-        const VSEPR_GEOMETRIES = {
-            'SN2_LP0': { name: 'Linear (AX₂)', electronDomain: 'linear', atomIndices: [0, 1], lonePairIndices: [] },
-            'SN3_LP0': { name: 'Trigonal Planar (AX₃)', electronDomain: 'trigonal_planar', atomIndices: [0, 1, 2], lonePairIndices: [] },
-            'SN3_LP1': { name: 'Bent/Angular (AX₂E)', electronDomain: 'trigonal_planar', atomIndices: [0, 1], lonePairIndices: [2] },
-            'SN4_LP0': { name: 'Tetrahedral (AX₄)', electronDomain: 'tetrahedral', atomIndices: [0, 1, 2, 3], lonePairIndices: [] },
-            'SN4_LP1': { name: 'Trigonal Pyramidal (AX₃E)', electronDomain: 'tetrahedral', atomIndices: [0, 1, 2], lonePairIndices: [3] },
-            'SN4_LP2': { name: 'Bent/Angular (AX₂E₂)', electronDomain: 'tetrahedral', atomIndices: [0, 1], lonePairIndices: [2, 3] },
-            'SN5_LP0': { name: 'Trigonal Bipyramidal (AX₅)', electronDomain: 'trigonal_bipyramidal', atomIndices: [0, 1, 2, 3, 4], lonePairIndices: [] },
-            'SN5_LP1': { name: 'Sawhorse/Seesaw (AX₄E)', electronDomain: 'trigonal_bipyramidal', atomIndices: [0, 1, 3, 4], lonePairIndices: [2] },
-            'SN5_LP2': { name: 'T-shape (AX₃E₂)', electronDomain: 'trigonal_bipyramidal', atomIndices: [0, 1, 4], lonePairIndices: [2, 3] },
-            'SN5_LP3': { name: 'Linear (AX₂E₃)', electronDomain: 'trigonal_bipyramidal', atomIndices: [0, 1], lonePairIndices: [2, 3, 4] },
-            'SN6_LP0': { name: 'Octahedral (AX₆)', electronDomain: 'octahedral', atomIndices: [0, 1, 2, 3, 4, 5], lonePairIndices: [] },
-            'SN6_LP1': { name: 'Square Pyramidal (AX₅E)', electronDomain: 'octahedral', atomIndices: [0, 1, 2, 3, 4], lonePairIndices: [5] },
-            'SN6_LP2': { name: 'Square Planar (AX₄E₂)', electronDomain: 'octahedral', atomIndices: [0, 1, 2, 3], lonePairIndices: [4, 5] },
-            'SN6_LP3': { name: 'T-shape (AX₃E₃)', electronDomain: 'octahedral', atomIndices: [0, 1, 2], lonePairIndices: [3, 4, 5] },
-            'SN6_LP4': { name: 'Linear (AX₂E₄)', electronDomain: 'octahedral', atomIndices: [4, 5], lonePairIndices: [0, 1, 2, 3] }
-        };
+        function createBond(startPosition, endPosition, radius = 0.2) {
+            const direction = new THREE.Vector3().subVectors(endPosition, startPosition);
+            const length = direction.length();
 
-        function init() {
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xf5f7fa);
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, bondLength * 0.8, bondLength * 3.5);
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.shadowMap.enabled = true;
-            document.body.appendChild(renderer.domElement);
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-            scene.add(ambientLight);
-            const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.2);
-            directionalLight1.position.set(5, 10, 7.5);
-            directionalLight1.castShadow = true;
-            scene.add(directionalLight1);
-            const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
-            directionalLight2.position.set(-5, -3, -5);
-            scene.add(directionalLight2);
-            controls = new OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.minDistance = bondLength * 1;
-            controls.maxDistance = bondLength * 10;
-            moleculeGroup = new THREE.Group();
-            scene.add(moleculeGroup);
-            setupUI();
-            window.addEventListener('resize', onWindowResize, false);
+            const bondGeometry = new THREE.CylinderGeometry(radius, radius, length, 16);
+            bondGeometry.translate(0, length / 2, 0);
+
+            const bond = new THREE.Mesh(bondGeometry, bondMaterial);
+            bond.position.copy(startPosition);
+
+            const quaternion = new THREE.Quaternion();
+            quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.normalize());
+            bond.setRotationFromQuaternion(quaternion);
+
+            return bond;
+        }
+
+        function createDottedBond(startPosition, endPosition, segments = 10, radius = 0.1) {
+            const bondGroup = new THREE.Group();
+            const direction = new THREE.Vector3().subVectors(endPosition, startPosition);
+            const length = direction.length();
+            const segmentLength = length / (segments * 2); 
+
+            const unitDirection = direction.clone().normalize();
+
+            for(let i = 0; i < segments; i++) {
+                const segmentStart = new THREE.Vector3().copy(startPosition).addScaledVector(unitDirection, i * 2 * segmentLength);
+                const segmentEnd = new THREE.Vector3().copy(segmentStart).addScaledVector(unitDirection, segmentLength);
+
+                const bondSegment = createBond(segmentStart, segmentEnd, radius);
+                bondSegment.material = new THREE.MeshBasicMaterial({ 
+                    color: 0x00FFFF, 
+                    transparent: true, 
+                    opacity: 0.7
+                });
+
+                bondGroup.add(bondSegment);
+            }
+
+            return bondGroup;
+        }
+
+        function create3DText(text, size = 0.5, position = { x: 0, y: 0, z: 0 }, rotation = { x: 0, y: 0, z: 0 }) {
+            if (!font) return null;
+
+            const textGeometry = new TextGeometry(text, {
+                font: font,
+                size: size,
+                height: size * 0.2,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: size * 0.05,
+                bevelSize: size * 0.02,
+                bevelOffset: 0,
+                bevelSegments: 5
+            });
+
+            textGeometry.computeBoundingBox();
+            const textWidth = textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x;
+            textGeometry.translate(-textWidth/2, 0, 0);
+
+            const textMesh = new THREE.Mesh(textGeometry, textMaterial.clone());
+            textMesh.position.set(position.x, position.y, position.z);
+            textMesh.rotation.set(rotation.x, rotation.y, rotation.z);
+            textMesh.userData = { isRainbowText: true };
+
+            textGroup.add(textMesh);
+
+            return textMesh;
+        }
+
+        function updateRainbowEffect(elapsedTime) {
+            textGroup.children.forEach(textMesh => {
+                if (textMesh.userData && textMesh.userData.isRainbowText) {
+
+                    const hue = (elapsedTime * 0.1) % 1;
+                    textMesh.material.color.setHSL(hue, 0.8, 0.5);
+                    textMesh.material.emissive.setHSL(hue, 0.5, 0.2);
+                }
+            });
+        }
+
+        function createWaterMolecule(position = new THREE.Vector3(0, 0, 0), rotation = new THREE.Euler(0, 0, 0)) {
+            const molecule = new THREE.Group();
+            molecule.position.copy(position);
+            molecule.rotation.copy(rotation);
+
+            const oxygen = new THREE.Mesh(oxygenGeometry, oxygenMaterial);
+            molecule.add(oxygen);
+
+            const hydrogen1 = new THREE.Mesh(hydrogenGeometry, hydrogenMaterial);
+            hydrogen1.position.set(-0.8, 0.5, 0);
+            molecule.add(hydrogen1);
+
+            const hydrogen2 = new THREE.Mesh(hydrogenGeometry, hydrogenMaterial);
+            hydrogen2.position.set(0.8, 0.5, 0);
+            molecule.add(hydrogen2);
+
+            const bond1 = createBond(oxygen.position, hydrogen1.position);
+            molecule.add(bond1);
+
+            const bond2 = createBond(oxygen.position, hydrogen2.position);
+            molecule.add(bond2);
+
+            return molecule;
+        }
+
+        function createAmmoniaMolecule(position = new THREE.Vector3(0, 0, 0), rotation = new THREE.Euler(0, 0, 0)) {
+            const molecule = new THREE.Group();
+            molecule.position.copy(position);
+            molecule.rotation.copy(rotation);
+
+            const nitrogen = new THREE.Mesh(nitrogenGeometry, nitrogenMaterial);
+            molecule.add(nitrogen);
+
+            const hydrogen1 = new THREE.Mesh(hydrogenGeometry, hydrogenMaterial);
+            hydrogen1.position.set(-0.8, 0.5, 0);
+            molecule.add(hydrogen1);
+
+            const hydrogen2 = new THREE.Mesh(hydrogenGeometry, hydrogenMaterial);
+            hydrogen2.position.set(0.4, 0.5, 0.7);
+            molecule.add(hydrogen2);
+
+            const hydrogen3 = new THREE.Mesh(hydrogenGeometry, hydrogenMaterial);
+            hydrogen3.position.set(0.4, 0.5, -0.7);
+            molecule.add(hydrogen3);
+
+            const bond1 = createBond(nitrogen.position, hydrogen1.position);
+            molecule.add(bond1);
+
+            const bond2 = createBond(nitrogen.position, hydrogen2.position);
+            molecule.add(bond2);
+
+            const bond3 = createBond(nitrogen.position, hydrogen3.position);
+            molecule.add(bond3);
+
+            return molecule;
+        }
+
+        function createMethaneMolecule(position = new THREE.Vector3(0, 0, 0), rotation = new THREE.Euler(0, 0, 0)) {
+            const molecule = new THREE.Group();
+            molecule.position.copy(position);
+            molecule.rotation.copy(rotation);
+
+            const carbon = new THREE.Mesh(carbonGeometry, carbonMaterial);
+            molecule.add(carbon);
+
+            const hydrogenPositions = [
+                new THREE.Vector3(0.6, 0.6, 0.6),
+                new THREE.Vector3(-0.6, 0.6, -0.6),
+                new THREE.Vector3(0.6, -0.6, -0.6),
+                new THREE.Vector3(-0.6, -0.6, 0.6)
+            ];
+
+            hydrogenPositions.forEach(pos => {
+                const hydrogen = new THREE.Mesh(hydrogenGeometry, hydrogenMaterial);
+                hydrogen.position.copy(pos);
+                molecule.add(hydrogen);
+
+                const bond = createBond(carbon.position, hydrogen.position);
+                molecule.add(bond);
+            });
+
+            return molecule;
+        }
+
+        function updateActiveButton(buttonId) {
+
+            document.querySelectorAll('.material-button').forEach(btn => {
+                btn.classList.remove('active-button');
+            });
+
+            document.getElementById(buttonId).classList.add('active-button');
+        }
+
+        function visualizeHydrogenBonding() {
+            if (!font) {
+                setTimeout(visualizeHydrogenBonding, 100);
+                return;
+            }
+
+            clearScene();
+            currentMode = 'hBond';
+            updateActiveButton('hBond');
+
+            document.getElementById('description').textContent = 
+                "Hydrogen bonding occurs between a hydrogen atom bonded to a highly electronegative atom (like O, N, F) and another electronegative atom. This is a strong type of dipole-dipole interaction.";
+
+            const water1 = createWaterMolecule(new THREE.Vector3(-3, 0, 0), new THREE.Euler(0, 0, 0));
+            moleculeGroup.add(water1);
+
+            const water2 = createWaterMolecule(new THREE.Vector3(3, 0, 0), new THREE.Euler(0, 0, Math.PI));
+            moleculeGroup.add(water2);
+
+            const deltaPos1 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.3, 16, 16),
+                positiveChargeMaterial
+            );
+            deltaPos1.position.set(-3.8, 0.5, 0);
+            moleculeGroup.add(deltaPos1);
+
+            const deltaPos2 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.3, 16, 16),
+                positiveChargeMaterial
+            );
+            deltaPos2.position.set(-2.2, 0.5, 0);
+            moleculeGroup.add(deltaPos2);
+
+            const deltaNeg1 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 16, 16),
+                negativeChargeMaterial
+            );
+            deltaNeg1.position.set(-3, 0, 0);
+            moleculeGroup.add(deltaNeg1);
+
+            const deltaPos3 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.3, 16, 16),
+                positiveChargeMaterial
+            );
+            deltaPos3.position.set(2.2, -0.5, 0);  
+            moleculeGroup.add(deltaPos3);
+
+            const deltaPos4 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.3, 16, 16),
+                positiveChargeMaterial
+            );
+            deltaPos4.position.set(3.8, -0.5, 0);  
+            moleculeGroup.add(deltaPos4);
+
+            const deltaNeg2 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 16, 16),
+                negativeChargeMaterial
+            );
+            deltaNeg2.position.set(3, 0, 0);
+            moleculeGroup.add(deltaNeg2);
+
+            const hBond = createDottedBond(
+                new THREE.Vector3(-3, 0, 0),  
+                new THREE.Vector3(2.2, -0.5, 0)  
+            );
+            moleculeGroup.add(hBond);
+
+            const textMesh = create3DText("Hydrogen Bond", 0.5, { x: 0, y: 1.5, z: 0 });
+
+            function animate() {
+                animationFrameId = requestAnimationFrame(animate);
+
+                animationTime += 0.01;
+
+                updateRainbowEffect(animationTime);
+
+                hBond.children.forEach(segment => {
+                    segment.material.opacity = 0.3 + 0.4 * Math.sin(animationTime * 2);
+                });
+
+                const distanceOffset = Math.sin(animationTime) * 0.2;
+                water1.position.x = -3 + distanceOffset;
+                water2.position.x = 3 - distanceOffset;
+
+                deltaPos1.position.x = -3.8 + distanceOffset;
+                deltaPos2.position.x = -2.2 + distanceOffset;
+                deltaNeg1.position.x = -3 + distanceOffset;
+
+                deltaPos3.position.x = 2.2 - distanceOffset;
+                deltaPos4.position.x = 3.8 - distanceOffset;
+                deltaNeg2.position.x = 3 - distanceOffset;
+
+                while(hBond.children.length > 0) {
+                    hBond.remove(hBond.children[0]);
+                }
+
+                const updatedHBond = createDottedBond(
+                    new THREE.Vector3(-3 + distanceOffset, 0, 0),
+                    new THREE.Vector3(2.2 - distanceOffset, -0.5, 0)
+                );
+
+                updatedHBond.children.forEach(segment => {
+                    hBond.add(segment);
+                });
+
+                controls.update();
+                renderer.render(scene, camera);
+            }
+
             animate();
-            
-            setTimeout(() => {
-                document.getElementById('loader').style.display = 'none';
-            }, 1000);
-            
-            
-            const themeToggle = document.getElementById('theme-toggle');
-            themeToggle.addEventListener('click', toggleTheme);
         }
 
-        function toggleTheme() {
-            const isDark = scene.background.equals(new THREE.Color(0x121212));
-            if (isDark) {
-                
-                scene.background = new THREE.Color(0xf5f7fa);
-                document.body.style.backgroundColor = '#f5f7fa';
-                document.getElementById('theme-toggle').innerHTML = '<span class="material-icons">light_mode</span>';
-            } else {
-                
-                scene.background = new THREE.Color(0x121212);
-                document.body.style.backgroundColor = '#121212';
-                document.getElementById('theme-toggle').innerHTML = '<span class="material-icons">dark_mode</span>';
+        function visualizeDipoleDipole() {
+            if (!font) {
+                setTimeout(visualizeDipoleDipole, 100);
+                return;
             }
+
+            clearScene();
+            currentMode = 'dipole';
+            updateActiveButton('dipole');
+
+            document.getElementById('description').textContent = 
+                "Dipole-dipole interactions occur between polar molecules. The partially positive end of one molecule is attracted to the partially negative end of another molecule.";
+
+            const water = createWaterMolecule(new THREE.Vector3(-3, 0, 0), new THREE.Euler(0, 0, 0));
+            moleculeGroup.add(water);
+
+            const ammonia = createAmmoniaMolecule(new THREE.Vector3(3, 0, 0), new THREE.Euler(Math.PI, 0, 0));
+            moleculeGroup.add(ammonia);
+
+            const createArrow = (from, to, color) => {
+                const direction = new THREE.Vector3().subVectors(to, from).normalize();
+                const arrowLength = 2;
+                const arrowHelper = new THREE.ArrowHelper(
+                    direction,
+                    from,
+                    arrowLength,
+                    color,
+                    0.4,
+                    0.3
+                );
+                return arrowHelper;
+            };
+
+            const waterDipole = createArrow(
+                new THREE.Vector3(-3, -0.3, 0),  
+                new THREE.Vector3(-3, 0.7, 0),   
+                0x00FFFF
+            );
+            arrowHelper.add(waterDipole);
+
+            const ammoniaDipole = createArrow(
+                new THREE.Vector3(3, 0.3, 0),    
+                new THREE.Vector3(3, -0.7, 0),   
+                0xFFFF00
+            );
+            arrowHelper.add(ammoniaDipole);
+
+            const waterNeg = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 16, 16),
+                negativeChargeMaterial
+            );
+            waterNeg.position.set(-3, -0.3, 0);  
+            moleculeGroup.add(waterNeg);
+
+            const waterPos = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 16, 16),
+                positiveChargeMaterial
+            );
+            waterPos.position.set(-3, 0.7, 0);  
+            moleculeGroup.add(waterPos);
+
+            const ammoniaNeg = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 16, 16),
+                negativeChargeMaterial
+            );
+            ammoniaNeg.position.set(3, 0.3, 0);  
+            moleculeGroup.add(ammoniaNeg);
+
+            const ammoniaPos = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 16, 16),
+                positiveChargeMaterial
+            );
+            ammoniaPos.position.set(3, -0.7, 0);
+            moleculeGroup.add(ammoniaPos);
+
+            const waterDeltaNeg = create3DText("δ-", 0.4, { x: -3, y: -1.5, z: 1 });
+            const waterDeltaPos = create3DText("δ+", 0.4, { x: -3, y: 1.5, z: 1 });
+            const ammoniaDeltaNeg = create3DText("δ-", 0.4, { x: 3, y: 1.5, z: 1 });
+            const ammoniaDeltaPos = create3DText("δ+", 0.4, { x: 3, y: -1.5, z: 1 });
+
+            const interactionGeometry = new THREE.CylinderGeometry(0.05, 0.05, 6, 16);
+            interactionGeometry.translate(0, 3, 0);
+            const interactionMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0xFF00FF, 
+                transparent: true, 
+                opacity: 0.5
+            });
+
+            const interaction = new THREE.Mesh(interactionGeometry, interactionMaterial);
+            interaction.position.set(0, 0, 0);
+            interaction.rotation.z = Math.PI/2;
+            moleculeGroup.add(interaction);
+
+            const dipoleDipoleText = create3DText("Dipole-Dipole Interaction", 0.4, { x: 0, y: 2.5, z: 0 });
+
+            function animate() {
+                animationFrameId = requestAnimationFrame(animate);
+
+                animationTime += 0.01;
+
+                updateRainbowEffect(animationTime);
+
+                waterDipole.rotation.z = Math.sin(animationTime) * 0.1;
+                ammoniaDipole.rotation.z = Math.sin(animationTime + Math.PI) * 0.1;
+
+                interaction.material.opacity = 0.3 + 0.2 * Math.sin(animationTime * 2);
+
+                const distanceOffset = Math.sin(animationTime) * 0.3;
+                water.position.x = -3 + distanceOffset;
+                ammonia.position.x = 3 - distanceOffset;
+
+                waterPos.position.x = -3 + distanceOffset;
+                waterNeg.position.x = -3 + distanceOffset;
+                ammoniaPos.position.x = 3 - distanceOffset;
+                ammoniaNeg.position.x = 3 - distanceOffset;
+
+                waterDeltaNeg.position.x = -3 + distanceOffset;
+                waterDeltaPos.position.x = -3 + distanceOffset;
+                ammoniaDeltaNeg.position.x = 3 - distanceOffset;
+                ammoniaDeltaPos.position.x = 3 - distanceOffset;
+
+                waterDipole.position.x = -3 + distanceOffset;
+                ammoniaDipole.position.x = 3 - distanceOffset;
+
+                controls.update();
+                renderer.render(scene, camera);
+            }
+
+            animate();
         }
 
-        function onWindowResize() {
+        function visualizePolarizability() {
+            if (!font) {
+                setTimeout(visualizePolarizability, 100);
+                return;
+            }
+
+            clearScene();
+            currentMode = 'polarizability';
+            updateActiveButton('polarizability');
+
+            document.getElementById('description').textContent = 
+                "Polarizability refers to how easily electron clouds can be distorted in response to an external electric field, creating temporary dipoles. Larger atoms/molecules are generally more polarizable.";
+
+            const methane1 = createMethaneMolecule(new THREE.Vector3(-4, 0, 0));
+            moleculeGroup.add(methane1);
+
+            const methane2 = createMethaneMolecule(new THREE.Vector3(4, 0, 0));
+            moleculeGroup.add(methane2);
+
+            const createElectronCloud = (position, radius, color) => {
+                const cloudGeometry = new THREE.SphereGeometry(radius, 32, 32);
+                const cloudMaterial = new THREE.MeshStandardMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.3,
+                    metalness: 0.2,
+                    roughness: 0.8
+                });
+
+                const cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
+                cloud.position.copy(position);
+                return cloud;
+            };
+
+            const cloud1 = createElectronCloud(new THREE.Vector3(-4, 0, 0), 1.5, 0x0088FF);
+            electronCloudGroup.add(cloud1);
+
+            const cloud2 = createElectronCloud(new THREE.Vector3(4, 0, 0), 1.5, 0x0088FF);
+            electronCloudGroup.add(cloud2);
+
+            const dipole1 = new THREE.Group();
+            const dipole2 = new THREE.Group();
+
+            const positiveEnd1 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 16, 16),
+                positiveChargeMaterial
+            );
+            dipole1.add(positiveEnd1);
+
+            const negativeEnd1 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 16, 16),
+                negativeChargeMaterial
+            );
+            dipole1.add(negativeEnd1);
+
+            const positiveEnd2 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 16, 16),
+                positiveChargeMaterial
+            );
+            dipole2.add(positiveEnd2);
+
+            const negativeEnd2 = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4, 16, 16),
+                negativeChargeMaterial
+            );
+            dipole2.add(negativeEnd2);
+
+            dipole1.position.set(-4, 0, 0);
+            dipole2.position.set(4, 0, 0);
+
+            moleculeGroup.add(dipole1);
+            moleculeGroup.add(dipole2);
+
+            const polarizabilityText = create3DText("Polarizability & Induced Dipoles", 0.3, { x: 0, y: 3, z: 0 });
+            const londonText = create3DText("London Dispersion Forces", 0.3, { x: 0, y: -3, z: 0 });
+
+            const attractionGeometry = new THREE.CylinderGeometry(0.05, 0.05, 8, 16);
+            attractionGeometry.translate(0, 4, 0);
+            const attractionMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0xFFAA00, 
+                transparent: true, 
+                opacity: 0.5
+            });
+
+            const attraction = new THREE.Mesh(attractionGeometry, attractionMaterial);
+            attraction.position.set(0, 0, 0);
+            attraction.rotation.z = Math.PI/2;
+            moleculeGroup.add(attraction);
+
+            function animate() {
+                animationFrameId = requestAnimationFrame(animate);
+
+                animationTime += 0.01;
+
+                updateRainbowEffect(animationTime);
+
+                const deformFactor = Math.sin(animationTime * 1.5) * 0.3;
+
+                cloud1.scale.set(1 + deformFactor, 1 - deformFactor, 1);
+                cloud2.scale.set(1 - deformFactor, 1 + deformFactor, 1);
+
+                positiveEnd1.position.x = -0.8 * deformFactor;
+                negativeEnd1.position.x = 0.8 * deformFactor;
+
+                positiveEnd2.position.x = 0.8 * deformFactor;
+                negativeEnd2.position.x = -0.8 * deformFactor;
+
+                const opacity = 0.2 + 0.7 * Math.abs(deformFactor / 0.3);
+                positiveEnd1.material.opacity = opacity;
+                negativeEnd1.material.opacity = opacity;
+                positiveEnd2.material.opacity = opacity;
+                negativeEnd2.material.opacity = opacity;
+
+                attraction.material.opacity = 0.2 + 0.3 * Math.abs(deformFactor / 0.3);
+
+                const distanceOffset = Math.abs(deformFactor) * 0.5;
+                methane1.position.x = -4 + distanceOffset;
+                methane2.position.x = 4 - distanceOffset;
+
+                cloud1.position.x = -4 + distanceOffset;
+                cloud2.position.x = 4 - distanceOffset;
+
+                dipole1.position.x = -4 + distanceOffset;
+                dipole2.position.x = 4 - distanceOffset;
+
+                controls.update();
+                renderer.render(scene, camera);
+            }
+
+            animate();
+        }
+
+        document.getElementById('hBond').addEventListener('click', visualizeHydrogenBonding);
+        document.getElementById('dipole').addEventListener('click', visualizeDipoleDipole);
+        document.getElementById('polarizability').addEventListener('click', visualizePolarizability);
+        document.getElementById('reset').addEventListener('click', () => {
+            camera.position.set(0, 0, 20);
+            controls.reset();
+        });
+
+        window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-        }
+        });
 
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
             renderer.render(scene, camera);
         }
-
-        function createAtom(position, material, radius = atomRadius) {
-            const geometry = new THREE.SphereGeometry(radius, 32, 32);
-            const atom = new THREE.Mesh(geometry, material);
-            atom.position.copy(position);
-            atom.castShadow = true;
-            atom.receiveShadow = true;
-            moleculeGroup.add(atom);
-            return atom;
-        }
-
-        function createBond(startPoint, endPoint, material = bondMaterial, radius = bondRadius) {
-            const direction = new THREE.Vector3().subVectors(endPoint, startPoint);
-            const length = direction.length();
-            const cylinderGeometry = new THREE.CylinderGeometry(radius, radius, length, 16);
-            cylinderGeometry.translate(0, length / 2, 0);
-            const bond = new THREE.Mesh(cylinderGeometry, material);
-            bond.position.copy(startPoint);
-            const up = new THREE.Vector3(0, 1, 0);
-            bond.quaternion.setFromUnitVectors(up, direction.clone().normalize());
-            bond.castShadow = true;
-            bond.receiveShadow = true;
-            moleculeGroup.add(bond);
-            return bond;
-        }
-
-        function clearMolecule() {
-            while (moleculeGroup.children.length > 0) {
-                const child = moleculeGroup.children[0];
-                moleculeGroup.remove(child);
-                if (child.geometry) child.geometry.dispose();
-            }
-        }
-
-        window.drawMolecule = function(vseprKey) {
-            clearMolecule();
-            const geometryInfo = VSEPR_GEOMETRIES[vseprKey];
-            if (!geometryInfo) { console.error("VSEPR key not found:", vseprKey); return; }
-            const centralAtomPos = new THREE.Vector3(0, 0, 0);
-            createAtom(centralAtomPos, centralAtomMaterial, atomRadius * 1.15);
-            const domainPositions = getElectronDomainPositions(geometryInfo.electronDomain, bondLength);
-            geometryInfo.atomIndices.forEach(index => {
-                if (index < domainPositions.length) {
-                    const pos = domainPositions[index];
-                    createAtom(pos, surroundingAtomMaterial);
-                    createBond(centralAtomPos, pos);
-                } else { console.warn(`Atom index ${index} out of bounds for ${geometryInfo.electronDomain}`); }
-            });
-            geometryInfo.lonePairIndices.forEach(index => {
-                 if (index < domainPositions.length) {
-                    const pos = domainPositions[index];
-                    createAtom(pos, lonePairMaterial, lonePairRadius);
-                } else { console.warn(`Lone pair index ${index} out of bounds for ${geometryInfo.electronDomain}`); }
-            });
-            controls.target.copy(centralAtomPos);
-            controls.update();
-            
-            
-            const statusText = document.getElementById('status-text');
-            statusText.textContent = geometryInfo.name + ' loaded';
-            const status = document.getElementById('status');
-            status.classList.add('active');
-            setTimeout(() => {
-                status.classList.remove('active');
-            }, 2000);
-        }
-
-        function setupUI() {
-            const controlsDiv = document.getElementById('controls');
-            let currentStericNumber = 0;
-            let snGroupDiv;
-
-            Object.keys(VSEPR_GEOMETRIES).forEach(key => {
-                const sn = parseInt(key.substring(2, key.indexOf('_')));
-                if (sn !== currentStericNumber) {
-                    currentStericNumber = sn;
-
-                    const title = document.createElement('h3');
-                    title.textContent = `Steric No. ${sn} (Electron Domains: ${sn})`;
-                    controlsDiv.appendChild(title);
-
-                    
-                    snGroupDiv = document.createElement('div');
-                    snGroupDiv.className = 'button-group';
-                    controlsDiv.appendChild(snGroupDiv);
-                }
-
-                const geometry = VSEPR_GEOMETRIES[key];
-                const button = document.createElement('button');
-                button.textContent = geometry.name;
-                button.onclick = () => drawMolecule(key);
-
-                if (snGroupDiv) {
-                    snGroupDiv.appendChild(button);
-                } else {
-                    console.warn("snGroupDiv not initialized, appending button directly to controls.");
-                    controlsDiv.appendChild(button);
-                }
-            });
-        }
-
-        init();
-        drawMolecule('SN4_LP0');
+        animate();
     </script>
 </body>
 </html>
