@@ -145,6 +145,15 @@
             background-color: #424242;
         }
 
+        .quaternary {
+            background-color: #9c27b0;
+            color: white;
+        }
+
+        .quaternary:hover {
+            background-color: #7b1fa2;
+        }
+
         #loading {
             position: absolute;
             top: 50%;
@@ -255,6 +264,11 @@
                     Polarizability
                     <span class="tooltip-text">Visualize London dispersion forces and electron cloud distortion</span>
                 </button>
+                <button id="ionDipole" class="material-button quaternary tooltip">
+                    <i class="material-icons">add_circle</i>
+                    Ion-Dipole
+                    <span class="tooltip-text">Visualize ion-dipole interactions between ions and polar molecules</span>
+                </button>
                 <button id="reset" class="material-button neutral tooltip">
                     <i class="material-icons">restart_alt</i>
                     Reset View
@@ -270,7 +284,7 @@
     <script type="importmap">
         {
             "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three": "../js/three.module.js",
                 "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
             }
         }
@@ -315,6 +329,8 @@
         const nitrogenMaterial = new THREE.MeshStandardMaterial({ color: 0x3050FF, metalness: 0.3, roughness: 0.4 });
         const carbonMaterial = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.3, roughness: 0.4 });
         const bondMaterial = new THREE.MeshStandardMaterial({ color: 0xCCCCCC, metalness: 0.3, roughness: 0.7 });
+        const sodiumMaterial = new THREE.MeshStandardMaterial({ color: 0xBFA500, metalness: 0.5, roughness: 0.3 });
+        const chlorideMaterial = new THREE.MeshStandardMaterial({ color: 0x00FF00, metalness: 0.3, roughness: 0.5 });
 
         const positiveChargeMaterial = new THREE.MeshStandardMaterial({ 
             color: 0xFF5555, 
@@ -343,12 +359,16 @@
         const oxygenGeometry = new THREE.SphereGeometry(0.8, 32, 32);
         const nitrogenGeometry = new THREE.SphereGeometry(0.7, 32, 32);
         const carbonGeometry = new THREE.SphereGeometry(0.7, 32, 32);
+        const ionGeometry = new THREE.SphereGeometry(1.0, 32, 32);
 
         const arrowHelper = new THREE.Group();
         scene.add(arrowHelper);
 
         const electronCloudGroup = new THREE.Group();
         scene.add(electronCloudGroup);
+
+        const electricFieldGroup = new THREE.Group();
+        scene.add(electricFieldGroup);
 
         let currentMode = '';
         let animationFrameId = null;
@@ -379,6 +399,10 @@
 
             while(textGroup.children.length > 0) {
                 textGroup.remove(textGroup.children[0]);
+            }
+
+            while(electricFieldGroup.children.length > 0) {
+                electricFieldGroup.remove(electricFieldGroup.children[0]);
             }
 
             if (animationFrameId) {
@@ -553,6 +577,80 @@
             });
 
             return molecule;
+        }
+
+        function createIon(position = new THREE.Vector3(0, 0, 0), material, charge) {
+            const ion = new THREE.Group();
+            ion.position.copy(position);
+
+            const sphere = new THREE.Mesh(ionGeometry, material);
+            ion.add(sphere);
+
+            const labelSize = 0.4;
+            const chargeText = charge > 0 ? `+${charge}` : `${charge}`;
+
+            if (font) {
+                const chargeGeometry = new TextGeometry(chargeText, {
+                    font: font,
+                    size: labelSize,
+                    height: labelSize * 0.1,
+                    curveSegments: 12,
+                    bevelEnabled: false
+                });
+
+                const chargeMaterial = new THREE.MeshBasicMaterial({
+                    color: charge > 0 ? 0xFF0000 : 0x0000FF
+                });
+
+                const chargeMesh = new THREE.Mesh(chargeGeometry, chargeMaterial);
+                chargeMesh.position.set(0, 1.5, 0);
+                ion.add(chargeMesh);
+            }
+
+            return ion;
+        }
+
+        function createElectricFieldLines(sourcePosition, targetPosition, numLines = 10, radius = 3, lineColor = 0xFFFFFF) {
+            const group = new THREE.Group();
+            const direction = new THREE.Vector3().subVectors(targetPosition, sourcePosition).normalize();
+            const distance = sourcePosition.distanceTo(targetPosition);
+
+            const perpVec1 = new THREE.Vector3(1, 0, 0);
+            if (Math.abs(direction.dot(perpVec1)) > 0.9) {
+                perpVec1.set(0, 1, 0);
+            }
+            const perpVec2 = new THREE.Vector3().crossVectors(direction, perpVec1).normalize();
+            perpVec1.crossVectors(perpVec2, direction).normalize();
+
+            for (let i = 0; i < numLines; i++) {
+                const angle = (i / numLines) * Math.PI * 2;
+                const offset = new THREE.Vector3()
+                    .addScaledVector(perpVec1, Math.cos(angle) * radius)
+                    .addScaledVector(perpVec2, Math.sin(angle) * radius);
+
+                const start = new THREE.Vector3().copy(sourcePosition).add(offset);
+                const control1 = new THREE.Vector3().copy(sourcePosition)
+                    .addScaledVector(direction, distance * 0.3)
+                    .add(offset.clone().multiplyScalar(0.8));
+                const control2 = new THREE.Vector3().copy(targetPosition)
+                    .addScaledVector(direction, -distance * 0.3)
+                    .add(offset.clone().multiplyScalar(0.4));
+                const end = new THREE.Vector3().copy(targetPosition);
+
+                const curve = new THREE.CubicBezierCurve3(start, control1, control2, end);
+
+                const geometry = new THREE.TubeGeometry(curve, 20, 0.05, 8, false);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: lineColor,
+                    transparent: true,
+                    opacity: 0.4
+                });
+
+                const mesh = new THREE.Mesh(geometry, material);
+                group.add(mesh);
+            }
+
+            return group;
         }
 
         function updateActiveButton(buttonId) {
@@ -939,9 +1037,140 @@
             animate();
         }
 
+        function visualizeIonDipole() {
+    if (!font) {
+        setTimeout(visualizeIonDipole, 100);
+        return;
+    }
+
+    clearScene();
+    currentMode = 'ionDipole';
+    updateActiveButton('ionDipole');
+
+    document.getElementById('description').textContent = 
+        "Ion-dipole interactions occur between an ion and a polar molecule. The strength of this interaction depends on the charge of the ion and the dipole moment of the molecule.";
+
+    const sodiumIon = createIon(new THREE.Vector3(-4, 0, 0), sodiumMaterial, 1);
+    moleculeGroup.add(sodiumIon);
+
+    const chlorideIon = createIon(new THREE.Vector3(4, 0, 0), chlorideMaterial, -1);
+    moleculeGroup.add(chlorideIon);
+
+    const water1 = createWaterMolecule(
+        new THREE.Vector3(-2, 0, 0), 
+        new THREE.Euler(0, 0, -Math.PI/2) 
+    );
+    moleculeGroup.add(water1);
+
+    const water2 = createWaterMolecule(
+        new THREE.Vector3(2, 0, 0), 
+        new THREE.Euler(0, 0, -Math.PI/2) 
+    );
+    moleculeGroup.add(water2);
+
+    const createArrow = (from, to, color) => {
+        const direction = new THREE.Vector3().subVectors(to, from).normalize();
+        const arrowLength = 1.5;
+        const arrowHelper = new THREE.ArrowHelper(
+            direction,
+            from,
+            arrowLength,
+            color,
+            0.3,
+            0.2
+        );
+        return arrowHelper;
+    };
+
+    const water1Dipole = createArrow(
+        new THREE.Vector3(-2, 0, 0),
+        new THREE.Vector3(-3, 0, 0),
+        0x00FFFF
+    );
+    arrowHelper.add(water1Dipole);
+
+    const water2Dipole = createArrow(
+        new THREE.Vector3(2, 0, 0),
+        new THREE.Vector3(3, 0, 0),
+        0x00FFFF
+    );
+    arrowHelper.add(water2Dipole);
+
+    const sodiumLabel = create3DText("Na+", 0.5, { x: -4, y: -1.5, z: 0 });
+    const chlorideLabel = create3DText("Cl-", 0.5, { x: 4, y: -1.5, z: 0 });
+
+    const water1Neg = new THREE.Mesh(
+        new THREE.SphereGeometry(0.3, 16, 16),
+        negativeChargeMaterial
+    );
+    water1Neg.position.set(-2, 0, 0); 
+    moleculeGroup.add(water1Neg);
+
+    const water2Neg = new THREE.Mesh(
+        new THREE.SphereGeometry(0.3, 16, 16),
+        negativeChargeMaterial
+    );
+    water2Neg.position.set(2, 0, 0); 
+    moleculeGroup.add(water2Neg);
+
+    const fieldLinesNa = createElectricFieldLines(
+        new THREE.Vector3(-4, 0, 0),
+        new THREE.Vector3(-2, 0, 0),
+        8,
+        1.2,
+        0xFF4400
+    );
+    electricFieldGroup.add(fieldLinesNa);
+
+    const fieldLinesCl = createElectricFieldLines(
+        new THREE.Vector3(4, 0, 0),
+        new THREE.Vector3(2, 0.8, 0), 
+        8,
+        1.2,
+        0x44AAFF
+    );
+    electricFieldGroup.add(fieldLinesCl);
+
+    const ionDipoleText = create3DText("Ion-Dipole Interaction", 0.5, { x: 0, y: 3, z: 0 });
+    const waterSolvationText = create3DText("Water Solvating Ions", 0.4, { x: 0, y: -3, z: 0 });
+
+    function animate() {
+        animationFrameId = requestAnimationFrame(animate);
+        animationTime += 0.01;
+
+        updateRainbowEffect(animationTime);
+
+        const distanceOffset = Math.sin(animationTime) * 0.5;
+
+        water1.position.x = -2 - distanceOffset;
+        water1Neg.position.x = -2 - distanceOffset;
+        water1Dipole.position.x = -2 - distanceOffset;
+
+        water2.position.x = 2 + distanceOffset;
+        water2Neg.position.x = 2 + distanceOffset;
+        water2Dipole.position.x = 2 + distanceOffset;
+
+        electricFieldGroup.children.forEach(field => {
+            field.children.forEach(line => {
+                line.material.opacity = 0.2 + 0.3 * (1 - Math.abs(distanceOffset) / 0.5);
+            });
+        });
+
+        const scaleFactor = 1 + 0.05 * Math.sin(animationTime * 3);
+        sodiumIon.scale.set(scaleFactor, scaleFactor, scaleFactor);
+        chlorideIon.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
+        controls.update();
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+
         document.getElementById('hBond').addEventListener('click', visualizeHydrogenBonding);
         document.getElementById('dipole').addEventListener('click', visualizeDipoleDipole);
         document.getElementById('polarizability').addEventListener('click', visualizePolarizability);
+        document.getElementById('ionDipole').addEventListener('click', visualizeIonDipole);
         document.getElementById('reset').addEventListener('click', () => {
             camera.position.set(0, 0, 20);
             controls.reset();
