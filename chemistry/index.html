@@ -15,6 +15,35 @@
   <div onclick="resetCam();"><i class="material-icons" style="font-size: 16px; vertical-align: middle;">refresh</i> Reset Camera</div>
 </div>
 
+<div class="menu-container">
+  <button class="hamburger-menu" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="dropdown-menu" id="dropdownMenu">
+    <button class="menu-item" onclick="showTrendsMenu()">
+      <i class="material-icons">trending_up</i>
+      Periodic Trends
+    </button>
+    <button class="menu-item" onclick="window.location.href='vsepr'">
+      <i class="material-icons">science</i>
+      VSEPR
+    </button>
+    <button class="menu-item" onclick="window.location.href='intermolecular_forces'">
+      <i class="material-icons">science</i>
+      IMFs
+    </button>
+  </div>
+</div>
+
+<div id="trendsMenu" class="trends-menu">
+  <button class="trend-item" onclick="openTab(event, 'atomicRadius')">Atomic Radius</button>
+  <button class="trend-item" onclick="openTab(event, 'ionizationEnergy')">Ionization Energy</button>
+  <button class="trend-item" onclick="openTab(event, 'electronegativity')">Electronegativity</button>
+  <button class="trend-item" onclick="openTab(event, 'reactivity')">Reactivity</button>
+</div>
+
 <div id="elementInfo"></div>
 
 <div id="controls">
@@ -22,14 +51,7 @@
     <i class="material-icons">speed</i> Dynamic Electron Movement: Off
   </button>
 </div>
-<div class="navigation">
-  <button class="navButton" onclick="window.location.href='intermolecular_forces'">
-    <i class="material-icons">science</i> Explore Intermolecular Forces
-  </button>
-  <button class="navButton" onclick="window.location.href='vsepr'">
-    <i class="material-icons">science</i> Explore VSEPR
-  </button>
-</div>
+
 <div id="tabContainer">
   <div class="tabs">
     <button class="tab" onclick="openTab(event, 'atomicRadius')">Atomic Radius</button>

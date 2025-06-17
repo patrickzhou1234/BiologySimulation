@@ -1,3 +1,292 @@
+/* Modern Color Scheme */
+:root {
+  --primary: #2196F3;
+  --primary-light: #424769;
+  --primary-dark: #1B1F3B;
+  --secondary: #03A9F4;
+  --accent: #00BCD4;
+  --accent-light: #FFD4B2;
+  --text-primary: #2c3e50;
+  --text-secondary: #546e7a;
+  --background: #f5f7fa;
+  --surface: #ffffff;
+  --surface-light: #3D3D5A;
+  --error: #f44336;
+  --success: #4caf50;
+  --warning: #ff9800;
+  --info: #2196f3;
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+}
+
+/* Base Styles */
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+  font-size: 1rem;
+  margin: 0 0 1rem;
+}
+
+/* Interactive Elements */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Panels and Cards */
+.panel {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+}
+
+.panel:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Navigation */
+.nav-item {
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.nav-item:hover {
+  background-color: var(--surface-light);
+  color: var(--accent);
+}
+
+/* Icons and Buttons */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--surface);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.icon-btn:hover {
+  background-color: var(--surface-light);
+  transform: scale(1.1);
+}
+
+/* Form Elements */
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--surface-light);
+  border-radius: var(--border-radius);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(249, 177, 122, 0.2);
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Existing Styles with Updates */
+#babcanv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  outline: none;
+}
+
+#title {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  text-shadow: 3px 3px 0 var(--accent), 6px 6px 0 var(--primary);
+  text-align: center;
+  margin: 20px 0;
+  z-index: 99999999;
+}
+
+/* Button Styles */
+.bronchibtns, .esophagusbtns, .liverbtns, .intestinebtns,
+.mitosmlbtns, .golgismlbtns, .roughersmlbtns, .smoothersmlbtns,
+.brainbtns, .digestivebtns, .skullbtns, .heartbtns, .kidneybtns,
+.cordbtns, .endocrine1btns {
+  z-index: 99999999;
+  font-family: 'Roboto', sans-serif;
+  font-size: calc(0.65vw + 0.65vh);
+  position: absolute;
+  opacity: 0;
+  transition: var(--transition);
+  border-radius: var(--border-radius);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+}
+
+.bronchibtns:hover, .esophagusbtns:hover, .liverbtns:hover,
+.intestinebtns:hover, .mitosmlbtns:hover, .golgismlbtns:hover,
+.roughersmlbtns:hover, .smoothersmlbtns:hover, .brainbtns:hover,
+.digestivebtns:hover, .skullbtns:hover, .heartbtns:hover,
+.kidneybtns:hover, .cordbtns:hover, .endocrine1btns:hover {
+  opacity: 1;
+  background-color: var(--surface-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Panel Styles */
+.sContent {
+  max-width: 90%;
+  vertical-align: baseline;
+  font-size: calc(0.75vw + 0.75vh) !important;
+  color: var(--text-primary);
+}
+
+.sTitle {
+  font-size: calc(1vw + 1vh) !important;
+  margin-left: 2vw;
+  color: var(--accent);
+}
+
+.cd-panel__close {
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cd-panel__close:hover {
+  color: var(--accent);
+  transform: scale(1.1);
+}
+
+/* Stats Display */
+.statsdom {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: var(--surface);
+  border-radius: 0 0 0 var(--border-radius);
+  padding: 0.5rem;
+}
+
+/* Loading Screen */
+#babylonjsLoadingDiv {
+  z-index: 9999 !important;
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+  
+  .btn {
+    padding: 0.5rem 1rem;
+  }
+  
+  .panel {
+    padding: 1rem;
+  }
+}
+
 @font-face {
     font-family: "amazon-ember";
     src: URL("Amazon-Ember-Medium.ttf") format("truetype");

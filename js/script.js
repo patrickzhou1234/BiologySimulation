@@ -8,32 +8,99 @@ document.querySelectorAll(".statsdom")[0].setAttribute("style", "");
 // declaration
 
 let panel;
-panel = createPanel(
-    "brainpanel",
-    "Brain Divisions",
-    "brainclose",
-    "The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other. <br></br> Notable structures seen in this image include: </br><br>- The pituitary gland, also known as the 'master gland', which controls hormonal balances in the body.  <br>- The amygdala, which controls the emotion of fear and influences aggression, reward-based learning, unconscious memory, social understanding, parenting emotions, memory-emotion connections, and addiction behaviors. <br>- The hippocampus, part of the brain's limbic system, is vital for memory, learning, and emotions. It stores short-term memories and facilitates their conversion into long-term memory.  Key functions include storing declarative facts, transferring short-term to long-term memory (assisted by sleep), and aiding spatial navigation and mental mapping. <br>- The hypothalamus, deep within the brain, links the endocrine and nervous systems to maintain body stability (homeostasis). It interprets chemical signals from the brain and peripheral nerves, regulating vital functions like temperature, blood pressure, hunger, thirst, and mood. It also influences sex drive and sleep, controlling these processes through the autonomic nervous system and hormone regulation. </br>",
-    panelbtn,
-    true
-); // get access to the html code of the brain info panel
-
-// same as above but for ribosome information
 let ribopanel;
-let ribotext = ` 
-Structure - Ribosomes are made up of two main components, the large subunit and the small subunit. Ribosomes are made in the nucleolus where four strands of rRNA combine with ribosomal proteins to make the large and small subunit. 
-<br><br>
-Function - The main function of ribosomes is to help build proteins. In the process of building proteins, they are present in the translation. After the transcription happens, where the mRNA is produced as a copy of DNA, The mRNA goes to the ribosome to start the process of translation. In translation, The mRNA is translated by the tRNA to bring the corresponding amino acids and produce a polypeptide chain. The process of producing a polypeptide can be split into three parts. The initiation of translation starts when the tRNA binds to the start codon of the mRNA this happens on the small subunit of the ribosome, then the large subunit of the ribosome covers the small subunit of the ribosome, the elongation of the proteins starts. To accommodate the tRNA, ribosomes have an A site, P site, and an E site. The tRNA first enters through the P site of the ribosome with an amino acid attached to it. There will be another tRNA in the P site of the ribosome with the current chain of amino acids. The chain of polypeptides on the P site will be attached to the amino acid of the tRNA on the A site so the current chain of polypeptides in the tRNA on the A site. Then the tRNA in the P site will exit the ribosome though the E site and the tRNA with the polypeptides will move to the P site. This cycle will continue till the end of the polypeptide when the tRNA reads the end codon. 
-<br><br>
-Position - There are two types of ribosomes, bound and unbound ribosomes. Bound ribosomes are typically present on the nuclear envelope or the endoplasmic reticulum(ER) while unbound ribosomes float around in the cytosol. While the position of the ribosomes have no difference in structure, they both produce different types of proteins. Proteins made from bound ribosomes usually carry materials that are exported from the cell or are inserted into membranes, like lysosomes. The amount of ribosomes present in the cell depends on the cell function and its need for proteins. For example, cells in the pancreas frequently export digestive enzymes, therefore it has a lot of bound ribosomes.
-<br><br>
-mRNA decides if protein is made on ER or cytosol. mRNA has a signal to tell if protein is made on ER or cytosol. Those made on ER need further modification
-<br><br>
-Evolution - Early life forms relied more heavily on RNA for both genetic information storage and catalytic functions. In the context of ribosomes, this suggests that primitive ribosomes might have been composed primarily of RNA, with catalytic roles carried out by ribozymes (RNA molecules with enzymatic activity).
-<br><br>
-Over time, as organisms evolved, there was a transition from an RNA-centric world to one where proteins took on more structural and catalytic roles. This led to the development of the modern ribosome, which is a complex made up of both RNA and proteins. The small and large subunits of the ribosome are composed of ribosomal RNA (rRNA) and proteins, and they work together to facilitate the synthesis of proteins in a highly orchestrated process.
-<br><br><br><br>
-`;
-ribopanel = createPanel("ribopanel", "Ribosome Functionality", "riboclose", ribotext, ribopanelbtn, false);
+
+// Update the createPanel function to handle visibility better
+function createPanel(className, titleText, classNameClose, textInnerHTML, btn = null, show = false) {
+    const panel = document.createElement('div');
+    panel.className = `panel ${className} fade-in`;
+    panel.style.display = show ? 'block' : 'none'; // Hide by default unless show is true
+    
+    const header = document.createElement('div');
+    header.className = 'panel-header';
+    
+    const title = document.createElement('h2');
+    title.className = 'panel-title';
+    title.textContent = titleText;
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.className = `panel-close ${classNameClose} icon-btn`;
+    closeBtn.innerHTML = '<i class="material-icons">close</i>';
+    
+    const content = document.createElement('div');
+    content.className = 'panel-content';
+    content.innerHTML = textInnerHTML;
+    
+    header.appendChild(title);
+    header.appendChild(closeBtn);
+    panel.appendChild(header);
+    panel.appendChild(content);
+    
+    if (btn) {
+        panel.appendChild(btn);
+    }
+    
+    document.body.appendChild(panel);
+    
+    // Add panel interactions
+    closeBtn.addEventListener('click', () => {
+        panel.classList.add('slide-out');
+        setTimeout(() => {
+            panel.style.display = 'none';
+            panel.classList.remove('slide-out');
+        }, 300);
+    });
+    
+    if (show) {
+        panel.classList.add('slide-in');
+    }
+    
+    return panel;
+}
+
+// Update the loadpanel function to show the brain panel
+function loadpanel() {
+    if (!panel) {
+        panel = createPanel(
+            "brainpanel",
+            "Brain Divisions",
+            "brainclose",
+            "The brain is split into four main parts: the cerebrum, the diencephalon, the brainstem, and the cerebellum. The cerebrum, is composed of superficial gray matter and deep white matter. The gray matter makes up the cerebral cortex, which is further subdivided into the 4 brain lobes. These are mainly responsible for cognitive abilities and sensory information. White matter helps the body process information. The diencephalon consists of the thalamus, hypothalumus, and pituitary gland. It's responsible for routing sensory info and for many involuntary body functions. The brain stem controls essential functions such as breathing and heart rate, and conencts to the spine. The cerebellum is responsible for balance and coordination. It's important to remember that many of these brain parts are further subdivided, and their functions and physical structures can sometimes overlap with each other. <br></br> Notable structures seen in this image include: </br><br>- The pituitary gland, also known as the 'master gland', which controls hormonal balances in the body.  <br>- The amygdala, which controls the emotion of fear and influences aggression, reward-based learning, unconscious memory, social understanding, parenting emotions, memory-emotion connections, and addiction behaviors. <br>- The hippocampus, part of the brain's limbic system, is vital for memory, learning, and emotions. It stores short-term memories and facilitates their conversion into long-term memory.  Key functions include storing declarative facts, transferring short-term to long-term memory (assisted by sleep), and aiding spatial navigation and mental mapping. <br>- The hypothalamus, deep within the brain, links the endocrine and nervous systems to maintain body stability (homeostasis). It interprets chemical signals from the brain and peripheral nerves, regulating vital functions like temperature, blood pressure, hunger, thirst, and mood. It also influences sex drive and sleep, controlling these processes through the autonomic nervous system and hormone regulation. </br>",
+            null,
+            true
+        );
+    } else {
+        panel.style.display = 'block';
+        panel.classList.add('slide-in');
+    }
+    hidebtn(panelbtn);
+}
+
+// Update the loadribopanel function to show the ribosome panel
+function loadribopanel() {
+    if (!ribopanel) {
+        let ribotext = ` 
+        Structure - Ribosomes are made up of two main components, the large subunit and the small subunit. Ribosomes are made in the nucleolus where four strands of rRNA combine with ribosomal proteins to make the large and small subunit. 
+        <br><br>
+        Function - The main function of ribosomes is to help build proteins. In the process of building proteins, they are present in the translation. After the transcription happens, where the mRNA is produced as a copy of DNA, The mRNA goes to the ribosome to start the process of translation. In translation, The mRNA is translated by the tRNA to bring the corresponding amino acids and produce a polypeptide chain. The process of producing a polypeptide can be split into three parts. The initiation of translation starts when the tRNA binds to the start codon of the mRNA this happens on the small subunit of the ribosome, then the large subunit of the ribosome covers the small subunit of the ribosome, the elongation of the proteins starts. To accommodate the tRNA, ribosomes have an A site, P site, and an E site. The tRNA first enters through the P site of the ribosome with an amino acid attached to it. There will be another tRNA in the P site of the ribosome with the current chain of amino acids. The chain of polypeptides on the P site will be attached to the amino acid of the tRNA on the A site so the current chain of polypeptides in the tRNA on the A site. Then the tRNA in the P site will exit the ribosome though the E site and the tRNA with the polypeptides will move to the P site. This cycle will continue till the end of the polypeptide when the tRNA reads the end codon. 
+        <br><br>
+        Position - There are two types of ribosomes, bound and unbound ribosomes. Bound ribosomes are typically present on the nuclear envelope or the endoplasmic reticulum(ER) while unbound ribosomes float around in the cytosol. While the position of the ribosomes have no difference in structure, they both produce different types of proteins. Proteins made from bound ribosomes usually carry materials that are exported from the cell or are inserted into membranes, like lysosomes. The amount of ribosomes present in the cell depends on the cell function and its need for proteins. For example, cells in the pancreas frequently export digestive enzymes, therefore it has a lot of bound ribosomes.
+        <br><br>
+        mRNA decides if protein is made on ER or cytosol. mRNA has a signal to tell if protein is made on ER or cytosol. Those made on ER need further modification
+        <br><br>
+        Evolution - Early life forms relied more heavily on RNA for both genetic information storage and catalytic functions. In the context of ribosomes, this suggests that primitive ribosomes might have been composed primarily of RNA, with catalytic roles carried out by ribozymes (RNA molecules with enzymatic activity).
+        <br><br>
+        Over time, as organisms evolved, there was a transition from an RNA-centric world to one where proteins took on more structural and catalytic roles. This led to the development of the modern ribosome, which is a complex made up of both RNA and proteins. The small and large subunits of the ribosome are composed of ribosomal RNA (rRNA) and proteins, and they work together to facilitate the synthesis of proteins in a highly orchestrated process.
+        <br><br><br><br>
+        `;
+        ribopanel = createPanel("ribopanel", "Ribosome Functionality", "riboclose", ribotext, null, true);
+    } else {
+        ribopanel.style.display = 'block';
+        ribopanel.classList.add('slide-in');
+    }
+    hidebtn(ribopanelbtn);
+    Swal.close(); // closes the pop up with info on the ribosome
+}
 
 // returns boolean on whether or not an element has a class
 function hasClass(el, className) {
@@ -217,60 +284,51 @@ function showbtn(psbtn) {
 let sharedSphereMaterial;
 
 function createSphereBtn(depth, verticalpos, horizontalpos, meshesarray, onclick, diameter = 0.25) {
-    // Create a standard material with emissive properties if it doesn't exist
-    if (!sharedSphereMaterial) {
-        sharedSphereMaterial = new BABYLON.StandardMaterial("sphereMaterial", scene);
-    }
-
-    // Reset the material properties
-    sharedSphereMaterial.emissiveColor = new BABYLON.Color3(0.53, 0.81, 0.98);
-    sharedSphereMaterial.specularColor = new BABYLON.Color3(0.7, 0.8, 0.9);
-    sharedSphereMaterial.ambientColor = new BABYLON.Color3(0.53, 0.81, 0.98);
-
-    // Create the sphere
-    const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: diameter, segments: 32 }, scene);
-    sphere.position.set(depth, verticalpos, horizontalpos);
-    sphere.material = sharedSphereMaterial;
-    meshesarray.push(sphere);
-
-    // Add action manager if not already present
+    const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: diameter }, scene);
+    sphere.position = new BABYLON.Vector3(depth, verticalpos, horizontalpos);
+    sphere.material = new BABYLON.StandardMaterial("sphereMaterial", scene);
+    sphere.material.diffuseColor = new BABYLON.Color3(0.4, 0.4, 0.4);
+    sphere.material.specularColor = new BABYLON.Color3(0.4, 0.4, 0.4);
+    sphere.material.emissiveColor = new BABYLON.Color3(0.2, 0.2, 0.2);
+    sphere.material.alpha = 0.8;
+    
+    // Add hover effect
     sphere.actionManager = new BABYLON.ActionManager(scene);
-
-    // Add action manager for click events
     sphere.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-            camera.lowerRadiusLimit = 2;
-            onclick();
-        })
-    );
-
-    // On hover, gradually increase the size
-    sphere.actionManager.registerAction(
-        new BABYLON.InterpolateValueAction(
+        new BABYLON.ExecuteCodeAction(
             BABYLON.ActionManager.OnPointerOverTrigger,
-            sphere,
-            "scaling",
-            new BABYLON.Vector3(1.2, 1.2, 1.2),
-            150
+            function() {
+                sphere.material.emissiveColor = new BABYLON.Color3(0.4, 0.4, 0.4);
+                sphere.scaling = new BABYLON.Vector3(1.1, 1.1, 1.1);
+            }
         )
     );
-
-    // On hover out, smoothly return to original size
+    
     sphere.actionManager.registerAction(
-        new BABYLON.InterpolateValueAction(
+        new BABYLON.ExecuteCodeAction(
             BABYLON.ActionManager.OnPointerOutTrigger,
-            sphere,
-            "scaling",
-            new BABYLON.Vector3(1, 1, 1),
-            150
+            function() {
+                sphere.material.emissiveColor = new BABYLON.Color3(0.2, 0.2, 0.2);
+                sphere.scaling = new BABYLON.Vector3(1, 1, 1);
+            }
         )
     );
-
-    // Add a glow layer specific to this sphere
-    const gl = new BABYLON.GlowLayer("glow_" + sphere.uniqueId, scene);
-    gl.addIncludedOnlyMesh(sphere);
-    gl.intensity = 0.5;
-
+    
+    sphere.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(
+            BABYLON.ActionManager.OnPickTrigger,
+            function() {
+                onclick();
+                // Add click animation
+                sphere.scaling = new BABYLON.Vector3(0.9, 0.9, 0.9);
+                setTimeout(() => {
+                    sphere.scaling = new BABYLON.Vector3(1, 1, 1);
+                }, 100);
+            }
+        )
+    );
+    
+    meshesarray.push(sphere);
     return sphere;
 }
 
@@ -299,58 +357,47 @@ function createTabHTML(arr) {
  * @param btn btn that opens the panel -- needed only if btn needs to be hidden upon clicking
  */
 function createPanel(className, titleText, classNameClose, textInnerHTML, btn = null, show) {
-    // new Promise((resolve) => {
-    // Create the main div
-    const panel = document.createElement("div");
-    panel.id = className;
-    panel.className = `cd-panel ${className} cd-panel--from-right js-cd-panel-main`;
-
-    // Create the header
-    const header = document.createElement("header");
-    header.className = "cd-panel__header";
-    panel.appendChild(header);
-
-    // Create the title
-    const title = document.createElement("h1");
-    title.className = "sTitle";
+    const panel = document.createElement('div');
+    panel.className = `panel ${className} fade-in`;
+    
+    const header = document.createElement('div');
+    header.className = 'panel-header';
+    
+    const title = document.createElement('h2');
+    title.className = 'panel-title';
     title.textContent = titleText;
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.className = `panel-close ${classNameClose} icon-btn`;
+    closeBtn.innerHTML = '<i class="material-icons">close</i>';
+    
+    const content = document.createElement('div');
+    content.className = 'panel-content';
+    content.innerHTML = textInnerHTML;
+    
     header.appendChild(title);
-
-    // Create the close link
-    const closeLink = document.createElement("a");
-    closeLink.className = `cd-panel__close js-cd-close ${classNameClose}`;
-    closeLink.textContent = "Close";
-    header.appendChild(closeLink);
-
-    // Create the container div
-    const container = document.createElement("div");
-    container.className = "cd-panel__container";
-    panel.appendChild(container);
-
-    // Create the content div
-    const content = document.createElement("div");
-    content.className = "cd-panel__content";
-    container.appendChild(content);
-
-    // Create the paragraph
-    const paragraph = document.createElement("p");
-    paragraph.className = "sContent";
-    paragraph.innerHTML = textInnerHTML;
-    content.appendChild(paragraph);
-
-    // Append the entire panel to the body or any other container
+    header.appendChild(closeBtn);
+    panel.appendChild(header);
+    panel.appendChild(content);
+    
+    if (btn) {
+        panel.appendChild(btn);
+    }
+    
     document.body.appendChild(panel);
-
-    document.querySelector(`.${classNameClose}`).onclick = () => {
-        removeClass(panel, "cd-panel--is-visible");
-        if (show) {
-            showbtn(btn); // dont want to see the info button when panel is closed, so hide this btn on click of the close btn
-        } else {
-            hidebtn(btn);
-        }
-    };
-    // resolve(panel);
-
+    
+    // Add panel interactions
+    closeBtn.addEventListener('click', () => {
+        panel.classList.add('slide-out');
+        setTimeout(() => {
+            panel.remove();
+        }, 300);
+    });
+    
+    if (show) {
+        panel.classList.add('slide-in');
+    }
+    
     return panel;
 }
 
@@ -1302,65 +1349,60 @@ function endotheliumclicked() {
 function loadeye() {
     change(m.getChild(), "loadeye()");
     console.log(eyebtns);
-    // if (checkvis(eyebtns[0])) {
-        showui();
-        clickcondeye(0);
-        clearbtns();
-        showbtn(backHuman);
-        showbtn(eyecsbtn);
-        title.innerHTML = "Eye"
-        BABYLON.SceneLoader.ImportMesh("", "", "models/eye.glb", scene, function (meshes) {
-            clear();
-            hideui();
-            meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
-            eyeref = meshes[0];
-            allMeshes.push(eyeref);
+    showui();
+    clickcondeye(0);
+    clearbtns();
+    showbtn(backHuman);
+    showbtn(eyecsbtn);
+    title.innerHTML = "Eye"
+    BABYLON.SceneLoader.ImportMesh("", "", "models/eye.glb", scene, function (meshes) {
+        clear();
+        hideui();
+        meshes[0].scaling = new BABYLON.Vector3(10, 10, 10);
+        eyeref = meshes[0];
+        allMeshes.push(eyeref);
 
-            corneamat = new BABYLON.StandardMaterial("vitreousmat", scene);
-            cornea = BABYLON.MeshBuilder.CreateSphere("cornea", { diameter: 0.1, segments: 32 }, scene);
-            eyemeshes.push(cornea);
-            cornea.position.set(8.017824654107955, 9.483131931536812, -3.3881631831653913);
-            cornea.material = corneamat;
-            cornea.actionManager = new BABYLON.ActionManager(scene);
-            cornea.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                    camera.lowerRadiusLimit = 2;
-                    Swal.fire({
-                        title: "Cornea",
-                        text: "The cornea, the eye's transparent outermost layer, plays a crucial role in focusing light onto the retina and also protecting the eye from pathogens and dust.",
-                        imageUrl: "images/cornea.png",
-                        icon: "question",
-                        background: "black",
-                        color: "white",
-                        backdrop: false,
-                    }).then(function () {
-                        for (i = 0; i < corneabtns.length; i++) {
-                            hidebtn(corneabtns[i]);
-                        }
-                    });
+        corneamat = new BABYLON.StandardMaterial("vitreousmat", scene);
+        cornea = BABYLON.MeshBuilder.CreateSphere("cornea", { diameter: 0.1, segments: 32 }, scene);
+        eyemeshes.push(cornea);
+        cornea.position.set(8.017824654107955, 9.483131931536812, -3.3881631831653913);
+        cornea.material = corneamat;
+        cornea.actionManager = new BABYLON.ActionManager(scene);
+        cornea.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                camera.lowerRadiusLimit = 2;
+                Swal.fire({
+                    title: "Cornea",
+                    text: "The cornea, the eye's transparent outermost layer, plays a crucial role in focusing light onto the retina and also protecting the eye from pathogens and dust.",
+                    imageUrl: "images/cornea.png",
+                    icon: "question",
+                    background: "black",
+                    color: "white",
+                    backdrop: false,
+                }).then(function () {
                     for (i = 0; i < corneabtns.length; i++) {
-                        showbtn(corneabtns[i]);
+                        hidebtn(corneabtns[i]);
                     }
-                })
-            );
-          
-
-            createSphereBtn(8.55, 9.5, -3.43,eyemeshes,function () { createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ");},0.1);
-            createSphereBtn(8.25,9.5,-3.47,eyemeshes,function () {createBasicPopup("Pupil", "The pupil is a black circular opening at the center of the iris, this regulates the amount of light entering the eye this is done through dilations and constrictions which is in response to light intensity.  "); }, 0.1);
-            createSphereBtn(8.894,9.625,-3.15,eyemeshes,function () { createBasicPopup("Sclera", "The sclera, commonly known as the white of the eye, provides protection and maintains the eye's shape; it connects with the cornea at the limbus. Made up of collagen and elastic fibers, allows for strength. The sclera connects with the cornea at the limbus and is continuous with the dura mater of the optic nerve.  ");},0.1);
-           
-        });
-        camera.position = new BABYLON.Vector3(-3, 0, -35);
-        camera.target = new BABYLON.Vector3(8.3, 9.5, -2.7);
-        camera.radius = 4;
-        eyeTabsInfoArr = [["Eye Evolution", "The evolution of the eye started with simple light-sensitive patches of cells on early organisms, which helped them sense light and darkness—a big advantage for avoiding predators or finding better environments. Over time, these patches evolved into small, cup-like shapes that could sense the direction of light, giving these organisms an even greater edge. Eventually, lenses formed, allowing these early eyes to focus light and see sharper images, leading to the camera-like eyes we see in many animals today. Something interesting to note  is that eyes evolved in different ways across species—like the compound eyes of insects and the single-lens eyes of humans."], ["Glaucoma", "Glaucoma is a group of eye conditions that damage the optic nerve, often due to abnormally high pressure inside the eye (intraocular pressure). This damage can lead to irreversible vision loss if left untreated. The most common types are open-angle glaucoma, which develops slowly over time, and angle-closure glaucoma, which can occur suddenly. Risk factors include age, family history, high intraocular pressure, and certain medical conditions like diabetes. Symptoms can be subtle in early stages, especially for open-angle glaucoma, but may include gradual loss of peripheral vision, eye pain, headaches, and blurred vision. The progression of glaucoma is typically described in stages: early, moderate, advanced, and severe. In the early stage, there may be minimal vision loss, while moderate stage shows noticeable peripheral vision loss. Advanced stage glaucoma presents significant vision loss, and in the severe stage, there is extreme tunnel vision or near-total blindness. Treatment options vary depending on the type and stage but may include eye drops, oral medications, laser therapy, or surgery, all aimed at reducing intraocular pressure and preventing further optic nerve damage."]];
-        eyepanel = createPanel("eyepanel", "Eye Information", "eyeclose", createTabHTML(eyeTabsInfoArr));
-        eyeevbtn = createEvolutionBtn("Eye", eyepanel.id);
-        showbtn(eyeevbtn);
-        buttons.push(eyeevbtn);
-        
-        
-    // }
+                });
+                for (i = 0; i < corneabtns.length; i++) {
+                    showbtn(corneabtns[i]);
+                }
+            })
+        );
+      
+        createSphereBtn(8.55, 9.5, -3.43,eyemeshes,function () { createBasicPopup("Iris", "The iris is a colored ring of muscle that controls the size of the pupil. By contracting or dilating the pupil, it controls the amount of light being let in. ");},0.1);
+        createSphereBtn(8.25,9.5,-3.47,eyemeshes,function () {createBasicPopup("Pupil", "The pupil is a black circular opening at the center of the iris, this regulates the amount of light entering the eye this is done through dilations and constrictions which is in response to light intensity.  "); }, 0.1);
+        createSphereBtn(8.894,9.625,-3.15,eyemeshes,function () { createBasicPopup("Sclera", "The sclera, commonly known as the white of the eye, provides protection and maintains the eye's shape; it connects with the cornea at the limbus. Made up of collagen and elastic fibers, allows for strength. The sclera connects with the cornea at the limbus and is continuous with the dura mater of the optic nerve.  ");},0.1);
+       
+    });
+    camera.position = new BABYLON.Vector3(-3, 0, -35);
+    camera.target = new BABYLON.Vector3(8.3, 9.5, -2.7);
+    camera.radius = 4;
+    eyeTabsInfoArr = [["Eye Evolution", "The evolution of the eye started with simple light-sensitive patches of cells on early organisms, which helped them sense light and darkness—a big advantage for avoiding predators or finding better environments. Over time, these patches evolved into small, cup-like shapes that could sense the direction of light, giving these organisms an even greater edge. Eventually, lenses formed, allowing these early eyes to focus light and see sharper images, leading to the camera-like eyes we see in many animals today. Something interesting to note  is that eyes evolved in different ways across species—like the compound eyes of insects and the single-lens eyes of humans."], ["Glaucoma", "Glaucoma is a group of eye conditions that damage the optic nerve, often due to abnormally high pressure inside the eye (intraocular pressure). This damage can lead to irreversible vision loss if left untreated. The most common types are open-angle glaucoma, which develops slowly over time, and angle-closure glaucoma, which can occur suddenly. Risk factors include age, family history, high intraocular pressure, and certain medical conditions like diabetes. Symptoms can be subtle in early stages, especially for open-angle glaucoma, but may include gradual loss of peripheral vision, eye pain, headaches, and blurred vision. The progression of glaucoma is typically described in stages: early, moderate, advanced, and severe. In the early stage, there may be minimal vision loss, while moderate stage shows noticeable peripheral vision loss. Advanced stage glaucoma presents significant vision loss, and in the severe stage, there is extreme tunnel vision or near-total blindness. Treatment options vary depending on the type and stage but may include eye drops, oral medications, laser therapy, or surgery, all aimed at reducing intraocular pressure and preventing further optic nerve damage."]];
+    eyepanel = createPanel("eyepanel", "Eye Information", "eyeclose", createTabHTML(eyeTabsInfoArr), null, false);
+    eyeevbtn = createEvolutionBtn("Eye", eyepanel.id);
+    showbtn(eyeevbtn);
+    buttons.push(eyeevbtn);
 }
 function loadheart(val) {
     change(m.getChild(), "loadheart(0)");
@@ -1854,9 +1896,9 @@ function loadlymphatic(val) {
             allMeshes.push(lymphref);
               createSphereBtn(0.7830194453121005,3.544277965793885,-7.439955816834036, lymphmeshes, function(){createBasicPopup("Spleen", "Lymphatic vessels (shown in green here) are a crucial component of the lymphatic system, responsible for transporting lymph, a clear fluid containing white blood cells, throughout the body. They play a vital role in maintaining fluid balance, filtering out harmful substances, and supporting the immune system by facilitating the movement of immune cells to sites of infection and inflammation. The lymph nodes, which are the rounded structures, serve as filtration hubs for lymph fluid.  They trap and destroy harmful pathogens, foreign particles, and cancer cells, while also housing immune cells such as lymphocytes and macrophages, which coordinate the body's immune response to infections and diseases. ",)}, 0.4)
               createSphereBtn(0.2521704550731494,4.918606436122572,-6.90876421115608, lymphmeshes, function(){createBasicPopup("Lymph Node", "Lymph nodes are small, bean-shaped structures that are part of the lymphatic system, playing a crucial role in the immune response. They filter lymph fluid to trap and destroy harmful substances like bacteria, viruses, and cellular debris, while housing immune cells like lymphocytes that fight infection. Strategically located throughout the body, lymph nodes swell during infection as they work to combat pathogens. ",)}, 0.4)
-              createSphereBtn(-0.006699910640601381,5.330263803744348,-6.248526009523893, lymphmeshes, function(){createBasicPopup("Thymus", "The thymus is a primary lymphoid organ located in the chest that plays a critical role in the development and maturation of T-cells, a type of immune cell essential for adaptive immunity. It is most active during childhood and gradually shrinks with age, as the immune system becomes established. The thymus ensures that T-cells can distinguish between the body’s own cells and foreign invaders. ",)}, 0.4)
+              createSphereBtn(-0.006699910640601381,5.330263803744348,-6.248526009523893, lymphmeshes, function(){createBasicPopup("Thymus", "The thymus is a primary lymphoid organ located in the chest that plays a critical role in the development and maturation of T-cells, a type of immune cell essential for adaptive immunity. It is most active during childhood and gradually shrinks with age, as the immune system becomes established. The thymus ensures that T-cells can distinguish between the body's own cells and foreign invaders. ",)}, 0.4)
               createSphereBtn(-0.41456337485081596,6.449239069241051,-6.215651524259993, lymphmeshes, function(){createBasicPopup("Tonsils", "The tonsils are lymphoid tissues located in the throat that act as the first line of defense in the immune system. They trap and analyze pathogens entering through the mouth or nose, initiating immune responses by activating lymphocytes. Tonsils contribute to protecting the respiratory and digestive tracts from infections. ",)}, 0.4)
-              createSphereBtn(-0.5266987655277928,0.3880124283341502,-6.520158817166713, lymphmeshes, function(){createBasicPopup("Peyer's Patches", "Peyer’s patches are specialized clusters of lymphoid tissue located in the walls of the small intestine. They monitor gut contents for harmful microorganisms and activate immune responses to maintain intestinal health. These patches play an important role in distinguishing between beneficial and harmful microbes in the gastrointestinal tract.",)}, 0.4)
+              createSphereBtn(-0.5266987655277928,0.3880124283341502,-6.520158817166713, lymphmeshes, function(){createBasicPopup("Peyer's Patches", "Peyer's patches are specialized clusters of lymphoid tissue located in the walls of the small intestine. They monitor gut contents for harmful microorganisms and activate immune responses to maintain intestinal health. These patches play an important role in distinguishing between beneficial and harmful microbes in the gastrointestinal tract.",)}, 0.4)
               createSphereBtn(-2.363506068828399,1.9300334174393425,-6.519252118903179, lymphmeshes, function(){createBasicPopup("Bone Marrow", "Bone marrow is a spongy tissue found within certain bones that serves as the primary site for the production of blood cells, including immune cells like B-cells and T-cell precursors. It plays a foundational role in the lymphatic system by generating cells critical for both innate and adaptive immunity. B-cells mature in the bone marrow before entering circulation to fight infections. ",)}, 0.4)
 
         });
@@ -2965,8 +3007,66 @@ engine.runRenderLoop(function () {
     stats.update();
 });
 
-scene.clearColor = new BABYLON.Color3(0, 0, 0);
+scene.clearColor = new BABYLON.Color4(0.1, 0.2, 0.25, 1); // Fresh teal background
 
 window.addEventListener("resize", function () {
     engine.resize();
 });
+
+// Add click handlers to all interactive elements
+function initializeInteractivity() {
+    // Make all buttons interactive
+    const buttons = document.querySelectorAll('.btn, .icon-btn, .nav-item');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Add ripple effect
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+            
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = `${size}px`;
+            
+            const x = e.clientX - rect.left - size/2;
+            const y = e.clientY - rect.top - size/2;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            ripple.classList.add('mui--is-visible');
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+
+    // Add hover effects to panels
+    const panels = document.querySelectorAll('.panel');
+    panels.forEach(panel => {
+        panel.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-4px)';
+        });
+        
+        panel.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Make all icons clickable
+    const icons = document.querySelectorAll('.material-icons');
+    icons.forEach(icon => {
+        icon.style.cursor = 'pointer';
+        icon.addEventListener('click', function() {
+            // Add click animation
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 100);
+        });
+    });
+}
+
+// Initialize interactivity when the page loads
+window.addEventListener('load', initializeInteractivity);

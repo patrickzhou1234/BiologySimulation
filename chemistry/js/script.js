@@ -553,5 +553,34 @@ function getElectronConfiguration(element) {
     renderer.render(scene, camera);
   }
 
+  // Menu functionality
+  function toggleMenu() {
+    const menu = document.getElementById('dropdownMenu');
+    const hamburger = document.querySelector('.hamburger-menu');
+    menu.classList.toggle('active');
+    hamburger.classList.toggle('active');
+  }
+
+  function showTrendsMenu() {
+    const trendsMenu = document.getElementById('trendsMenu');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    trendsMenu.classList.toggle('active');
+    dropdownMenu.classList.remove('active');
+  }
+
+  // Close menus when clicking outside
+  document.addEventListener('click', function(event) {
+    const menu = document.getElementById('dropdownMenu');
+    const trendsMenu = document.getElementById('trendsMenu');
+    const hamburger = document.querySelector('.hamburger-menu');
+    const menuContainer = document.querySelector('.menu-container');
+
+    if (!menuContainer.contains(event.target)) {
+      menu.classList.remove('active');
+      trendsMenu.classList.remove('active');
+      hamburger.classList.remove('active');
+    }
+  });
+
   init();
   animate();
