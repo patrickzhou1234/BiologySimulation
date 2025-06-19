@@ -53,7 +53,7 @@ body {
     text-align: center;
     margin: 20px 0;
     z-index: 99999999;
-  }
+}
 
 .bronchibtns {
     z-index: 99999999;
@@ -1045,7 +1045,7 @@ img {
     font-size: 2em;
     color: #fff;
     transition: transform 1.25s ease;
-    overflow: hidden; /* Added to contain the ripple effect */
+    /*overflow: hidden; /* Added to contain the ripple effect */
 }
 
 .menu.active .toggle {
@@ -1199,5 +1199,48 @@ img {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+.ttext {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    z-index: 1;
+    opacity: 0;
+    animation: flashAnim 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+    display: block;
+    padding: 12px 24px;
+    color: #fff;
+    white-space: nowrap;
+    font-size: 22px;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(105deg, #a445b2, #d41872, #ff0066);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(164, 69, 178, 0.35);
+}
+
+.ttext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: flashAnim 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+    border-width: 8px;
+    border-style: solid;
+    border-color: #a445b2 transparent transparent transparent;
+}
+
+@keyframes flashAnim {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
     }
 }
