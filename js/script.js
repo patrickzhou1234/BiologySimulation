@@ -562,10 +562,9 @@ function loadcell() {
     camera.lowerRadiusLimit = 2; // sets minimum allowed distance from the camera's target (the point it's looking at) to the camera
     clear();
     Swal.close();
-    importmesh("ribosoma.glb", new BABYLON.Vector3(0.4855579893367401, -0.19247690443455667, 2.106724807070549));
+    importmesh("ribosoma.glb", null, null, null, new BABYLON.Vector3(0.4855579893367401, -0.19247690443455667, 2.106724807070549));
     title.innerHTML = "Cell"
-    importmesh("animal_cell.glb", null, null, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(-10, 100, 5));
-    camera.radius = 5;
+    importmesh("animal_cell.glb", new BABYLON.Vector3(-10, 100, 5), new BABYLON.Vector3(0, 0, 0), 5);
     cellSpheres(); // function that displays all the spheres associated with the parts of a cell (mitochondria, ...)
 }
 
@@ -703,22 +702,24 @@ function cellSpheres() {
 }
 
 /**
- * Imports a specified mesh
+ * Imports a specified mesh and optionally controls the camera.
  *
- * @param {string} filename the name of the glb file
- * @param {BABYLON.Vector3} scaling scaling of the mesh (i.e. new BABYLON.Vector3(5, 5, 5)), will use default scaling if argument is not provided   
- * @param {BABYLON.Vector3} position position of the mesh (i.e. new BABYLON.Vector3(5, 5, 5)), will use default position if argument is not provided  
- * @param {BABYLON.Vector3} camera_target axes to target the camera at (i.e. new BABYLON.Vector3(5, 5, 5)), will use default axes if argument is not provided
- * @param {BABYLON.Vector3} camera_position initial position of the camera (i.e. new BABYLON.Vector3(5, 5, 5)), will use position axes if argument is not provided
-
-*/
-function importmesh(filename, scaling = null, position = null, camera_target = null, camera_position = new BABYLON.Vector3(0, 0, 0)) {
+ * @param {string} filename The name of the .glb file to load from the 'models/' directory.
+ * @param {BABYLON.Vector3 | null} [camera_position=null] The desired position for the camera. If null, the camera position is not changed.
+ * @param {BABYLON.Vector3 | null | false} [camera_target=null] The camera's target. If null, targets the loaded mesh. If false, the target is not changed.
+ * @param {number | null} [camera_radius=null] The desired radius for the ArcRotateCamera. If null, the radius is not changed.
+ * @param {BABYLON.Vector3 | null} [scaling=null] The scaling vector for the loaded mesh. If null, uses the mesh's default scaling.
+ * @param {BABYLON.Vector3 | null} [position=null] The position vector for the loaded mesh. If null, uses the mesh's default position.
+ */
+function importmesh(filename, camera_position = null, camera_target = null, camera_radius = null, scaling = null, position = null) {
     Swal.close();
     showui();
     BABYLON.SceneLoader.ImportMesh("", "", `models/${filename}`, scene, function (meshes) {
         // imports 3D model
         hideui();
-        if (camera_target == null) {
+        if (camera_target === false) {
+            // do not change camera.target
+        } else if (camera_target == null) {
             camera.target = meshes[0]; // sets camera target
         } else {
             camera.target = camera_target;
@@ -729,7 +730,12 @@ function importmesh(filename, scaling = null, position = null, camera_target = n
         if (position != null) {
             meshes[0].position = position;
         }
-        camera.position = camera_position;
+        if (camera_position != null) {
+            camera.position = camera_position;
+        }
+        if (camera_radius != null) {
+            camera.radius = camera_radius;
+        }
         allMeshes.push(meshes[0]);
     });
 }
@@ -739,7 +745,7 @@ function membraneclicked() {
     if (checkvis(roundbtns[0])) {
         clickcond(cellmeshes, roundbtns, 0);
         clear();
-        importmesh("cell_membrane.glb");
+        importmesh("cell_membrane.glb", new BABYLON.Vector3(0, 0, 0));
         title.innerHTML = "Cell Membrane"
         hidebtn(backHuman);
         showbtn(backcell);
@@ -750,7 +756,7 @@ function phosphoclicked() {
     if (checkvis(roundbtns[1])) {
         clickcond(cellmeshes, roundbtns, 1);
         clear();
-        importmesh("phospho_sama.glb");
+        importmesh("phospho_sama.glb", new BABYLON.Vector3(0, 0, 0));
         title.innerHTML = "Phospholipid"
         hidebtn(backHuman);
         showbtn(backcell);
@@ -762,7 +768,7 @@ function phosphoclicked2() {
         document.getElementById("swal2-html-container").innerHTML = "<ul>Selective permeability</ul><ul>Passive transport</ul><ul>Active transport</ul><ul>Facilitated transport</ul>";
         clickcond(cellmeshes, roundbtns, 2);
         clear();
-        importmesh("phospholipid.glb", new BABYLON.Vector3(0.01, 0.01, 0.01));
+        importmesh("phospholipid.glb", new BABYLON.Vector3(0, 0, 0), null, null, new BABYLON.Vector3(0.01, 0.01, 0.01));
         title.innerHTML = "2 Phospholipids"
         hidebtn(backHuman);
         showbtn(backcell);
@@ -773,7 +779,7 @@ function openchannel() {
     if (checkvis(roundbtns[3])) {
         clickcond(cellmeshes, roundbtns, 3);
         clear();
-        importmesh("openchannel.glb");
+        importmesh("openchannel.glb", new BABYLON.Vector3(0, 0, 0));
         title.innerHTML = "Open Channel"
         hidebtn(backHuman);
         showbtn(backcell);
@@ -784,7 +790,7 @@ function cholestrolclicked() {
     if (checkvis(roundbtns[4])) {
         clickcond(cellmeshes, roundbtns, 4);
         clear();
-        importmesh("Cholestoral.glb");
+        importmesh("Cholestoral.glb", new BABYLON.Vector3(0, 0, 0));
         title.innerHTML = "Cholesterol"
         hidebtn(backHuman);
         showbtn(backcell);
@@ -811,7 +817,7 @@ function loadmitochondria(val) {
         clickcond(cellmeshes, mitosmlbtns, 0);
         clear();
         scaling = new BABYLON.Vector3(5, 5, 5);
-        importmesh("mitocondrias.glb", scaling);
+        importmesh("mitocondrias.glb", new BABYLON.Vector3(0, 0, 0), null, null, scaling);
         title.innerHTML = "Mitochondria"
         showbtn(backcell);
         showbtn(showETC);
@@ -825,7 +831,7 @@ function loadETC(val) {
         scaling = new BABYLON.Vector3(5, 5, 5);
         clearbtns();
         clear();
-        importmesh("etc.glb", scaling, null, new BABYLON.Vector3(2.2716116774026744,2.9540898105264355,-15.497743901108434));
+        importmesh("etc.glb", new BABYLON.Vector3(0,0,0), new BABYLON.Vector3(2.2716116774026744,2.9540898105264355,-15.497743901108434), null, scaling);
         showbtn(backcell);
         title.innerHTML = "Electron Transport Chain"
     }
@@ -836,7 +842,7 @@ function loadgolgi(val) {
         clickcond(cellmeshes, golgismlbtns, 0);
         clear();
         scaling = new BABYLON.Vector3(5, 5, 5);
-        importmesh("golgi.glb", scaling, null, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 50, 0));
+        importmesh("golgi.glb", new BABYLON.Vector3(0, 50, 0), new BABYLON.Vector3(0, 0, 0), null, scaling);
         title.innerHTML = "Golgi"
     }   
 }
@@ -844,14 +850,14 @@ function loadgolgi(val) {
 function loadrougher(val) {
     clickcond(cellmeshes, roughersmlbtns, 0);
     clear();
-    importmesh("rough_er.glb", new BABYLON.Vector3(20, 20, 20));
+    importmesh("rough_er.glb", new BABYLON.Vector3(0, 0, 0), null, null, new BABYLON.Vector3(20, 20, 20));
     title.innerHTML = "Rough Endoplasmic Reticulum"
 }
 
 function loadsmoother(val) {
     clickcond(cellmeshes, smoothersmlbtns, 1);
     clear();
-    importmesh("smooth_er.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), new BABYLON.Vector3(0, 0, 0.5), new BABYLON.Vector3(0, 0, 0));
+    importmesh("smooth_er.glb", new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0), null, new BABYLON.Vector3(0.01, 0.01, 0.01), new BABYLON.Vector3(0, 0, 0.5));
     title.innerHTML = "Smooth Endoplasmic Reticulum"
 }
 
@@ -882,12 +888,12 @@ function loadbrain(val) {
     change(m.getChild(), "loadbrain(0)");
     if (checkvis(brainbtns[0]) || val == 0) {
         showui();
+        clear();
         clickcond(humanmeshes, brainbtns, 0);
         showNeuron.textContent = "Show Neuron";
         title.innerHTML = "Brain"
-        importmesh("limbic_system.glb", new BABYLON.Vector3(0.35, 0.35, 0.35), null, new BABYLON.Vector3(-5, 2, -2), new BABYLON.Vector3(-2, 1, -60));
+        importmesh("limbic_system.glb", new BABYLON.Vector3(-2, 1, -60), new BABYLON.Vector3(-5, 2, -2), 50, new BABYLON.Vector3(0.35, 0.35, 0.35));
         camera.upperRadiusLimit = 100;
-        camera.radius = 50;
 
         showbtn(backHuman);
         showbtn(showExterior);
@@ -905,9 +911,8 @@ function showExteriorBrain() {
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.textContent = "Show Neuron";
         title.innerHTML = "Brain (Exterior)"
-        importmesh("brain.glb", new BABYLON.Vector3(175, 175, 175), null, new BABYLON.Vector3(4.71217963126949, -0.8773744950316118, -1.0694323161220023));
+        importmesh("brain.glb", new BABYLON.Vector3(0,0,0), new BABYLON.Vector3(4.71217963126949, -0.8773744950316118, -1.0694323161220023), 50, new BABYLON.Vector3(175, 175, 175));
         camera.upperRadiusLimit = 100;
-        camera.radius = 50;
 
         createSphereBtn(9.783295435504865, -10.973468433087497, -0.7949386939274561, lobemeshes, function () {
             createBasicPopup("Medulla", "Your medulla oblongata is the bottom-most part of your brain. It's where the spinal cord and brain merge, making it a key conduit for nerve signals to and from your body. It's main function is to control vital processes like your heartbeat, breathing and blood pressure. ");
@@ -947,10 +952,10 @@ function loadspine(val) {
     hidebtn(backcell);
     if (checkvis(spinebtns[0]) || val == 0 || val == 2) {
         showui();
+        clear();
         clickcond(humanmeshes, spinebtns, 0);
         if (val == 2) {
             console.log("inside load spine 2");
-            clear();
             clearbtns();
             // hidebtn(showsystems);
             hidebtn(backcell);
@@ -958,7 +963,7 @@ function loadspine(val) {
             hidebtn(backHuman);
         }
         title.innerHTML = "Nervous System"
-        importmesh("nervoussystem.glb", new BABYLON.Vector3(0.13, 0.13, 0.13), null, new BABYLON.Vector3(0, 5, 0), new BABYLON.Vector3(10, 1, 10));
+        importmesh("nervoussystem.glb", new BABYLON.Vector3(10, 1, 10), new BABYLON.Vector3(0, 5, 0), null, new BABYLON.Vector3(0.13, 0.13, 0.13));
 
         createSphereBtn(0,7.5,2.5,spinemeshes,function(){createBasicPopup("Brain","The brain is the central organ of the nervous system. It is a highly complex organ that is responsible for controlling and regulating all vital body functions, as well as intelligence, consciousness, processing information, memories, thoughts, and much more. The brain is made up of billions of neurons, and billions of other supporting cells like glial cells. It is subdivided into many parts, each specialized to control specific tasks. For example, the brainstem controls vital functions, the hippocampus functions in long term memory, and the amygdala is a major center for processing emotions.", brainbtns);},0.5);
         createSphereBtn(-0.3611071484137547,2.2155669523598203,0.5144020521811177,spinemeshes,function(){createBasicPopup("Spinal Cord","The pathway for nerve impulses to travel from the brain to the body and vice versa.", spinebtns);},0.5);
@@ -970,10 +975,10 @@ function loadhuman(val) {
     change(m.getChild(), "loadhuman(0)");
     if (checkvis(backHuman) || val == 0) {
         showui();
+        clear();
         clickcond(cellmeshes, backHuman);
         title.innerHTML = "Human"
         BABYLON.SceneLoader.ImportMesh("", "", "models/human.glb", scene, function (meshes) {
-            clear();
             hideui();
             meshes[0].scaling = new BABYLON.Vector3(6, 6, 6);
             try {
@@ -1011,7 +1016,7 @@ function loadeyecs(val) {
         showui();
         clear();
         title.innerHTML = "Eye (Cross Section)"
-        importmesh("eye_crosssection.glb", null, null, new BABYLON.Vector3(-690, 340, -450), new BABYLON.Vector3(-1220.83713583762, 468.32129390641774, 387.70330910524217));
+        importmesh("eye_crosssection.glb", new BABYLON.Vector3(-1220.83713583762, 468.32129390641774, 387.70330910524217), new BABYLON.Vector3(-690, 340, -450));
         camera.upperRadiusLimit = 1000;
         
         createSphereBtn(-747.7206686288839, 255.380098839613288, -737.3180460121363, humanmeshes, function () {createBasicPopup("Optic Nerve", "The optic nerve is a bundle of nerve fibers that transmits visual information from the retina to the brain, enabling the perception and interpretation of visual stimuli. This area is considered the 'blind spot' and does not contain any photoreceptors");}, 10);
@@ -1043,7 +1048,7 @@ function loadearcs(val) {
         showui();
         clear();
         title.innerHTML = "Ear (Cross Section)"
-        importmesh("ear_cs.glb", new BABYLON.Vector3(6, 6, 6), new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0.75, 0), new BABYLON.Vector3(1, 0.8, -1))
+        importmesh("ear_cs.glb", new BABYLON.Vector3(1, 0.8, -1), new BABYLON.Vector3(0, 0.75, 0), null, new BABYLON.Vector3(6, 6, 6), new BABYLON.Vector3(0, 0, 0))
         hidebtn(earcsbtn);
         hidebtn(backcell);
         showbtn(backHuman);
@@ -1056,7 +1061,7 @@ function loadear() {
         showui();
         clear()
         title.innerHTML = "Ear"
-        importmesh("ear.glb", new BABYLON.Vector3(0.4, 0.4, 0.4), new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0.8, 0), new BABYLON.Vector3(1, 0, -1.2))
+        importmesh("ear.glb", new BABYLON.Vector3(1, 0, -1.2), new BABYLON.Vector3(0, 0.8, 0), null, new BABYLON.Vector3(0.4, 0.4, 0.4), new BABYLON.Vector3(0, 0, 0))
         hidebtn(earcsbtn);
         hidebtn(backcell);
         showbtn(backHuman);
@@ -1099,13 +1104,13 @@ function loadeye() {
     console.log(eyebtns);
     // if (checkvis(eyebtns[0])) {
         showui();
+        clear();
         clickcondeye(0);
         clearbtns();
         showbtn(backHuman);
         showbtn(eyecsbtn);
         title.innerHTML = "Eye"
-        importmesh("eye.glb", new BABYLON.Vector3(10, 10, 10), null, new BABYLON.Vector3(8.3, 9.5, -2.7), new BABYLON.Vector3(-3, 0, -35));
-        camera.radius = 4;
+        importmesh("eye.glb", new BABYLON.Vector3(-3, 0, -35), new BABYLON.Vector3(8.3, 9.5, -2.7), 4, new BABYLON.Vector3(10, 10, 10));
 
         createSphereBtn(
             8.017824654107955, 9.483131931536812, -3.3881631831653913,
@@ -1148,9 +1153,10 @@ function loadheart(val) {
     change(m.getChild(), "loadheart(0)");
     if (checkvis(heartbtns[0]) || val == 0) {
         showui();
+        clear();
         clickcond(humanmeshes, heartbtns, 0);
         title.innerHTML = "Heart"
-        importmesh("heart.glb", new BABYLON.Vector3(10, 10, 10));
+        importmesh("heart.glb", new BABYLON.Vector3(80, 1.5, 50), null, null, new BABYLON.Vector3(10, 10, 10));
         createSphereBtn(2.5576482066001773,1.6891541136989279,3.9493668163700306,heartmeshes,function(){createBasicPopup("Right Atrium","The right atrium is responsible for receiving oxygen-poor blood from the body through the superior and inferior vena cava. It serves as a holding chamber that allows blood to accumulate before it is transferred to the right ventricle for further circulation.");},1.5);
         createSphereBtn(1.4725795491646574,-3.9373089418681637,2.998604554954426,heartmeshes,function(){createBasicPopup("Right Ventricle","The right ventricle pumps oxygen-poor blood to the lungs via the pulmonary artery, where it undergoes oxygenation. The wall of the right ventricle is relatively thinner compared to the left ventricle, as it only needs to pump blood a short distance to the lungs.");},1.5);
         createSphereBtn(-1.6441591690348405,-2.8816322575918836,3.310198635298761,heartmeshes,function(){createBasicPopup("Left Ventricle","The left ventricle is responsible for pumping oxygen-rich blood to the entire body through the aorta. It has the thickest wall among the heart chambers, as it needs to generate substantial force to push blood through the extensive systemic circulation.");},1.5);
@@ -1179,7 +1185,7 @@ function loadexretory(val) {
             hidebtn(backHuman);
         }
         title.innerHTML = "Excretory System"
-        importmesh("exretory_system.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -15));
+        importmesh("exretory_system.glb", new BABYLON.Vector3(0, 0, -15), null, null, new BABYLON.Vector3(0.01, 0.01, 0.01));
 
         createSphereBtn(1.3,5,-0.6,exretorymeshes,function(){createBasicPopup("Kidney","The kidneys, each about the size of a human fist, are bean-shaped organs located on either side of the spine in the lower back. They filter waste and excess substances from the blood, regulating electrolyte balance, blood pressure, and producing urine for waste elimination.",kidneybtns);});
         createSphereBtn(0.98,0,-0.25,exretorymeshes,function(){createBasicPopup("Ureter","The channels through which the urine formed in the kidney enters the urinary bladder.");});
@@ -1205,9 +1211,9 @@ function loaddigestive(val) {
             hidebtn(backHuman);
         }
         title.innerHTML = "Digestive System"
-        importmesh("digestive_system1.glb", new BABYLON.Vector3(0.25, 0.25, 0.25), null, new BABYLON.Vector3(0, 9, 0), new BABYLON.Vector3(4.7, 15.25, -127));
+        clear();
+        importmesh("digestive_system1.glb", new BABYLON.Vector3(4.7, 15.25, -127), new BABYLON.Vector3(0, 9, 0), 23, new BABYLON.Vector3(0.25, 0.25, 0.25));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1232,9 +1238,9 @@ function loaddigestiveinsitu(val) {
         hidebtn(backcell);
         clickcond(humanmeshes, digestiveinsitubtns, 0);
         title.innerHTML = "Digestive System"
-        importmesh("digestiveinsitu.glb", new BABYLON.Vector3(0.25, 0.25, 0.25), null, new BABYLON.Vector3(0, 9, 0), new BABYLON.Vector3(4.7, 10.25, -127));
+        clear();
+        importmesh("digestiveinsitu.glb", new BABYLON.Vector3(4.7, 10.25, -127), new BABYLON.Vector3(0, 9, 0), 23, new BABYLON.Vector3(0.25, 0.25, 0.25));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1257,9 +1263,9 @@ function loadliver(val) {
         showui();
         clickcond(humanmeshes, liverbtns, 0);
         title.innerHTML = "Liver"
-        importmesh("livergallbladder.glb", new BABYLON.Vector3(50, 50, 50), null, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
+        clear();
+        importmesh("livergallbladder.glb", new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0), 23, new BABYLON.Vector3(50, 50, 50));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1299,7 +1305,8 @@ function loadintestine(val) {
         clearbtns();
         clickcond(humanmeshes, intestinebtns, 0);
         title.innerHTML = "Small Intestine"
-        importmesh("intestine.glb", new BABYLON.Vector3(10, 10, 10), null, new BABYLON.Vector3(0.007446692495163276, 2.7207984888092964, -0.6814251652840753), new BABYLON.Vector3(0, 0, 20));
+        clear();
+        importmesh("intestine.glb", new BABYLON.Vector3(0, 0, 20), new BABYLON.Vector3(0.007446692495163276, 2.7207984888092964, -0.6814251652840753), 23, new BABYLON.Vector3(10, 10, 10));
         camera.upperRadiusLimit = 100;
         camera.radius = 23;
         humanmeshes.forEach((el) => {
@@ -1320,9 +1327,9 @@ function loadcolon(val) {
         clearbtns();
         clickcond(humanmeshes, colonbtns, 0);
         title.innerHTML = "Colon (Large Intestine)"
-        importmesh("colon.glb", new BABYLON.Vector3(0.025, 0.025, 0.025), null, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(190, 0, -200));
+        clear();
+        importmesh("colon.glb", new BABYLON.Vector3(190, 0, -200), new BABYLON.Vector3(0, 0, 0), 23, new BABYLON.Vector3(0.025, 0.025, 0.025));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1336,9 +1343,9 @@ function loadesophagus(val) {
         clearbtns();
         clickcond(humanmeshes, esophagusbtns, 0);
         title.innerHTML = "Esophagus"
-        importmesh("esophagus.glb", new BABYLON.Vector3(1, 1, 1), null, new BABYLON.Vector3(-1.092117200582102, -0.14979557160125978, 1.9156961717874594), new BABYLON.Vector3(190, 0, -200));
+        clear();
+        importmesh("esophagus.glb", new BABYLON.Vector3(190, 0, -200), new BABYLON.Vector3(-1.092117200582102, -0.14979557160125978, 1.9156961717874594), 23, new BABYLON.Vector3(1, 1, 1));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1351,7 +1358,8 @@ function loadnervous(val) {
     clearbtns();
     clickcond(humanmeshes, NSbtns, 0);
     title.innerHTML = "Nervous System"
-    importmesh("nervous_system.glb", new BABYLON.Vector3(8, 8, 8), null, new BABYLON.Vector3(0.05740795922190678,7.15830432454763,0.9948979818070001));
+    clear();
+    importmesh("nervous_system.glb", null, new BABYLON.Vector3(0.05740795922190678,7.15830432454763,0.9948979818070001), null, new BABYLON.Vector3(8, 8, 8));
     humanmeshes.forEach((el) => {
         el.visibility = 0;
     });
@@ -1370,9 +1378,9 @@ function loadpancreas(val) {
         showui();
         clickcond(humanmeshes, pancreasbtns, 0);
         title.innerHTML = "Pancreas"
-        importmesh("pancreas.glb", new BABYLON.Vector3(30, 30, 30), null, new BABYLON.Vector3(-8, 0, 0), new BABYLON.Vector3(4.7, 15.25, -127));
+        clear();
+        importmesh("pancreas.glb", new BABYLON.Vector3(4.7, 15.25, -127), new BABYLON.Vector3(-8, 0, 0), 23, new BABYLON.Vector3(30, 30, 30));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1386,7 +1394,7 @@ function loadlungs(val) {
         showui();
         clickcond(humanmeshes, lungbtns, 0);
         title.innerHTML = "Lungs"
-        importmesh("lung.glb", null, null, null, new BABYLON.Vector3(0, -10, 0));
+        importmesh("lung.glb", new BABYLON.Vector3(0, -10, 0));
     }
 }
 function loadcirculatory(val) {
@@ -1406,9 +1414,9 @@ function loadcirculatory(val) {
             hidebtn(backHuman);
         }
         title.innerHTML = "Circulatory System"
-        importmesh("circulatory_system.glb", new BABYLON.Vector3(10, 10, 10), null, new BABYLON.Vector3(0, 9, 0), new BABYLON.Vector3(4.7, 1.25, -127));
+        clear();
+        importmesh("circulatory_system.glb", new BABYLON.Vector3(80, 0.5, 80), new BABYLON.Vector3(0, 9, 0), 23, new BABYLON.Vector3(10, 10, 10));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1419,7 +1427,6 @@ function loadcirculatory(val) {
         createSphereBtn(0.5,6.8,0.2,circulatorymeshes,function(){createBasicPopup("Venules","Smaller veins");},0.4);
         createSphereBtn(0,13.7,-0.3,circulatorymeshes,function(){createBasicPopup("Aorta","The main artery that brings oxygenated blood directly from the heart. All other arteries branch off of this one.");},0.4);
         createSphereBtn(0.2,11.8,-0.2,circulatorymeshes,function(){createBasicPopup("Vena Cava","The main vein that brings all deoxygenated blood from the body into the heart. All other veins converge into this one");},0.4);
-        camera.position = new BABYLON.Vector3(80, 0.5, 80);
         showbtn(backHuman);
     }
 }
@@ -1430,9 +1437,9 @@ function loadbronchi(val) {
         clearbtns();
         clickcond(humanmeshes, bronchibtns, 0);
         title.innerHTML = "Bronchi"
-        importmesh("bronchi.glb", new BABYLON.Vector3(1, 1, 1), null, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 30));
+        clear();
+        importmesh("bronchi.glb", new BABYLON.Vector3(0, 0, 30), new BABYLON.Vector3(0, 0, 0), 23, new BABYLON.Vector3(1, 1, 1));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1447,9 +1454,9 @@ function loadspinalcord(val) {
         clearbtns();
         clickcond(humanmeshes, cordbtns, 0);
         title.innerHTML = "Spinal Cord"
-        importmesh("spinalcord1.glb", new BABYLON.Vector3(0.2, 0.2, 0.2), null, new BABYLON.Vector3(0, 5, 0), new BABYLON.Vector3(10, 1, 10));
+        clear();
+        importmesh("spinalcord1.glb", new BABYLON.Vector3(10, 1, 10), new BABYLON.Vector3(0, 5, 0), 23, new BABYLON.Vector3(0.2, 0.2, 0.2));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1471,11 +1478,11 @@ function loadrespinsitu(val) {
     change(m.getChild(), "loadrespinsitu(0)");
     if (checkvis(respinsitubtns[0]) || val == 0) {
         showui();
+        clear()
         clickcond(humanmeshes, respinsitubtns, 0);
         title.innerHTML = "Respiratory System"
-        importmesh("respiratorysysteminsitu1.glb", new BABYLON.Vector3(15, 15, 15), null, new BABYLON.Vector3(0, 5, 0), new BABYLON.Vector3(10, 0, 10));
+        importmesh("respiratorysysteminsitu1.glb", new BABYLON.Vector3(10, 0, 10), new BABYLON.Vector3(0, 5, 0), 23, new BABYLON.Vector3(15, 15, 15));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1515,9 +1522,9 @@ function loadlymphatic(val) {
             hidebtn(backHuman);
         }
         title.innerHTML = "Lymphatic System"
-        importmesh("lymphatic_system.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, new BABYLON.Vector3(0, 0, -8), new BABYLON.Vector3(4.7, 1.25, -127));
+        clear();
+        importmesh("lymphatic_system.glb", new BABYLON.Vector3(0, 0.5, 80), new BABYLON.Vector3(0, 0, -8), 23, new BABYLON.Vector3(0.01, 0.01, 0.01));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1527,7 +1534,6 @@ function loadlymphatic(val) {
         createSphereBtn(-0.41456337485081596,6.449239069241051,-6.215651524259993, lymphmeshes, function(){createBasicPopup("Tonsils", "The tonsils are lymphoid tissues located in the throat that act as the first line of defense in the immune system. They trap and analyze pathogens entering through the mouth or nose, initiating immune responses by activating lymphocytes. Tonsils contribute to protecting the respiratory and digestive tracts from infections. ",)}, 0.4)
         createSphereBtn(-0.5266987655277928,0.3880124283341502,-6.520158817166713, lymphmeshes, function(){createBasicPopup("Peyer's Patches", "Peyer's patches are specialized clusters of lymphoid tissue located in the walls of the small intestine. They monitor gut contents for harmful microorganisms and activate immune responses to maintain intestinal health. These patches play an important role in distinguishing between beneficial and harmful microbes in the gastrointestinal tract.",)}, 0.4)
         createSphereBtn(-2.363506068828399,1.9300334174393425,-6.519252118903179, lymphmeshes, function(){createBasicPopup("Bone Marrow", "Bone marrow is a spongy tissue found within certain bones that serves as the primary site for the production of blood cells, including immune cells like B-cells and T-cell precursors. It plays a foundational role in the lymphatic system by generating cells critical for both innate and adaptive immunity. B-cells mature in the bone marrow before entering circulation to fight infections. ",)}, 0.4)
-        camera.position = new BABYLON.Vector3(0, 0.5, 80);
         clearbtns();
         showbtn(backHuman);
     }
@@ -1538,13 +1544,12 @@ function loadspleen(val) {
         showui();
         clickcond(humanmeshes, spleenbtns, 0);
         title.innerHTML = "Spleen"
-        importmesh("spleen.glb", new BABYLON.Vector3(10, 10, 10), null, new BABYLON.Vector3(0, 9, 0), new BABYLON.Vector3(4.7, 1.25, -127));
+        clear();
+        importmesh("spleen.glb", new BABYLON.Vector3(80, 0.5, 80), new BABYLON.Vector3(0, 9, 0), 23, new BABYLON.Vector3(10, 10, 10));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
-        camera.position = new BABYLON.Vector3(80, 0.5, 80);
         clearbtns();
         showbtn(backHuman);
     }
@@ -1566,9 +1571,9 @@ function loadendocrine(val) {
             hidebtn(backHuman);
         }
         title.innerHTML = "Endocrine System"
-        importmesh("endocrine_system.glb", new BABYLON.Vector3(10, 10, 10), null, new BABYLON.Vector3(0, 9, 0), new BABYLON.Vector3(4.7, -35.25, -127));
+        clear();
+        importmesh("endocrine_system.glb", new BABYLON.Vector3(4.7, -35.25, -127), new BABYLON.Vector3(0, 9, 0), 23, new BABYLON.Vector3(10, 10, 10));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1594,9 +1599,8 @@ function loadendocrine1(val) {
         // hidebtn(showsystems);
         hidebtn(backcell);
         title.innerHTML = "Endocrine System"
-        importmesh("endocrinesystem1.glb", new BABYLON.Vector3(10, 10, 10), null, new BABYLON.Vector3(0, 15, 0), new BABYLON.Vector3(4.7, 20.25, -127));
+        importmesh("endocrinesystem1.glb", new BABYLON.Vector3(4.7, 20.25, -127), new BABYLON.Vector3(0, 15, 0), 23, new BABYLON.Vector3(10, 10, 10));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1618,16 +1622,15 @@ function loadskin(val) {
         hidebtn(backcell);
         if (val == 2) {
             console.log("inside load skin 2");
-            clear();
             clearbtns();
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
+        clear()
         title.innerHTML = "Integumentary System (Skin)"
-        importmesh("skin.glb", new BABYLON.Vector3(0.05, 0.05, 0.05), null, new BABYLON.Vector3(0, 6, 0), new BABYLON.Vector3(0, 0, -127));
+        importmesh("skin.glb", new BABYLON.Vector3(0, 0, -127), new BABYLON.Vector3(0, 6, 0), 23, new BABYLON.Vector3(0.05, 0.05, 0.05));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1653,7 +1656,6 @@ function loadmuscular(val) {
         hidebtn(backcell);
         if (val == 2) {
             console.log("inside load musc 2");
-            clear();
             clearbtns();
             // hidebtn(showsystems);
             hidebtn(backcell);
@@ -1661,9 +1663,9 @@ function loadmuscular(val) {
             hidebtn(backHuman);
         }
         title.innerHTML = "Muscular System"
-        importmesh("muscular_system.glb", new BABYLON.Vector3(0.3, 0.3, 0.3), null, new BABYLON.Vector3(0, -2, 0), new BABYLON.Vector3(4, 1, -20));
+        clear();
+        importmesh("muscular_system.glb", new BABYLON.Vector3(4, 1, -20), new BABYLON.Vector3(0, -2, 0), 30, new BABYLON.Vector3(0.3, 0.3, 0.3));
         camera.upperRadiusLimit = 100;
-        camera.radius = 30;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1872,9 +1874,8 @@ function loadskull(val) {
         showui();
         clickcond(humanmeshes, skullbtns, 0);
         title.innerHTML = "Skull"
-        importmesh("skull.glb", new BABYLON.Vector3(5, 5, 5), null, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(4.7, 0, 30));
+        importmesh("skull.glb", new BABYLON.Vector3(4.7, 0, 30), new BABYLON.Vector3(0, 0, 0), 23, new BABYLON.Vector3(5, 5, 5));
         camera.upperRadiusLimit = 100;
-        camera.radius = 23;
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
@@ -1889,7 +1890,7 @@ function loadnephron(val) {
         clearbtns();
         clear();
         title.innerHTML = "Nephron"
-        importmesh("nephron.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, null, new BABYLON.Vector3(0, 0, -10));
+        importmesh("nephron.glb", new BABYLON.Vector3(0, 0, -10), null, null, new BABYLON.Vector3(0.01, 0.01, 0.01));
         showbtn(backHuman);
         showbtn(backKidney);
 
@@ -1906,7 +1907,7 @@ function loadkidney(val) {
         clearbtns();
         clear();
         title.innerHTML = "Kidney"
-        importmesh("kidney.glb", new BABYLON.Vector3(0.005, 0.005, 0.005), null, null, new BABYLON.Vector3(0, 0, -0.1));
+        importmesh("kidney.glb", new BABYLON.Vector3(0, 0, -0.1), null, null, new BABYLON.Vector3(0.005, 0.005, 0.005));
         clickcond(kidneymeshes, kidneybtns, 0);
         showbtn(backHuman);
         showbtn(backExretory);
@@ -1933,7 +1934,7 @@ function loaddna(val) {
         clearbtns();
         clear();
         title.innerHTML = "DNA"
-        importmesh("dna.glb", new BABYLON.Vector3(0.1, 0.1, 0.1), null, new BABYLON.Vector3(36,236.14133640561624,-22.866524279775604), new BABYLON.Vector3(2.4089047395701412,-3,250));
+        importmesh("dna.glb", new BABYLON.Vector3(2.4089047395701412,-3,250), new BABYLON.Vector3(36,236.14133640561624,-22.866524279775604), null, new BABYLON.Vector3(0.1, 0.1, 0.1));
         camera.upperRadiusLimit = 500;
         camera.position = new BABYLON.Vector3(2.4089047395701412,-3,250);
     }
@@ -1946,17 +1947,16 @@ function loadrespiratory(val) {
         clearbtns();
         clickcond(humanmeshes, respbtns, 0);
         showbtn(backHuman);
-        clear();
-        clearbtns();
-        // hidebtn(showsystems);
-        hidebtn(backcell);
-        hidebtn(backPageBtn);
-        hidebtn(backHuman);
+        if (val == 2) {
+            clearbtns();
+            // hidebtn(showsystems);
+            hidebtn(backcell);
+            hidebtn(backPageBtn);
+            hidebtn(backHuman);
+        }
     }
 
-    camera.target = new BABYLON.Vector3(0, -0.75, 0);
-    camera.position = new BABYLON.Vector3(0, 0, 3);
-    importmesh("lung.glb", new BABYLON.Vector3(0.18, 0.18, 0.18));
+    importmesh("lung.glb", new BABYLON.Vector3(0, 0, 3), new BABYLON.Vector3(0, -0.75, 0), null, new BABYLON.Vector3(0.18, 0.18, 0.18));
     loaddiaphragm();
     // camera.radius.upperRadiusLimit = 100;
     // camera.radius = 15;
@@ -1975,13 +1975,13 @@ function loadlungcs(val) {
         clickcond(respmeshes, lungcsbtns, 0);
         clear();
         title.innerHTML = "Lungs (Cross Section)"
-        importmesh("lungcs.glb", new BABYLON.Vector3(1, 1, 1), null, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, -4.5, -13));
+        importmesh("lungcs.glb", new BABYLON.Vector3(0, -4.5, -13), new BABYLON.Vector3(0, 0, 0), null, new BABYLON.Vector3(1, 1, 1));
     }
 }
 
 function loaddiaphragm() {
     title.innerHTML = "Diaphragm"
-    importmesh("diaphragm.glb", new BABYLON.Vector3(7, 7, -7), new BABYLON.Vector3(0, -3, 0));
+    importmesh("diaphragm.glb", null, false, null, new BABYLON.Vector3(7, 7, -7), new BABYLON.Vector3(0, -3.5, 0));
 }
 
 function loaddiaphragmonly(val) {
@@ -1991,7 +1991,7 @@ function loaddiaphragmonly(val) {
         clickcond(respinsitumeshes, diabtns, 0);
         clear();
         title.innerHTML = "Diaphragm"
-        importmesh("diaphragm.glb", new BABYLON.Vector3(7, 7, -7), new BABYLON.Vector3(0, -3, 0));
+        importmesh("diaphragm.glb", null, false, null, new BABYLON.Vector3(7, 7, -7), new BABYLON.Vector3(0, -3, 0));
     }
 }
 
@@ -1999,10 +1999,10 @@ function loadstomach(val) {
     change(m.getChild(), "loadstomach(0)");
     if (checkvis(stomachbtns[0]) || val == 0) {
         showui();
+        clear();
         clickcond(humanmeshes, stomachbtns, 0);
         title.innerHTML = "Stomach"
-        importmesh("stomach.glb", new BABYLON.Vector3(0.1, 0.1, 0.1));
-        camera.position = new BABYLON.Vector3(0, 0, 0);
+        importmesh("stomach.glb", new BABYLON.Vector3(0,0,0), null, null, new BABYLON.Vector3(0.1, 0.1, 0.1));
         clearbtns();
         showbtn(backHuman);
     }
@@ -2034,22 +2034,23 @@ function loadskeletal(val) {
         hidebtn(backcell);
         if (val == 2) {
             console.log("inside load skel 2");
-            clear();
             clearbtns();
             hidebtn(backcell);
             hidebtn(backPageBtn);
             hidebtn(backHuman);
         }
-        camera.position = new BABYLON.Vector3(4.7, 1.25, -127);
-        camera.target = new BABYLON.Vector3(0, -0.25, 0);
-        camera.upperRadiusLimit = 100;
-        camera.radius = 23;
+        else{
+            showbtn(backcell)
+        }
+
         clear();
         humanmeshes.forEach((el) => {
             el.visibility = 0;
         });
         title.innerHTML = "Skeletal System"
-        importmesh("skeletal.glb", new BABYLON.Vector3(0.9, 0.9, 0.9));
+        importmesh("skeletal.glb", new BABYLON.Vector3(4.7, 1.25, -127), new BABYLON.Vector3(0, -0.25, 0), 23, new BABYLON.Vector3(0.9, 0.9, 0.9));
+        camera.upperRadiusLimit = 100;
+        
         skullpanel = createPanel("skullpanel", "Skull Evolution Information", "skullclose", "The skull (cranium) evolved to protect the brain, one of the most critical organs for survival. Early vertebrates had simple skull structures, but as organisms evolved, the skull became more complex to accommodate larger brains, sensory organs, and features necessary for eating. The skull also evolved to support complex speech and facial expressions. This is why prior species in the homo genus often have smaller skulls. ");
         skullevbtn = createEvolutionBtn("Skull", skullpanel.id);
         skullbtns.push(skullevbtn);
@@ -2150,15 +2151,12 @@ function loadneuron(val) {
         if (showNeuron.textContent == "Show Neuron") {
             showNeuron.textContent = "Hide Neuron";
 
-            camera.position = new BABYLON.Vector3(10, 0, 120);
-
             clearbtns();
             clear();
             showbtn(showNeuron);
             title.innerHTML = "Neuron"
-            importmesh("neuron.glb", new BABYLON.Vector3(0.01, 0.01, 0.01), null, new BABYLON.Vector3(-30, -5, 0));
+            importmesh("neuron.glb", new BABYLON.Vector3(10, 0, 120), new BABYLON.Vector3(-30, -5, 0), 100, new BABYLON.Vector3(0.01, 0.01, 0.01));
             camera.upperRadiusLimit = 100;
-            camera.radius = 100;
             
             createSphereBtn(-30, -5, 0, neuronmeshes, function () {
                 camera.lowerRadiusLimit = 2;
@@ -2413,4 +2411,3 @@ scene.clearColor = new BABYLON.Color3(0.25, 0.45, 0.65); // Slightly darker blue
 window.addEventListener("resize", function () {
     engine.resize();
 });
-
