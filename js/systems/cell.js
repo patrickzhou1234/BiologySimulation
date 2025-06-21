@@ -70,7 +70,7 @@ export function loadcell() {
     camera.lowerRadiusLimit = 2;
     clear();
     Swal.close();
-    importmesh("ribosoma.glb", null, null, null, new BABYLON.Vector3(1,1,1), new BABYLON.Vector3(0.485, -0.192, 2.106));
+    importmesh("ribosoma.glb", null, null, null, new BABYLON.Vector3(0.4855579893367401, -0.19247690443455667, 2.106724807070549));
     document.getElementById("title").innerHTML = "Cell";
     importmesh("animal_cell.glb", new BABYLON.Vector3(-10, 100, 5), new BABYLON.Vector3(0, 0, 0), 5);
     cellSpheres();
@@ -78,7 +78,7 @@ export function loadcell() {
 
 export function membraneclicked() {
     clear();
-    importmesh("cell_membrane.glb", new BABYLON.Vector3(0, 0, 0), null, 20);
+    importmesh("cell_membrane.glb", new BABYLON.Vector3(0, 0, 0));
     document.getElementById("title").innerHTML = "Cell Membrane";
     document.getElementById('backHuman').style.display = 'none';
     document.getElementById('backcell').style.display = 'block';
@@ -86,7 +86,7 @@ export function membraneclicked() {
 
 export function phosphoclicked() {
     clear();
-    importmesh("phospho_sama.glb");
+    importmesh("phospho_sama.glb", new BABYLON.Vector3(0, 0, 0));
     document.getElementById("title").innerHTML = "Phospholipid";
     document.getElementById('backHuman').style.display = 'none';
     document.getElementById('backcell').style.display = 'block';
@@ -95,7 +95,7 @@ export function phosphoclicked() {
 export function phosphoclicked2() {
     document.getElementById("swal2-html-container").innerHTML = "<ul>Selective permeability</ul><ul>Passive transport</ul><ul>Active transport</ul><ul>Facilitated transport</ul>";
     clear();
-    importmesh("phospholipid.glb", null, null, null, new BABYLON.Vector3(0.01, 0.01, 0.01));
+    importmesh("phospholipid.glb", new BABYLON.Vector3(0, 0, 0), null, null, new BABYLON.Vector3(0.01, 0.01, 0.01));
     document.getElementById("title").innerHTML = "2 Phospholipids";
     document.getElementById('backHuman').style.display = 'none';
     document.getElementById('backcell').style.display = 'block';
@@ -103,7 +103,7 @@ export function phosphoclicked2() {
 
 export function openchannel() {
     clear();
-    importmesh("openchannel.glb");
+    importmesh("openchannel.glb", new BABYLON.Vector3(0, 0, 0));
     document.getElementById("title").innerHTML = "Open Channel";
     document.getElementById('backHuman').style.display = 'none';
     document.getElementById('backcell').style.display = 'block';
@@ -111,7 +111,7 @@ export function openchannel() {
 
 export function cholestrolclicked() {
     clear();
-    importmesh("Cholestoral.glb");
+    importmesh("Cholestoral.glb", new BABYLON.Vector3(0, 0, 0));
     document.getElementById("title").innerHTML = "Cholesterol";
     document.getElementById('backHuman').style.display = 'none';
     document.getElementById('backcell').style.display = 'block';
@@ -130,7 +130,7 @@ export function receptorproteinclicked() {
 
 export function loadmitochondria() {
     clear();
-    importmesh("mitocondrias.glb", new BABYLON.Vector3(0, 0, 0), null, 15, new BABYLON.Vector3(5, 5, 5));
+    importmesh("mitocondrias.glb", new BABYLON.Vector3(0, 0, 0), null, null, new BABYLON.Vector3(5, 5, 5));
     document.getElementById("title").innerHTML = "Mitochondria";
     document.getElementById('backcell').style.display = 'block';
     const showETCBtn = document.getElementById('showETC');
@@ -145,7 +145,7 @@ export function loadETC() {
         showETCBtn.textContent = "Hide Electron Transport Chain";
         clear();
         clearbtns();
-        importmesh("etc.glb", new BABYLON.Vector3(0,0,0), new BABYLON.Vector3(2.27,2.95,-15.49), 20, new BABYLON.Vector3(5, 5, 5));
+        importmesh("etc.glb", new BABYLON.Vector3(0,0,0), new BABYLON.Vector3(2.2716116774026744,2.9540898105264355,-15.497743901108434), null, new BABYLON.Vector3(5, 5, 5));
         document.getElementById('backcell').style.display = 'block';
         document.getElementById("title").innerHTML = "Electron Transport Chain";
     } else {
@@ -155,28 +155,28 @@ export function loadETC() {
 
 export function loadgolgi() {
     clear();
-    importmesh("golgi.glb", new BABYLON.Vector3(0, 50, 0), new BABYLON.Vector3(0, 0, 0), 15, new BABYLON.Vector3(5, 5, 5));
+    importmesh("golgi.glb", new BABYLON.Vector3(0, 50, 0), new BABYLON.Vector3(0, 0, 0), null, new BABYLON.Vector3(5, 5, 5));
     document.getElementById("title").innerHTML = "Golgi";
     document.getElementById('backcell').style.display = 'block';
 }
 
 export function loadrougher() {
     clear();
-    importmesh("rough_er.glb", new BABYLON.Vector3(0, 0, 0), null, 15, new BABYLON.Vector3(20, 20, 20));
+    importmesh("rough_er.glb", new BABYLON.Vector3(0, 0, 0), null, null, new BABYLON.Vector3(20, 20, 20));
     document.getElementById("title").innerHTML = "Rough Endoplasmic Reticulum";
     document.getElementById('backcell').style.display = 'block';
 }
 
 export function loadsmoother() {
     clear();
-    importmesh("smooth_er.glb", new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0), 15, new BABYLON.Vector3(0.01, 0.01, 0.01), new BABYLON.Vector3(0, 0, 0.5));
+    importmesh("smooth_er.glb", new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0), null, new BABYLON.Vector3(0.01, 0.01, 0.01), new BABYLON.Vector3(0, 0, 0.5));
     document.getElementById("title").innerHTML = "Smooth Endoplasmic Reticulum";
     document.getElementById('backcell').style.display = 'block';
 }
 
 export function loaddna() {
     clear();
-    importmesh("dna.glb", new BABYLON.Vector3(0,0,0), new BABYLON.Vector3(0,0,0), 5);
+    importmesh("dna.glb", new BABYLON.Vector3(2.4089047395701412,-3,250), new BABYLON.Vector3(36,236.14133640561624,-22.866524279775604), null, new BABYLON.Vector3(0.1, 0.1, 0.1));
     document.getElementById("title").innerHTML = "DNA";
     document.getElementById('backcell').style.display = 'block';
 } 

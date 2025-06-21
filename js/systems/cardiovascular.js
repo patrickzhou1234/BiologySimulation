@@ -3,35 +3,48 @@ import { change } from '../core/state-utils.js';
 import { createSphereBtn, importmesh, clear, clearbtns, createBasicPopup } from '../core/utils.js';
 import { state } from '../core/state.js';
 
-export function loadcirculatory(val = 1) {
-    if (val !== 2) {
-        change(state.m.getChild(), "loadcirculatory(0)");
-    }
+export function loadcirculatory() {
     clear();
     clearbtns();
-    document.getElementById("title").innerHTML = "Circulatory System";
-    importmesh("circulatory_system.glb", new BABYLON.Vector3(0, 0, -15), null, 20, new BABYLON.Vector3(0.01, 0.01, 0.01));
-
-    createSphereBtn(new BABYLON.Vector3(-0.02,7.18,0.20), () => {createBasicPopup("Heart","The heart is a muscular organ that pumps blood throughout the body. It is the center of the circulatory system. The heart is composed of four chambers: two atria and two ventricles. The atria receive blood from the veins, and the ventricles pump blood into the arteries. The heart is responsible for pumping oxygenated blood to the body and deoxygenated blood to the lungs.", document.querySelectorAll(".heartbtns"));});
-    createSphereBtn(new BABYLON.Vector3(0.12,9.32,-0.47), () => {createBasicPopup("Superior Vena Cava","The superior vena cava is a large vein that carries deoxygenated blood from the upper half of the body to the heart's right atrium.");});
-    createSphereBtn(new BABYLON.Vector3(0.06,1.48,-0.12), () => {createBasicPopup("Inferior Vena Cava","The inferior vena cava is a large vein that carries deoxygenated blood from the lower and middle body into the right atrium of the heart.");});
-    createSphereBtn(new BABYLON.Vector3(0.25,9.22,-0.27), () => {createBasicPopup("Aorta","The aorta is the main artery that carries oxygenated blood from the heart to the rest of the body.");});
-
+    document.getElementById('title').innerHTML = "Circulatory System";
+    importmesh("circulatory_system.glb", new BABYLON.Vector3(80, 0.5, 80), new BABYLON.Vector3(0, 9, 0), 23, new BABYLON.Vector3(10, 10, 10));
+    
+    // Create sphere buttons for each circulatory component with exact coordinates from script.js
+    createSphereBtn(0, 12.8, -0.6, () => {
+        createBasicPopup("Heart", "The heart is the central organ of the circulatory, or cardiovascular, system. Its main function is to pump blood to deliver oxygen and nutrients to all the cells and tissues in the body. The heart maintains homeostasis and plays a critical role in oxygenating blood. In addition, it regulates blood pressure and supports the entire circulatory system. The heart is divided into four chambers: two atria and two ventricles, with one atrium and one ventricle on the left side and one atrium and one ventricle on the right side. The right atrium receives deoxygenated blood from the body and pumps it into the right ventricle, which then sends the blood to the lungs through the pulmonary artery for oxygenation. The left atrium receives freshly oxygenated blood from the lungs and pushes it into the left ventricle, which pumps the oxygen-rich blood out to the rest of the body. To ensure a one-way circulation of blood, valves are located between the atria and ventricles, preventing backflow.");
+    }, 0.5);
+    
+    createSphereBtn(-0.55, 5.8, -0.3, () => {
+        createBasicPopup("Artery", "Arteries (colored red) are thick blood vessels that bring blood away from the heart. Blood in arteries is always oxygenated, with the exception of the pulmonary artery, which brings deoxygenated blood away from the heart to the lungs to become oxygenated.");
+    }, 0.4);
+    
+    createSphereBtn(-0.8, 6.8, 0, () => {
+        createBasicPopup("Arteriole", "Smaller arteries");
+    }, 0.4);
+    
+    createSphereBtn(2, 12.8, 0, () => {
+        createBasicPopup("Veins", "Veins (colored blue) are thick blood vessels that bring blood toward from the heart. Blood in veins is always deoxygenated, with the exception of the pulmonary veins, which bring oxygenated blood away toward the heart from the lungs.");
+    }, 0.4);
+    
+    createSphereBtn(0.5, 6.8, 0.2, () => {
+        createBasicPopup("Venules", "Smaller veins");
+    }, 0.4);
+    
+    createSphereBtn(0, 13.7, -0.3, () => {
+        createBasicPopup("Aorta", "The main artery that brings oxygenated blood directly from the heart. All other arteries branch off of this one.");
+    }, 0.4);
+    
+    createSphereBtn(0.2, 11.8, -0.2, () => {
+        createBasicPopup("Vena Cava", "The main vein that brings all deoxygenated blood from the body into the heart. All other veins converge into this one");
+    }, 0.4);
+    
     document.getElementById('backHuman').style.display = 'block';
 }
 
-export function loadheart(val = 1) {
-    change(state.m.getChild(), "loadheart(0)");
+export function loadheart() {
     clear();
     clearbtns();
-    document.getElementById("title").innerHTML = "Heart";
-    importmesh("heart.glb", new BABYLON.Vector3(0, 0, 30), new BABYLON.Vector3(0, 0, 0), 20, new BABYLON.Vector3(0.04, 0.04, 0.04));
-    camera.upperRadiusLimit = 100;
-    
-    createSphereBtn(new BABYLON.Vector3(-0.62,1.38,1.45), () => {createBasicPopup("Right Atrium","The right atrium receives deoxygenated blood from the body through the vena cavae and pumps it into the right ventricle which then sends it to the lungs to be oxygenated.");});
-    createSphereBtn(new BABYLON.Vector3(0.92,1.24,0.78), () => {createBasicPopup("Left Atrium","The left atrium receives oxygenated blood from the lungs and pumps it into the left ventricle which then pumps it out to the rest of a body.");});
-    createSphereBtn(new BABYLON.Vector3(0.92,0.24,1.15), () => {createBasicPopup("Left Ventricle","The left ventricle is the thickest of the heart's chambers and is responsible for pumping oxygenated blood to tissues all over the body.");});
-    createSphereBtn(new BABYLON.Vector3(-0.55,0.3,1.49), () => {createBasicPopup("Right Ventricle","The right ventricle is the chamber within the heart that is responsible for pumping deoxygenated blood to the lungs.");});
-    
+    document.getElementById('title').innerHTML = "Heart";
+    importmesh("heart.glb", new BABYLON.Vector3(80, 1.5, 50), null, null, new BABYLON.Vector3(10, 10, 10));
     document.getElementById('backHuman').style.display = 'block';
 } 

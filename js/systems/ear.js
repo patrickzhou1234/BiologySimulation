@@ -28,7 +28,9 @@ export function loadearcs(val = 1) {
     importmesh("earcs.glb", new BABYLON.Vector3(0, 0, -10), new BABYLON.Vector3(0, 0, 0), null, new BABYLON.Vector3(0.01, 0.01, 0.01));
     camera.upperRadiusLimit = 100;
     
-    createSphereBtn(new BABYLON.Vector3(0.5,0.5,0.5), () => {createBasicPopup("Pinna","The pinna is the visible part of the ear that resides outside of the head. It is also called the auricle. The function of the pinna is to collect sound, and perform spectral transformations to incoming sounds which enable the process of vertical localization to take place.", document.querySelectorAll(".earbtns"));});
+    createSphereBtn(0.5, 0.5, 0.5, () => {
+        createBasicPopup("Pinna", "The pinna is the visible part of the ear that resides outside of the head. It is also called the auricle. The function of the pinna is to collect sound, and perform spectral transformations to incoming sounds which enable the process of vertical localization to take place.", document.querySelectorAll(".earbtns"));
+    }, 0.4);
     
     document.getElementById('backHuman').style.display = 'block';
 } 

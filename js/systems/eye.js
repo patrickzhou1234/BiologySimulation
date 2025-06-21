@@ -6,36 +6,30 @@ import { state } from '../core/state.js';
 const EYE_BUTTON_IDS = ['eyecsbtn'];
 const CORNEA_LAYER_BUTTON_IDS = ["bowman", "epithelium", "stroma", "descement", "endothelium"];
 
-export function loadeye(val = 1) {
-    if (val !== 2) {
-        change(state.m.getChild(), "loadeye(0)");
-    }
+export function loadeye() {
     clear();
     clearbtns();
-    document.getElementById("title").innerHTML = "Eye";
-    importmesh("eye.glb", new BABYLON.Vector3(0, 0, -10), null, null, new BABYLON.Vector3(0.01, 0.01, 0.01), null);
-
-    createSphereBtn(new BABYLON.Vector3(-1.42,0.11,1.15), () => {createBasicPopup("Sclera","The sclera, the white part of the eye, is a tough, protective layer that covers most of the eyeball. It provides structural support and shields the inner components from injury.", document.querySelectorAll(".eyebtns"));});
-    createSphereBtn(new BABYLON.Vector3(0.06,0.11,2.06), () => {createBasicPopup("Cornea","The cornea is the transparent front part of the eye that covers the iris, pupil, and anterior chamber. It refracts light, accounting for approximately two-thirds of the eye's total optical power.", document.querySelectorAll(".eyebtns"));});
-    createSphereBtn(new BABYLON.Vector3(0.05,0.01,1.56), () => {createBasicPopup("Pupil","The pupil is the opening in the center of the iris that allows light to enter the eye so it can be focused on the retina. It appears black because light rays entering the pupil are either absorbed by the tissues inside the eye directly, or absorbed after diffuse reflections within the eye that mostly miss exiting the narrow pupil.", document.querySelectorAll(".eyebtns"));});
-    createSphereBtn(new BABYLON.Vector3(0.07,0.85,1.52), () => {createBasicPopup("Iris","The iris is a thin, circular structure in the eye, responsible for controlling the diameter and size of the pupil and thus the amount of light reaching the retina. Eye color is defined by that of the iris.", document.querySelectorAll(".eyebtns"));});
-    createSphereBtn(new BABYLON.Vector3(0.08,-0.13,0.38), () => {createBasicPopup("Lens","The lens is a transparent, biconvex structure in the eye that, along with the cornea, helps to refract light to be focused on the retina. The lens, by changing shape, functions to change the focal distance of the eye so that it can focus on objects at various distances, thus allowing a sharp real image of the object of interest to be formed on the retina.", document.querySelectorAll(".eyebtns"));});
-
-    document.getElementById('backHuman').style.display = 'block';
-    document.getElementById('eyecsbtn').style.display = 'block';
-}
-
-export function loadeyecs(val = 1) {
-    if(val != 2){
-        change(state.m.getChild(), "loadeyecs(0)");
-    }
-    clear();
-    clearbtns();
-    document.getElementById("title").innerHTML = "Eye Cross-Section";
-    importmesh("eyecs.glb", new BABYLON.Vector3(0, 0, -10), new BABYLON.Vector3(0, 0, 0), null, new BABYLON.Vector3(0.01, 0.01, 0.01));
+    document.getElementById('title').innerHTML = "Eye";
+    importmesh("eye.glb", new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0), 23, new BABYLON.Vector3(1, 1, 1));
     camera.upperRadiusLimit = 100;
     
-    createSphereBtn(new BABYLON.Vector3(0,0,2), () => {createBasicPopup("Cornea","The transparent front part of the eye that covers the iris, pupil, and anterior chamber. It refracts light, accounting for approximately two-thirds of the eye's total optical power.", document.querySelectorAll(".corneabtns"));});
+    createSphereBtn(-1.42, 0.11, 1.15, () => {createBasicPopup("Sclera","The sclera, the white part of the eye, is a tough, protective layer that covers most of the eyeball. It provides structural support and protection for the delicate internal structures of the eye.");}, 0.4);
+    createSphereBtn(0.06, 0.11, 2.06, () => {createBasicPopup("Cornea","The cornea is the transparent front part of the eye that covers the iris, pupil, and anterior chamber. It refracts light and provides protection for the eye.");}, 0.4);
+    createSphereBtn(0.05, 0.01, 1.56, () => {createBasicPopup("Pupil","The pupil is the opening in the center of the iris that allows light to enter the eye so it can be focused on the retina.");}, 0.4);
+    createSphereBtn(0.07, 0.85, 1.52, () => {createBasicPopup("Iris","The iris is a thin, circular structure in the eye, responsible for controlling the diameter and size of the pupil and thus the amount of light reaching the retina.");}, 0.4);
+    createSphereBtn(0.08, -0.13, 0.38, () => {createBasicPopup("Lens","The lens is a transparent, biconvex structure in the eye that, along with the cornea, helps to refract light to be focused on the retina.");}, 0.4);
+    
+    document.getElementById('backHuman').style.display = 'block';
+}
+
+export function loadeyecs() {
+    clear();
+    clearbtns();
+    document.getElementById('title').innerHTML = "Eye Cross-Section";
+    importmesh("eye_crosssection.glb", new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0), 23, new BABYLON.Vector3(1, 1, 1));
+    camera.upperRadiusLimit = 100;
+    
+    createSphereBtn(0, 0, 2, () => {createBasicPopup("Cornea","The transparent front part of the eye that covers the iris, pupil, and anterior chamber. It refracts light, accounting for approximately two-thirds of the eye's total optical power.");}, 0.4);
     
     document.getElementById('backHuman').style.display = 'block';
 }

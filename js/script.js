@@ -911,6 +911,7 @@ function showExteriorBrain() {
         showNeuron.setAttribute("style", "opacity: 0.6 !important; cursor: not-allowed !important; pointer-events: none;");
         showNeuron.textContent = "Show Neuron";
         title.innerHTML = "Brain (Exterior)"
+        clear();
         importmesh("brain.glb", new BABYLON.Vector3(0,0,0), new BABYLON.Vector3(4.71217963126949, -0.8773744950316118, -1.0694323161220023), 50, new BABYLON.Vector3(175, 175, 175));
         camera.upperRadiusLimit = 100;
 
