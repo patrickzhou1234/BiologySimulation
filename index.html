@@ -20,8 +20,11 @@
     <link href="static/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="static/slide-in-pane_style.css">
     <link rel="stylesheet" href="static/slide-in-panel_css_demo.css">
+    <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
     <script src="js/babylon.js"></script>
+    <script src="js/babylon.gui.js"></script>
     <script src="js/babylonjs.loaders.min.js"></script>
+    <script src="js/tween.umd.js"></script>
     <script src="js/mui.js"></script>
     <script src="js/sweetalert2.all.min.js"></script>
     <script src="js/stats.js"></script>
@@ -30,7 +33,7 @@
     <div id="bottom-right-image"></div>
     <h1 id="title">Human</h1>
     <button onclick = "loadhuman(1)" id="backHuman" class="mui-btn mui-btn--primary largeBtn">Human Anatomy</button>
-    <button onclick = "loadexretory(0)" id="backExretory" class="mui-btn mui-btn--primary largeBtn">Go Back to Exretory System</button>
+    <button onclick = "loadexcretory(0)" id="backExretory" class="mui-btn mui-btn--primary largeBtn">Go Back to Exretory System</button>
     <button onclick = "loadkidney(0)" id="backKidney" class="mui-btn mui-btn--primary largeBtn">Go Back to Kidney</button>
     <button onclick = "showExteriorBrain()" style="display: none;" id="exterior" class="mui-btn mui-btn--primary largeBtn">Show Exterior View</button>
     <button onclick="loadcell()" id="backcell" class="mui-btn mui-btn--primary largeBtn">Cellular Structure</button>
@@ -55,7 +58,7 @@
     <button onclick="loadheart(1)" id="heartbtn" style="display: none;" class="mui-btn mui-btn--primary heartbtns pulse">3d Model</button>
     <button onclick="loadkidney(1)" id="kidneybtn" style="display: none;" class="mui-btn mui-btn--primary kidneybtns pulse">3d Model</button>
     <button onclick="loadnephron(1)" id="nephronbtn" style="display: none;" class="mui-btn mui-btn--primary nephronbtns pulse">Show Nepheron</button>
-    <button onclick="loadexretory(1)" id="exretorybtn" style="display: none;" class="mui-btn mui-btn--primary exretorybtns pulse">3d Model</button>
+    <button onclick="loadexcretory(1)" id="exretorybtn" style="display: none;" class="mui-btn mui-btn--primary exretorybtns pulse">3d Model</button>
     <button onclick="kidney2dmodel()" id="kidney2dmodelbtn" style="display: none;" class="mui-btn mui-btn--primary largeBtn pulse">Kidney 2d Model</button>
     <button onclick="loadstomach(1)" id="stomachbtn" style="display: none;" class="mui-btn mui-btn--primary stomachbtns pulse">3d Model</button>
     <button onclick="loaddigestive(1)" id="digestivebtn" style="display: none;" class="mui-btn mui-btn--primary digestivebtns pulse">3d Model</button>
@@ -103,7 +106,7 @@
       <div class="topnav" id = "tabBtn" style="display: none;">
         <button class="tablinks largeBtn" onclick="loadnervous(0)">Nervous</button>
         <button class="tablinks largeBtn" onclick="loadskeletal(0)">Skeletal</button>
-        <button class="tablinks largeBtn" onclick="loadexretory(0)">Excretory</button>
+        <button class="tablinks largeBtn" onclick="loadexcretory(0)">Excretory</button>
         <button class="tablinks largeBtn" onclick="loadrespinsitu(0)">Respiratory</button>
         <button class
         
@@ -244,7 +247,8 @@
         }
         
       </script>
-    <script src="js/script.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script src="js/instructions.js"></script>
     <script>
       const fpPromise = import('https://fpjscdn.net/v3/cJJ0xKkWM7dj4CmYHcsh')
     .then(FingerprintJS => FingerprintJS.load())
@@ -277,7 +281,7 @@
     </li>
     <li style="--i:2;">
       <div class="tooltip">
-        <a href="#" onclick="loadexretory(0)"><img src="./images/excretory.png" alt="Excretory system" style="width: 50px; height: 50px;"></a>
+        <a href="#" onclick="loadexcretory(0)"><img src="./images/excretory.png" alt="Excretory system" style="width: 50px; height: 50px;"></a>
         <span class="tooltiptext">Excretory System</span>
       </div>
     </li>
@@ -336,7 +340,8 @@
     menu.classList.toggle('active')
   }
 </script>
-<script src="js/instructions.js"></script>
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="js/main.js"></script>
+    <div id="evolution-buttons-container"></div>
+  </body>
 </html>

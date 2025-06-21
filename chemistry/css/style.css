@@ -384,361 +384,475 @@
 }
 
 :root {
-      --primary-color: #3f51b5;
-      --primary-light: #757de8;
-      --primary-dark: #002984;
-      --secondary-color: #f44336;
-      --text-on-primary: #ffffff;
-      --text-primary: #212121;
-      --text-secondary: #757575;
-      --background: #121212;
-      --surface: #1e1e1e;
-      --elevation-1: rgba(255, 255, 255, 0.05);
-      --elevation-2: rgba(255, 255, 255, 0.08);
-      --elevation-3: rgba(255, 255, 255, 0.11);
-    }
-    
-    body { 
-      margin: 0; 
-      overflow: hidden; 
-      font-family: 'Roboto', sans-serif;
-      background-color: var(--background);
-      color: white;
-    }
-    
-    #info { 
-      position: absolute; 
-      top: 10vh; 
-      width: 100%; 
-      text-align: center; 
-      color: white;
-      background-color: var(--elevation-2);
-      padding: 15px 0;
-      border-radius: 8px;
-      margin: 0 auto;
-      max-width: 800px;
-      left: 50%;
-      transform: translateX(-50%);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-      font-weight: 300;
-      line-height: 1.6;
-      z-index: 100;
-    }
-    
-    #info div {
-      margin: 5px 0;
-    }
-    
-    #info div:last-child {
-      margin-top: 10px;
-      padding: 8px 16px;
-      background-color: var(--primary-color);
-      display: inline-block;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-weight: 500;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-    
-    #info div:last-child:hover {
-      background-color: var(--primary-light);
-    }
-    
-    #elementInfo { 
-      position: absolute; 
-      bottom: 20px; 
-      left: 20px; 
-      color: white; 
-      background: var(--elevation-3);
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: 500;
-      min-width: 60px;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-      transition: all 0.3s ease;
-      z-index: 100;
-    }
-    
-    #elementInfo:not(:empty) {
-      transform: scale(1.1);
-      background-color: var(--primary-dark);
-    }
-    
-    /* Tabs and navigation */
-    #tabContainer {
-      position: absolute;
-      top: 0vh;
-      left: 0;
-      width: 100%;
-      background: black;
-      z-index: 100;
-      border-radius: 8px;
-      max-width: 900px;
-      margin: 0 auto;
-      left: 50%;
-      transform: translateX(-50%);
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-    }
-    
-    .tabs {
-      display: flex;
-      justify-content: center;
-      padding: 0;
-      background-color: var(--primary-color);
-      position: relative;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    
-    .tabs::-webkit-scrollbar {
-      display: none;
-    }
-    
-    .tab {
-      padding: 16px 24px;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.7);
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s;
-      position: relative;
-      font-weight: 500;
-      font-size: 14px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      flex: 1;
-      max-width: 220px;
-      white-space: nowrap;
-    }
-    
-    .tab.active {
-      color: white;
-    }
-    
-    .tab:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    .tab.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background-color: var(--secondary-color);
-    }
-    
-    .tabContent {
-      display: none;
-      padding: 24px;
-      color: white;
-      max-width: 100%;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-    
-    .tabContent.active {
-      display: block;
-      animation: fadeIn 0.5s ease;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    .navigation {
-      position: absolute;
-      top: 80px;
-      right: 20px;
-      z-index: 100;
-    }
-    
-    .navButton {
-      padding: 12px 24px;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-weight: 500;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .navButton:hover {
-      background: var(--primary-light);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-      transform: translateY(-2px);
-    }
-    
-    .navButton i {
-      font-size: 18px;
-    }
-    
-    .compareElements {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 24px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    
-    .elementBox {
-      background: var(--elevation-2);
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-      flex: 1;
-      min-width: 200px;
-      position: relative;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
-    
-    .elementBox:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-      background: var(--elevation-3);
-    }
-    
-    .elementBox h4 {
-      color: var(--primary-light);
-      margin: 0 0 12px 0;
-      font-size: 18px;
-      font-weight: 500;
-    }
-    
-    .elementBox p {
-      margin: 8px 0;
-      font-weight: 300;
-    }
-    
-    .elementBox p:first-of-type {
-      font-weight: 500;
-      color: var(--secondary-color);
-    }
-    
-    .closeButton {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: none;
-      color: white;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: background-color 0.3s;
-    }
-    
-    .closeButton:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    /* View model buttons */
-    .viewModelBtn {
-      margin-top: 16px;
-      padding: 10px 16px;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-weight: 500;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .viewModelBtn:hover {
-      background: var(--primary-light);
-      transform: translateY(-2px);
-    }
-    
-    /* Controls at the bottom */
-    #controls {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-    }
-    
-    #electronSpeedButton {
-      padding: 12px 24px;
-      font-size: 14px;
-      cursor: pointer;
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      transition: all 0.3s;
-      font-weight: 500;
-      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    #electronSpeedButton:hover {
-      background-color: var(--primary-light);
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
-      transform: translateY(-2px);
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      #info {
-        font-size: 14px;
-        padding: 10px;
-        top: 0;
-      }
-      
-      .tabs {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-      }
-      
-      .tab {
-        padding: 12px 16px;
-        font-size: 12px;
-      }
-      
-      .compareElements {
-        flex-direction: column;
-      }
-      
-      .elementBox {
-        width: 100%;
-        margin-bottom: 10px;
-      }
-      
-      .navigation {
-        top: 60px;
-        right: 10px;
-      }
-      
-      .navButton {
-        padding: 8px 16px;
-        font-size: 12px;
-      }
-    }
+  --primary-color: #2c3e50;
+  --primary-light: #34495e;
+  --primary-dark: #1a252f;
+  --accent-color: #3498db;
+  --accent-light: #5dade2;
+  --text-primary: #ecf0f1;
+  --text-secondary: #bdc3c7;
+  --background: #1a1a1a;
+  --surface: #2c2c2c;
+  --surface-light: #363636;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header and Navigation */
+#info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  z-index: 1000;
+  text-align: center;
+}
+
+#info h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+#info div {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+/* Main Content Area */
+#tabContainer {
+  margin-top: 100px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  background: var(--surface);
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  padding: 1rem 2rem;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.tab.active {
+  color: var(--accent-color);
+  background: var(--surface-light);
+}
+
+.tab:hover {
+  color: var(--accent-light);
+  background: var(--surface-light);
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-color);
+}
+
+/* Tab Content */
+.tabContent {
+  background: var(--surface);
+  border-radius: 0 0 8px 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.tabContent h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.tabContent p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Element Comparison Boxes */
+.compareElements {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.elementBox {
+  background: var(--surface-light);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.elementBox:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.elementBox h4 {
+  color: var(--accent-color);
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.elementBox p {
+  color: var(--text-secondary);
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.elementBox p:first-of-type {
+  color: var(--accent-light);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* Buttons */
+.navButton, .viewModelBtn, #electronSpeedButton {
+  background: var(--accent-color);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.navButton:hover, .viewModelBtn:hover, #electronSpeedButton:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+/* Navigation */
+.navigation {
+  position: fixed;
+  top: 1rem;
+  right: 2rem;
+  z-index: 1001;
+  display: flex;
+  gap: 1rem;
+}
+
+/* Controls */
+#controls {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  z-index: 1000;
+}
+
+/* Close Button */
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.closeButton:hover {
+  background: var(--surface-light);
+  color: var(--text-primary);
+}
+
+/* Element Info */
+#elementInfo {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  background: var(--surface);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  z-index: 1000;
+}
+
+/* Menu Styles */
+.menu-container {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 1002;
+}
+
+.hamburger-menu {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-menu span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.hamburger-menu:hover span {
+  background-color: var(--accent-color);
+}
+
+.hamburger-menu.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 0.5rem;
+  min-width: 200px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.dropdown-menu.active {
+  display: flex;
+  animation: slideDown 0.3s ease-out;
+}
+
+.menu-item {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.menu-item:hover {
+  background: var(--surface-light);
+  color: var(--accent-color);
+}
+
+.menu-item i {
+  font-size: 1.2rem;
+}
+
+.trends-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 0.5rem;
+  min-width: 200px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.trends-menu.active {
+  display: flex;
+  animation: slideDown 0.3s ease-out;
+}
+
+.trend-item {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.trend-item:hover {
+  background: var(--surface-light);
+  color: var(--accent-color);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #info {
+    padding: 1rem;
+  }
+
+  #info h2 {
+    font-size: 1.2rem;
+  }
+
+  #tabContainer {
+    margin-top: 100px;
+    padding: 0 1rem;
+  }
+
+  .tab {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .tabContent {
+    padding: 1.5rem;
+  }
+
+  .compareElements {
+    grid-template-columns: 1fr;
+  }
+
+  .navigation {
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  #controls {
+    bottom: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  #elementInfo {
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .menu-container {
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .dropdown-menu, .trends-menu {
+    min-width: 180px;
+  }
+  
+  .menu-item, .trend-item {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tabContent.active {
+  animation: fadeIn 0.3s ease-out;
+}
